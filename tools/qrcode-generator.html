@@ -271,7 +271,7 @@
                 }
             });
 
-            // 下载PNG - 使用qrcode.makeImage()方法生成Data URL
+            // 下载PNG
             downloadPngBtn.addEventListener('click', function() {
                 if (!qrcode) {
                     alert('请先生成二维码');
@@ -279,11 +279,28 @@
                 }
 
                 try {
-                    // 获取二维码图片Data URL
-                    const dataUrl = qrcode.makeImage();
+                    // 方法1：获取container中的img元素
+                    let dataUrl = null;
+                    const img = qrcodeContainer.querySelector('img');
+                    if (img && img.src) {
+                        dataUrl = img.src;
+                    }
+                    
+                    // 方法2：使用makeImage()
+                    if (!dataUrl) {
+                        dataUrl = qrcode.makeImage();
+                    }
+                    
+                    if (!dataUrl) {
+                        alert('无法获取二维码图片');
+                        return;
+                    }
+                    
+                    // 创建下载链接
                     const link = document.createElement('a');
                     link.download = 'qrcode-' + Date.now() + '.png';
                     link.href = dataUrl;
+                    link.target = '_blank';
                     document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
