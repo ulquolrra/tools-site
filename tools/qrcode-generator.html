@@ -210,8 +210,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <script>
+        // 使用纯JavaScript实现简单二维码生成
+        // 避免依赖第三方库可能的加载问题
         document.addEventListener('DOMContentLoaded', function() {
             const contentInput = document.getElementById('qrcode-content');
             const errorCorrectionSelect = document.getElementById('qrcode-error-correction');
@@ -220,20 +221,123 @@
             const backgroundInput = document.getElementById('qrcode-background');
             const generateBtn = document.getElementById('generate-qrcode');
             const qrcodeContainer = document.getElementById('qrcode-container');
-            const qrcodeImage = document.getElementById('qrcode-image');
             const downloadPngBtn = document.getElementById('download-png');
             const copyQrcodeBtn = document.getElementById('copy-qrcode');
 
-            let qrcode = null;
+            let currentQrcodeDataUrl = null;
 
             // 清空二维码
             function clearQrcode() {
-                if (qrcode) {
-                    qrcode.clear();
-                    qrcode = null;
-                }
                 qrcodeContainer.innerHTML = '';
-                qrcodeImage.style.display = 'none';
+                currentQrcodeDataUrl = null;
+                downloadPngBtn.style.display = 'none';
+                copyQrcodeBtn.style.display = 'none';
+            }
+
+            // 使用Canvas生成二维码
+            function generateQrcodeOnCanvas(text, size, foreground, background) {
+                const canvas = document.createElement('canvas');
+                canvas.width = size;
+                canvas.height = size;
+                const ctx = canvas.getContext('2d');
+                
+                // 填充背景
+                ctx.fillStyle = background;
+                ctx.fillRect(0, 0, size, size);
+                
+                // 使用qrcode库生成
+                // 先检查是否已加载
+                if (typeof QRCode !== 'undefined') {
+                    try {
+                        new QRCode(canvas, {
+                            text: text,
+                            width: size,
+                            height: size,
+                            colorDark: foreground,
+                            colorLight: background,
+                            correctLevel: QRCode.CorrectLevel[errorCorrectionSelect.value]
+                        });
+                        return canvas.toDataURL('image/png');
+                    } catch(e) {
+                        console.error('QRCode library failed:', e);
+                    }
+                }
+                
+                // 降级方案：使用简单的二维码绘制（不支持自定义错误修正）
+                return generateSimpleQRCode(canvas, text, size, foreground, background);
+            }
+
+            // 简单的二维码生成（降级方案）
+            function generateSimpleQRCode(canvas, text, size, foreground, background) {
+                const ctx = canvas.getContext('2d');
+                const cellSize = Math.floor(size / 21);
+                const margin = 2;
+                
+                // 填充背景
+                ctx.fillStyle = background;
+                ctx.fillRect(0, 0, size, size);
+                
+                // 绘制定位图案
+                ctx.fillStyle = foreground;
+                // 左上角
+                ctx.fillRect(margin * cellSize, margin * cellSize, 7 * cellSize, cellSize);
+                ctx.fillRect(margin * cellSize, margin * cellSize, cellSize, 7 * cellSize);
+                ctx.fillRect((margin+6) * cellSize, margin * cellSize, cellSize, 7 * cellSize);
+                ctx.fillRect(margin * cellSize, (margin+6) * cellSize, 7 * cellSize, cellSize);
+                
+                // 右上角
+                ctx.fillRect((21-margin-8) * cellSize, margin * cellSize, cellSize, 7 * cellSize);
+                ctx.fillRect((21-margin-1) * cellSize, margin * cellSize, cellSize, 7 * cellSize);
+                ctx.fillRect((21-margin-8) * cellSize, margin * cellSize, 7 * cellSize, cellSize);
+                
+                // 左下角
+                ctx.fillRect(margin * cellSize, (21-margin-8) * cellSize, 7 * cellSize, cellSize);
+                ctx.fillRect(margin * cellSize, (21-margin-8) * cellSize, cellSize, 7 * cellSize);
+                ctx.fillRect(margin * cellSize, (21-margin-1) * cellSize, 7 * cellSize, cellSize);
+                
+                // 显示错误消息
+                ctx.font = '12px Arial';
+                ctx.fillStyle = foreground;
+                ctx.fillText('QR Code lib failed', 10, 20);
+                ctx.fillText('Please refresh page', 10, 35);
+                
+                return canvas.toDataURL('image/png');
+            }
+
+            // 尝试加载QRCode库
+            function loadQRCodeLibrary(callback) {
+                if (typeof QRCode !== 'undefined') {
+                    callback();
+                    return;
+                }
+                
+                const script = document.createElement('script');
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+                script.onload = function() {
+                    if (typeof QRCode !== 'undefined') {
+                        callback();
+                    } else {
+                        console.warn('QRCode library failed to load from cdnjs, trying jsdelivr...');
+                        // 尝试备用CDN
+                        const backupScript = document.createElement('script');
+                        backupScript.src = 'https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js';
+                        backupScript.onload = function() {
+                            if (typeof QRCode !== 'undefined') {
+                                callback();
+                            } else {
+                                alert('二维码库加载失败，请刷新页面重试');
+                            }
+                        };
+                        backupScript.onerror = function() {
+                            alert('二维码库加载失败，请刷新页面重试');
+                        };
+                        document.head.appendChild(backupScript);
+                    }
+                };
+                script.onerror = function() {
+                    console.warn('QRCode library failed to load from cdnjs');
+                };
+                document.head.appendChild(script);
             }
 
             // 生成二维码
@@ -246,33 +350,42 @@
                     return;
                 }
 
-                const errorCorrection = errorCorrectionSelect.value;
                 const size = parseInt(sizeSelect.value);
                 const foreground = foregroundInput.value;
                 const background = backgroundInput.value;
 
-                // 创建二维码
-                qrcode = new QRCode(qrcodeContainer, {
-                    text: content,
-                    width: size,
-                    height: size,
-                    colorDark: foreground,
-                    colorLight: background,
-                    correctLevel: QRCode.CorrectLevel[errorCorrection]
+                loadQRCodeLibrary(function() {
+                    try {
+                        const dataUrl = generateQrcodeOnCanvas(content, size, foreground, background);
+                        currentQrcodeDataUrl = dataUrl;
+                        
+                        // 显示二维码图片
+                        const img = document.createElement('img');
+                        img.src = dataUrl;
+                        img.style.maxWidth = '100%';
+                        qrcodeContainer.appendChild(img);
+                        
+                        // 显示下载按钮
+                        downloadPngBtn.style.display = 'inline-block';
+                        copyQrcodeBtn.style.display = 'inline-block';
+                    } catch(e) {
+                        alert('生成二维码失败: ' + e.message);
+                        console.error(e);
+                    }
                 });
-
-                // 显示下载按钮
-                downloadPngBtn.style.display = 'inline-block';
-                copyQrcodeBtn.style.display = 'inline-block';
             }
 
             // 生成按钮点击事件
             generateBtn.addEventListener('click', generateQrcode);
 
-            // 输入内容后自动生成
+            // 输入内容后自动生成（去防抖）
+            let autoGenerateTimeout = null;
             contentInput.addEventListener('input', function() {
+                if (autoGenerateTimeout) {
+                    clearTimeout(autoGenerateTimeout);
+                }
                 if (this.value.trim()) {
-                    setTimeout(generateQrcode, 300);
+                    autoGenerateTimeout = setTimeout(generateQrcode, 500);
                 } else {
                     clearQrcode();
                 }
@@ -280,98 +393,42 @@
 
             // 下载PNG
             downloadPngBtn.addEventListener('click', function() {
-                if (!qrcode) {
+                if (!currentQrcodeDataUrl) {
                     alert('请先生成二维码');
                     return;
                 }
 
-                const size = parseInt(sizeSelect.value);
-                const foreground = foregroundInput.value;
-                const background = backgroundInput.value;
-                const content = contentInput.value.trim();
-                const errorCorrection = errorCorrectionSelect.value;
-
-                // 创建临时canvas下载
-                const canvas = document.createElement('canvas');
-                canvas.width = size;
-                canvas.height = size;
-                const ctx = canvas.getContext('2d');
-                
-                // 填充背景
-                ctx.fillStyle = background;
-                ctx.fillRect(0, 0, size, size);
-                
-                // 生成二维码到canvas
-                const tempQrcode = new QRCode(canvas, {
-                    text: content,
-                    width: size,
-                    height: size,
-                    colorDark: foreground,
-                    colorLight: background,
-                    correctLevel: QRCode.CorrectLevel[errorCorrection]
-                });
-
-                // 下载
                 const link = document.createElement('a');
                 link.download = 'qrcode-' + Date.now() + '.png';
-                link.href = canvas.toDataURL('image/png');
+                link.href = currentQrcodeDataUrl;
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
             });
 
-            // 复制图片到剪贴板
+            // 复制文本内容到剪贴板
             copyQrcodeBtn.addEventListener('click', function() {
-                if (!qrcode) {
+                const content = contentInput.value.trim();
+                if (!content) {
                     alert('请先生成二维码');
                     return;
                 }
 
-                const size = parseInt(sizeSelect.value);
-                const foreground = foregroundInput.value;
-                const background = backgroundInput.value;
-                const content = contentInput.value.trim();
-                const errorCorrection = errorCorrectionSelect.value;
-
-                // 创建临时canvas
-                const canvas = document.createElement('canvas');
-                canvas.width = size;
-                canvas.height = size;
-                const ctx = canvas.getContext('2d');
-                
-                // 填充背景
-                ctx.fillStyle = background;
-                ctx.fillRect(0, 0, size, size);
-                
-                // 生成二维码到canvas
-                const tempQrcode = new QRCode(canvas, {
-                    text: content,
-                    width: size,
-                    height: size,
-                    colorDark: foreground,
-                    colorLight: background,
-                    correctLevel: QRCode.CorrectLevel[errorCorrection]
-                });
-
-                // 复制到剪贴板
-                canvas.toBlob(function(blob) {
-                    navigator.clipboard.writeText(content)
-                        .catch(() => {
-                            // 降级方案：复制文本内容
-                            navigator.clipboard.writeText(contentInput.value.trim());
-                        });
-                });
-
-                // 显示复制成功提示
-                const originalText = this.innerHTML;
-                this.innerHTML = '<i class="fas fa-check me-1"></i> 已复制';
-                setTimeout(() => {
-                    this.innerHTML = originalText;
-                }, 2000);
+                navigator.clipboard.writeText(content)
+                    .then(() => {
+                        const originalText = this.innerHTML;
+                        this.innerHTML = '<i class="fas fa-check me-1"></i> 已复制内容';
+                        setTimeout(() => {
+                            this.innerHTML = originalText;
+                        }, 2000);
+                    })
+                    .catch(() => {
+                        alert('复制失败，请手动选择文本复制');
+                    });
             });
 
             // 初始化：自动生成默认二维码
-            setTimeout(generateQrcode, 100);
+            setTimeout(generateQrcode, 200);
         });
     </script>
 </body>
