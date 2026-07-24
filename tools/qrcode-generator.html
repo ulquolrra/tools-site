@@ -36,82 +36,71 @@
         </div>
 
         <div class="row g-4">
-            <div class="col-md-12">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="qrcode-content" class="form-label">内容</label>
-                                    <textarea class="form-control" id="qrcode-content" rows="4" placeholder="请输入要生成二维码的内容（如：https://alltoolsbox.xyz 或 任意文本）...">https://alltoolsbox.xyz</textarea>
-                                    <div class="form-text">支持文本、URL、邮箱、电话号码等</div>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label class="form-label">错误修正级别</label>
-                                    <select class="form-select" id="qrcode-error-correction">
-                                        <option value="L">L - 低 (7%)</option>
-                                        <option value="M" selected>M - 中 (15%)</option>
-                                        <option value="Q">Q - 较高 (25%)</option>
-                                        <option value="H">H - 高 (30%)</option>
-                                    </select>
-                                    <div class="form-text">错误修正级别越高，二维码可恢复性越强</div>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label for="qrcode-size" class="form-label">二维码大小</label>
-                                    <select class="form-select" id="qrcode-size">
-                                        <option value="100">100 x 100 px</option>
-                                        <option value="150">150 x 150 px</option>
-                                        <option value="200" selected>200 x 200 px</option>
-                                        <option value="300">300 x 300 px</option>
-                                        <option value="400">400 x 400 px</option>
-                                    </select>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label class="form-label">颜色设置</label>
-                                    <div class="row g-2">
-                                        <div class="col-6">
-                                            <div class="input-group">
-                                                <span class="input-group-text">前景色</span>
-                                                <input type="color" class="form-control form-control-color" id="qrcode-foreground" value="#000000">
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="input-group">
-                                                <span class="input-group-text">背景色</span>
-                                                <input type="color" class="form-control form-control-color" id="qrcode-background" value="#ffffff">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <button class="btn btn-primary w-100" id="generate-qrcode">
-                                    <i class="fas fa-qrcode me-2"></i> 生成二维码
-                                </button>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="qrcode-content" class="form-label">内容</label>
+                    <textarea class="form-control" id="qrcode-content" rows="4" placeholder="请输入要生成二维码的内容（如：https://alltoolsbox.xyz 或 任意文本）...">https://alltoolsbox.xyz</textarea>
+                    <div class="form-text">支持文本、URL、邮箱、电话号码等</div>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">错误修正级别</label>
+                    <select class="form-select" id="qrcode-error-correction">
+                        <option value="L">L - 低 (7%)</option>
+                        <option value="M" selected>M - 中 (15%)</option>
+                        <option value="Q">Q - 较高 (25%)</option>
+                        <option value="H">H - 高 (30%)</option>
+                    </select>
+                    <div class="form-text">错误修正级别越高，二维码可恢复性越强</div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="qrcode-size" class="form-label">二维码大小</label>
+                    <select class="form-select" id="qrcode-size">
+                        <option value="100">100 x 100 px</option>
+                        <option value="150">150 x 150 px</option>
+                        <option value="200" selected>200 x 200 px</option>
+                        <option value="300">300 x 300 px</option>
+                        <option value="400">400 x 400 px</option>
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">颜色设置</label>
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <div class="input-group">
+                                <span class="input-group-text">前景色</span>
+                                <input type="color" class="form-control form-control-color" id="qrcode-foreground" value="#000000">
                             </div>
-                            
-                            <div class="col-md-6">
-                                <div class="card h-100 border-0">
-                                    <div class="card-body text-center">
-                                        <div class="mb-3">
-                                            <div id="qrcode-container" style="display: inline-block;"></div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <img id="qrcode-image" src="" style="max-width: 100%; display: none;" alt="生成的二维码">
-                                        </div>
-                                        <div class="d-flex gap-2 justify-content-center">
-                                            <button class="btn btn-outline-primary" id="download-png">
-                                                <i class="fas fa-download me-1"></i> 下载PNG
-                                            </button>
-                                            <button class="btn btn-outline-success copy-image-btn" id="copy-qrcode">
-                                                <i class="fas fa-copy me-1"></i> 复制图片
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="input-group">
+                                <span class="input-group-text">背景色</span>
+                                <input type="color" class="form-control form-control-color" id="qrcode-background" value="#ffffff">
                             </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary w-100" id="generate-qrcode">
+                    <i class="fas fa-qrcode me-2"></i> 生成二维码
+                </button>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card border-0 h-100">
+                    <div class="card-body text-center p-4">
+                        <div id="qrcode-container" class="d-inline-block"></div>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <div class="d-flex gap-2 justify-content-center">
+                            <button class="btn btn-outline-primary btn-sm" id="download-png" style="display: none;">
+                                <i class="fas fa-download me-1"></i> 下载PNG
+                            </button>
+                            <button class="btn btn-outline-success btn-sm copy-btn" id="copy-content" data-target="qrcode-content" style="display: none;">
+                                <i class="fas fa-copy me-1"></i> 复制内容
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -134,9 +123,7 @@
         <div class="mt-4">
             <h4>二维码基础知识</h4>
             <div class="alert alert-light">
-                <p class="mb-0">
-                    <strong>二维码（QR Code）</strong>是一种二维条码，可以存储文字、数字、字节等信息。
-                </p>
+                <p class="mb-0"><strong>二维码（QR Code）</strong>是一种二维条码，可以存储文字、数字、字节等信息。</p>
                 <ul class="mt-2 mb-0">
                     <li><strong>错误修正：</strong>二维码具有错误修正功能，即使部分损坏仍可扫描</li>
                     <li><strong>容量：</strong>错误修正级别越高，可存储的有效信息越少</li>
@@ -151,14 +138,9 @@
 // 示例1: 网站链接
 内容: https://alltoolsbox.xyz
 点击"生成二维码"
-结果: 生成该网站的二维码
+结果: 生成该网站的二维码，可下载或扫描
 
-// 示例2: 文本信息
-内容: Hello, World!
-点击"生成二维码"
-结果: 生成包含该文本的二维码
-
-// 示例3: 自定义设计
+// 示例2: 自定义设计
 内容: https://example.com
 选择: 大小300px，前景色#ff0000，背景色#00ff00
 点击"生成二维码"
@@ -210,9 +192,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/main.js"></script>
+    <!-- 直接加载QRCode库，确保在DOMContentLoaded前加载完成 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script>
-        // 使用纯JavaScript实现简单二维码生成
-        // 避免依赖第三方库可能的加载问题
         document.addEventListener('DOMContentLoaded', function() {
             const contentInput = document.getElementById('qrcode-content');
             const errorCorrectionSelect = document.getElementById('qrcode-error-correction');
@@ -222,122 +204,19 @@
             const generateBtn = document.getElementById('generate-qrcode');
             const qrcodeContainer = document.getElementById('qrcode-container');
             const downloadPngBtn = document.getElementById('download-png');
-            const copyQrcodeBtn = document.getElementById('copy-qrcode');
+            const copyContentBtn = document.getElementById('copy-content');
 
-            let currentQrcodeDataUrl = null;
+            let qrcode = null;
 
             // 清空二维码
             function clearQrcode() {
+                if (qrcode) {
+                    qrcode.clear();
+                    qrcode = null;
+                }
                 qrcodeContainer.innerHTML = '';
-                currentQrcodeDataUrl = null;
                 downloadPngBtn.style.display = 'none';
-                copyQrcodeBtn.style.display = 'none';
-            }
-
-            // 使用Canvas生成二维码
-            function generateQrcodeOnCanvas(text, size, foreground, background) {
-                const canvas = document.createElement('canvas');
-                canvas.width = size;
-                canvas.height = size;
-                const ctx = canvas.getContext('2d');
-                
-                // 填充背景
-                ctx.fillStyle = background;
-                ctx.fillRect(0, 0, size, size);
-                
-                // 使用qrcode库生成
-                // 先检查是否已加载
-                if (typeof QRCode !== 'undefined') {
-                    try {
-                        new QRCode(canvas, {
-                            text: text,
-                            width: size,
-                            height: size,
-                            colorDark: foreground,
-                            colorLight: background,
-                            correctLevel: QRCode.CorrectLevel[errorCorrectionSelect.value]
-                        });
-                        return canvas.toDataURL('image/png');
-                    } catch(e) {
-                        console.error('QRCode library failed:', e);
-                    }
-                }
-                
-                // 降级方案：使用简单的二维码绘制（不支持自定义错误修正）
-                return generateSimpleQRCode(canvas, text, size, foreground, background);
-            }
-
-            // 简单的二维码生成（降级方案）
-            function generateSimpleQRCode(canvas, text, size, foreground, background) {
-                const ctx = canvas.getContext('2d');
-                const cellSize = Math.floor(size / 21);
-                const margin = 2;
-                
-                // 填充背景
-                ctx.fillStyle = background;
-                ctx.fillRect(0, 0, size, size);
-                
-                // 绘制定位图案
-                ctx.fillStyle = foreground;
-                // 左上角
-                ctx.fillRect(margin * cellSize, margin * cellSize, 7 * cellSize, cellSize);
-                ctx.fillRect(margin * cellSize, margin * cellSize, cellSize, 7 * cellSize);
-                ctx.fillRect((margin+6) * cellSize, margin * cellSize, cellSize, 7 * cellSize);
-                ctx.fillRect(margin * cellSize, (margin+6) * cellSize, 7 * cellSize, cellSize);
-                
-                // 右上角
-                ctx.fillRect((21-margin-8) * cellSize, margin * cellSize, cellSize, 7 * cellSize);
-                ctx.fillRect((21-margin-1) * cellSize, margin * cellSize, cellSize, 7 * cellSize);
-                ctx.fillRect((21-margin-8) * cellSize, margin * cellSize, 7 * cellSize, cellSize);
-                
-                // 左下角
-                ctx.fillRect(margin * cellSize, (21-margin-8) * cellSize, 7 * cellSize, cellSize);
-                ctx.fillRect(margin * cellSize, (21-margin-8) * cellSize, cellSize, 7 * cellSize);
-                ctx.fillRect(margin * cellSize, (21-margin-1) * cellSize, 7 * cellSize, cellSize);
-                
-                // 显示错误消息
-                ctx.font = '12px Arial';
-                ctx.fillStyle = foreground;
-                ctx.fillText('QR Code lib failed', 10, 20);
-                ctx.fillText('Please refresh page', 10, 35);
-                
-                return canvas.toDataURL('image/png');
-            }
-
-            // 尝试加载QRCode库
-            function loadQRCodeLibrary(callback) {
-                if (typeof QRCode !== 'undefined') {
-                    callback();
-                    return;
-                }
-                
-                const script = document.createElement('script');
-                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
-                script.onload = function() {
-                    if (typeof QRCode !== 'undefined') {
-                        callback();
-                    } else {
-                        console.warn('QRCode library failed to load from cdnjs, trying jsdelivr...');
-                        // 尝试备用CDN
-                        const backupScript = document.createElement('script');
-                        backupScript.src = 'https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js';
-                        backupScript.onload = function() {
-                            if (typeof QRCode !== 'undefined') {
-                                callback();
-                            } else {
-                                alert('二维码库加载失败，请刷新页面重试');
-                            }
-                        };
-                        backupScript.onerror = function() {
-                            alert('二维码库加载失败，请刷新页面重试');
-                        };
-                        document.head.appendChild(backupScript);
-                    }
-                };
-                script.onerror = function() {
-                    console.warn('QRCode library failed to load from cdnjs');
-                };
-                document.head.appendChild(script);
+                copyContentBtn.style.display = 'none';
             }
 
             // 生成二维码
@@ -353,26 +232,27 @@
                 const size = parseInt(sizeSelect.value);
                 const foreground = foregroundInput.value;
                 const background = backgroundInput.value;
+                const errorCorrection = errorCorrectionSelect.value;
 
-                loadQRCodeLibrary(function() {
-                    try {
-                        const dataUrl = generateQrcodeOnCanvas(content, size, foreground, background);
-                        currentQrcodeDataUrl = dataUrl;
-                        
-                        // 显示二维码图片
-                        const img = document.createElement('img');
-                        img.src = dataUrl;
-                        img.style.maxWidth = '100%';
-                        qrcodeContainer.appendChild(img);
-                        
-                        // 显示下载按钮
-                        downloadPngBtn.style.display = 'inline-block';
-                        copyQrcodeBtn.style.display = 'inline-block';
-                    } catch(e) {
-                        alert('生成二维码失败: ' + e.message);
-                        console.error(e);
-                    }
-                });
+                try {
+                    // 直接在container上创建二维码
+                    qrcode = new QRCode(qrcodeContainer, {
+                        text: content,
+                        width: size,
+                        height: size,
+                        colorDark: foreground,
+                        colorLight: background,
+                        correctLevel: QRCode.CorrectLevel[errorCorrection]
+                    });
+
+                    // 显示按钮
+                    downloadPngBtn.style.display = 'inline-block';
+                    copyContentBtn.style.display = 'inline-block';
+                    
+                } catch(e) {
+                    alert('生成二维码失败: ' + e.message);
+                    console.error('QRCode generation error:', e);
+                }
             }
 
             // 生成按钮点击事件
@@ -391,23 +271,30 @@
                 }
             });
 
-            // 下载PNG
+            // 下载PNG - 使用qrcode.makeImage()方法生成Data URL
             downloadPngBtn.addEventListener('click', function() {
-                if (!currentQrcodeDataUrl) {
+                if (!qrcode) {
                     alert('请先生成二维码');
                     return;
                 }
 
-                const link = document.createElement('a');
-                link.download = 'qrcode-' + Date.now() + '.png';
-                link.href = currentQrcodeDataUrl;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+                try {
+                    // 获取二维码图片Data URL
+                    const dataUrl = qrcode.makeImage();
+                    const link = document.createElement('a');
+                    link.download = 'qrcode-' + Date.now() + '.png';
+                    link.href = dataUrl;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                } catch(e) {
+                    alert('下载失败: ' + e.message);
+                    console.error('Download error:', e);
+                }
             });
 
-            // 复制文本内容到剪贴板
-            copyQrcodeBtn.addEventListener('click', function() {
+            // 复制内容到剪贴板
+            copyContentBtn.addEventListener('click', function() {
                 const content = contentInput.value.trim();
                 if (!content) {
                     alert('请先生成二维码');
@@ -417,7 +304,7 @@
                 navigator.clipboard.writeText(content)
                     .then(() => {
                         const originalText = this.innerHTML;
-                        this.innerHTML = '<i class="fas fa-check me-1"></i> 已复制内容';
+                        this.innerHTML = '<i class="fas fa-check me-1"></i> 已复制';
                         setTimeout(() => {
                             this.innerHTML = originalText;
                         }, 2000);
