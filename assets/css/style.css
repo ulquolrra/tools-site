@@ -1,0 +1,522 @@
+/* 全局样式 */
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --info-color: #0dcaf0;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --border-radius: 12px;
+    --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s ease;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: var(--light-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    color: var(--dark-color);
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: #0a58ca;
+}
+
+/* 导航栏样式 */
+.navbar {
+    padding: 1rem 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, var(--primary-color), #0b5ed7) !important;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.navbar-nav .nav-link {
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+}
+
+.navbar-nav .nav-link:hover {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* 工具卡片样式 */
+.tool-card {
+    transition: var(--transition);
+    border: none;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    margin-bottom: 1rem;
+}
+
+.tool-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.card-title {
+    color: var(--dark-color);
+    font-weight: 600;
+}
+
+.card-footer {
+    background: transparent;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 1rem 1.5rem;
+}
+
+/* 主页面标题 */
+.display-4 {
+    color: #1c2331;
+    font-weight: 700;
+}
+
+.lead {
+    color: #6c757d;
+    font-size: 1.2rem;
+}
+
+/* 搜索框样式 */
+.input-group .form-control,
+.input-group .btn {
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+.input-group .form-control:first-child,
+.input-group .btn:first-child {
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+}
+
+/* 工具页面通用样式 */
+.tool-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.tool-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.tool-title {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    color: var(--dark-color);
+}
+
+.tool-description {
+    color: #6c757d;
+    font-size: 1.1rem;
+}
+
+/* 输入区域样式 */
+.form-control,
+.form-select,
+textarea {
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ced4da;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    font-size: 1rem;
+}
+
+.form-control:focus,
+.form-select:focus,
+textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+textarea {
+    min-height: 200px;
+    resize: vertical;
+}
+
+/* 按钮样式 */
+.btn {
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #0a58ca;
+    border-color: #0a58ca;
+}
+
+.btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.btn-outline-success:hover {
+    background-color: var(--success-color);
+    border-color: var(--success-color);
+    color: white;
+}
+
+.btn-outline-info:hover {
+    background-color: var(--info-color);
+    border-color: var(--info-color);
+    color: white;
+}
+
+.btn-outline-warning:hover {
+    background-color: var(--warning-color);
+    border-color: var(--warning-color);
+    color: #212529;
+}
+
+.btn-outline-danger:hover {
+    background-color: var(--danger-color);
+    border-color: var(--danger-color);
+    color: white;
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: white;
+}
+
+/* 结果展示区域 */
+.result-area {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: var(--light-color);
+    border-radius: 8px;
+    border: 1px dashed #ced4da;
+}
+
+.result-pre {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--dark-color);
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* 复制按钮 */
+.copy-btn {
+    cursor: pointer;
+    color: var(--primary-color);
+    transition: color 0.2s;
+    font-size: 0.9rem;
+}
+
+.copy-btn:hover {
+    color: #0a58ca;
+}
+
+.copy-btn.copied {
+    color: var(--success-color);
+}
+
+/* 统计卡片 */
+.card.border-0.bg-light {
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.card.border-0.bg-light:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--box-shadow);
+}
+
+/* AdSense广告样式 */
+.adsbygoogle {
+    display: block !important;
+    margin: 1rem auto;
+    text-align: center;
+}
+
+/* 页脚样式 */
+footer {
+    border-top: 1px solid #dee2e6;
+}
+
+footer a {
+    color: #6c757d;
+}
+
+footer a:hover {
+    color: var(--primary-color);
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .tool-container {
+        padding: 1.5rem;
+        margin: 1rem auto;
+    }
+
+    .display-4 {
+        font-size: 2.5rem;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+    }
+
+    .tool-card {
+        margin-bottom: 1.5rem;
+    }
+
+    .navbar-nav {
+        text-align: center;
+    }
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+}
+
+/* 工具图标动画 */
+.tool-card i.fa-2x {
+    transition: transform 0.3s ease;
+}
+
+.tool-card:hover i.fa-2x {
+    transform: rotate(10deg) scale(1.1);
+}
+
+/* 输入框组 */
+.input-group-text {
+    background-color: transparent;
+    border-right: none;
+}
+
+.input-group-text:first-child {
+    border-radius: 8px 0 0 8px;
+}
+
+/* 结果标题 */
+.result-title {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--dark-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 操作按钮组 */
+.btn-group {
+    gap: 0.5rem;
+}
+
+/* Tree View 样式 */
+.tree-view {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    white-space: pre;
+    line-height: 1.6;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.tree-view .tree-node {
+    margin-left: 1.5rem;
+}
+
+/* 表格样式 */
+.table {
+    margin-bottom: 1.5rem;
+}
+
+.table th,
+.table td {
+    vertical-align: middle;
+}
+
+/* 错误提示 */
+.text-danger {
+    animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* 加载状态 */
+.loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* 工具分组 */
+.tool-section {
+    margin-bottom: 3rem;
+}
+
+.tool-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--dark-color);
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.tool-section h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: var(--primary-color);
+    border-radius: 3px;
+}
+
+/* 标签样式 */
+.badge {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: 20px;
+}
+
+/* 代码块 */
+pre {
+    background: #282c34;
+    color: #abb2bf;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+code {
+    background: #f6f8fa;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+}
+
+/* 示例代码 */
+.example-code {
+    background: #282c34;
+    color: #abb2bf;
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+/* 成功/错误提示 */
+.alert {
+    border-radius: 8px;
+    border: none;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.alert-success {
+    background: #d1e7dd;
+    color: #0f5132;
+}
+
+.alert-danger {
+    background: #f8d7da;
+    color: #842029;
+}
+
+/* 链接样式 */
+.text-decoration-none:hover {
+    text-decoration: underline;
+}

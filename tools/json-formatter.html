@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON格式化工具 - 在线JSON格式化、压缩、美化</title>
+    <meta name="description" content="免费在线JSON格式化工具，支持JSON美化、压缩、树形展示，一键格式化JSON数据">
+    <meta name="keywords" content="JSON格式化,JSON美化,JSON压缩,JSON工具,在线JSON,JSON格式化工具">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-tools me-2"></i>在线工具箱
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">首页</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/about.html">关于我们</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/contact.html">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="tool-container fade-in">
+        <div class="tool-header">
+            <h1 class="tool-title">JSON格式化工具</h1>
+            <p class="tool-description">在线格式化、压缩、美化JSON数据，支持树形展示，让JSON可读性更强</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="example-select" class="form-label">示例数据</label>
+                    <select class="form-select" id="example-select">
+                        <option value="">请选择示例...</option>
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="json-input" class="form-label">输入JSON</label>
+                    <textarea class="form-control" id="json-input" rows="10" placeholder="请输入JSON数据..."></textarea>
+                </div>
+                
+                <div class="d-flex gap-2">
+                    <button class="btn btn-primary" id="format-btn">
+                        <i class="fas fa-align-left me-1"></i> 格式化
+                    </button>
+                    <button class="btn btn-outline-secondary" id="minify-btn">
+                        <i class="fas fa-compress me-1"></i> 压缩
+                    </button>
+                    <button class="btn btn-outline-success copy-btn" data-target="json-input">
+                        <i class="fas fa-copy me-1"></i> 复制输入
+                    </button>
+                    <button class="btn btn-outline-danger clear-btn" data-target="json-input">
+                        <i class="fas fa-trash me-1"></i> 清空
+                    </button>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="json-output" class="form-label">输出结果</label>
+                    <textarea class="form-control" id="json-output" rows="10" readonly placeholder="格式化结果将在这里显示..."></textarea>
+                </div>
+                
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-success copy-btn" data-target="json-output">
+                        <i class="fas fa-copy me-1"></i> 复制结果
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="result-area mt-4">
+            <h4 class="result-title">
+                <i class="fas fa-sitemap me-2"></i> 树形视图
+            </h4>
+            <div id="tree-view" class="tree-view">请先输入并格式化JSON数据...</div>
+        </div>
+
+        <div class="mt-4">
+            <h4>使用说明</h4>
+            <div class="alert alert-info">
+                <strong>功能介绍：</strong>
+                <ul class="mb-0">
+                    <li><strong>格式化：</strong>将压缩的JSON转换为可读的格式，添加缩进和换行</li>
+                    <li><strong>压缩：</strong>将JSON转换为一行，移除所有空格和换行</li>
+                    <li><strong>树形视图：</strong>以树状结构展示JSON，更直观地查看数据结构</li>
+                    <li><strong>示例：</strong>选择示例数据快速测试</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>常见用法</h4>
+            <div class="example-code">
+// 输入压缩的JSON
+{"name":"张三","age":30,"skills":["JavaScript","Python","Java"]}
+
+// 点击"格式化"后
+{
+  "name": "张三",
+  "age": 30,
+  "skills": [
+    "JavaScript",
+    "Python",
+    "Java"
+  ]
+}
+
+// 点击"压缩"后
+{"name":"张三","age":30,"skills":["JavaScript","Python","Java"]}</div>
+        </div>
+    </div>
+
+    <footer class="bg-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-3">JSON格式化工具</h5>
+                    <p class="text-muted small">免费、易用的在线JSON格式化工具，支持格式化、压缩、美化等功能。</p>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">快速链接</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/" class="text-decoration-none">首页</a></li>
+                        <li class="mb-2"><a href="/pages/about.html" class="text-decoration-none">关于我们</a></li>
+                        <li class="mb-2"><a href="/pages/contact.html" class="text-decoration-none">联系我们</a></li>
+                        <li class="mb-2"><a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">推荐工具</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/tools/base64-encoder" class="text-decoration-none">Base64编解码</a></li>
+                        <li class="mb-2"><a href="/tools/url-encoder" class="text-decoration-none">URL编解码</a></li>
+                        <li class="mb-2"><a href="/tools/timestamp-converter" class="text-decoration-none">时间戳转换</a></li>
+                        <li class="mb-2"><a href="/tools/md5-encoder" class="text-decoration-none">MD5加密</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center text-muted small">
+                <p>Copyright © 2024 在线工具箱 | <a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="text-center my-4">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="1234567890"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/main.js"></script>
+    <script>
+        // 加载SparkMD5库用于MD5计算
+        function loadScript(url, callback) {
+            const script = document.createElement('script');
+            script.src = url;
+            script.onload = callback;
+            script.onerror = function() {
+                console.warn('无法加载 ' + url);
+            };
+            document.head.appendChild(script);
+        }
+    </script>
+</body>
+</html>

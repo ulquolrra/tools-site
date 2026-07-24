@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JWT解码器 - 在线解析JWT Token</title>
+    <meta name="description" content="免费在线JWT解码工具，解析JWT Token的Header、Payload和Signature，支持Base64URL解码，可视化展示JWT结构">
+    <meta name="keywords" content="JWT解码,JWT解析,Token解码,JWT工具,JSON Web Token解析">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-tools me-2"></i>在线工具箱
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">首页</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/about.html">关于我们</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/contact.html">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="tool-container fade-in">
+        <div class="tool-header">
+            <h1 class="tool-title">JWT解码器</h1>
+            <p class="tool-description">在线解析JWT Token，解码Header、Payload和Signature，支持Base64URL解码</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-12">
+                <div class="mb-3">
+                    <label for="jwt-input" class="form-label">JWT Token</label>
+                    <textarea class="form-control" id="jwt-input" rows="3" placeholder="请粘贴JWT Token（例如：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...）"></textarea>
+                    <div class="form-text">输入完整的JWT Token，自动解析其三个部分</div>
+                </div>
+                
+                <div class="d-flex gap-2 mb-4">
+                    <button class="btn btn-primary" id="decode-btn">
+                        <i class="fas fa-search me-1"></i> 解析JWT
+                    </button>
+                    <button class="btn btn-outline-success copy-btn" data-target="jwt-input">
+                        <i class="fas fa-copy me-1"></i> 复制
+                    </button>
+                    <button class="btn btn-outline-danger clear-btn" data-target="jwt-input">
+                        <i class="fas fa-trash me-1"></i> 清空
+                    </button>
+                </div>
+            </div>
+            
+            <div class="col-md-12">
+                <h4 class="mb-3">解码结果</h4>
+                
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-primary text-white">
+                                <i class="fas fa-info-circle me-2"></i> Header
+                            </div>
+                            <div class="card-body">
+                                <pre id="header-result" class="pre-formatted" style="max-height: 300px; overflow-y: auto;">未解析</pre>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-sm btn-outline-success copy-result-btn" data-target="header-result">
+                                    <i class="fas fa-copy me-1"></i> 复制
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-success text-white">
+                                <i class="fas fa-database me-2"></i> Payload
+                            </div>
+                            <div class="card-body">
+                                <pre id="payload-result" class="pre-formatted" style="max-height: 300px; overflow-y: auto;">未解析</pre>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-sm btn-outline-success copy-result-btn" data-target="payload-result">
+                                    <i class="fas fa-copy me-1"></i> 复制
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-warning text-dark">
+                                <i class="fas fa-key me-2"></i> Signature
+                            </div>
+                            <div class="card-body">
+                                <pre id="signature-result" class="pre-formatted" style="max-height: 300px; overflow-y: auto;">未解析</pre>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-sm btn-outline-success copy-result-btn" data-target="signature-result">
+                                    <i class="fas fa-copy me-1"></i> 复制
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-12 mt-4">
+                <div class="card">
+                    <div class="card-header bg-light">
+                        <h5 class="mb-0">📋 格式化显示</h5>
+                    </div>
+                    <div class="card-body">
+                        <pre id="formatted-result" class="pre-formatted" style="max-height: 400px; overflow-y: auto;">未解析</pre>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-sm btn-outline-success copy-result-btn" data-target="formatted-result">
+                            <i class="fas fa-copy me-1"></i> 复制完整JSON
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>使用说明</h4>
+            <div class="alert alert-info">
+                <strong>功能介绍：</strong>
+                <ul class="mb-0">
+                    <li><strong>JWT解析：</strong>自动将JWT Token分解为Header、Payload、Signature三部分</li>
+                    <li><strong>Base64URL解码：</strong>对Header和Payload进行Base64URL解码，显示JSON内容</li>
+                    <li><strong>格式化显示：</strong>将Header和Payload合并为完整JSON并美化显示</li>
+                    <li><strong>一键复制：</strong>支持复制单个部分或完整JSON</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>JWT结构解析</h4>
+            <div class="alert alert-light">
+                <p class="mb-0">JWT（JSON Web Token）由三部分组成，用点（.）分隔：<code>header.payload.signature</code></p>
+                <ul class="mt-2 mb-0">
+                    <li><strong>Header：</strong>包含Token类型和使用的哈希算法</li>
+                    <li><strong>Payload：</strong>包含声明（Claims），通常是用户信息和过期时间</li>
+                    <li><strong>Signature：</strong>用于验证Token的完整性</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>常见用法</h4>
+            <div class="example-code">
+输入: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+
+点击"解析JWT"
+
+输出: Header、Payload、Signature分别显示解码后的内容</div>
+        </div>
+    </div>
+
+    <footer class="bg-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-3">JWT解码器</h5>
+                    <p class="text-muted small">免费、易用的在线JWT Token解析工具，支持完整的JWT结构解析。</p>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">快速链接</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/" class="text-decoration-none">首页</a></li>
+                        <li class="mb-2"><a href="/pages/about.html" class="text-decoration-none">关于我们</a></li>
+                        <li class="mb-2"><a href="/pages/contact.html" class="text-decoration-none">联系我们</a></li>
+                        <li class="mb-2"><a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">推荐工具</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/tools/json-formatter" class="text-decoration-none">JSON格式化</a></li>
+                        <li class="mb-2"><a href="/tools/base64-encoder" class="text-decoration-none">Base64编解码</a></li>
+                        <li class="mb-2"><a href="/tools/url-encoder" class="text-decoration-none">URL编解码</a></li>
+                        <li class="mb-2"><a href="/tools/md5-encoder" class="text-decoration-none">MD5/SHA加密</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center text-muted small">
+                <p>Copyright © 2024 在线工具箱 | <a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="text-center my-4">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="1234567890"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const jwtInput = document.getElementById('jwt-input');
+            const decodeBtn = document.getElementById('decode-btn');
+            const headerResult = document.getElementById('header-result');
+            const payloadResult = document.getElementById('payload-result');
+            const signatureResult = document.getElementById('signature-result');
+            const formattedResult = document.getElementById('formatted-result');
+
+            // JWT Base64URL解码
+            function base64UrlDecode(str) {
+                // 将Base64URL转换为标准Base64
+                str = str.replace(/-/g, '+').replace(/_/g, '/');
+                // 添加填充
+                while (str.length % 4) {
+                    str += '=';
+                }
+                try {
+                    return decodeURIComponent(escape(atob(str)));
+                } catch (e) {
+                    return atob(str);
+                }
+            }
+
+            // 格式化JSON
+            function formatJson(str) {
+                try {
+                    const obj = JSON.parse(str);
+                    return JSON.stringify(obj, null, 2);
+                } catch (e) {
+                    return str;
+                }
+            }
+
+            // 解析JWT
+            function decodeJWT(token) {
+                const parts = token.split('.');
+                if (parts.length !== 3) {
+                    return null;
+                }
+                
+                return {
+                    header: base64UrlDecode(parts[0]),
+                    payload: base64UrlDecode(parts[1]),
+                    signature: parts[2]
+                };
+            }
+
+            // 解析按钮点击
+            decodeBtn.addEventListener('click', function() {
+                const token = jwtInput.value.trim();
+                
+                if (!token) {
+                    alert('请输入JWT Token');
+                    return;
+                }
+
+                const result = decodeJWT(token);
+                
+                if (!result) {
+                    alert('无效的JWT Token格式，请检查输入');
+                    return;
+                }
+
+                // 显示结果
+                headerResult.textContent = formatJson(result.header);
+                payloadResult.textContent = formatJson(result.payload);
+                signatureResult.textContent = result.signature;
+                
+                // 格式化显示
+                formattedResult.textContent = formatJson(JSON.stringify({
+                    header: JSON.parse(result.header),
+                    payload: JSON.parse(result.payload),
+                    signature: result.signature
+                }));
+            });
+
+            // 自动解析（输入时自动处理）
+            jwtInput.addEventListener('input', function() {
+                const token = jwtInput.value.trim();
+                if (token && token.split('.').length === 3) {
+                    const result = decodeJWT(token);
+                    if (result) {
+                        headerResult.textContent = formatJson(result.header);
+                        payloadResult.textContent = formatJson(result.payload);
+                        signatureResult.textContent = result.signature;
+                        formattedResult.textContent = formatJson(JSON.stringify({
+                            header: JSON.parse(result.header),
+                            payload: JSON.parse(result.payload),
+                            signature: result.signature
+                        }));
+                    }
+                }
+            });
+
+            // 复制结果按钮
+            document.querySelectorAll('.copy-result-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const target = document.getElementById(targetId);
+                    if (target && target.textContent) {
+                        navigator.clipboard.writeText(target.textContent)
+                            .then(() => {
+                                const originalText = this.innerHTML;
+                                this.innerHTML = '<i class="fas fa-check me-1"></i> 已复制';
+                                setTimeout(() => {
+                                    this.innerHTML = originalText;
+                                }, 2000);
+                            });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

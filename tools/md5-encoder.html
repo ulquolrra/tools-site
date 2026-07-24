@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MD5/SHA加密工具 - 在线MD5、SHA1、SHA256哈希加密</title>
+    <meta name="description" content="免费在线MD5/SHA加密工具，支持MD5、SHA1、SHA256等哈希算法，一键生成加密字符串">
+    <meta name="keywords" content="MD5加密,SHA1加密,SHA256加密,哈希加密,MD5工具,SHA工具,在线加密">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <!-- 加载SparkMD5库 -->
+    <script src="https://cdn.jsdelivr.net/npm/spark-md5@3.0.2/spark-md5.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-tools me-2"></i>在线工具箱
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">首页</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/about.html">关于我们</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/contact.html">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="tool-container fade-in">
+        <div class="tool-header">
+            <h1 class="tool-title">MD5/SHA加密工具</h1>
+            <p class="tool-description">支持MD5、SHA1、SHA256等哈希算法，一键生成加密字符串</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="example-select" class="form-label">示例数据</label>
+                    <select class="form-select" id="example-select">
+                        <option value="">请选择示例...</option>
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="md5-input" class="form-label">输入文本</label>
+                    <textarea class="form-control" id="md5-input" rows="8" placeholder="请输入要加密的文本..."></textarea>
+                </div>
+                
+                <div class="d-flex gap-2 flex-wrap">
+                    <button class="btn btn-primary" id="md5-btn">
+                        <i class="fas fa-key me-1"></i> MD5
+                    </button>
+                    <button class="btn btn-outline-primary" id="sha1-btn">
+                        <i class="fas fa-key me-1"></i> SHA1
+                    </button>
+                    <button class="btn btn-outline-primary" id="sha256-btn">
+                        <i class="fas fa-key me-1"></i> SHA256
+                    </button>
+                    <button class="btn btn-outline-success copy-btn" data-target="md5-input">
+                        <i class="fas fa-copy me-1"></i> 复制
+                    </button>
+                    <button class="btn btn-outline-danger clear-btn" data-target="md5-input">
+                        <i class="fas fa-trash me-1"></i> 清空
+                    </button>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="md5-output" class="form-label">输出结果</label>
+                    <textarea class="form-control" id="md5-output" rows="8" readonly placeholder="加密结果将在这里显示..."></textarea>
+                </div>
+                
+                <div class="result-area">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="badge bg-primary">算法:</span>
+                        <span id="algorithm-type" class="text-muted">请选择加密算法</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 mt-2">
+                        <span class="badge bg-info">长度:</span>
+                        <span id="result-length" class="text-muted">0 字符</span>
+                    </div>
+                </div>
+                
+                <div class="d-flex gap-2 mt-2">
+                    <button class="btn btn-outline-success copy-btn" data-target="md5-output">
+                        <i class="fas fa-copy me-1"></i> 复制结果
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>使用说明</h4>
+            <div class="alert alert-info">
+                <strong>功能介绍：</strong>
+                <ul class="mb-0">
+                    <li><strong>MD5：</strong>32位字符串，常用于密码存储、数据完整性检查等</li>
+                    <li><strong>SHA1：</strong>40位字符串，比MD5更安全，但已逐渐被淘汰</li>
+                    <li><strong>SHA256：</strong>64位字符串，当前推荐的安全哈希算法</li>
+                    <li><strong>特点：</strong>单向加密，不可逆，相同输入产生相同输出</li>
+                    <li><strong>应用：</strong>密码存储、数字签名、数据验证等</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>哈希算法比较</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>算法</th>
+                            <th>输出长度</th>
+                            <th>安全性</th>
+                            <th>速度</th>
+                            <th>常见用途</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>MD5</td>
+                            <td>32字符（128位）</td>
+                            <td><span class="badge bg-danger">较弱</span></td>
+                            <td><span class="badge bg-success">快</span></td>
+                            <td>密码存储、数据完整性</td>
+                        </tr>
+                        <tr>
+                            <td>SHA1</td>
+                            <td>40字符（160位）</td>
+                            <td><span class="badge bg-warning">弱</span></td>
+                            <td><span class="badge bg-success">快</span></td>
+                            <td>数字签名、旧系统兼容</td>
+                        </tr>
+                        <tr>
+                            <td>SHA256</td>
+                            <td>64字符（256位）</td>
+                            <td><span class="badge bg-success">强</span></td>
+                            <td><span class="badge bg-success">快</span></td>
+                            <td>密码存储、区块链、安全应用</td>
+                        </tr>
+                        <tr>
+                            <td>SHA512</td>
+                            <td>128字符（512位）</td>
+                            <td><span class="badge bg-success">很强</span></td>
+                            <td><span class="badge bg-warning">中等</span></td>
+                            <td>高安全性需求</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>常见用法</h4>
+            <div class="example-code">
+// MD5加密
+输入: Hello, World!
+点击"MD5"
+输出: 65a8e27d8879283831b664bd8b7f0ad4
+
+// SHA1加密
+输入: Hello, World!
+点击"SHA1"
+输出: 0a0a9f2a6772942557ab5355d76af442f8f65e01
+
+// SHA256加密
+输入: Hello, World!
+点击"SHA256"
+输出: dffd6021bb2bd5b0af676290809ec3a53191dd81c7f70a4b28688a362182986f
+
+// 特点
+- 相同输入总是产生相同输出
+- 不同输入产生完全不同的输出（雪崩效应）
+- 不可逆，无法从哈希值推导出原始内容</div>
+        </div>
+
+        <div class="mt-4">
+            <h4>编程语言中的实现</h4>
+            <div class="example-code">
+// JavaScript
+const crypto = require('crypto');
+crypto.createHash('md5').update('Hello').digest('hex');
+crypto.createHash('sha1').update('Hello').digest('hex');
+crypto.createHash('sha256').update('Hello').digest('hex');
+
+// Python
+import hashlib
+hashlib.md5('Hello'.encode()).hexdigest()
+hashlib.sha1('Hello'.encode()).hexdigest()
+hashlib.sha256('Hello'.encode()).hexdigest()
+
+// PHP
+md5('Hello');
+sha1('Hello');
+hash('sha256', 'Hello');
+
+// Java
+import java.security.MessageDigest;
+MessageDigest.getInstance("MD5").digest("Hello".getBytes());
+MessageDigest.getInstance("SHA-256").digest("Hello".getBytes());</div>
+        </div>
+
+        <div class="alert alert-warning mt-4">
+            <i class="fas fa-exclamation-triangle me-2"></i> 
+            <strong>安全提醒：</strong> MD5和SHA1算法已不再被认为是安全的，请勿用于需要高安全性的场景。推荐使用SHA256或更高级的加密算法。
+        </div>
+    </div>
+
+    <footer class="bg-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-3">MD5/SHA加密工具</h5>
+                    <p class="text-muted small">免费、易用的在线哈希加密工具，支持多种算法。</p>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">快速链接</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/" class="text-decoration-none">首页</a></li>
+                        <li class="mb-2"><a href="/pages/about.html" class="text-decoration-none">关于我们</a></li>
+                        <li class="mb-2"><a href="/pages/contact.html" class="text-decoration-none">联系我们</a></li>
+                        <li class="mb-2"><a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">推荐工具</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/tools/json-formatter" class="text-decoration-none">JSON格式化</a></li>
+                        <li class="mb-2"><a href="/tools/base64-encoder" class="text-decoration-none">Base64编解码</a></li>
+                        <li class="mb-2"><a href="/tools/url-encoder" class="text-decoration-none">URL编解码</a></li>
+                        <li class="mb-2"><a href="/tools/timestamp-converter" class="text-decoration-none">时间戳转换</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center text-muted small">
+                <p>Copyright © 2024 在线工具箱 | <a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="text-center my-4">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="1234567890"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 重写MD5函数以使用SparkMD5库
+            window.md5 = function(str) {
+                return SparkMD5.hash(str);
+            };
+            
+            // 重写SHA1和SHA256函数
+            async function computeSHA1(str) {
+                const encoder = new TextEncoder();
+                const data = encoder.encode(str);
+                const hashBuffer = await crypto.subtle.digest('SHA-1', data);
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            }
+            
+            async function computeSHA256(str) {
+                const encoder = new TextEncoder();
+                const data = encoder.encode(str);
+                const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            }
+            
+            const md5Btn = document.getElementById('md5-btn');
+            const sha1Btn = document.getElementById('sha1-btn');
+            const sha256Btn = document.getElementById('sha256-btn');
+            const inputTextarea = document.getElementById('md5-input');
+            const outputTextarea = document.getElementById('md5-output');
+            const algorithmType = document.getElementById('algorithm-type');
+            const resultLength = document.getElementById('result-length');
+            
+            function updateResultInfo(algorithm, result) {
+                if (algorithmType) {
+                    algorithmType.textContent = algorithm;
+                }
+                if (resultLength) {
+                    resultLength.textContent = (result ? result.length : 0) + ' 字符';
+                }
+            }
+            
+            if (md5Btn) {
+                md5Btn.addEventListener('click', function() {
+                    const input = inputTextarea.value;
+                    if (!input) {
+                        outputTextarea.value = '请输入要加密的内容';
+                        updateResultInfo('MD5', '');
+                        return;
+                    }
+                    const result = md5(input);
+                    outputTextarea.value = result;
+                    updateResultInfo('MD5', result);
+                });
+            }
+            
+            if (sha1Btn) {
+                sha1Btn.addEventListener('click', async function() {
+                    const input = inputTextarea.value;
+                    if (!input) {
+                        outputTextarea.value = '请输入要加密的内容';
+                        updateResultInfo('SHA1', '');
+                        return;
+                    }
+                    sha1Btn.disabled = true;
+                    sha1Btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> 计算中...';
+                    
+                    try {
+                        const result = await computeSHA1(input);
+                        outputTextarea.value = result;
+                        updateResultInfo('SHA1', result);
+                    } catch (e) {
+                        outputTextarea.value = 'SHA1计算失败: ' + e.message;
+                        updateResultInfo('SHA1', '');
+                    } finally {
+                        sha1Btn.disabled = false;
+                        sha1Btn.innerHTML = '<i class="fas fa-key me-1"></i> SHA1';
+                    }
+                });
+            }
+            
+            if (sha256Btn) {
+                sha256Btn.addEventListener('click', async function() {
+                    const input = inputTextarea.value;
+                    if (!input) {
+                        outputTextarea.value = '请输入要加密的内容';
+                        updateResultInfo('SHA256', '');
+                        return;
+                    }
+                    sha256Btn.disabled = true;
+                    sha256Btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> 计算中...';
+                    
+                    try {
+                        const result = await computeSHA256(input);
+                        outputTextarea.value = result;
+                        updateResultInfo('SHA256', result);
+                    } catch (e) {
+                        outputTextarea.value = 'SHA256计算失败: ' + e.message;
+                        updateResultInfo('SHA256', '');
+                    } finally {
+                        sha256Btn.disabled = false;
+                        sha256Btn.innerHTML = '<i class="fas fa-key me-1"></i> SHA256';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

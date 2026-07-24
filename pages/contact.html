@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系我们 - 在线工具箱</title>
+    <meta name="description" content="如有任何问题、建议或合作意向，请随时联系我们，我们会尽快回复您的邮件">
+    <meta name="keywords" content="联系我们,反馈,建议,合作,问题,客服">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-tools me-2"></i>在线工具箱
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">首页</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/about.html">关于我们</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/contact.html">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card shadow-sm fade-in">
+                    <div class="card-body">
+                        <h1 class="text-center mb-4">联系我们</h1>
+                        <p class="lead text-center text-muted mb-5">
+                            如果您有任何问题、建议或合作意向，请随时联系我们
+                        </p>
+
+                        <div class="row g-4 mb-5">
+                            <div class="col-md-6">
+                                <div class="text-center p-4 bg-light rounded-3">
+                                    <i class="fas fa-envelope fa-3x text-primary mb-3"></i>
+                                    <h3 class="fs-5">邮件联系</h3>
+                                    <p class="text-muted">这是我们最常用的联系方式</p>
+                                    <div class="alert alert-info mt-3">
+                                        <strong>邮箱：</strong>support@alltoolsbox.xyz
+                                    </div>
+                                    <p class="text-muted small">我们会在72小时内回复您的邮件</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="text-center p-4 bg-light rounded-3">
+                                    <i class="fas fa-paper-plane fa-3x text-success mb-3"></i>
+                                    <h3 class="fs-5">在线反馈</h3>
+                                    <p class="text-muted">通过表单直接提交您的反馈</p>
+                                    <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#feedbackModal">
+                                        <i class="fas fa-pen me-2"></i> 填写反馈
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="mb-5">
+                            <h2 class="fs-4 mb-4">
+                                <i class="fas fa-question-circle text-primary me-2"></i> 常见问题
+                            </h2>
+                            <div class="accordion" id="faqAccordion">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                            工具无法使用，如何解决？
+                                        </button>
+                                    </h2>
+                                    <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body">
+                                            <p>首先请刷新页面尝试。如果问题仍然存在，可能是浏览器兼容性问题，建议使用最新版本的Chrome、Firefox、Edge或Safari浏览器。</p>
+                                            <p>如果某个具体工具有问题，可以联系我们，我们会尽快修复。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                            工具可以离线使用吗？
+                                        </button>
+                                    </h2>
+                                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body">
+                                            <p>可以！我们的所有工具都在浏览器端运行，只要页面加载完成，即使断网也能继续使用（除了需要加载外部资源的工具）。</p>
+                                            <p>您可以将网站添加到书签，下次需要时直接使用，无需联网。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                            我的数据会被保存吗？
+                                        </button>
+                                    </h2>
+                                    <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body">
+                                            <p><strong>不会。</strong> 我们所有的工具都在您的浏览器中运行，数据不会被上传到任何服务器。</p>
+                                            <p>您的隐私对我们非常重要，我们承诺：</p>
+                                            <ul>
+                                                <li>不收集任何用户数据</li>
+                                                <li>不存储任何输入内容</li>
+                                                <li>不追踪用户行为</li>
+                                                <li>所有处理都在本地完成</li>
+                                            </ul>
+                                            <p>详情请查看我们的<a href="/pages/privacy.html">隐私政策</a>。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                            为什么一些工具需要HTTPS？
+                                        </button>
+                                    </h2>
+                                    <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body">
+                                            <p>某些加密相关的工具（如MD5、SHA256）使用了浏览器的Web Crypto API，这个API需要在安全上下文（HTTPS）中才能使用。</p>
+                                            <p>如果您在本地测试或使用HTTP协议访问，这些工具可能无法正常工作。建议在生产环境中使用HTTPS协议。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                                            如何申请添加新的工具？
+                                        </button>
+                                    </h2>
+                                    <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body">
+                                            <p>我们非常欢迎您的工具建议！如果您有好的工具想法，可以通过以下方式联系我们：</p>
+                                            <ol>
+                                                <li>发送邮件到support@alltoolsbox.xyz</li>
+                                                <li>通过在线反馈表单提交</li>
+                                            </ol>
+                                            <p>我们会评估您的建议，如果可行会尽快实现。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
+                                            工具可以商用吗？
+                                        </button>
+                                    </h2>
+                                    <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body">
+                                            <p><strong>可以。</strong> 我们的工具完全免费且开放使用，您可以在任何场景下使用，包括商业用途。</p>
+                                            <p>但是，我们不允许以下行为：</p>
+                                            <ul>
+                                                <li>将我们的网站整体复制、镜像</li>
+                                                <li>将我们的工具打包出售</li>
+                                                <li>声称我们的工具是您的原创</li>
+                                                <li>违反任何法律法规</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center py-5 bg-light rounded-3">
+                            <h2 class="fs-3 mb-3">期待您的反馈</h2>
+                            <p class="lead text-muted mb-4">
+                                您的反馈和建议是我们改进的动力
+                            </p>
+                            <div class="d-flex gap-3 justify-content-center flex-wrap">
+                                <a href="mailto:contact@example.com" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-envelope me-2"></i> 发送邮件
+                                </a>
+                                <button class="btn btn-outline-success btn-lg" data-bs-toggle="modal" data-bs-target="#feedbackModal">
+                                    <i class="fas fa-pen me-2"></i> 填写反馈
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 反馈模态框 -->
+    <div class="modal fade" id="feedbackModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">反馈建议</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="feedbackForm">
+                        <div class="mb-3">
+                            <label for="feedbackType" class="form-label">反馈类型 <span class="text-danger">*</span></label>
+                            <select class="form-select" id="feedbackType" required>
+                                <option value="" selected disabled>请选择反馈类型</option>
+                                <option value="bug">工具使用问题</option>
+                                <option value="suggestion">功能建议</option>
+                                <option value="new-tool">新工具申请</option>
+                                <option value="cooperation">合作事宜</option>
+                                <option value="other">其他</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="feedbackEmail" class="form-label">您的邮箱</label>
+                            <input type="email" class="form-control" id="feedbackEmail" placeholder="我们会通过邮箱回复您">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="feedbackTool" class="form-label">相关工具（如适用）</label>
+                            <select class="form-select" id="feedbackTool">
+                                <option value="" selected disabled>请选择工具</option>
+                                <option value="json-formatter">JSON格式化</option>
+                                <option value="base64-encoder">Base64编解码</option>
+                                <option value="url-encoder">URL编解码</option>
+                                <option value="timestamp-converter">时间戳转换</option>
+                                <option value="md5-encoder">MD5加密</option>
+                                <option value="text-tools">文本处理</option>
+                                <option value="all">所有工具</option>
+                                <option value="none">无（通用问题）</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="feedbackTitle" class="form-label">主题 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="feedbackTitle" placeholder="简要描述问题或建议" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="feedbackContent" class="form-label">详细内容 <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="feedbackContent" rows="5" placeholder="请详细描述您的问题或建议..." required></textarea>
+                            <div class="form-text">请尽可能详细描述，以便我们更好地帮助您</div>
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="feedbackSubscribe" checked>
+                            <label class="form-check-label" for="feedbackSubscribe">订阅更新通知（如有新功能或问题修复）</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="submitFeedback()">提交反馈</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-3">联系我们</h5>
+                    <p class="text-muted small">如有任何问题或建议，请随时联系我们，我们会尽快回复。</p>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">快速链接</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/" class="text-decoration-none">首页</a></li>
+                        <li class="mb-2"><a href="/pages/about.html" class="text-decoration-none">关于我们</a></li>
+                        <li class="mb-2"><a href="/pages/contact.html" class="text-decoration-none">联系我们</a></li>
+                        <li class="mb-2"><a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">推荐工具</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/tools/json-formatter" class="text-decoration-none">JSON格式化</a></li>
+                        <li class="mb-2"><a href="/tools/base64-encoder" class="text-decoration-none">Base64编解码</a></li>
+                        <li class="mb-2"><a href="/tools/url-encoder" class="text-decoration-none">URL编解码</a></li>
+                        <li class="mb-2"><a href="/tools/timestamp-converter" class="text-decoration-none">时间戳转换</a></li>
+                        <li class="mb-2"><a href="/tools/md5-encoder" class="text-decoration-none">MD5加密</a></li>
+                        <li class="mb-2"><a href="/tools/text-tools" class="text-decoration-none">文本处理</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center text-muted small">
+                <p>Copyright © 2024 在线工具箱 | <a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="text-center my-4">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="1234567890"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function submitFeedback() {
+            const feedbackType = document.getElementById('feedbackType').value;
+            const feedbackEmail = document.getElementById('feedbackEmail').value;
+            const feedbackTool = document.getElementById('feedbackTool').value;
+            const feedbackTitle = document.getElementById('feedbackTitle').value;
+            const feedbackContent = document.getElementById('feedbackContent').value;
+            const feedbackSubscribe = document.getElementById('feedbackSubscribe').checked;
+
+            // 简单验证
+            if (!feedbackType || !feedbackTitle || !feedbackContent) {
+                alert('请填写必填项（反馈类型、主题、详细内容）');
+                return;
+            }
+
+            // 显示提交中状态
+            const submitBtn = event.target;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> 提交中...';
+
+            // 模拟提交（实际应用中需要后端支持）
+            setTimeout(() => {
+                alert('感谢您的反馈！我们会尽快处理。');
+                const modal = bootstrap.Modal.getInstance(document.getElementById('feedbackModal'));
+                modal.hide();
+                
+                // 重置表单
+                document.getElementById('feedbackForm').reset();
+                
+                // 恢复按钮
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '提交反馈';
+                
+                // 关闭模态框后重置
+                document.getElementById('feedbackType').selectedIndex = 0;
+                document.getElementById('feedbackTool').selectedIndex = 0;
+            }, 1500);
+
+            // 实际提交代码（需要后端）：
+            /*
+            fetch('/api/feedback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    type: feedbackType,
+                    email: feedbackEmail,
+                    tool: feedbackTool,
+                    title: feedbackTitle,
+                    content: feedbackContent,
+                    subscribe: feedbackSubscribe
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('感谢您的反馈！我们会尽快处理。');
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('feedbackModal'));
+                    modal.hide();
+                    document.getElementById('feedbackForm').reset();
+                } else {
+                    alert('提交失败，请重试：' + (data.message || '未知错误'));
+                }
+            })
+            .catch(error => {
+                alert('提交失败，请重试：' + error.message);
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '提交反馈';
+            });
+            */
+        }
+    </script>
+</body>
+</html>

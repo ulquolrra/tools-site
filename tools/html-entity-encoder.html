@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML实体转义/反转义工具 - 在线HTML编码解码</title>
+    <meta name="description" content="免费在线HTML实体转义工具，将特殊字符转换为HTML实体，或将HTML实体还原为正常字符，支持编码和解码">
+    <meta name="keywords" content="HTML实体,HTML转义,HTML编码,HTML解码,特殊字符转换,在线工具">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-tools me-2"></i>在线工具箱
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">首页</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/about.html">关于我们</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/contact.html">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="tool-container fade-in">
+        <div class="tool-header">
+            <h1 class="tool-title">HTML实体转义/反转义工具</h1>
+            <p class="tool-description">在线HTML特殊字符与实体编码互相转换，支持编码和解码</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="html-entity-input" class="form-label">输入文本</label>
+                    <textarea class="form-control" id="html-entity-input" rows="10" placeholder="请输入要转换的文本（如：&lt;script&gt; 或 <script>）..."></textarea>
+                    <div class="form-text">支持中文、英文、HTML标签等</div>
+                </div>
+                
+                <div class="d-flex gap-2">
+                    <button class="btn btn-primary" id="encode-btn">
+                        <i class="fas fa-lock me-1"></i> HTML实体编码
+                    </button>
+                    <button class="btn btn-outline-primary" id="decode-btn">
+                        <i class="fas fa-lock-open me-1"></i> HTML实体解码
+                    </button>
+                    <button class="btn btn-outline-success copy-btn" data-target="html-entity-input">
+                        <i class="fas fa-copy me-1"></i> 复制
+                    </button>
+                    <button class="btn btn-outline-danger clear-btn" data-target="html-entity-input">
+                        <i class="fas fa-trash me-1"></i> 清空
+                    </button>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="html-entity-output" class="form-label">输出结果</label>
+                    <textarea class="form-control" id="html-entity-output" rows="10" readonly placeholder="编码/解码结果将在这里显示..."></textarea>
+                </div>
+                
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-success copy-btn" data-target="html-entity-output">
+                        <i class="fas fa-copy me-1"></i> 复制结果
+                    </button>
+                    <button class="btn btn-outline-secondary" id="download-btn">
+                        <i class="fas fa-download me-1"></i> 下载结果
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>使用说明</h4>
+            <div class="alert alert-info">
+                <strong>功能介绍：</strong>
+                <ul class="mb-0">
+                    <li><strong>HTML实体编码：</strong>将特殊字符（如 &lt;、&gt;、&amp; 等）转换为对应的HTML实体编码</li>
+                    <li><strong>HTML实体解码：</strong>将HTML实体编码还原为正常字符</li>
+                    <li><strong>批量转换：</strong>支持大段文本内容的批量转换</li>
+                    <li><strong>实时预览：</strong>编码和解码结果实时显示</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>HTML实体简介</h4>
+            <div class="alert alert-light">
+                <p class="mb-0">HTML实体编码用于在HTML文档中表示特殊字符和保留字符。在HTML中，一些字符如 &lt;（小于号）和 &gt;（大于号）具有特殊含义，需要使用实体编码来表示。</p>
+                <ul class="mt-2 mb-0">
+                    <li><code>&lt;</code> = &amp;lt;</li>
+                    <li><code>&gt;</code> = &amp;gt;</li>
+                    <li><code>&amp;</code> = &amp;amp;</li>
+                    <li><code>&quot;</code> = &amp;quot;</li>
+                    <li><code>&apos;</code> = &amp;apos;</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>常见用法</h4>
+            <div class="example-code">
+// 编码示例
+输入: &lt;script&gt;alert(&quot;Hello&quot;)&lt;/script&gt;
+点击"HTML实体编码"
+输出: &amp;lt;script&amp;gt;alert(&amp;quot;Hello&amp;quot;)&amp;lt;/script&amp;gt;
+
+// 解码示例
+输入: &amp;lt;script&amp;gt;alert(&amp;quot;Hello&amp;quot;)&amp;lt;/script&amp;gt;
+点击"HTML实体解码"
+输出: &lt;script&gt;alert(&quot;Hello&quot;)&lt;/script&gt;</div>
+        </div>
+    </div>
+
+    <footer class="bg-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-3">HTML实体转义工具</h5>
+                    <p class="text-muted small">免费、易用的在线HTML实体编码/解码工具，支持特殊字符与实体编码的互相转换。</p>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">快速链接</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/" class="text-decoration-none">首页</a></li>
+                        <li class="mb-2"><a href="/pages/about.html" class="text-decoration-none">关于我们</a></li>
+                        <li class="mb-2"><a href="/pages/contact.html" class="text-decoration-none">联系我们</a></li>
+                        <li class="mb-2"><a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">推荐工具</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/tools/json-formatter" class="text-decoration-none">JSON格式化</a></li>
+                        <li class="mb-2"><a href="/tools/base64-encoder" class="text-decoration-none">Base64编解码</a></li>
+                        <li class="mb-2"><a href="/tools/jwt-decoder" class="text-decoration-none">JWT解码器</a></li>
+                        <li class="mb-2"><a href="/tools/md5-encoder" class="text-decoration-none">MD5/SHA加密</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center text-muted small">
+                <p>Copyright © 2024 在线工具箱 | <a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="text-center my-4">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="1234567890"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputTextarea = document.getElementById('html-entity-input');
+            const outputTextarea = document.getElementById('html-entity-output');
+            const encodeBtn = document.getElementById('encode-btn');
+            const decodeBtn = document.getElementById('decode-btn');
+            const downloadBtn = document.getElementById('download-btn');
+
+            // HTML实体编码映射
+            const entityMap = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&apos;',
+                '/': '&frasl;'
+            };
+
+            // 反向映射（解码用）
+            const reverseEntityMap = {};
+            for (const [key, value] of Object.entries(entityMap)) {
+                reverseEntityMap[value] = key;
+            }
+
+            // HTML实体编码
+            function encodeHtmlEntities(text) {
+                return text.replace(/[&<>"'/]/g, char => entityMap[char] || char);
+            }
+
+            // HTML实体解码
+            function decodeHtmlEntities(text) {
+                return text.replace(/&(?:amp|lt|gt|quot|apos|frasl);/g, match => reverseEntityMap[match] || match);
+            }
+
+            // 编码按钮
+            encodeBtn.addEventListener('click', function() {
+                const input = inputTextarea.value;
+                if (!input) {
+                    alert('请输入要编码的文本');
+                    return;
+                }
+                outputTextarea.value = encodeHtmlEntities(input);
+            });
+
+            // 解码按钮
+            decodeBtn.addEventListener('click', function() {
+                const input = inputTextarea.value;
+                if (!input) {
+                    alert('请输入要解码的文本');
+                    return;
+                }
+                outputTextarea.value = decodeHtmlEntities(input);
+            });
+
+            // 下载功能
+            if (downloadBtn && outputTextarea) {
+                downloadBtn.addEventListener('click', function() {
+                    const content = outputTextarea.value;
+                    if (!content) {
+                        alert('没有内容可以下载');
+                        return;
+                    }
+
+                    const blob = new Blob([content], { type: 'text/plain' });
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = 'html-entity-result.txt';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
