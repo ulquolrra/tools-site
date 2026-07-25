@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS阴影生成器 - 在线盒子阴影生成工具</title>
+    <meta name="description" content="免费在线CSS阴影生成器，支持单个和多个阴影效果，可视化调整水平、垂直偏移、模糊半径、扩展半径和颜色，实时预览和代码生成">
+    <meta name="keywords" content="CSS阴影生成器,box-shadow生成器,盒子阴影,CSS阴影,在线阴影生成,CSS特效,box-shadow在线工具">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <style>
+        .shadow-preview {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            margin: 20px auto;
+            transition: box-shadow 0.3s ease;
+        }
+        .shadow-demo {
+            width: 150px;
+            height: 150px;
+            background: white;
+            border-radius: 8px;
+            margin: 10px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #666;
+        }
+        .color-picker-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .color-preview {
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-tools me-2"></i>在线工具箱
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">首页</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/about.html">关于我们</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/contact.html">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="tool-container fade-in">
+        <div class="tool-header">
+            <h1 class="tool-title">CSS阴影生成器</h1>
+            <p class="tool-description">在线生成CSS box-shadow属性，支持单个和多个阴影效果，可视化调整参数，实时预览和代码生成</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <i class="fas fa-sliders-h me-2"></i> 阴影参数设置
+                    </div>
+                    <div class="card-body">
+                        <div id="shadow-controls">
+                            <!-- 第一个阴影 -->
+                            <div class="shadow-control mb-4" data-index="0">
+                                <h5 class="mb-3">阴影 #1</h5>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">水平偏移 (Horizontal Offset)</label>
+                                    <div class="d-flex gap-2 align-items-center">
+                                        <input type="range" class="form-range flex-grow-1" 
+                                               id="shadow-h-0" min="-50" max="50" value="5">
+                                        <span class="badge bg-secondary" id="shadow-h-value-0">5px</span>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">垂直偏移 (Vertical Offset)</label>
+                                    <div class="d-flex gap-2 align-items-center">
+                                        <input type="range" class="form-range flex-grow-1" 
+                                               id="shadow-v-0" min="-50" max="50" value="5">
+                                        <span class="badge bg-secondary" id="shadow-v-value-0">5px</span>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">模糊半径 (Blur Radius)</label>
+                                    <div class="d-flex gap-2 align-items-center">
+                                        <input type="range" class="form-range flex-grow-1" 
+                                               id="shadow-blur-0" min="0" max="100" value="10">
+                                        <span class="badge bg-secondary" id="shadow-blur-value-0">10px</span>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">扩展半径 (Spread Radius)</label>
+                                    <div class="d-flex gap-2 align-items-center">
+                                        <input type="range" class="form-range flex-grow-1" 
+                                               id="shadow-spread-0" min="-50" max="50" value="0">
+                                        <span class="badge bg-secondary" id="shadow-spread-value-0">0px</span>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">阴影颜色</label>
+                                    <div class="color-picker-container">
+                                        <input type="color" class="form-control form-control-color" 
+                                               id="shadow-color-0" value="#333333">
+                                        <span class="color-preview" id="shadow-color-preview-0" style="background: #333333;"></span>
+                                        <span class="badge bg-secondary" id="shadow-color-value-0">#333333</span>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">不透明度</label>
+                                    <div class="d-flex gap-2 align-items-center">
+                                        <input type="range" class="form-range flex-grow-1" 
+                                               id="shadow-opacity-0" min="0" max="100" value="50">
+                                        <span class="badge bg-secondary" id="shadow-opacity-value-0">50%</span>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">阴影类型</label>
+                                    <select class="form-select" id="shadow-type-0">
+                                        <option value="">默认 (外阴影)</option>
+                                        <option value="inset">内阴影 (inset)</option>
+                                    </select>
+                                </div>
+
+                                <button class="btn btn-danger btn-sm remove-shadow" data-index="0">
+                                    <i class="fas fa-trash me-1"></i> 移除阴影
+                                </button>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-success btn-sm" id="add-shadow">
+                            <i class="fas fa-plus me-1"></i> 添加阴影
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <i class="fas fa-code me-2"></i> CSS代码
+                    </div>
+                    <div class="card-body">
+                        <label for="css-code" class="form-label">生成的CSS代码</label>
+                        <div class="input-group mb-2">
+                            <textarea class="form-control" id="css-code" rows="4" readonly placeholder="CSS代码将在这里显示..."></textarea>
+                            <button class="btn btn-outline-success copy-btn" data-target="css-code">
+                                <i class="fas fa-copy me-1"></i> 复制
+                            </button>
+                        </div>
+
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="include-prefix" checked>
+                            <label class="form-check-label" for="include-prefix">包含浏览器前缀 (-webkit-, -moz-)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card border-0 h-100">
+                    <div class="card-body text-center">
+                        <h4 class="card-title mb-4">实时预览</h4>
+                        <div class="shadow-preview" id="shadow-preview">
+                            <div class="shadow-demo">示例</div>
+                        </div>
+
+                        <div class="mt-4">
+                            <h5>快速预设</h5>
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-outline-primary preset-btn" data-preset="soft">柔和阴影</button>
+                                <button class="btn btn-outline-primary preset-btn" data-preset="medium">中等阴影</button>
+                                <button class="btn btn-outline-primary preset-btn" data-preset="hard">强硬阴影</button>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <h5>常见阴影效果</h5>
+                            <div class="d-flex flex-wrap gap-2 justify-content-center">
+                                <button class="btn btn-sm btn-light preset-btn" data-preset="card">卡片阴影</button>
+                                <button class="btn btn-sm btn-light preset-btn" data-preset="button">按钮阴影</button>
+                                <button class="btn btn-sm btn-light preset-btn" data-preset="floating">悬浮阴影</button>
+                                <button class="btn btn-sm btn-light preset-btn" data-preset="neon">霓虹光效</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>使用说明</h4>
+            <div class="alert alert-info">
+                <strong>功能介绍：</strong>
+                <ul class="mb-0">
+                    <li><strong>可视化调整：</strong>通过滑块实时调整阴影的各个参数</li>
+                    <li><strong>多阴影支持：</strong>可以添加多个阴影效果，用逗号分隔</li>
+                    <li><strong>实时预览：</strong>即时查看阴影效果</li>
+                    <li><strong>快速预设：</strong>提供常见的阴影效果预设</li>
+                    <li><strong>代码生成：</strong>自动生成可用的CSS代码</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>CSS box-shadow 属性说明</h4>
+            <div class="alert alert-light">
+                <p class="mb-0"><strong>box-shadow</strong> 属性用于向框添加一个或多个阴影效果。</p>
+                <table class="table table-sm table-bordered mt-3">
+                    <thead>
+                        <tr>
+                            <th>参数</th>
+                            <th>描述</th>
+                            <th>取值</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>h-offset</td>
+                            <td>水平偏移量</td>
+                            <td>正数向右，负数向左</td>
+                        </tr>
+                        <tr>
+                            <td>v-offset</td>
+                            <td>垂直偏移量</td>
+                            <td>正数向下，负数向上</td>
+                        </tr>
+                        <tr>
+                            <td>blur</td>
+                            <td>模糊半径</td>
+                            <td>值越大越模糊，不能为负值</td>
+                        </tr>
+                        <tr>
+                            <td>spread</td>
+                            <td>扩展半径</td>
+                            <td>正数扩大阴影，负数缩小阴影</td>
+                        </tr>
+                        <tr>
+                            <td>color</td>
+                            <td>阴影颜色</td>
+                            <td>可以使用颜色名、十六进制、RGB等</td>
+                        </tr>
+                        <tr>
+                            <td>inset</td>
+                            <td>内阴影</td>
+                            <td>添加此关键字表示内阴影</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>常见例子</h4>
+            <div class="example-code">
+// 示例1: 基础阴影
+水平偏移: 5px
+垂直偏移: 5px
+模糊半径: 10px
+结果: box-shadow: 5px 5px 10px #333;
+
+// 示例2: 卡片悬浮效果
+水平偏移: 0px
+垂直偏移: 4px
+模糊半径: 8px
+扩展半径: 0px
+颜色: rgba(0,0,0,0.1)
+结果: box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+
+// 示例3: 多重阴影
+阴影1: 0 2px 4px rgba(0,0,0,0.1)
+阴影2: 0 8px 16px rgba(0,0,0,0.1)
+结果: box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.1);
+
+// 示例4: 内阴影
+水平偏移: inset 0 0 10px #ff0000
+结果: box-shadow: inset 0 0 10px #ff0000;</div>
+        </div>
+    </div>
+
+    <footer class="bg-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-3">CSS阴影生成器</h5>
+                    <p class="text-muted small">免费、易用的在线CSS阴影生成工具，支持多个阴影效果，实时预览，自动生成CSS代码。</p>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">快速链接</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/" class="text-decoration-none">首页</a></li>
+                        <li class="mb-2"><a href="/pages/about.html" class="text-decoration-none">关于我们</a></li>
+                        <li class="mb-2"><a href="/pages/contact.html" class="text-decoration-none">联系我们</a></li>
+                        <li class="mb-2"><a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">推荐工具</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/tools/json-formatter" class="text-decoration-none">JSON格式化</a></li>
+                        <li class="mb-2"><a href="/tools/base64-encoder" class="text-decoration-none">Base64编解码</a></li>
+                        <li class="mb-2"><a href="/tools/password-generator" class="text-decoration-none">密码生成器</a></li>
+                        <li class="mb-2"><a href="/tools/cron-generator" class="text-decoration-none">Cron表达式生成器</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center text-muted small">
+                <p>Copyright © 2024 在线工具箱 | <a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="text-center my-4">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="1234567890"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const shadowControls = document.getElementById('shadow-controls');
+            const addShadowBtn = document.getElementById('add-shadow');
+            const cssCodeTextarea = document.getElementById('css-code');
+            const shadowPreview = document.getElementById('shadow-preview');
+            const includePrefixCheckbox = document.getElementById('include-prefix');
+            const presetButtons = document.querySelectorAll('.preset-btn');
+
+            let shadowCount = 1;
+
+            // 添加新的阴影控制
+            addShadowBtn.addEventListener('click', function() {
+                const index = shadowCount++;
+                const shadowControl = createShadowControl(index);
+                shadowControls.appendChild(shadowControl);
+                updateCSS();
+                
+                // 为新添加的控制添加事件监听器
+                addShadowControlListeners(shadowControl, index);
+            });
+
+            // 创建阴影控制HTML
+            function createShadowControl(index) {
+                const control = document.createElement('div');
+                control.className = 'shadow-control mb-4';
+                control.dataset.index = index;
+                control.innerHTML = `
+                    <h5 class="mb-3">阴影 #${index + 1}</h5>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">水平偏移 (Horizontal Offset)</label>
+                        <div class="d-flex gap-2 align-items-center">
+                            <input type="range" class="form-range flex-grow-1" 
+                                   id="shadow-h-${index}" min="-50" max="50" value="0">
+                            <span class="badge bg-secondary" id="shadow-h-value-${index}">0px</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">垂直偏移 (Vertical Offset)</label>
+                        <div class="d-flex gap-2 align-items-center">
+                            <input type="range" class="form-range flex-grow-1" 
+                                   id="shadow-v-${index}" min="-50" max="50" value="0">
+                            <span class="badge bg-secondary" id="shadow-v-value-${index}">0px</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">模糊半径 (Blur Radius)</label>
+                        <div class="d-flex gap-2 align-items-center">
+                            <input type="range" class="form-range flex-grow-1" 
+                                   id="shadow-blur-${index}" min="0" max="100" value="10">
+                            <span class="badge bg-secondary" id="shadow-blur-value-${index}">10px</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">扩展半径 (Spread Radius)</label>
+                        <div class="d-flex gap-2 align-items-center">
+                            <input type="range" class="form-range flex-grow-1" 
+                                   id="shadow-spread-${index}" min="-50" max="50" value="0">
+                            <span class="badge bg-secondary" id="shadow-spread-value-${index}">0px</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">阴影颜色</label>
+                        <div class="color-picker-container">
+                            <input type="color" class="form-control form-control-color" 
+                                   id="shadow-color-${index}" value="#333333">
+                            <span class="color-preview" id="shadow-color-preview-${index}" style="background: #333333;"></span>
+                            <span class="badge bg-secondary" id="shadow-color-value-${index}">#333333</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">不透明度</label>
+                        <div class="d-flex gap-2 align-items-center">
+                            <input type="range" class="form-range flex-grow-1" 
+                                   id="shadow-opacity-${index}" min="0" max="100" value="50">
+                            <span class="badge bg-secondary" id="shadow-opacity-value-${index}">50%</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">阴影类型</label>
+                        <select class="form-select" id="shadow-type-${index}">
+                            <option value="">默认 (外阴影)</option>
+                            <option value="inset">内阴影 (inset)</option>
+                        </select>
+                    </div>
+
+                    <button class="btn btn-danger btn-sm remove-shadow" data-index="${index}">
+                        <i class="fas fa-trash me-1"></i> 移除阴影
+                    </button>
+                `;
+                return control;
+            }
+
+            // 为阴影控制添加事件监听器
+            function addShadowControlListeners(control, index) {
+                const hSlider = control.querySelector(`#shadow-h-${index}`);
+                const hValue = control.querySelector(`#shadow-h-value-${index}`);
+                const vSlider = control.querySelector(`#shadow-v-${index}`);
+                const vValue = control.querySelector(`#shadow-v-value-${index}`);
+                const blurSlider = control.querySelector(`#shadow-blur-${index}`);
+                const blurValue = control.querySelector(`#shadow-blur-value-${index}`);
+                const spreadSlider = control.querySelector(`#shadow-spread-${index}`);
+                const spreadValue = control.querySelector(`#shadow-spread-value-${index}`);
+                const colorInput = control.querySelector(`#shadow-color-${index}`);
+                const colorPreview = control.querySelector(`#shadow-color-preview-${index}`);
+                const colorValue = control.querySelector(`#shadow-color-value-${index}`);
+                const opacitySlider = control.querySelector(`#shadow-opacity-${index}`);
+                const opacityValue = control.querySelector(`#shadow-opacity-value-${index}`);
+                const typeSelect = control.querySelector(`#shadow-type-${index}`);
+                const removeBtn = control.querySelector('.remove-shadow');
+
+                // 水平偏移
+                hSlider.addEventListener('input', function() {
+                    hValue.textContent = this.value + 'px';
+                    updateCSS();
+                });
+
+                // 垂直偏移
+                vSlider.addEventListener('input', function() {
+                    vValue.textContent = this.value + 'px';
+                    updateCSS();
+                });
+
+                // 模糊半径
+                blurSlider.addEventListener('input', function() {
+                    blurValue.textContent = this.value + 'px';
+                    updateCSS();
+                });
+
+                // 扩展半径
+                spreadSlider.addEventListener('input', function() {
+                    spreadValue.textContent = this.value + 'px';
+                    updateCSS();
+                });
+
+                // 颜色
+                colorInput.addEventListener('input', function() {
+                    colorPreview.style.background = this.value;
+                    colorValue.textContent = this.value;
+                    updateCSS();
+                });
+
+                // 不透明度
+                opacitySlider.addEventListener('input', function() {
+                    opacityValue.textContent = this.value + '%';
+                    updateCSS();
+                });
+
+                // 阴影类型
+                typeSelect.addEventListener('change', updateCSS);
+
+                // 移除阴影
+                removeBtn.addEventListener('click', function() {
+                    if (document.querySelectorAll('.shadow-control').length > 1) {
+                        control.remove();
+                        updateCSS();
+                        // 重新编号
+                        reindexShadows();
+                    } else {
+                        alert('至少保留一个阴影');
+                    }
+                });
+            }
+
+            // 重新编号阴影控制
+            function reindexShadows() {
+                const controls = document.querySelectorAll('.shadow-control');
+                controls.forEach((control, index) => {
+                    control.dataset.index = index;
+                    control.querySelector('h5').textContent = `阴影 #${index + 1}`;
+                    
+                    // 更新所有ID
+                    const elements = control.querySelectorAll('[id^="shadow-"]');
+                    elements.forEach(el => {
+                        const oldId = el.id;
+                        const newId = oldId.replace(/\-\d+$/, '-' + index);
+                        el.id = newId;
+                    });
+                    
+                    // 更新移除按钮的data-index
+                    const removeBtn = control.querySelector('.remove-shadow');
+                    if (removeBtn) {
+                        removeBtn.dataset.index = index;
+                    }
+                    
+                    // 重新绑定事件
+                    addShadowControlListeners(control, index);
+                });
+                shadowCount = controls.length;
+            }
+
+            // 为第一个阴影添加事件监听器
+            addShadowControlListeners(document.querySelector('.shadow-control'), 0);
+
+            // 更新CSS代码和预览
+            function updateCSS() {
+                const shadowControls = document.querySelectorAll('.shadow-control');
+                const shadows = [];
+
+                shadowControls.forEach((control, index) => {
+                    const h = control.querySelector(`#shadow-h-${index}`).value;
+                    const v = control.querySelector(`#shadow-v-${index}`).value;
+                    const blur = control.querySelector(`#shadow-blur-${index}`).value;
+                    const spread = control.querySelector(`#shadow-spread-${index}`).value;
+                    const color = control.querySelector(`#shadow-color-${index}`).value;
+                    const opacity = control.querySelector(`#shadow-opacity-${index}`).value / 100;
+                    const type = control.querySelector(`#shadow-type-${index}`).value;
+
+                    // 计算RGBA颜色
+                    const rgb = hexToRgb(color);
+                    const rgbaColor = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity})`;
+
+                    // 构建阴影字符串
+                    let shadow = `${h}px ${v}px ${blur}px ${spread}px ${rgbaColor}`;
+                    if (type === 'inset') {
+                        shadow = `inset ${shadow}`;
+                    }
+                    shadows.push(shadow);
+                });
+
+                // 生成CSS代码
+                const boxShadow = shadows.join(', ');
+                const includePrefix = includePrefixCheckbox.checked;
+
+                let cssCode = `box-shadow: ${boxShadow};`;
+                
+                if (includePrefix) {
+                    cssCode = `-webkit-box-shadow: ${boxShadow};\n-moz-box-shadow: ${boxShadow};\n${cssCode}`;
+                }
+
+                cssCodeTextarea.value = cssCode;
+
+                // 更新预览
+                shadowPreview.style.boxShadow = boxShadow;
+            }
+
+            // Hex颜色转RGB
+            function hexToRgb(hex) {
+                // 移除#号
+                hex = hex.replace('#', '');
+                
+                // 处理3位hex
+                if (hex.length === 3) {
+                    hex = hex.split('').map(c => c + c).join('');
+                }
+
+                const r = parseInt(hex.substring(0, 2), 16);
+                const g = parseInt(hex.substring(2, 4), 16);
+                const b = parseInt(hex.substring(4, 6), 16);
+
+                return { r, g, b };
+            }
+
+            // 预设按钮事件
+            presetButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const preset = this.dataset.preset;
+                    applyPreset(preset);
+                });
+            });
+
+            // 应用预设
+            function applyPreset(preset) {
+                // 移除所有额外的阴影
+                const controls = document.querySelectorAll('.shadow-control');
+                controls.forEach((control, index) => {
+                    if (index > 0) {
+                        control.remove();
+                    }
+                });
+                shadowCount = 1;
+
+                const control = document.querySelector('.shadow-control');
+                
+                switch(preset) {
+                    case 'soft':
+                        control.querySelector('#shadow-h-0').value = 2;
+                        control.querySelector('#shadow-v-0').value = 2;
+                        control.querySelector('#shadow-blur-0').value = 10;
+                        control.querySelector('#shadow-spread-0').value = 0;
+                        control.querySelector('#shadow-color-0').value = '#000000';
+                        control.querySelector('#shadow-opacity-0').value = 20;
+                        control.querySelector('#shadow-type-0').value = '';
+                        break;
+
+                    case 'medium':
+                        control.querySelector('#shadow-h-0').value = 4;
+                        control.querySelector('#shadow-v-0').value = 4;
+                        control.querySelector('#shadow-blur-0').value = 15;
+                        control.querySelector('#shadow-spread-0').value = 0;
+                        control.querySelector('#shadow-color-0').value = '#000000';
+                        control.querySelector('#shadow-opacity-0').value = 30;
+                        control.querySelector('#shadow-type-0').value = '';
+                        break;
+
+                    case 'hard':
+                        control.querySelector('#shadow-h-0').value = 8;
+                        control.querySelector('#shadow-v-0').value = 8;
+                        control.querySelector('#shadow-blur-0').value = 20;
+                        control.querySelector('#shadow-spread-0').value = 5;
+                        control.querySelector('#shadow-color-0').value = '#000000';
+                        control.querySelector('#shadow-opacity-0').value = 40;
+                        control.querySelector('#shadow-type-0').value = '';
+                        break;
+
+                    case 'card':
+                        control.querySelector('#shadow-h-0').value = 0;
+                        control.querySelector('#shadow-v-0').value = 4;
+                        control.querySelector('#shadow-blur-0').value = 8;
+                        control.querySelector('#shadow-spread-0').value = 0;
+                        control.querySelector('#shadow-color-0').value = '#000000';
+                        control.querySelector('#shadow-opacity-0').value = 10;
+                        control.querySelector('#shadow-type-0').value = '';
+                        break;
+
+                    case 'button':
+                        control.querySelector('#shadow-h-0').value = 0;
+                        control.querySelector('#shadow-v-0').value = 2;
+                        control.querySelector('#shadow-blur-0').value = 4;
+                        control.querySelector('#shadow-spread-0').value = 0;
+                        control.querySelector('#shadow-color-0').value = '#000000';
+                        control.querySelector('#shadow-opacity-0').value = 20;
+                        control.querySelector('#shadow-type-0').value = '';
+                        break;
+
+                    case 'floating':
+                        control.querySelector('#shadow-h-0').value = 0;
+                        control.querySelector('#shadow-v-0').value = 10;
+                        control.querySelector('#shadow-blur-0').value = 25;
+                        control.querySelector('#shadow-spread-0').value = 0;
+                        control.querySelector('#shadow-color-0').value = '#000000';
+                        control.querySelector('#shadow-opacity-0').value = 15;
+                        control.querySelector('#shadow-type-0').value = '';
+                        break;
+
+                    case 'neon':
+                        control.querySelector('#shadow-h-0').value = 0;
+                        control.querySelector('#shadow-v-0').value = 0;
+                        control.querySelector('#shadow-blur-0').value = 20;
+                        control.querySelector('#shadow-spread-0').value = 10;
+                        control.querySelector('#shadow-color-0').value = '#00ffff';
+                        control.querySelector('#shadow-opacity-0').value = 50;
+                        control.querySelector('#shadow-type-0').value = '';
+                        break;
+                }
+
+                // 更新所有显示的值
+                updateAllValueDisplays();
+                updateCSS();
+            }
+
+            // 更新所有值的显示
+            function updateAllValueDisplays() {
+                const control = document.querySelector('.shadow-control');
+                const index = 0;
+                control.querySelector(`#shadow-h-value-${index}`).textContent = control.querySelector(`#shadow-h-${index}`).value + 'px';
+                control.querySelector(`#shadow-v-value-${index}`).textContent = control.querySelector(`#shadow-v-${index}`).value + 'px';
+                control.querySelector(`#shadow-blur-value-${index}`).textContent = control.querySelector(`#shadow-blur-${index}`).value + 'px';
+                control.querySelector(`#shadow-spread-value-${index}`).textContent = control.querySelector(`#shadow-spread-${index}`).value + 'px';
+                const color = control.querySelector(`#shadow-color-${index}`).value;
+                control.querySelector(`#shadow-color-preview-${index}`).style.background = color;
+                control.querySelector(`#shadow-color-value-${index}`).textContent = color;
+                control.querySelector(`#shadow-opacity-value-${index}`).textContent = control.querySelector(`#shadow-opacity-${index}`).value + '%';
+            }
+
+            // 页面加载完成后，为第一个阴影更新值显示
+            updateAllValueDisplays();
+            updateCSS();
+
+            // 监听前缀选项变化
+            includePrefixCheckbox.addEventListener('change', updateCSS);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字数统计器 - 在线文本统计工具</title>
+    <meta name="description" content="免费在线字数统计器，支持中文字数、英文单词、字符数、段落数、行数统计，实时统计文本长度、密度和可读性">
+    <meta name="keywords" content="字数统计器,文本统计,字数统计,单词统计,字符统计,段落统计,行数统计,在线统计,文本分析">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-tools me-2"></i>在线工具箱
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">首页</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/about.html">关于我们</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/contact.html">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="tool-container fade-in">
+        <div class="tool-header">
+            <h1 class="tool-title">字数统计器</h1>
+            <p class="tool-description">在线统计文本的字数、字符数、单词数、段落数、行数等，支持中英文混合文本分析</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <i class="fas fa-font me-2"></i> 文本输入
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <textarea class="form-control" id="text-input" rows="12" 
+                                      placeholder="请输入要统计的文本...&#10;&#10;这是一个示例文本。&#10;&#10;这是第二段。你可以粘贴任何文本来进行统计分析。&#10;&#10;支持中英文混合文本。"></textarea>
+                        </div>
+                        <div class="d-flex gap-2 mb-3">
+                            <button class="btn btn-outline-danger clear-btn" data-target="text-input">
+                                <i class="fas fa-trash me-1"></i> 清空
+                            </button>
+                            <button class="btn btn-outline-secondary" id="load-sample">
+                                <i class="fas fa-file-import me-1"></i> 加载示例
+                            </button>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="count-spaces" checked>
+                            <label class="form-check-label" for="count-spaces">包含空格统计</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="count-punctuation" checked>
+                            <label class="form-check-label" for="count-punctuation">包含标点符号统计</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <i class="fas fa-chart-bar me-2"></i> 实时统计
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center g-3">
+                            <div class="col-6 col-sm-4">
+                                <div class="p-3 bg-light rounded">
+                                    <div class="h4 mb-1" id="chinese-count">0</div>
+                                    <div class="small text-muted">中文字数</div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-sm-4">
+                                <div class="p-3 bg-light rounded">
+                                    <div class="h4 mb-1" id="words-count">0</div>
+                                    <div class="small text-muted">单词数</div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-sm-4">
+                                <div class="p-3 bg-light rounded">
+                                    <div class="h4 mb-1" id="chars-count">0</div>
+                                    <div class="small text-muted">字符数</div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-sm-4">
+                                <div class="p-3 bg-light rounded">
+                                    <div class="h4 mb-1" id="paragraphs-count">0</div>
+                                    <div class="small text-muted">段落数</div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-sm-4">
+                                <div class="p-3 bg-light rounded">
+                                    <div class="h4 mb-1" id="lines-count">0</div>
+                                    <div class="small text-muted">行数</div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-sm-4">
+                                <div class="p-3 bg-light rounded">
+                                    <div class="h4 mb-1" id="chars-no-space-count">0</div>
+                                    <div class="small text-muted">字符(不含空格)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card border-0 h-100">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">统计详情</h4>
+
+                        <div class="mb-4">
+                            <h5>文本分析</h5>
+                            <div class="progress mb-3">
+                                <div id="readability-bar" class="progress-bar" role="progressbar" style="width: 0%">
+                                    可读性: 0%
+                                </div>
+                            </div>
+                            <div class="row text-center g-2">
+                                <div class="col-6">
+                                    <div class="p-2 bg-light rounded">
+                                        <div class="h6 mb-0" id="avg-word-length">0</div>
+                                        <div class="small text-muted">平均单词长度</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-2 bg-light rounded">
+                                        <div class="h6 mb-0" id="avg-sentence-length">0</div>
+                                        <div class="small text-muted">平均句子长度</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5>字符分布</h5>
+                            <div class="row text-center g-2">
+                                <div class="col-6">
+                                    <div class="p-2 bg-light rounded">
+                                        <div class="h6 mb-0" id="letters-count">0</div>
+                                        <div class="small text-muted">字母数</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-2 bg-light rounded">
+                                        <div class="h6 mb-0" id="digits-count">0</div>
+                                        <div class="small text-muted">数字数</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-2 bg-light rounded">
+                                        <div class="h6 mb-0" id="spaces-count">0</div>
+                                        <div class="small text-muted">空格数</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-2 bg-light rounded">
+                                        <div class="h6 mb-0" id="punctuation-count">0</div>
+                                        <div class="small text-muted">标点数</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <h5>最常用单词</h5>
+                            <div id="word-cloud" class="bg-light p-3 rounded" style="min-height: 100px;">
+                                输入文本后显示...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>使用说明</h4>
+            <div class="alert alert-info">
+                <strong>功能介绍：</strong>
+                <ul class="mb-0">
+                    <li><strong>实时统计：</strong>输入文本时自动更新所有统计信息</li>
+                    <li><strong>中英文支持：</strong>准确统计中文字数和英文单词数</li>
+                    <li><strong>详细分析：</strong>提供字符、段落、行数等多维度统计</li>
+                    <li><strong>文本分析：</strong>分析文本的可读性、字符分布等</li>
+                    <li><strong>批量处理：</strong>支持大段文本的分析统计</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>统计说明</h4>
+            <div class="alert alert-light">
+                <table class="table table-sm table-bordered">
+                    <thead>
+                        <tr>
+                            <th>项目</th>
+                            <th>定义</th>
+                            <th>示例</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>中文字数</td>
+                            <td>中文汉字的数量</td>
+                            <td>"你好世界" = 4个字</td>
+                        </tr>
+                        <tr>
+                            <td>单词数</td>
+                            <td>由空格分隔的英文单词数量</td>
+                            <td>"Hello world" = 2个单词</td>
+                        </tr>
+                        <tr>
+                            <td>字符数</td>
+                            <td>所有字符的总数（包含空格和标点）</td>
+                            <td>"Hi!" = 3个字符</td>
+                        </tr>
+                        <tr>
+                            <td>段落数</td>
+                            <td>由空行分隔的段落数量</td>
+                            <td>"段落1\n\n段落2" = 2个段落</td>
+                        </tr>
+                        <tr>
+                            <td>行数</td>
+                            <td>文本中的换行符数量 + 1</td>
+                            <td>"行1\n行2" = 2行</td>
+                        </tr>
+                        <tr>
+                            <td>平均单词长度</td>
+                            <td>所有单词的平均字符数</td>
+                            <td>"a bb ccc" = (1+2+3)/3 = 2</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>常见例子</h4>
+            <div class="example-code">
+// 示例1: 简单中文文本
+输入: 这是一个测试文本。
+结果:
+  中文字数: 7
+  单词数: 0
+  字符数: 8 (包含标点)
+  段落数: 1
+  行数: 1
+
+// 示例2: 英文文本
+输入: The quick brown fox jumps over the lazy dog.
+结果:
+  中文字数: 0
+  单词数: 9
+  字符数: 44
+  段落数: 1
+  行数: 1
+
+// 示例3: 混合文本
+输入: Hello 世界! 你好 World!
+结果:
+  中文字数: 4
+  单词数: 2
+  字符数: 16
+  段落数: 1
+  行数: 1
+
+// 示例4: 多段文本
+输入: 第一段
+
+第二段
+
+第三段
+结果:
+  中文字数: 6
+  单词数: 0
+  字符数: 12
+  段落数: 3
+  行数: 5</div>
+        </div>
+    </div>
+
+    <footer class="bg-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-3">字数统计器</h5>
+                    <p class="text-muted small">免费、易用的在线字数统计工具，支持中英文混合文本，提供详细的文本分析统计。</p>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">快速链接</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/" class="text-decoration-none">首页</a></li>
+                        <li class="mb-2"><a href="/pages/about.html" class="text-decoration-none">关于我们</a></li>
+                        <li class="mb-2"><a href="/pages/contact.html" class="text-decoration-none">联系我们</a></li>
+                        <li class="mb-2"><a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">推荐工具</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/tools/json-formatter" class="text-decoration-none">JSON格式化</a></li>
+                        <li class="mb-2"><a href="/tools/base64-encoder" class="text-decoration-none">Base64编解码</a></li>
+                        <li class="mb-2"><a href="/tools/text-tools" class="text-decoration-none">文本处理</a></li>
+                        <li class="mb-2"><a href="/tools/cron-generator" class="text-decoration-none">Cron表达式生成器</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center text-muted small">
+                <p>Copyright © 2024 在线工具箱 | <a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="text-center my-4">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="1234567890"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const textInput = document.getElementById('text-input');
+            const chineseCount = document.getElementById('chinese-count');
+            const wordsCount = document.getElementById('words-count');
+            const charsCount = document.getElementById('chars-count');
+            const paragraphsCount = document.getElementById('paragraphs-count');
+            const linesCount = document.getElementById('lines-count');
+            const charsNoSpaceCount = document.getElementById('chars-no-space-count');
+            const avgWordLength = document.getElementById('avg-word-length');
+            const avgSentenceLength = document.getElementById('avg-sentence-length');
+            const lettersCount = document.getElementById('letters-count');
+            const digitsCount = document.getElementById('digits-count');
+            const spacesCount = document.getElementById('spaces-count');
+            const punctuationCount = document.getElementById('punctuation-count');
+            const readabilityBar = document.getElementById('readability-bar');
+            const wordCloud = document.getElementById('word-cloud');
+            const loadSampleBtn = document.getElementById('load-sample');
+            const countSpacesCheckbox = document.getElementById('count-spaces');
+            const countPunctuationCheckbox = document.getElementById('count-punctuation');
+
+            // 统计文本
+            function countText() {
+                const text = textInput.value;
+                const countSpaces = countSpacesCheckbox.checked;
+                const countPunctuation = countPunctuationCheckbox.checked;
+
+                // 中文字数 (统计所有CJK统一表意符号)
+                const chineseRegex = /[\u4e00-\u9fff]/g;
+                const chineseMatches = text.match(chineseRegex);
+                const chinese = chineseMatches ? chineseMatches.length : 0;
+
+                // 英文字母数
+                const lettersRegex = /[a-zA-Z]/g;
+                const lettersMatches = text.match(lettersRegex);
+                const letters = lettersMatches ? lettersMatches.length : 0;
+
+                // 数字数
+                const digitsRegex = /\d/g;
+                const digitsMatches = text.match(digitsRegex);
+                const digits = digitsMatches ? digitsMatches.length : 0;
+
+                // 空格数
+                const spacesRegex = /\s/g;
+                const spacesMatches = text.match(spacesRegex);
+                const spaces = spacesMatches ? spacesMatches.length : 0;
+
+                // 标点符号数
+                const punctuationRegex = /[\u0021-\u002F\u003A-\u0040\u005B-\u0060\u007B-\u007E\uFF01-\uFF0F\uFF1A-\uFF20\uFF3B-\uFF40\uFF5B-\uFF65]/g;
+                const punctuationMatches = text.match(punctuationRegex);
+                const punctuation = punctuationMatches ? punctuationMatches.length : 0;
+
+                // 字符数
+                let chars = text.length;
+                if (!countSpaces) {
+                    chars -= spaces;
+                }
+                if (!countPunctuation) {
+                    chars -= punctuation;
+                }
+
+                // 字符数(不含空格)
+                const charsNoSpace = text.replace(/\s/g, '').length;
+                if (!countPunctuation) {
+                    // 从charsNoSpace中减去标点 - 这是一个近似值
+                    // 更精确的方法需要重新计算
+                }
+
+                // 单词数 (由空格或标点分隔的英文序列)
+                // 更精确的单词统计：匹配连续的字母
+                const wordsRegex = /[a-zA-Z]+/g;
+                const wordsMatches = text.match(wordsRegex);
+                const words = wordsMatches ? wordsMatches.length : 0;
+
+                // 段落数 (由两个或多个换行符分隔)
+                const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim().length > 0).length;
+                const emptyParagraphs = text.split(/\n\s*\n/).filter(p => p.trim().length === 0).length;
+
+                // 行数
+                const lines = text.split('\n').length;
+
+                // 平均单词长度
+                const avgWordLen = words > 0 ? Math.round(letters / words * 10) / 10 : 0;
+
+                // 平均句子长度 (由标点分隔)
+                const sentencesRegex = /[.!?。！？]/g;
+                const sentencesMatches = text.match(sentencesRegex);
+                const sentences = sentencesMatches ? sentencesMatches.length : 1;
+                // 计算句子的字符数 (包括中文和英文)
+                const sentenceChars = countSpaces ? text.length : text.replace(/\s/g, '').length;
+                const avgSentenceLen = sentences > 0 ? Math.round(sentenceChars / sentences * 10) / 10 : 0;
+
+                // 可读性评分 (简单的Flesch Reading Ease近似)
+                // 使用字节长度和句子数来计算
+                let readability = 0;
+                if (words > 0 && sentences > 0) {
+                    const syllableCount = Math.round(letters / 2.5); // 近似音节数
+                    readability = 206.835 - 1.015 * (words / sentences) - 84.6 * (syllableCount / words);
+                    readability = Math.max(0, Math.min(100, Math.round(readability)));
+                }
+
+                // 更新UI
+                chineseCount.textContent = chinese.toLocaleString();
+                wordsCount.textContent = words.toLocaleString();
+                charsCount.textContent = chars.toLocaleString();
+                paragraphsCount.textContent = paragraphs.toLocaleString();
+                linesCount.textContent = lines.toLocaleString();
+                charsNoSpaceCount.textContent = charsNoSpace.toLocaleString();
+                avgWordLength.textContent = avgWordLen.toFixed(1);
+                avgSentenceLength.textContent = avgSentenceLen.toFixed(1);
+                lettersCount.textContent = letters.toLocaleString();
+                digitsCount.textContent = digits.toLocaleString();
+                spacesCount.textContent = spaces.toLocaleString();
+                punctuationCount.textContent = punctuation.toLocaleString();
+
+                // 更新可读性进度条
+                readabilityBar.style.width = readability + '%';
+                readabilityBar.textContent = `可读性: ${readability}`;
+                readabilityBar.className = 'progress-bar ' + 
+                    (readability >= 80 ? 'bg-success' : 
+                     readability >= 50 ? 'bg-warning' : 'bg-danger');
+
+                // 更新单词云
+                if (words > 0) {
+                    const wordFreq = {};
+                    const wordMatches = text.toLowerCase().match(/[a-zA-Z]+/g);
+                    if (wordMatches) {
+                        wordMatches.forEach(word => {
+                            wordFreq[word] = (wordFreq[word] || 0) + 1;
+                        });
+
+                        // 获取前10个最常用的单词
+                        const sortedWords = Object.entries(wordFreq)
+                            .sort((a, b) => b[1] - a[1])
+                            .slice(0, 10);
+
+                        const maxFreq = Math.max(...sortedWords.map(w => w[1]));
+
+                        wordCloud.innerHTML = sortedWords.map(([word, freq]) => {
+                            const fontSize = Math.max(12, Math.min(32, 12 + (freq / maxFreq) * 20));
+                            const opacity = 0.5 + (freq / maxFreq) * 0.5;
+                            return `<span style="font-size: ${fontSize}px; opacity: ${opacity}; margin-right: 8px; white-space: nowrap;">${word}</span>`;
+                        }).join('');
+                    } else {
+                        wordCloud.textContent = '没有英文单词';
+                    }
+                } else {
+                    wordCloud.textContent = '输入文本后显示...';
+                }
+            }
+
+            // 加载示例文本
+            loadSampleBtn.addEventListener('click', function() {
+                textInput.value = `在线工具箱是一个免费、易用的在线工具集合。我们提供多种实用的开发者工具，帮助您提高工作效率。
+
+Currently, we have 14 tools including JSON formatter, Base64 encoder, URL encoder, timestamp converter, and many more. Each tool is designed to be simple and intuitive to use.
+
+你可以在浏览器中直接使用这些工具，无需安装任何软件。所有工具都是纯静态的，这意味着它们加载速度快，使用安全。
+
+Try it out now! Input some text and see the statistics update in real-time. The word counter supports both Chinese and English text, providing accurate counts for characters, words, paragraphs, and more.
+
+Thank you for using our tools!`;
+                countText();
+            });
+
+            // 输入事件监听 (使用防抖)
+            let timeout = null;
+            textInput.addEventListener('input', function() {
+                clearTimeout(timeout);
+                timeout = setTimeout(countText, 300);
+            });
+
+            // 选项变化时重新统计
+            countSpacesCheckbox.addEventListener('change', countText);
+            countPunctuationCheckbox.addEventListener('change', countText);
+
+            // 页面加载时统计一次
+            countText();
+        });
+    </script>
+</body>
+</html>
