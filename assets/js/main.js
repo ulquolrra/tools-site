@@ -109,30 +109,29 @@ function searchTools(query) {
         'sha1': '/tools/md5-encoder',
         'sha256': '/tools/md5-encoder',
         '加密': '/tools/md5-encoder',
-        'jwt': '/tools/jwt-decoder',
-        'jwt解码': '/tools/jwt-decoder',
         'jwt解码器': '/tools/jwt-decoder',
+        'jwt解码': '/tools/jwt-decoder',
+        'jwt': '/tools/jwt-decoder',
         'token': '/tools/jwt-decoder',
         '文本': '/tools/text-tools',
-        'html实体': '/tools/html-entity-encoder',
         'html实体转义': '/tools/html-entity-encoder',
+        'html实体': '/tools/html-entity-encoder',
+        '密码生成': '/tools/password-generator',
         '密码': '/tools/password-generator',
         'uuid': '/tools/password-generator',
-        '密码生成': '/tools/password-generator',
         '二维码': '/tools/qrcode-generator',
         'qrcode': '/tools/qrcode-generator',
-        'yaml': '/tools/yaml-json-converter',
-        'yaml转json': '/tools/yaml-json-converter',
-        'cron': '/tools/cron-generator',
         'cron表达式': '/tools/cron-generator',
+        'cron': '/tools/cron-generator',
         'css阴影': '/tools/css-box-shadow-generator',
+        '字数统计': '/tools/text-counter',
         '字数': '/tools/text-counter',
         '统计': '/tools/text-counter'
     };
 
     const lowerQuery = query.toLowerCase();
     for (const [key, url] of Object.entries(tools)) {
-        if (lowerQuery.includes(key)) {
+        if (key.toLowerCase().includes(lowerQuery)) {
             window.location.href = url;
             return;
         }
@@ -141,6 +140,7 @@ function searchTools(query) {
     // 如果没有找到匹配的，跳转到首页
     window.location.href = '/';
 }
+
 
 // 工具页面初始化
 function setupToolPages() {
