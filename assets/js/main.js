@@ -94,91 +94,50 @@ if (typeof document !== 'undefined') {
 // 搜索工具
 function searchTools(query) {
     const tools = {
-        // 格式化类
-        'json格式化': '/tools/json-formatter',
         'json': '/tools/json-formatter',
         '格式化': '/tools/json-formatter',
-        'yaml转json': '/tools/yaml-json-converter',
-        'json转yaml': '/tools/yaml-json-converter',
-        'yaml': '/tools/yaml-json-converter',
-        
-        // 编码解码类
-        'base64编码': '/tools/base64-encoder',
-        'base64解码': '/tools/base64-encoder',
         'base64': '/tools/base64-encoder',
         '编码': '/tools/base64-encoder',
         '解码': '/tools/base64-encoder',
-        'url编码': '/tools/url-encoder',
-        'url解码': '/tools/url-encoder',
         'url': '/tools/url-encoder',
         '网址': '/tools/url-encoder',
-        'html实体编码': '/tools/html-entity-encoder',
-        'html实体解码': '/tools/html-entity-encoder',
-        'html实体': '/tools/html-entity-encoder',
-        '实体编码': '/tools/html-entity-encoder',
-        'html转义': '/tools/html-entity-encoder',
-        
-        // 时间日期类
-        '时间戳转换': '/tools/timestamp-converter',
-        '时间戳': '/tools/timestamp-converter',
         '时间': '/tools/timestamp-converter',
         '戳': '/tools/timestamp-converter',
-        'cron表达式生成': '/tools/cron-generator',
-        'cron表达式': '/tools/cron-generator',
-        'cron': '/tools/cron-generator',
-        '定时任务': '/tools/cron-generator',
-        
-        // 加密类
-        'md5加密': '/tools/md5-encoder',
-        'sha加密': '/tools/md5-encoder',
+        '时间戳': '/tools/timestamp-converter',
         'md5': '/tools/md5-encoder',
         'sha': '/tools/md5-encoder',
         'sha1': '/tools/md5-encoder',
         'sha256': '/tools/md5-encoder',
         '加密': '/tools/md5-encoder',
-        'jwt解码器': '/tools/jwt-decoder',
-        'jwt解码': '/tools/jwt-decoder',
         'jwt': '/tools/jwt-decoder',
-        'token解码': '/tools/jwt-decoder',
+        'jwt解码': '/tools/jwt-decoder',
+        'jwt解码器': '/tools/jwt-decoder',
         'token': '/tools/jwt-decoder',
-        
-        // 文本处理类
-        '文本处理': '/tools/text-tools',
         '文本': '/tools/text-tools',
-        '字数统计': '/tools/text-counter',
-        '字数统计器': '/tools/text-counter',
-        '字数': '/tools/text-counter',
-        '文本统计': '/tools/text-counter',
-        '字符统计': '/tools/text-counter',
-        '统计': '/tools/text-counter',
-        
-        // 生成器类
-        '密码生成器': '/tools/password-generator',
-        'uuid生成器': '/tools/password-generator',
-        '密码生成': '/tools/password-generator',
-        'uuid生成': '/tools/password-generator',
+        'html实体': '/tools/html-entity-encoder',
+        'html实体转义': '/tools/html-entity-encoder',
         '密码': '/tools/password-generator',
         'uuid': '/tools/password-generator',
-        '二维码生成器': '/tools/qrcode-generator',
+        '密码生成': '/tools/password-generator',
         '二维码': '/tools/qrcode-generator',
         'qrcode': '/tools/qrcode-generator',
-        'qr码': '/tools/qrcode-generator',
-        'css阴影生成器': '/tools/css-box-shadow-generator',
-        'css阴影生成': '/tools/css-box-shadow-generator',
+        'yaml': '/tools/yaml-json-converter',
+        'yaml转json': '/tools/yaml-json-converter',
+        'cron': '/tools/cron-generator',
+        'cron表达式': '/tools/cron-generator',
         'css阴影': '/tools/css-box-shadow-generator',
-        'box-shadow': '/tools/css-box-shadow-generator',
-        'css生成': '/tools/css-box-shadow-generator',
-        '阴影生成': '/tools/css-box-shadow-generator'
+        '字数': '/tools/text-counter',
+        '统计': '/tools/text-counter'
     };
-    
+
     const lowerQuery = query.toLowerCase();
     for (const [key, url] of Object.entries(tools)) {
-        if (key.toLowerCase().includes(lowerQuery)) {
+        if (lowerQuery.includes(key)) {
             window.location.href = url;
             return;
         }
     }
-    
+
     // 如果没有找到匹配的，跳转到首页
     window.location.href = '/';
 }
