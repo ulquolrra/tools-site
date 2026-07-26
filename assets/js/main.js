@@ -173,7 +173,7 @@ function searchTools(query) {
     
     const lowerQuery = query.toLowerCase();
     for (const [key, url] of Object.entries(tools)) {
-        if (lowerQuery.includes(key)) {
+        if (key.toLowerCase().includes(lowerQuery)) {
             window.location.href = url;
             return;
         }
