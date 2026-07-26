@@ -94,22 +94,60 @@ if (typeof document !== 'undefined') {
 // 搜索工具
 function searchTools(query) {
     const tools = {
+        // 格式化类
         'json': '/tools/json-formatter.html',
         '格式化': '/tools/json-formatter.html',
+        'yaml': '/tools/yaml-json-converter.html',
+        'yaml转json': '/tools/yaml-json-converter.html',
+        'json转yaml': '/tools/yaml-json-converter.html',
+        
+        // 编码解码类
         'base64': '/tools/base64-encoder.html',
         '编码': '/tools/base64-encoder.html',
         '解码': '/tools/base64-encoder.html',
         'url': '/tools/url-encoder.html',
         '网址': '/tools/url-encoder.html',
+        'html实体': '/tools/html-entity-encoder.html',
+        '实体编码': '/tools/html-entity-encoder.html',
+        'html转义': '/tools/html-entity-encoder.html',
+        
+        // 时间日期类
         '时间': '/tools/timestamp-converter.html',
         '戳': '/tools/timestamp-converter.html',
         '时间戳': '/tools/timestamp-converter.html',
+        'cron': '/tools/cron-generator.html',
+        'cron表达式': '/tools/cron-generator.html',
+        '定时任务': '/tools/cron-generator.html',
+        
+        // 加密类
         'md5': '/tools/md5-encoder.html',
         'sha': '/tools/md5-encoder.html',
+        'sha1': '/tools/md5-encoder.html',
+        'sha256': '/tools/md5-encoder.html',
         '加密': '/tools/md5-encoder.html',
+        'jwt': '/tools/jwt-decoder.html',
+        'jwt解码': '/tools/jwt-decoder.html',
+        'token': '/tools/jwt-decoder.html',
+        
+        // 文本处理类
         '文本': '/tools/text-tools.html',
-        '字数': '/tools/text-tools.html',
-        '统计': '/tools/text-tools.html'
+        '字数': '/tools/text-counter.html',
+        '统计': '/tools/text-counter.html',
+        '文本统计': '/tools/text-counter.html',
+        '字符统计': '/tools/text-counter.html',
+        
+        // 生成器类
+        '密码': '/tools/password-generator.html',
+        'uuid': '/tools/password-generator.html',
+        '密码生成': '/tools/password-generator.html',
+        'uuid生成': '/tools/password-generator.html',
+        '二维码': '/tools/qrcode-generator.html',
+        'qrcode': '/tools/qrcode-generator.html',
+        'qr码': '/tools/qrcode-generator.html',
+        'css阴影': '/tools/css-box-shadow-generator.html',
+        'box-shadow': '/tools/css-box-shadow-generator.html',
+        'css生成': '/tools/css-box-shadow-generator.html',
+        '阴影生成': '/tools/css-box-shadow-generator.html'
     };
     
     const lowerQuery = query.toLowerCase();
@@ -140,7 +178,79 @@ function setupToolPages() {
         setupMd5Encoder();
     } else if (pathname.includes('text-tools')) {
         setupTextTools();
+    } else if (pathname.includes('jwt-decoder')) {
+        // JWT解码器工具初始化
+        setupJwtDecoder();
+    } else if (pathname.includes('html-entity-encoder')) {
+        // HTML实体编码器工具初始化
+        setupHtmlEntityEncoder();
+    } else if (pathname.includes('password-generator')) {
+        // 密码生成器工具初始化
+        setupPasswordGenerator();
+    } else if (pathname.includes('qrcode-generator')) {
+        // 二维码生成器工具初始化
+        setupQrcodeGenerator();
+    } else if (pathname.includes('yaml-json-converter')) {
+        // YAML/JSON转换器工具初始化
+        setupYamlJsonConverter();
+    } else if (pathname.includes('cron-generator')) {
+        // Cron表达式生成器工具初始化
+        setupCronGenerator();
+    } else if (pathname.includes('css-box-shadow-generator')) {
+        // CSS阴影生成器工具初始化
+        setupCssBoxShadowGenerator();
+    } else if (pathname.includes('text-counter')) {
+        // 字数统计器工具初始化
+        setupTextCounter();
     }
+}
+
+// JWT解码器工具
+function setupJwtDecoder() {
+    // JWT解码器的特定初始化逻辑
+    // 当前工具页面内置JS已处理，此处保留占位
+}
+
+// HTML实体编码器工具
+function setupHtmlEntityEncoder() {
+    // HTML实体编码器的特定初始化逻辑
+    // 当前工具页面内置JS已处理，此处保留占位
+}
+
+// 密码生成器工具
+function setupPasswordGenerator() {
+    // 密码生成器的特定初始化逻辑
+    // 当前工具页面内置JS已处理，此处保留占位
+}
+
+// 二维码生成器工具
+function setupQrcodeGenerator() {
+    // 二维码生成器的特定初始化逻辑
+    // 当前工具页面内置JS已处理，此处保留占位
+}
+
+// YAML/JSON转换器工具
+function setupYamlJsonConverter() {
+    // YAML/JSON转换器的特定初始化逻辑
+    // 当前工具页面内置JS已处理，此处保留占位
+}
+
+// Cron表达式生成器工具
+function setupCronGenerator() {
+    // Cron表达式生成器的特定初始化逻辑
+    // 当前工具页面内置JS已处理，此处保留占位
+}
+
+// CSS阴影生成器工具
+function setupCssBoxShadowGenerator() {
+    // CSS阴影生成器的特定初始化逻辑
+    // 当前工具页面内置JS已处理，此处保留占位
+}
+
+// 字数统计器工具
+function setupTextCounter() {
+    // 字数统计器的特定初始化逻辑
+    // 当前工具页面内置JS已处理，此处保留占位
 }
 
 // JSON格式化工具
