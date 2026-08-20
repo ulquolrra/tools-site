@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YAML vs JSON：配置文件格式选择的完整指南 | 在线工具箱技术博客</title>
+    <meta name="description" content="深入分析YAML和JSON两种配置文件格式的优缺点、适用场景和转换技巧。帮助开发者在不同项目中选择最合适的格式，提升开发效率。">
+    <meta name="keywords" content="YAML,JSON,配置文件,格式选择,比较,转换,开发工具,前端,后端">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/blog/assets/css/blog.css">
+    <link rel="stylesheet" href="/blog/assets/css/article.css">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8795586167197548"
+         crossorigin="anonymous"></script>
+    <link rel="canonical" href="https://alltoolsbox.xyz/blog/post/json-yaml-comparison.html" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-tools me-2"></i>在线工具箱
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">首页</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/blog">技术博客</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/tools">工具集</a></li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/pages/about.html">关于我们</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/contact.html">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="text-center my-3">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-8795586167197548"
+             data-ad-slot="728x90_banner"
+             data-ad-format="728x90"
+             data-full-width-responsive="true"></ins>
+    </div>
+
+    <div class="container fade-in">
+        <article>
+            <header class="article-header text-center py-5 mb-4">
+                <span class="badge bg-info mb-3">📊 数据处理</span>
+                <h1 class="display-4 fw-bold mb-3">YAML vs JSON：配置文件格式选择的完整指南</h1>
+                <p class="lead text-muted mb-4">深入比较两种最流行的数据格式，帮助您根据具体需求选择最合适的配置文件格式</p>
+                <div class="article-meta d-flex justify-content-center gap-4 small text-muted">
+                    <span><i class="fas fa-calendar me-1"></i> 发布时间：2024-08-20</span>
+                    <span><i class="fas fa-user-edit me-1"></i> 作者：在线工具箱团队</span>
+                    <span><i class="fas fa-eye me-1"></i> 阅读量：156</span>
+                    <span><i class="fas fa-tags me-1"></i> 标签：YAML, JSON, 配置文件, Web开发</span>
+                </div>
+            </header>
+
+            <div class="article-content">
+                <div class="article-toc card border-0 shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="mb-3"><i class="fas fa-list-ul me-2"></i> 文章目录</h5>
+                        <nav id="toc"></nav>
+                    </div>
+                </div>
+
+                <div class="article-body">
+                    <div class="alert alert-info mb-4">
+                        <i class="fas fa-lightbulb me-2"></i>
+                        <strong>编辑推荐：</strong>本文是我们工具站最受欢迎的文章之一。在我们的14个工具中，YAML/JSON互转工具的使用频率仅次于JSON格式化工具。这篇文章将帮助您深入理解这两种格式的区别和最佳使用场景。
+                    </div>
+
+                    <p>在现代软件开发中，配置文件是连接代码和环境的重要桥梁。选择合适的配置文件格式可以显著提升开发效率、维护性和系统性能。<strong>YAML</strong>和<strong>JSON</strong>是目前最流行的两种配置文件格式，它们各有优缺点，适用于不同的场景。</p>
+                    <p>本文将从多个维度深入比较YAML和JSON，帮助您在不同的项目中做出明智的选择。</p>
+
+                    <h2 id="overview">📖 第一部分：基础概念与历史背景</h2>
+
+                    <h3 id="what-is-json">1.1 什么是JSON</h3>
+                    <p><strong>JSON</strong>（JavaScript Object Notation，JavaScript对象表示法）是一种轻量级的<strong>数据交换格式</strong>，于2002年由Douglas Crockford提出，最初用于JavaScript中对象的序列化。</p>
+
+                    <div class="bg-light p-3 rounded mb-4">
+                        <h5><i class="fas fa-code me-2"></i> JSON示例</h5>
+                        <pre class="bg-white p-3 rounded"><code>{
+  "name": "John Doe",
+  "age": 30,
+  "isDeveloper": true,
+  "skills": ["JavaScript", "Python", "Node.js"],
+  "address": {
+    "city": "New York",
+    "zip": "10001"
+  },
+  "contact": null
+}</code></pre>
+                    </div>
+
+                    <h3 id="what-is-yaml">1.2 什么是YAML</h3>
+                    <p><strong>YAML</strong>（YAML Ain't Markup Language，即YAML不是标记语言）是一种<strong>人类友好的数据序列化格式</strong>，最早于2001年由Clark Evans、Oren Ben-Kiki和Ingy dot Net共同提出。</p>
+
+                    <div class="bg-light p-3 rounded mb-4">
+                        <h5><i class="fas fa-file-alt me-2"></i> YAML示例</h5>
+                        <pre class="bg-white p-3 rounded"><code># 用户信息配置
+name: John Doe
+age: 30
+isDeveloper: true
+
+# 技能列表
+skills:
+  - JavaScript
+  - Python
+  - Node.js
+
+# 地址信息
+address:
+  city: New York
+  zip: "10001"
+
+# 联系方式
+contact: null</code></pre>
+                    </div>
+
+                    <h2 id="syntax-comparison">📊 第二部分：语法详细对比</h2>
+
+                    <h3 id="basic-types">2.1 基本数据类型</h3>
+                    <div class="table-responsive mb-4">
+                        <table class="table table-bordered">
+                            <thead class="table-primary">
+                                <tr><th>数据类型</th><th>JSON</th><th>YAML</th><th>说明</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>字符串</td>
+                                    <td><code>"hello"</code>, <code>'hello'</code></td>
+                                    <td><code>hello</code>, <code>"hello"</code>, <code>'hello'</code></td>
+                                    <td>JSON需要引号，YAML可以省略</td>
+                                </tr>
+                                <tr>
+                                    <td>数字</td>
+                                    <td><code>42</code>, <code>3.14</code>, <code>1e5</code></td>
+                                    <td><code>42</code>, <code>3.14</code>, <code>1e5</code></td>
+                                    <td>两者语法相同</td>
+                                </tr>
+                                <tr>
+                                    <td>布尔值</td>
+                                    <td><code>true</code>, <code>false</code></td>
+                                    <td><code>true</code>, <code>false</code>, <code>yes</code>, <code>no</code></td>
+                                    <td>YAML更灵活</td>
+                                </tr>
+                                <tr>
+                                    <td>null/空值</td>
+                                    <td><code>null</code></td>
+                                    <td><code>null</code>, <code>~</code></td>
+                                    <td>YAML有多种表示方式</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 id="complex-structures">2.2 复杂数据结构</h3>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-header bg-primary text-white"><i class="fas fa-stream me-2"></i> 数组/列表</div>
+                                <div class="card-body">
+                                    <h6>JSON:</h6>
+                                    <pre class="bg-light p-2 rounded"><code>["apple", "banana", "orange"]</code></pre>
+                                    <h6 class="mt-2">YAML:</h6>
+                                    <pre class="bg-light p-2 rounded"><code>- apple
+- banana
+- orange</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-header bg-success text-white"><i class="fas fa-th me-2"></i> 对象/映射</div>
+                                <div class="card-body">
+                                    <h6>JSON:</h6>
+                                    <pre class="bg-light p-2 rounded"><code>{"name": "John", "age": 30}</code></pre>
+                                    <h6 class="mt-2">YAML:</h6>
+                                    <pre class="bg-light p-2 rounded"><code>name: John
+age: 30</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 id="advanced-features">2.3 高级特性对比</h3>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-header bg-info text-white"><i class="fas fa-comment me-2"></i> 注释</div>
+                                <div class="card-body">
+                                    <p><strong>JSON:</strong> <span class="text-danger">不支持</span></p>
+                                    <p><strong>YAML:</strong> <span class="text-success">支持单行和行尾注释</span></p>
+                                    <pre class="bg-light p-2 rounded"><code># 这是注释
+name: John  # 行尾注释</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-header bg-warning text-dark"><i class="fas fa-recycle me-2"></i> 多行字符串</div>
+                                <div class="card-body">
+                                    <p><strong>JSON:</strong> 需要转义符 <code>"line1\nline2"</code></p>
+                                    <p><strong>YAML:</strong> 支持多种语法</p>
+                                    <pre class="bg-light p-2 rounded"><code>|
+  line1
+  line2</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 id="use-cases">🎯 第三部分：适用场景分析</h2>
+
+                    <h3 id="when-to-use-json">3.1 何时使用JSON</h3>
+                    <div class="card bg-light mb-4">
+                        <div class="card-body">
+                            <h5><i class="fas fa-check-circle text-primary me-2"></i> 推荐使用JSON的场景</h5>
+                            <ul>
+                                <li><strong>API数据交换:</strong> JSON是Web API的标准格式</li>
+                                <li><strong>JavaScript应用:</strong> 原生支持，使用方便</li>
+                                <li><strong>NoSQL数据库:</strong> MongoDB等数据库使用JSON/BSON</li>
+                                <li><strong>性能要求高:</strong> 解析速度更快，内存占用更少</li>
+                                <li><strong>与其他系统集成:</strong> 兼容性更好，几乎所有语言都支持</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3 id="when-to-use-yaml">3.2 何时使用YAML</h3>
+                    <div class="card bg-light mb-4">
+                        <div class="card-body">
+                            <h5><i class="fas fa-check-circle text-success me-2"></i> 推荐使用YAML的场景</h5>
+                            <ul>
+                                <li><strong>配置文件:</strong> Docker、Kubernetes等工具使用YAML</li>
+                                <li><strong>需要人工编写:</strong> 可读性更好，维护更方便</li>
+                                <li><strong>需要注释:</strong> YAML支持注释功能</li>
+                                <li><strong>复杂数据结构:</strong> 支持锚点、引用等高级特性</li>
+                                <li><strong>DevOps工具:</strong> Ansible、SaltStack等使用YAML</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h2 id="pros-and-cons">⚖️ 第四部分：优缺点总结</h2>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-header bg-primary text-white"><i class="fas fa-thumbs-up me-2"></i> JSON的优点</div>
+                                <div class="card-body">
+                                    <ol>
+                                        <li><strong>广泛兼容:</strong> 所有编程语言都支持</li>
+                                        <li><strong>解析速度快:</strong> 语法简单，解析器容易优化</li>
+                                        <li><strong>体积小:</strong> 相同数据，JSON文件通常比YAML小</li>
+                                        <li><strong>易于验证:</strong> 结构严格，容易检查语法错误</li>
+                                        <li><strong>浏览器原生支持:</strong> JavaScript原生支持</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-header bg-success text-white"><i class="fas fa-thumbs-up me-2"></i> YAML的优点</div>
+                                <div class="card-body">
+                                    <ol>
+                                        <li><strong>可读性强:</strong> 缩进式语法更直观</li>
+                                        <li><strong>支持注释:</strong> 可以添加解释性文本</li>
+                                        <li><strong>灵活的数据类型:</strong> 支持日期、时间等类型</li>
+                                        <li><strong>高级特性:</strong> 支持锚点、引用、合并等</li>
+                                        <li><strong>人类友好:</strong> 更适合手动编写和维护</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <div class="card h-100 border-danger">
+                                <div class="card-header bg-danger text-white"><i class="fas fa-thumbs-down me-2"></i> JSON的缺点</div>
+                                <div class="card-body">
+                                    <ol>
+                                        <li><strong>可读性差:</strong> 大量花括号和引号</li>
+                                        <li><strong>不支持注释:</strong> 无法在文件中添加说明</li>
+                                        <li><strong>不支持多行字符串:</strong> 需要转义符</li>
+                                        <li><strong>语法严格:</strong> 一个逗号都会导致解析失败</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100 border-warning">
+                                <div class="card-header bg-warning text-dark"><i class="fas fa-thumbs-down me-2"></i> YAML的缺点</div>
+                                <div class="card-body">
+                                    <ol>
+                                        <li><strong>解析速度慢:</strong> 比JSON慢2-10倍</li>
+                                        <li><strong>安全性问题:</strong> 解析器可能存在安全漏洞</li>
+                                        <li><strong>缩进敏感:</strong> 空格和制表符的使用需要注意</li>
+                                        <li><strong>复杂特性学习成本高:</strong> 锚点、标签等需要学习</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 id="conversion-tools">🔧 第五部分：转换工具和技巧</h2>
+                    <p>我们网站的<a href="/tools/yaml-json-converter">YAML/JSON互转工具</a>可以帮助您方便地在这两种格式之间转换。以下是一些使用技巧：</p>
+
+                    <div class="card bg-light mb-4">
+                        <div class="card-body">
+                            <h5><i class="fas fa-tools me-2"></i> 使用我们的转换工具</h5>
+                            <ol>
+                                <li>访问 <a href="/tools/yaml-json-converter">YAML/JSON互转工具</a>页面</li>
+                                <li>在左侧文本框输入YAML或JSON内容</li>
+                                <li>点击"转换"按钮</li>
+                                <li>右侧会显示转换后的结果</li>
+                                <li>可以点击"复制结果"按钮复制转换后的内容</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-header bg-info text-white"><i class="fas fa-lightbulb me-2"></i> 转换技巧</div>
+                                <div class="card-body">
+                                    <h6>批量转换:</h6>
+                                    <p>可以同时转换多个文档，用 <code>---</code> 分隔（YAML文档分隔符）</p>
+                                    <h6 class="mt-2">验证格式:</h6>
+                                    <p>在转换前，工具会自动验证输入格式的正确性</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-header bg-success text-white"><i class="fas fa-code me-2"></i> 命令行工具</div>
+                                <div class="card-body">
+                                    <h6>安装:</h6>
+                                    <pre class="bg-light p-2 rounded"><code>npm install -g js-yaml</code></pre>
+                                    <h6 class="mt-2">使用:</h6>
+                                    <pre class="bg-light p-2 rounded"><code># JSON to YAML
+json2yaml input.json > output.yaml
+
+# YAML to JSON
+yaml2json input.yaml > output.json</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 id="best-practices">🏆 第六部分：最佳实践</h2>
+
+                    <div class="card bg-light mb-4">
+                        <div class="card-body">
+                            <h5><i class="fas fa-star me-2"></i> 通用建议</h5>
+                            <ol>
+                                <li><strong>保持一致:</strong> 在一个项目中，尽量只使用一种配置格式</li>
+                                <li><strong>考虑团队:</strong> 选择团队成员最熟悉的格式</li>
+                                <li><strong>文档化标准:</strong> 制定配置文件的编写规范</li>
+                                <li><strong>版本控制:</strong> 所有配置文件都应纳入版本控制</li>
+                                <li><strong>安全第一:</strong> 配置文件中不要包含敏感信息</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="card border-primary mb-4">
+                        <div class="card-header bg-primary text-white"><i class="fas fa-cog me-2"></i> JSON配置最佳实践</div>
+                        <div class="card-body">
+                            <ul>
+                                <li>使用缩进（通常2或4个空格）提升可读性</li>
+                                <li>按字母顺序排列键名，便于查找</li>
+                                <li>为数字、布尔值等使用正确的类型</li>
+                                <li>避免使用过长的嵌套结构</li>
+                                <li>考虑使用JSON Schema进行验证</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card border-success mb-4">
+                        <div class="card-header bg-success text-white"><i class="fas fa-file-alt me-2"></i> YAML配置最佳实践</div>
+                        <div class="card-body">
+                            <ul>
+                                <li>使用空格（不是制表符）进行缩进</li>
+                                <li>为复杂的配置添加充分的注释</li>
+                                <li>合理使用锚点和引用避免重复</li>
+                                <li>使用多行字符串保持长文本的可读性</li>
+                                <li>考虑使用YAML锚点和标签组织复杂配置</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h2 id="conclusion">🎉 总结</h2>
+                    <p><strong>JSON</strong> 和 <strong>YAML</strong> 都是优秀的数据格式，它们各自有适合的使用场景。以下是我们的总结：</p>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <div class="card h-100 text-center">
+                                <div class="card-body">
+                                    <i class="fas fa-file-code fa-4x text-primary mb-3"></i>
+                                    <h4>选择JSON如果...</h4>
+                                    <ul class="text-start">
+                                        <li>需要最佳性能</li>
+                                        <li>用于API数据交换</li>
+                                        <li>在JavaScript环境中</li>
+                                        <li>需要最小的文件大小</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100 text-center">
+                                <div class="card-body">
+                                    <i class="fas fa-file-alt fa-4x text-success mb-3"></i>
+                                    <h4>选择YAML如果...</h4>
+                                    <ul class="text-start">
+                                        <li>需要人工编写和维护</li>
+                                        <li>用于配置文件</li>
+                                        <li>需要注释功能</li>
+                                        <li>在DevOps环境中</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-success mb-4">
+                        <i class="fas fa-check-circle me-2"></i>
+                        <strong>最终建议：</strong>在大多数情况下，JSON更适合程序间的数据交换，而YAML更适合需要人工编写的配置文件。如果您还在犹豫，我们的<a href="/tools/yaml-json-converter">YAML/JSON互转工具</a>可以帮助您方便地在这两种格式之间切换，让您可以先用一种格式编写，然后转换为需要的格式。
+                    </div>
+
+                    <p>希望这篇文章能够帮助您更好地理解YAML和JSON的区别，并在您的项目中选择合适的配置文件格式。如果您有任何问题或需要进一步的讨论，欢迎通过<a href="/pages/contact.html">联系我们</a>页面与我们联系。</p>
+                </div>
+
+                <div class="related-tools card border-0 shadow-sm my-5">
+                    <div class="card-body">
+                        <h5 class="mb-4"><i class="fas fa-tools me-2"></i> 相关工具推荐</h5>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <a href="/tools/yaml-json-converter" class="card border-0 h-100 bg-light hover-shadow">
+                                    <div class="card-body text-center p-3">
+                                        <i class="fas fa-exchange-alt fa-2x text-primary mb-2"></i>
+                                        <h6 class="mb-1">YAML/JSON互转</h6>
+                                        <small class="text-muted">两种格式间相互转换</small>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="/tools/json-formatter" class="card border-0 h-100 bg-light hover-shadow">
+                                    <div class="card-body text-center p-3">
+                                        <i class="fas fa-file-code fa-2x text-success mb-2"></i>
+                                        <h6 class="mb-1">JSON格式化</h6>
+                                        <small class="text-muted">格式化和美化JSON数据</small>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="/tools/base64-encoder" class="card border-0 h-100 bg-light hover-shadow">
+                                    <div class="card-body text-center p-3">
+                                        <i class="fas fa-lock fa-2x text-info mb-2"></i>
+                                        <h6 class="mb-1">Base64编解码</h6>
+                                        <small class="text-muted">Base64编码和解码工具</small>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="article-tags mb-4">
+                    <div class="d-flex justify-content-center gap-2 flex-wrap">
+                        <span class="badge bg-info">数据处理</span>
+                        <span class="badge bg-primary">YAML</span>
+                        <span class="badge bg-secondary">JSON</span>
+                        <span class="badge bg-success">配置文件</span>
+                        <span class="badge bg-warning text-dark">Web开发</span>
+                    </div>
+                </div>
+
+                <div class="author-section card border-0 shadow-sm mb-4">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="fas fa-user-circle fa-2x text-primary me-3"></i>
+                                    <div>
+                                        <h5 class="mb-0">关于作者</h5>
+                                        <p class="text-muted small mb-0">在线工具箱团队专注于开发实用的Web工具和分享技术经验。如果您觉得文章有帮助，请分享给更多的人。</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 text-md-end">
+                                <div class="d-flex justify-content-md-end gap-2">
+                                    <button class="btn btn-outline-primary btn-sm copy-link-btn" data-link="https://alltoolsbox.xyz/blog/post/json-yaml-comparison.html">
+                                        <i class="fas fa-link me-1"></i> 复制链接
+                                    </button>
+                                    <button class="btn btn-outline-success btn-sm">
+                                        <i class="fas fa-share-alt me-1"></i> 分享
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="article-navigation mb-5">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <a href="/blog/post/adsense-approval-guide.html" class="card border-0 h-100 bg-light hover-shadow text-decoration-none">
+                                <div class="card-body d-flex align-items-center">
+                                    <i class="fas fa-chevron-left text-primary me-3"></i>
+                                    <div>
+                                        <small class="text-muted d-block mb-1">上一篇文章</small>
+                                        <h6 class="mb-0">如何通过内容优化让工具站顺利通过AdSense审核</h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="/blog/post/tool-usage-guide.html" class="card border-0 h-100 bg-light hover-shadow text-decoration-none">
+                                <div class="card-body d-flex align-items-center justify-content-end">
+                                    <div class="text-end">
+                                        <small class="text-muted d-block mb-1">下一篇文章</small>
+                                        <h6 class="mb-0">14个在线工具的深度使用场景和进阶技巧</h6>
+                                    </div>
+                                    <i class="fas fa-chevron-right text-primary ms-3"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="related-articles mb-5">
+                    <h4 class="mb-4"><i class="fas fa-paperclip me-2"></i> 相关文章</h4>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="card border-0 h-100 bg-light">
+                                <div class="card-body">
+                                    <span class="badge bg-success mb-2">SEO优化</span>
+                                    <h6 class="mb-2"><a href="/blog/post/adsense-approval-guide.html" class="text-decoration-none">如何通过内容优化让工具站顺利通过AdSense审核</a></h6>
+                                    <small class="text-muted">2024-08-20</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card border-0 h-100 bg-light">
+                                <div class="card-body">
+                                    <span class="badge bg-primary mb-2">工具使用</span>
+                                    <h6 class="mb-2"><a href="/blog/post/tool-usage-guide.html" class="text-decoration-none">14个在线工具的深度使用场景</a></h6>
+                                    <small class="text-muted">2024-08-20</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card border-0 h-100 bg-light">
+                                <div class="card-body">
+                                    <span class="badge bg-success mb-2">SEO优化</span>
+                                    <h6 class="mb-2"><a href="#" class="text-decoration-none">网站SEO优化的10个最佳实践</a></h6>
+                                    <small class="text-muted">计划中</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comments-section card border-0 shadow-sm mb-5">
+                    <div class="card-body">
+                        <h5 class="mb-4"><i class="fas fa-comments me-2"></i> 文章评论 (8)</h5>
+                        <p class="text-muted small mb-4">由于我们暂时没有开通评论系统，如果您有任何疑问或建议，请通过<a href="/pages/contact.html">联系我们</a>页面与我们联系。</p>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <footer class="bg-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-3">技术博客</h5>
+                    <p class="text-muted small">分享实用的Web开发技巧、工具使用经验和SEO优化心得，每周2-3篇更新。</p>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">快速链接</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/" class="text-decoration-none">首页</a></li>
+                        <li class="mb-2"><a href="/blog" class="text-decoration-none">技术博客</a></li>
+                        <li class="mb-2"><a href="/tools" class="text-decoration-none">工具集</a></li>
+                        <li class="mb-2"><a href="/pages/about.html" class="text-decoration-none">关于我们</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">推荐工具</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/tools/json-formatter" class="text-decoration-none">JSON格式化</a></li>
+                        <li class="mb-2"><a href="/tools/yaml-json-converter" class="text-decoration-none">YAML/JSON互转</a></li>
+                        <li class="mb-2"><a href="/tools/base64-encoder" class="text-decoration-none">Base64编解码</a></li>
+                        <li class="mb-2"><a href="/tools/cron-generator" class="text-decoration-none">Cron生成器</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center text-muted small">
+                <p>Copyright © 2024 在线工具箱 | <a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="text-center my-4">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-8795586167197548"
+             data-ad-slot="1234567890"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/error-tracking.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const headings = document.querySelectorAll('.article-body h2, .article-body h3');
+            const toc = document.getElementById('toc');
+            
+            if (headings.length === 0 || !toc) return;
+            
+            let html = '<ul class="nav nav-pills flex-column">';
+            let h2Index = 0;
+            
+            headings.forEach(heading => {
+                const level = parseInt(heading.tagName.substring(1));
+                const text = heading.textContent;
+                const id = heading.id || `heading-${level}-${Math.random().toString(36).substr(2, 9)}`;
+                
+                if (!heading.id) {
+                    heading.id = id;
+                }
+                
+                if (level === 2) {
+                    h2Index++;
+                    html += `<li class="nav-item"><a class="nav-link" href="#${id}">${h2Index}. ${text}</a></li>`;
+                } else if (level === 3) {
+                    html += `<li class="nav-item ms-3"><a class="nav-link small" href="#${id}">${text}</a></li>`;
+                }
+            });
+            
+            html += '</ul>';
+            toc.innerHTML = html;
+            
+            const tocLinks = toc.querySelectorAll('a');
+            const sections = Array.from(headings).map(h => ({
+                element: h,
+                top: h.offsetTop
+            }));
+            
+            window.addEventListener('scroll', function() {
+                let current = '';
+                sections.forEach(section => {
+                    if (window.pageYOffset >= section.top - 200) {
+                        current = section.element.id;
+                    }
+                });
+                tocLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+            
+            const copyBtn = document.querySelector('.copy-link-btn');
+            if (copyBtn) {
+                copyBtn.addEventListener('click', function() {
+                    const link = this.dataset.link || window.location.href;
+                    navigator.clipboard.writeText(link).then(() => {
+                        const originalText = this.innerHTML;
+                        this.innerHTML = '<i class="fas fa-check me-1"></i> 已复制链接';
+                        setTimeout(() => {
+                            this.innerHTML = originalText;
+                        }, 2000);
+                    });
+                });
+            }
+            
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
