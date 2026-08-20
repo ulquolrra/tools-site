@@ -29,16 +29,20 @@
     margin: 0 8px;
 }
 
-/* 文章内容容器 */
+/* 文章内容容器 - 双列布局 */
 .article-content {
     position: relative;
 }
 
-/* 文章目录样式 */
+/* 文章目录样式 - 改为右侧侧边栏 */
 .article-toc {
     position: -webkit-sticky;
     position: sticky;
     top: 20px;
+    float: right;
+    width: 300px;
+    margin-left: 20px;
+    margin-bottom: 20px;
     z-index: 10;
 }
 
@@ -53,6 +57,15 @@
 .article-toc nav {
     max-height: 400px;
     overflow-y: auto;
+}
+
+/* 文章正文 - 清除浮动 */
+.article-body {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #333;
+    clear: both;
+    min-height: 200px; /* 确保内容区域足够高 */
 }
 
 .article-toc .nav-link {
@@ -336,10 +349,15 @@
     
     .article-toc {
         position: relative;
+        float: none !important;
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-bottom: 20px !important;
     }
     
     .article-body {
         padding-top: 0 !important;
+        clear: none !important;
     }
     
     .article-navigation .card-body {
