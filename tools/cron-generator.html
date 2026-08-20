@@ -313,6 +313,364 @@
 周: ?
 结果: 0 0 0 1,15 * ?</div>
         </div>
+
+        <!-- 详细教程 -->
+        <div class="mt-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <i class="fas fa-graduation-cap me-2"></i> 详细教程
+                </div>
+                <div class="card-body">
+                    <h5>Cron表达式完整使用指南</h5>
+                    <p>Cron表达式是用于配置定时任务的标准语法，被广泛应用于Linux系统、Java Spring框架、Quartz调度器等多种环境中。以下是从入门到精通的完整教程：</p>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>学习阶段</th>
+                                    <th>内容重点</th>
+                                    <th>预计时间</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>基础概念</td>
+                                    <td>理解Cron表达式的结构和各个字段的含义</td>
+                                    <td>10分钟</td>
+                                </tr>
+                                <tr>
+                                    <td>语法规则</td>
+                                    <td>掌握通配符、范围、列举、步长等特殊符号的用法</td>
+                                    <td>15分钟</td>
+                                </tr>
+                                <tr>
+                                    <td>实际应用</td>
+                                    <td>学习常见业务场景的Cron表达式配置</td>
+                                    <td>20分钟</td>
+                                </tr>
+                                <tr>
+                                    <td>高级技巧</td>
+                                    <td>处理复杂的调度需求和调试技巧</td>
+                                    <td>30分钟</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <strong>💡 学习建议：</strong>建议结合实际的业务场景进行学习，通过不断练习来加深对Cron表达式的理解。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 应用场景 -->
+        <div class="mt-4">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <i class="fas fa-lightbulb me-2"></i> 应用场景
+                </div>
+                <div class="card-body">
+                    <h5>Cron表达式在不同领域的应用</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <h6><i class="fas fa-server me-2"></i> 系统运维</h6>
+                                <p class="mb-2">在Linux服务器上配置定时任务，如数据库备份、日志清理、系统监控等。Linux Cron是最早支持Cron表达式的系统之一。</p>
+                                <div class="bg-light p-2 rounded">
+                                    <small class="text-muted">例子：每天凌晨2点备份数据库：<code>0 2 * * * /usr/bin/mysqldump</code></small>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <h6><i class="fas fa-code me-2"></i> Java开发</h6>
+                                <p class="mb-2">Spring框架和Quartz调度器广泛使用Cron表达式来配置定时任务、批处理作业、数据同步等功能。</p>
+                                <div class="bg-light p-2 rounded">
+                                    <small class="text-muted">例子：每周一上午10点执行数据同步：<code>0 0 10 ? * MON</code></small>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <h6><i class="fas fa-database me-2"></i> 数据处理</h6>
+                                <p class="mb-2">定期执行数据分析、报表生成、缓存更新等任务，确保数据的及时性和准确性。</p>
+                                <div class="bg-light p-2 rounded">
+                                    <small class="text-muted">例子：每小时更新一次数据缓存：<code>0 0 * * * *</code></small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <h6><i class="fas fa-cloud me-2"></i> 云服务部署</h6>
+                                <p class="mb-2">在Kubernetes、Docker等容器化环境中配置定时任务，如定期重启服务、资源清理、健康检查等。</p>
+                                <div class="bg-light p-2 rounded">
+                                    <small class="text-muted">例子：每天定时重启应用：<code>0 0 3 * * ?</code></small>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <h6><i class="fas fa-envelope me-2"></i> 邮件通知</h6>
+                                <p class="mb-2">定期发送邮件通知、报表邮件、提醒邮件等，保持用户和系统的及时沟通。</p>
+                                <div class="bg-light p-2 rounded">
+                                    <small class="text-muted">例子：每周五下午5点发送周报：<code>0 0 17 ? * FRI</code></small>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <h6><i class="fas fa-chart-line me-2"></i> 监控告警</h6>
+                                <p class="mb-2">配置系统监控、性能检查、异常告警等定时任务，确保系统的稳定运行。</p>
+                                <div class="bg-light p-2 rounded">
+                                    <small class="text-muted">例子：每5分钟检查一次系统状态：<code>0 */5 * * * ?</code></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="alert alert-warning">
+                        <strong>⚠️ 注意：</strong> 在生产环境中配置Cron表达式时，请确保充分测试，避免因为表达式配置错误导致任务无法按时执行或频繁执行。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="mt-4">
+            <div class="card">
+                <div class="card-header bg-warning text-dark">
+                    <i class="fas fa-question-circle me-2"></i> 常见问题解答
+                </div>
+                <div class="card-body">
+                    <div class="accordion" id="cronFaqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#cronFaq1">
+                                    Q: Cron表达式中的*和?有什么区别？
+                                </button>
+                            </h2>
+                            <div id="cronFaq1" class="accordion-collapse collapse show" data-bs-parent="#cronFaqAccordion">
+                                <div class="accordion-body">
+                                    <p><code>*</code> 表示匹配该字段的所有可能值，例如在分钟字段使用 <code>*</code> 表示每分钟都执行。而 <code>?</code> 表示不指定具体值，通常用于日期和周字段中，表示不关心是本月的第几天还是星期几。在Spring Cron中，日期和周字段必须有一个是 <code>?</code>。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cronFaq2">
+                                    Q: 为什么我配置的Cron表达式没有执行？
+                                </button>
+                            </h2>
+                            <div id="cronFaq2" class="accordion-collapse collapse" data-bs-parent="#cronFaqAccordion">
+                                <div class="accordion-body">
+                                    <p>可能有以下几个原因：1) 表达式语法错误，可以使用我们的工具验证；2) 调度器服务未启动；3) 表达式配置的时间点还未到达；4) 系统时间不正确；5) 任务配置有误。建议先使用我们的工具生成并验证表达式，然后检查调度器日志。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cronFaq3">
+                                    Q: Spring Cron和Linux Cron有什么不同？
+                                </button>
+                            </h2>
+                            <div id="cronFaq3" class="accordion-collapse collapse" data-bs-parent="#cronFaqAccordion">
+                                <div class="accordion-body">
+                                    <p>主要区别：1) 字段数量：Spring Cron有6位（秒 分 时 日 月 周），Linux Cron通常是5位（分 时 日 月 周）；2) 周字段：Spring的周字段1=周日，Linux的周字段0=周日；3) 特殊符号：Spring支持更多特殊符号如L（最后）、W（工作日）等；4) 年字段：Spring Cron支持可选的年字段。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cronFaq4">
+                                    Q: 如何配置每月最后一天执行？
+                                </button>
+                            </h2>
+                            <div id="cronFaq4" class="accordion-collapse collapse" data-bs-parent="#cronFaqAccordion">
+                                <div class="accordion-body">
+                                    <p>在Spring Cron中，可以在日期字段使用 <code>L</code> 来表示每月的最后一天。例如：<code>0 0 0 L * ?</code> 表示每月最后一天的0点执行。需要注意的是，L只能用在日期字段，并且当日期字段使用L时，周字段必须使用 <code>?</code>。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cronFaq5">
+                                    Q: 如何测试我的Cron表达式是否正确？
+                                </button>
+                            </h2>
+                            <div id="cronFaq5" class="accordion-collapse collapse" data-bs-parent="#cronFaqAccordion">
+                                <div class="accordion-body">
+                                    <p>您可以使用我们的Cron表达式生成器工具来验证。输入您的表达式，工具会显示接下来的5次执行时间。您可以对比这些时间是否符合您的预期。此外，也可以使用一些在线的Cron表达式验证工具，或者在开发环境中进行实际测试。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cronFaq6">
+                                    Q: Cron表达式中的步长是什么意思？
+                                </button>
+                            </h2>
+                            <div id="cronFaq6" class="accordion-collapse collapse" data-bs-parent="#cronFaqAccordion">
+                                <div class="accordion-body">
+                                    <p>步长使用 <code>/</code> 符号表示。例如 <code>*/5</code> 表示每5个单位执行一次。在分钟字段，<code>*/5</code> 表示0、5、10、15、...、55分钟；在小时字段，<code>*/2</code> 表示0、2、4、...、22点。步长可以与范围结合使用，如 <code>1-10/2</code> 表示在1到10之间，每2个单位执行一次。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 知识库 -->
+        <div class="mt-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <i class="fas fa-book me-2"></i> Cron表达式知识库
+                </div>
+                <div class="card-body">
+                    <h5>Cron表达式深度解析与最佳实践</h5>
+                    
+                    <h6>1. Cron表达式结构对比</h6>
+                    <div class="table-responsive mb-3">
+                        <table class="table table-sm table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>字段</th>
+                                    <th>Spring/Quartz</th>
+                                    <th>Linux</th>
+                                    <th>说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>秒</td>
+                                    <td>0-59</td>
+                                    <td>不支持</td>
+                                    <td>Spring Cron支持秒字段</td>
+                                </tr>
+                                <tr>
+                                    <td>分钟</td>
+                                    <td>0-59</td>
+                                    <td>0-59</td>
+                                    <td>每分钟的第几秒</td>
+                                </tr>
+                                <tr>
+                                    <td>小时</td>
+                                    <td>0-23</td>
+                                    <td>0-23</td>
+                                    <td>每小时的第几分钟</td>
+                                </tr>
+                                <tr>
+                                    <td>日期</td>
+                                    <td>1-31</td>
+                                    <td>1-31</td>
+                                    <td>每月的第几天</td>
+                                </tr>
+                                <tr>
+                                    <td>月份</td>
+                                    <td>1-12 or JAN-DEC</td>
+                                    <td>1-12 or JAN-DEC</td>
+                                    <td>第几月</td>
+                                </tr>
+                                <tr>
+                                    <td>周</td>
+                                    <td>1-7 (1=周日)</td>
+                                    <td>0-7 (0=周日)</td>
+                                    <td>周几</td>
+                                </tr>
+                                <tr>
+                                    <td>年</td>
+                                    <td>1970-2099</td>
+                                    <td>不支持</td>
+                                    <td>Spring Cron支持可选年字段</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h6>2. 特殊字符详细说明</h6>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="bg-light p-3 rounded mb-2">
+                                <table class="table table-sm table-borderless mb-0">
+                                    <tbody>
+                                        <tr><td><code>*</code></td><td><strong>通配符</strong></td><td>匹配所有可能值</td></tr>
+                                        <tr><td><code>?</code></td><td><strong>无特殊值</strong></td><td>表示不指定具体值</td></tr>
+                                        <tr><td><code>-</code></td><td><strong>范围</strong></td><td>指定一个值范围，如1-5</td></tr>
+                                        <tr><td><code>,</code></td><td><strong>列举</strong></td><td>指定多个离散值，如1,3,5</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="bg-light p-3 rounded mb-2">
+                                <table class="table table-sm table-borderless mb-0">
+                                    <tbody>
+                                        <tr><td><code>/</code></td><td><strong>步长</strong></td><td>指定增量值，如*/5</td></tr>
+                                        <tr><td><code>L</code></td><td><strong>最后</strong></td><td>最后一天或最后一个工作日</td></tr>
+                                        <tr><td><code>W</code></td><td><strong>工作日</strong></td><td>最近的工作日</td></tr>
+                                        <tr><td><code>#</code></td><td><strong>第几个</strong></td><td>本月的第几个周几</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h6>3. 常见业务场景的Cron表达式</h6>
+                    <div class="table-responsive mb-3">
+                        <table class="table table-sm table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>业务场景</th>
+                                    <th>Spring Cron</th>
+                                    <th>Linux Cron</th>
+                                    <th>说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>每天凌晨0点</td>
+                                    <td><code>0 0 0 * * ?</code></td>
+                                    <td><code>0 0 * * *</code></td>
+                                    <td>每天0点执行</td>
+                                </tr>
+                                <tr>
+                                    <td>每周一上午9点</td>
+                                    <td><code>0 0 9 ? * MON</code></td>
+                                    <td><code>0 9 * * 1</code></td>
+                                    <td>每周一9点执行</td>
+                                </tr>
+                                <tr>
+                                    <td>每小时一次</td>
+                                    <td><code>0 0 * * * ?</code></td>
+                                    <td><code>0 * * * *</code></td>
+                                    <td>每小时的0分执行</td>
+                                </tr>
+                                <tr>
+                                    <td>每5分钟一次</td>
+                                    <td><code>0 */5 * * * ?</code></td>
+                                    <td><code>*/5 * * * *</code></td>
+                                    <td>每5分钟执行一次</td>
+                                </tr>
+                                <tr>
+                                    <td>每月最后一天</td>
+                                    <td><code>0 0 0 L * ?</code></td>
+                                    <td><code>0 0 0 L * *</code></td>
+                                    <td>每月最后一天的0点</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h6>4. Cron表达式最佳实践</h6>
+                    <ul>
+                        <li><strong>避免频繁执行：</strong>合理设置执行频率，避免过于频繁的任务调度影响系统性能</li>
+                        <li><strong>处理时区：</strong>明确任务执行的时区，考虑服务器时区与业务时区的一致性</li>
+                        <li><strong>错误处理：</strong>为定时任务配置完善的错误处理和重试机制</li>
+                        <li><strong>日志记录：</strong>详细记录任务执行日志，便于问题追踪和排查</li>
+                        <li><strong>监控告警：</strong>建立任务执行监控，对于失败的任务及时告警</li>
+                        <li><strong>并发控制：</strong>考虑任务并发执行的情况，避免资源竞争</li>
+                        <li><strong>分布式部署：</strong>在分布式环境中，确保定时任务只在一个节点上执行</li>
+                    </ul>
+                    
+                    <div class="alert alert-light">
+                        <strong>📚 扩展阅读：</strong>了解更多Cron表达式信息，请参考 <a href="https://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html" target="_blank" class="alert-link">Quartz CronTrigger Tutorial</a> 和 <a href="https://en.wikipedia.org/wiki/Cron" target="_blank" class="alert-link">Cron Wikipedia</a>。
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer class="bg-light py-4 mt-5">

@@ -194,16 +194,214 @@
         </div>
 
         <div class="mt-4">
-            <h4>使用说明</h4>
-            <div class="alert alert-info">
-                <strong>功能介绍：</strong>
-                <ul class="mb-0">
-                    <li><strong>实时统计：</strong>输入文本时自动更新所有统计信息</li>
-                    <li><strong>中英文支持：</strong>准确统计中文字数和英文单词数</li>
-                    <li><strong>详细分析：</strong>提供字符、段落、行数等多维度统计</li>
-                    <li><strong>文本分析：</strong>分析文本的可读性、字符分布等</li>
-                    <li><strong>批量处理：</strong>支持大段文本的分析统计</li>
-                </ul>
+            <h4>📖 详细使用教程</h4>
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">第一步：输入文本</h5>
+                    <p class="card-text">在左侧的文本输入框中粘贴或输入您要统计的文本内容。您可以输入任何中英文混合的文本，系统会自动识别并统计。</p>
+                    
+                    <h5 class="card-title mt-3">第二步：配置选项</h5>
+                    <ul class="card-text">
+                        <li><strong>包含空格统计</strong>：选择是否在字符数中包含空格（默认包含）</li>
+                        <li><strong>包含标点符号统计</strong>：选择是否在字符数中包含标点符号（默认包含）</li>
+                        <li><strong>加载示例</strong>：点击可快速加载示例文本进行测试</li>
+                    </ul>
+                    
+                    <h5 class="card-title mt-3">第三步：查看结果</h5>
+                    <p class="card-text">统计结果会实时显示在右侧的统计面板中，包括：</p>
+                    <ul class="card-text">
+                        <li>基础统计：中文字数、单词数、字符数、段落数、行数</li>
+                        <li>文本分析：可读性评分、平均单词长度、平均句子长度</li>
+                        <li>字符分布：字母数、数字数、空格数、标点数</li>
+                        <li>单词云：最常用单词的可视化展示</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>💡 实际应用场景</h4>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="card h-100 border-0 bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-file-alt text-primary me-2"></i> 文章写作</h5>
+                            <p class="card-text">统计文章的字数、段落数、可读性等，帮助作者控制文章长度和结构。特别适合需要控制字数的投稿、论文等场景。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 border-0 bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-blog text-primary me-2"></i> 博客发布</h5>
+                            <p class="card-text">为博客文章、社交媒体帖子统计字数，确保内容符合平台要求。帮助您优化内容长度，提升阅读体验。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 border-0 bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-translate text-primary me-2"></i> 翻译计费</h5>
+                            <p class="card-text">为翻译工作统计原文和译文的字数，用于计算翻译费用。准确的字数统计是翻译行业的基本需求。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 border-0 bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-graduation-cap text-primary me-2"></i> 学术论文</h5>
+                            <p class="card-text">统计学术论文的字数、段落数、单词数，确保符合期刊或学位论文的格式要求。支持中英文混合文本的精确统计。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>❓ 常见问题FAQ</h4>
+            <div class="accordion" id="counter-faq-accordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#counter-faq-1">
+                            Q: 中文字数和字符数有什么区别？
+                        </button>
+                    </h2>
+                    <div id="counter-faq-1" class="accordion-collapse collapse show" data-bs-parent="#counter-faq-accordion">
+                        <div class="accordion-body">
+                            A: <strong>中文字数</strong>指的是中文汉字的数量，每个汉字算1个字。<strong>字符数</strong>指的是所有字符的总数，包括中文、英文字母、数字、空格、标点符号等。例如，"你好世界！Hello"的中文字数是4，字符数是11（包含标点和空格）。
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#counter-faq-2">
+                            Q: 单词数如何计算？
+                        </button>
+                    </h2>
+                    <div id="counter-faq-2" class="accordion-collapse collapse" data-bs-parent="#counter-faq-accordion">
+                        <div class="accordion-body">
+                            A: 单词数是基于<strong>空格分隔</strong>来计算的。连续的非空格字符被视为一个单词。例如，"Hello world"有2个单词，"Hello, world!"也有2个单词（忽略标点）。连字符连接的词（如"state-of-the-art"）通常被视为一个单词。
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#counter-faq-3">
+                            Q: 可读性评分是如何计算的？
+                        </button>
+                    </h2>
+                    <div id="counter-faq-3" class="accordion-collapse collapse" data-bs-parent="#counter-faq-accordion">
+                        <div class="accordion-body">
+                            A: 可读性评分基于多个因素综合计算，包括：平均句子长度、平均单词长度、单词复杂度等。通常使用Flesch-Kincaid或Gunning Fog等可读性公式。评分越高，表示文本越容易阅读和理解。
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#counter-faq-4">
+                            Q: 段落数如何定义？
+                        </button>
+                    </h2>
+                    <div id="counter-faq-4" class="accordion-collapse collapse" data-bs-parent="#counter-faq-accordion">
+                        <div class="accordion-body">
+                            A: 段落数是通过<strong>空行</strong>来分隔的。连续的非空行文本被视为一个段落。连续的换行符（空行）被视为段落的分隔符。例如，"第一段\n\n第二段"有2个段落。
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#counter-faq-5">
+                            Q: 为什么统计结果和其他工具不同？
+                        </button>
+                    </h2>
+                    <div id="counter-faq-5" class="accordion-collapse collapse" data-bs-parent="#counter-faq-accordion">
+                        <div class="accordion-body">
+                            A: 不同的统计工具可能使用不同的算法和规则。例如：中文字的定义范围（是否包含标点）、单词的分隔规则（是否包含标点）、行的定义（是否包含换行符）等。我们的工具采用最常见的标准，确保大多数情况下的一致性。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>📚 文本统计知识</h4>
+            <div class="card border-0 bg-light">
+                <div class="card-body">
+                    <p><strong>文本统计</strong>是分析和度量文本内容的重要手段。通过统计各种指标，可以深入了解文本的特征和质量。</p>
+                    
+                    <h5 class="mt-3">文本统计的常见指标</h5>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>统计指标</th>
+                                    <th>定义</th>
+                                    <th>应用场景</th>
+                                    <th>参考标准</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>中文字数</td>
+                                    <td>中文汉字的数量</td>
+                                    <td>中文文章计费、阅读时间估算</td>
+                                    <td>报刊杂志：千字/稿</td>
+                                </tr>
+                                <tr>
+                                    <td>单词数</td>
+                                    <td>由空格分隔的英文单词数量</td>
+                                    <td>英文文章计费、SEO优化</td>
+                                    <td>博客：300-1000 words</td>
+                                </tr>
+                                <tr>
+                                    <td>字符数</td>
+                                    <td>所有字符的总数</td>
+                                    <td>存储容量估算、短信计费</td>
+                                    <td>Twitter：280字符</td>
+                                </tr>
+                                <tr>
+                                    <td>段落数</td>
+                                    <td>由空行分隔的文本块数量</td>
+                                    <td>文章结构分析、格式检查</td>
+                                    <td>学术论文：按段落格式</td>
+                                </tr>
+                                <tr>
+                                    <td>行数</td>
+                                    <td>文本中的换行数量+1</td>
+                                    <td>代码行数统计、页面布局</td>
+                                    <td>代码：通常100-200行/文件</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h5 class="mt-3">文本分析的深度指标</h5>
+                    <ul>
+                        <li><strong>可读性评分</strong>：衡量文本是否易于理解，评分越高越容易阅读</li>
+                        <li><strong>平均单词长度</strong>：单词的平均字母数，反映词汇复杂度</li>
+                        <li><strong>平均句子长度</strong>：句子的平均单词数，反映句子复杂度</li>
+                        <li><strong>字符分布</strong>：字母、数字、空格、标点的比例分布</li>
+                        <li><strong>最常用单词</strong>：出现频率最高的单词，反映文本主题</li>
+                    </ul>
+                    
+                    <h5 class="mt-3">中英文文本统计的注意事项</h5>
+                    <ul>
+                        <li><strong>中文字定义</strong>：通常指GB2312、GBK、UTF-8编码中的汉字，不包括标点</li>
+                        <li><strong>英文词定义</strong>：通常指由字母组成的连续字符序列，可能包括连字符</li>
+                        <li><strong>混合文本</strong>：同时包含中英文时，需要分别统计中文字数和单词数</li>
+                        <li><strong>标点符号</strong>：不同工具对标点的处理方式可能不同，影响统计结果</li>
+                        <li><strong>空格处理</strong>：是否计入字符数，会影响字符数统计</li>
+                    </ul>
+                    
+                    <h5 class="mt-3">文本统计的应用价值</h5>
+                    <ul>
+                        <li><strong>内容创作</strong>：控制文章长度，符合平台要求</li>
+                        <li><strong>SEO优化</strong>：分析关键词密度，优化搜索引擎排名</li>
+                        <li><strong>学术研究</strong>：分析文献特征，进行定量研究</li>
+                        <li><strong>翻译行业</strong>：计算字数，确定翻译报价</li>
+                        <li><strong>用户体验</strong>：评估可读性，提升内容质量</li>
+                    </ul>
+                </div>
             </div>
         </div>
 

@@ -128,6 +128,268 @@
 点击"HTML实体解码"
 输出: &lt;script&gt;alert(&quot;Hello&quot;)&lt;/script&gt;</div>
         </div>
+
+        <!-- 详细教程 -->
+        <div class="mt-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <i class="fas fa-graduation-cap me-2"></i> 详细教程
+                </div>
+                <div class="card-body">
+                    <h5>HTML实体编码完整指南</h5>
+                    <p>HTML实体编码是Web开发中的重要概念，用于在HTML文档中安全地表示特殊字符。以下是完整的使用教程：</p>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>步骤</th>
+                                    <th>操作说明</th>
+                                    <th>示例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1. 输入准备</td>
+                                    <td>在左侧文本框中输入包含特殊字符的文本内容</td>
+                                    <td><code>&lt;div class="box"&gt;内容&lt;/div&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td>2. 选择操作</td>
+                                    <td>根据需要点击"HTML实体编码"或"HTML实体解码"按钮</td>
+                                    <td>编码/解码</td>
+                                </tr>
+                                <tr>
+                                    <td>3. 获取结果</td>
+                                    <td>右侧文本框会实时显示转换后的结果</td>
+                                    <td><code>&amp;lt;div class=&amp;quot;box&amp;quot;&amp;gt;内容&amp;lt;/div&amp;gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td>4. 使用结果</td>
+                                    <td>可以复制、下载或直接使用转换后的内容</td>
+                                    <td>支持一键复制和下载</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <strong>💡 专业建议：</strong>在处理包含JavaScript代码的HTML内容时，必须使用实体编码来防止XSS攻击。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 应用场景 -->
+        <div class="mt-4">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <i class="fas fa-lightbulb me-2"></i> 应用场景
+                </div>
+                <div class="card-body">
+                    <h5>HTML实体编码的常见用途</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <h6><i class="fas fa-code me-2"></i> Web开发安全</h6>
+                                <p class="mb-2">在用户输入的内容需要显示在页面上时，必须进行HTML实体编码，防止XSS跨站脚本攻击。</p>
+                                <div class="bg-light p-2 rounded">
+                                    <small class="text-muted">用户评论展示、表单数据回显、动态内容渲染</small>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <h6><i class="fas fa-file-code me-2"></i> XML文档处理</h6>
+                                <p class="mb-2">在XML文档中，特殊字符必须使用实体编码，否则会导致XML解析错误。</p>
+                                <div class="bg-light p-2 rounded">
+                                    <small class="text-muted">配置文件、数据交换格式、API响应</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <h6><i class="fas fa-database me-2"></i> 数据库存储</h6>
+                                <p class="mb-2">将包含HTML标签的文本存储到数据库前进行编码，避免SQL注入和HTML渲染问题。</p>
+                                <div class="bg-light p-2 rounded">
+                                    <small class="text-muted">博客文章、产品描述、用户资料</small>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <h6><i class="fas fa-bug me-2"></i> 调试与日志</h6>
+                                <p class="mb-2">在调试HTML内容或记录日志时，使用实体编码可以清晰显示特殊字符，便于分析问题。</p>
+                                <div class="bg-light p-2 rounded">
+                                    <small class="text-muted">错误日志、调试信息、系统消息</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="alert alert-warning">
+                        <strong>⚠️ 注意：</strong> 解码后的内容在HTML上下文中使用时要特别小心，避免引入安全漏洞。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="mt-4">
+            <div class="card">
+                <div class="card-header bg-warning text-dark">
+                    <i class="fas fa-question-circle me-2"></i> 常见问题解答
+                </div>
+                <div class="card-body">
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    Q: HTML实体编码和URL编码有什么区别？
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>HTML实体编码用于在HTML/XML文档中表示特殊字符，例如 <code>&lt;</code> 编码为 <code>&amp;lt;</code>。而URL编码用于在URL中表示特殊字符，例如空格编码为 <code>%20</code>。它们的应用场景和编码方式完全不同。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    Q: 为什么我的HTML代码在页面上显示为文本而不是标签？
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>这是浏览器的自动转义机制在起作用。当您输入的内容包含 <code>&lt;</code> 和 <code>&gt;</code> 时，浏览器会自动将它们解析为HTML标签。要显示原始的HTML代码，您需要使用HTML实体编码工具将它们转换为 <code>&amp;lt;</code> 和 <code>&amp;gt;</code>。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                    Q: HTML实体编码支持哪些字符？
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>标准HTML实体编码主要支持：<code>&amp;</code> (<code>&amp;amp;</code>)、<code>&lt;</code> (<code>&amp;lt;</code>)、<code>&gt;</code> (<code>&amp;gt;</code>)、<code>"</code> (<code>&amp;quot;</code>)、<code>'</code> (<code>&amp;apos;</code>)、<code>/</code> (<code>&amp;frasl;</code>) 等。此外还有数百个命名实体，如 <code>&copy;</code> (<code>©</code>) 等。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                    Q: 解码后的内容是否安全？
+                                </button>
+                            </h2>
+                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>解码后的内容包含原始的HTML标签和特殊字符。如果您将解码后的内容直接插入到HTML页面中，可能会导致XSS安全漏洞。强烈建议在使用解码内容前进行安全检查，或仅在安全上下文中使用解码结果。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                                    Q: 批量处理大量文本时的性能如何？
+                                </button>
+                            </h2>
+                            <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>我们的工具采用高效的算法，可以处理大量文本内容。测试显示，即使处理数兆字符的文本，转换操作也能在毫秒级完成。浏览器端的JavaScript引擎能够高效处理这些转换操作，无需服务器端支持。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 知识库 -->
+        <div class="mt-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <i class="fas fa-book me-2"></i> 相关知识
+                </div>
+                <div class="card-body">
+                    <h5>HTML实体编码深度解析</h5>
+                    
+                    <h6>1. HTML实体类型</h6>
+                    <div class="table-responsive mb-3">
+                        <table class="table table-sm table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>类型</th>
+                                    <th>格式</th>
+                                    <th>说明</th>
+                                    <th>示例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>命名实体</td>
+                                    <td><code>&name;</code></td>
+                                    <td>预定义的实体名称</td>
+                                    <td><code>&amp;copy;</code> → ©</td>
+                                </tr>
+                                <tr>
+                                    <td>数字实体</td>
+                                    <td><code>&amp;#number;</code></td>
+                                    <td>使用Unicode码点</td>
+                                    <td><code>&amp;#169;</code> → ©</td>
+                                </tr>
+                                <tr>
+                                    <td>十六进制实体</td>
+                                    <td><code>&amp;#xhex;</code></td>
+                                    <td>使用十六进制表示</td>
+                                    <td><code>&amp;#xA9;</code> → ©</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h6>2. 常用HTML实体参考</h6>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="bg-light p-3 rounded mb-2">
+                                <table class="table table-sm table-borderless mb-0">
+                                    <tbody>
+                                        <tr><td><code>&amp;lt;</code></td><td>小于号</td><td>&lt;</td></tr>
+                                        <tr><td><code>&amp;gt;</code></td><td>大于号</td><td>&gt;</td></tr>
+                                        <tr><td><code>&amp;amp;</code></td><td>和号</td><td>&amp;</td></tr>
+                                        <tr><td><code>&amp;quot;</code></td><td>双引号</td><td>"</td></tr>
+                                        <tr><td><code>&amp;apos;</code></td><td>单引号</td><td>'</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="bg-light p-3 rounded mb-2">
+                                <table class="table table-sm table-borderless mb-0">
+                                    <tbody>
+                                        <tr><td><code>&amp;copy;</code></td><td>版权符号</td><td>©</td></tr>
+                                        <tr><td><code>&amp;reg;</code></td><td>注册符号</td><td>®</td></tr>
+                                        <tr><td><code>&amp;trade;</code></td><td>商标符号</td><td>™</td></tr>
+                                        <tr><td><code>&amp;euro;</code></td><td>欧元符号</td><td>€</td></tr>
+                                        <tr><td><code>&amp;pound;</code></td><td>英镑符号</td><td>£</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h6>3. 实体编码最佳实践</h6>
+                    <ul>
+                        <li><strong>安全优先：</strong>总是对用户输入进行编码，永远不要信任用户输入的内容</li>
+                        <li><strong>上下文感知：</strong>根据内容的使用上下文选择合适的编码方式（HTML、URL、JavaScript等）</li>
+                        <li><strong>双重编码：</strong>避免对已经编码的内容进行二次编码，这会导致错误</li>
+                        <li><strong>性能考虑：</strong>在大量数据处理时，考虑使用高效的编码算法</li>
+                        <li><strong>国际化：</strong>确保您的编码方案支持多语言和Unicode字符</li>
+                    </ul>
+                    
+                    <div class="alert alert-light">
+                        <strong>📚 扩展阅读：</strong>了解更多HTML实体编码信息，请参考 <a href="https://html.spec.whatwg.org/" target="_blank" class="alert-link">HTML Living Standard</a>。
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer class="bg-light py-4 mt-5">

@@ -218,6 +218,451 @@ name: John Doe
 age: 30
 email: john@example.com</div>
         </div>
+
+        <!-- 详细教程 -->
+        <div class="mt-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <i class="fas fa-graduation-cap me-2"></i> 详细教程
+                </div>
+                <div class="card-body">
+                    <h5>YAML与JSON格式转换完整指南</h5>
+                    <p>YAML和JSON都是广泛使用的数据序列化格式，本教程将详细介绍两者之间的区别、转换方法和最佳实践，帮助您在不同的应用场景中选择合适的格式。</p>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>学习阶段</th>
+                                    <th>内容重点</th>
+                                    <th>实践建议</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>基础概念</td>
+                                    <td>理解YAML和JSON的基本语法结构和数据类型</td>
+                                    <td>从简单的键值对开始练习，理解两种格式的数据表示方式</td>
+                                </tr>
+                                <tr>
+                                    <td>格式对比</td>
+                                    <td>掌握YAML和JSON在语法、功能和适用场景上的差异</td>
+                                    <td>对比学习，理解各自的优势和局限性</td>
+                                </tr>
+                                <tr>
+                                    <td>转换技巧</td>
+                                    <td>学习在不同场景下进行格式转换的技巧和注意事项</td>
+                                    <td>结合实际需求选择合适的转换方式</td>
+                                </tr>
+                                <tr>
+                                    <td>最佳实践</td>
+                                    <td>掌握在不同应用场景下选择合适格式的最佳实践</td>
+                                    <td>根据项目需求、性能要求和维护成本选择格式</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <strong>💡 专业建议：</strong>YAML适合人工编辑的配置文件，JSON适合机器解析的数据交换。在项目中可以根据具体需求选择合适的格式，或者两者结合使用。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 应用场景 -->
+        <div class="mt-4">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <i class="fas fa-lightbulb me-2"></i> 应用场景
+                </div>
+                <div class="card-body">
+                    <h5>YAML和JSON在不同领域的应用</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <h6><i class="fas fa-cog me-2"></i> 配置文件</h6>
+                                <p class="mb-2">YAML是配置文件的首选格式，被广泛应用于Docker、Kubernetes、Ansible等DevOps工具中，其清晰的语法和支持注释的特性使其非常适合人工编辑。</p>
+                                <div class="bg-light p-2 rounded">
+                                    <small class="text-muted">例子：Docker Compose、K8s配置、CI/CD管道</small>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <h6><i class="fas fa-server me-2"></i> API数据交换</h6>
+                                <p class="mb-2">JSON是Web API数据交换的标准格式，几乎所有编程语言都有原生的JSON解析支持，其简单的结构和广泛的兼容性使其成为API数据传输的理想选择。</p>
+                                <div class="bg-light p-2 rounded">
+                                    <small class="text-muted">例子：RESTful API、GraphQL、WebSocket</small>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <h6><i class="fas fa-database me-2"></i> 数据存储</h6>
+                                <p class="mb-2">JSON常用于NoSQL数据库（如MongoDB、Redis）的数据存储，其结构化的特性和简单的解析方式使其在数据存储领域有广泛应用。</p>
+                                <div class="bg-light p-2 rounded">
+                                    <small class="text-muted">例子：MongoDB文档、Redis JSON、本地存储</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <h6><i class="fas fa-cloud me-2"></i> 云服务配置</h6>
+                                <p class="mb-2">云服务提供商（如AWS、Azure、GCP）广泛使用YAML格式来定义云资源配置，其层次结构和人类可读性使其适合描述复杂的云基础设施。</p>
+                                <div class="bg-light p-2 rounded">
+                                    <small class="text-muted">例子：Terraform配置、K8s清单、Serverless配置</small>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <h6><i class="fas fa-file-code me-2"></i> 应用配置</h6>
+                                <p class="mb-2">现代应用程序通常使用YAML格式来定义应用配置，如Spring Boot的application.yml，其清晰的结构和支持多环境配置的特性受到开发者欢迎。</p>
+                                <div class="bg-light p-2 rounded">
+                                    <small class="text-muted">例子：Spring配置、Node.js配置、前端框架配置</small>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <h6><i class="fas fa-exchange-alt me-2"></i> 格式转换</h6>
+                                <p class="mb-2">在需要将YAML配置转换为JSON格式（如与不支持YAML的系统集成），或者将JSON数据转换为更易读的YAML格式时，格式转换工具就显得非常重要。</p>
+                                <div class="bg-light p-2 rounded">
+                                    <small class="text-muted">例子：配置迁移、系统集成、文档生成</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="alert alert-warning">
+                        <strong>⚠️ 注意：</strong> 在转换过程中可能会遇到一些兼容性问题，如YAML支持的数据类型比JSON更丰富（如时间、自定义标签等）。转换时请确保数据的完整性和准确性。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="mt-4">
+            <div class="card">
+                <div class="card-header bg-warning text-dark">
+                    <i class="fas fa-question-circle me-2"></i> 常见问题解答
+                </div>
+                <div class="card-body">
+                    <div class="accordion" id="yamlJsonFaqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#yamlJsonFaq1">
+                                    Q: YAML和JSON有什么主要区别？
+                                </button>
+                            </h2>
+                            <div id="yamlJsonFaq1" class="accordion-collapse collapse show" data-bs-parent="#yamlJsonFaqAccordion">
+                                <div class="accordion-body">
+                                    <p>主要区别包括：1) <strong>可读性</strong>：YAML的语法更接近自然语言，可读性更强；2) <strong>数据类型</strong>：YAML支持更多数据类型，如时间、自定义标签等；3) <strong>注释</strong>：YAML支持注释，JSON不支持；4) <strong>引用符号</strong>：YAML使用缩进表示层次，JSON使用花括号；5) <strong>字符串</strong>：YAML支持多行字符串，JSON需要转义符。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#yamlJsonFaq2">
+                                    Q: 什么时候应该使用YAML？什么时候使用JSON？
+                                </button>
+                            </h2>
+                            <div id="yamlJsonFaq2" class="accordion-collapse collapse" data-bs-parent="#yamlJsonFaqAccordion">
+                                <div class="accordion-body">
+                                    <p><strong>使用YAML的场景：</strong>人工编辑的配置文件、需要注释的场景、结构复杂且层次分明的数据、团队协作需要可读性强的场景。<strong>使用JSON的场景：</strong>机器自动生成和解析的数据、API数据交换、需要广泛兼容性的场景、性能要求高的场景。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#yamlJsonFaq3">
+                                    Q: YAML支持哪些JSON不支持的特性？
+                                </button>
+                            </h2>
+                            <div id="yamlJsonFaq3" class="accordion-collapse collapse" data-bs-parent="#yamlJsonFaqAccordion">
+                                <div class="accordion-body">
+                                    <p>YAML支持而JSON不支持的特性包括：1) <strong>注释</strong>：可以在YAML文件中添加注释；2) <strong>多文档</strong>：一个YAML文件可以包含多个文档（使用 <code>---</code> 分隔）；3) <strong>锚点和别名</strong>：支持重复数据的引用；4) <strong>自定义数据类型</strong>：可以定义自己的数据类型；5) <strong>多行字符串</strong>：支持保留换行和缩进的多行字符串。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#yamlJsonFaq4">
+                                    Q: 为什么我的YAML转换后JSON格式不对？
+                                </button>
+                            </h2>
+                            <div id="yamlJsonFaq4" class="accordion-collapse collapse" data-bs-parent="#yamlJsonFaqAccordion">
+                                <div class="accordion-body">
+                                    <p>可能的原因包括：1) <strong>YAML语法错误</strong>：缩进不正确、特殊字符未转义等；2) <strong>使用了YAML特有特性</strong>：如锚点、别名等，这些在JSON中没有对应的表示；3) <strong>数据类型问题</strong>：YAML支持的某些数据类型（如时间）在JSON中没有标准表示；4) <strong>编码问题</strong>：文件编码不正确导致的解析错误。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#yamlJsonFaq5">
+                                    Q: 如何在YAML中表示复杂的JSON结构？
+                                </button>
+                            </h2>
+                            <div id="yamlJsonFaq5" class="accordion-collapse collapse" data-bs-parent="#yamlJsonFaqAccordion">
+                                <div class="accordion-body">
+                                    <p>YAML可以使用多种方式表示复杂的JSON结构：1) <strong>嵌套映射</strong>：使用缩进表示嵌套的对象；2) <strong>数组</strong>：使用 <code>-</code> 表示数组元素；3) <strong>复杂键</strong>：可以使用引号包裹复杂的键；4) <strong>多行字符串</strong>：使用 <code>|</code> 或 <code>&gt;</code> 表示多行字符串；5) <strong>引用</strong>：使用锚点和别名避免重复数据。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#yamlJsonFaq6">
+                                    Q: 在生产环境中如何选择格式？
+                                </button>
+                            </h2>
+                            <div id="yamlJsonFaq6" class="accordion-collapse collapse" data-bs-parent="#yamlJsonFaqAccordion">
+                                <div class="accordion-body">
+                                    <p>在生产环境中选择格式时需要考虑多个因素：1) <strong>团队技能</strong>：团队成员对格式的熟悉程度；2) <strong>系统要求</strong>：要集成的系统对格式的支持情况；3) <strong>性能需求</strong>：JSON解析通常比YAML更快；4) <strong>维护成本</strong>：YAML更易读，维护成本更低；5) <strong>工具支持</strong>：可用的工具和库对格式的支持程度。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 知识库 -->
+        <div class="mt-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <i class="fas fa-book me-2"></i> YAML与JSON知识库
+                </div>
+                <div class="card-body">
+                    <h5>YAML与JSON格式深度解析与对比</h5>
+                    
+                    <h6>1. YAML语法详解</h6>
+                    <div class="table-responsive mb-3">
+                        <table class="table table-sm table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>语法元素</th>
+                                    <th>示例</th>
+                                    <th>说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>键值对</td>
+                                    <td><code>key: value</code></td>
+                                    <td>基本的数据表示，键和值用冒号分隔</td>
+                                </tr>
+                                <tr>
+                                    <td>映射（对象）</td>
+                                    <td><code>person:<br>&nbsp;&nbsp;name: John<br>&nbsp;&nbsp;age: 30</code></td>
+                                    <td>使用缩进表示嵌套的键值对</td>
+                                </tr>
+                                <tr>
+                                    <td>序列（数组）</td>
+                                    <td><code>- item1<br>- item2<br>- item3</code></td>
+                                    <td>使用 <code>-</code> 表示数组元素</td>
+                                </tr>
+                                <tr>
+                                    <td>多行字符串</td>
+                                    <td><code>description: |<br>&nbsp;&nbsp;第一行<br>&nbsp;&nbsp;第二行</code></td>
+                                    <td>使用 <code>|</code> 保留换行符</td>
+                                </tr>
+                                <tr>
+                                    <td>折叠字符串</td>
+                                    <td><code>description: &gt;<br>&nbsp;&nbsp;第一行<br>&nbsp;&nbsp;第二行</code></td>
+                                    <td>使用 <code>&gt;</code> 折叠换行符为空格</td>
+                                </tr>
+                                <tr>
+                                    <td>注释</td>
+                                    <td><code># 这是注释</code></td>
+                                    <td>使用 <code>#</code> 表示注释</td>
+                                </tr>
+                                <tr>
+                                    <td>引用字符串</td>
+                                    <td><code>name: "John Doe"</code></td>
+                                    <td>使用引号表示字符串，可以包含特殊字符</td>
+                                </tr>
+                                <tr>
+                                    <td>锚点和别名</td>
+                                    <td><code>defaults: &default<br>&nbsp;&nbsp;name: Default<br>item1: *default</code></td>
+                                    <td>使用锚点定义可重用的数据，别名引用锚点</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h6>2. JSON语法详解</h6>
+                    <div class="table-responsive mb-3">
+                        <table class="table table-sm table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>语法元素</th>
+                                    <th>示例</th>
+                                    <th>说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>对象</td>
+                                    <td><code>{"name": "John", "age": 30}</code></td>
+                                    <td>使用花括号 <code>{}</code> 包裹键值对</td>
+                                </tr>
+                                <tr>
+                                    <td>数组</td>
+                                    <td><code>["item1", "item2", "item3"]</code></td>
+                                    <td>使用方括号 <code>[]</code> 包裹数组元素</td>
+                                </tr>
+                                <tr>
+                                    <td>键值对</td>
+                                    <td><code>"name": "John"</code></td>
+                                    <td>键和值用冒号分隔，键必须用双引号包裹</td>
+                                </tr>
+                                <tr>
+                                    <td>字符串</td>
+                                    <td><code>"Hello, World!"</code></td>
+                                    <td>字符串必须用双引号包裹</td>
+                                </tr>
+                                <tr>
+                                    <td>数字</td>
+                                    <td><code>42, 3.14, -10</code></td>
+                                    <td>数字不需要引号</td>
+                                </tr>
+                                <tr>
+                                    <td>布尔值</td>
+                                    <td><code>true, false</code></td>
+                                    <td>布尔值直接使用关键字</td>
+                                </tr>
+                                <tr>
+                                    <td>null</td>
+                                    <td><code>null</code></td>
+                                    <td>空值使用 <code>null</code> 关键字</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h6>3. YAML vs JSON 功能对比</h6>
+                    <div class="table-responsive mb-3">
+                        <table class="table table-sm table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>特性</th>
+                                    <th>YAML</th>
+                                    <th>JSON</th>
+                                    <th>说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>可读性</td>
+                                    <td>✅ 优秀</td>
+                                    <td>✅ 良好</td>
+                                    <td>YAML语法更接近自然语言</td>
+                                </tr>
+                                <tr>
+                                    <td>注释支持</td>
+                                    <td>✅ 支持</td>
+                                    <td>❌ 不支持</td>
+                                    <td>YAML可以添加注释</td>
+                                </tr>
+                                <tr>
+                                    <td>多文档支持</td>
+                                    <td>✅ 支持</td>
+                                    <td>❌ 不支持</td>
+                                    <td>一个YAML文件可以包含多个文档</td>
+                                </tr>
+                                <tr>
+                                    <td>数据引用</td>
+                                    <td>✅ 支持</td>
+                                    <td>❌ 不支持</td>
+                                    <td>YAML支持锚点和别名</td>
+                                </tr>
+                                <tr>
+                                    <td>多行字符串</td>
+                                    <td>✅ 支持</td>
+                                    <td>⚠️ 需要转义</td>
+                                    <td>YAML支持保留换行的字符串</td>
+                                </tr>
+                                <tr>
+                                    <td>自定义数据类型</td>
+                                    <td>✅ 支持</td>
+                                    <td>❌ 不支持</td>
+                                    <td>YAML支持自定义标签和数据类型</td>
+                                </tr>
+                                <tr>
+                                    <td>广泛兼容性</td>
+                                    <td>✅ 良好</td>
+                                    <td>✅ 优秀</td>
+                                    <td>JSON在所有编程语言中都有原生支持</td>
+                                </tr>
+                                <tr>
+                                    <td>解析性能</td>
+                                    <td>⚠️ 一般</td>
+                                    <td>✅ 优秀</td>
+                                    <td>JSON解析通常更快</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h6>4. 常用场景推荐</h6>
+                    <div class="table-responsive mb-3">
+                        <table class="table table-sm table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>应用场景</th>
+                                    <th>推荐格式</th>
+                                    <th>推荐理由</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>配置文件</td>
+                                    <td>YAML</td>
+                                    <td>可读性强，支持注释，易于维护</td>
+                                </tr>
+                                <tr>
+                                    <td>API数据交换</td>
+                                    <td>JSON</td>
+                                    <td>解析简单，兼容性好，性能优秀</td>
+                                </tr>
+                                <tr>
+                                    <td>数据存储</td>
+                                    <td>JSON</td>
+                                    <td>结构化，易于查询和索引</td>
+                                </tr>
+                                <tr>
+                                    <td>云资源定义</td>
+                                    <td>YAML</td>
+                                    <td>层次清晰，易于描述复杂结构</td>
+                                </tr>
+                                <tr>
+                                    <td>应用配置</td>
+                                    <td>YAML</td>
+                                    <td>支持多环境，可读性强</td>
+                                </tr>
+                                <tr>
+                                    <td>日志记录</td>
+                                    <td>JSON</td>
+                                    <td>结构化，易于分析和处理</td>
+                                </tr>
+                                <tr>
+                                    <td>前后端通信</td>
+                                    <td>JSON</td>
+                                    <td>广泛支持，解析高效</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h6>5. 格式转换最佳实践</h6>
+                    <ul>
+                        <li><strong>数据验证：</strong>转换前后都要验证数据的完整性和准确性</li>
+                        <li><strong>版本控制：</strong>将原始格式和转换后的格式都保存在版本控制系统中</li>
+                        <li><strong>自动化：</strong>在构建流程中自动执行格式转换，确保一致性</li>
+                        <li><strong>文档记录：</strong>记录格式转换的规则和注意事项，便于团队协作</li>
+                        <li><strong>错误处理：</strong>编写健壮的转换代码，处理可能出现的错误</li>
+                        <li><strong>性能优化：</strong>对于大量数据的转换，考虑使用流式处理</li>
+                        <li><strong>安全性：</strong>转换过程中要注意数据安全，避免敏感信息泄露</li>
+                    </ul>
+                    
+                    <div class="alert alert-light">
+                        <strong>📚 扩展阅读：</strong>了解更多YAML和JSON信息，请参考 <a href="https://yaml.org/" target="_blank" class="alert-link">YAML官方网站</a>、<a href="https://json.org/" target="_blank" class="alert-link">JSON官方网站</a> 和 <a href="https://www.json.org/json-zh.html" target="_blank" class="alert-link">JSON中文介绍</a>。
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer class="bg-light py-4 mt-5">

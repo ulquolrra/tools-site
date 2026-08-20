@@ -140,15 +140,321 @@
         </div>
 
         <div class="mt-4">
-            <h4>使用说明</h4>
-            <div class="alert alert-info">
-                <strong>功能介绍：</strong>
-                <ul class="mb-0">
-                    <li><strong>JWT解析：</strong>自动将JWT Token分解为Header、Payload、Signature三部分</li>
-                    <li><strong>Base64URL解码：</strong>对Header和Payload进行Base64URL解码，显示JSON内容</li>
-                    <li><strong>格式化显示：</strong>将Header和Payload合并为完整JSON并美化显示</li>
-                    <li><strong>一键复制：</strong>支持复制单个部分或完整JSON</li>
-                </ul>
+            <h4>📖 详细使用教程</h4>
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">第一步：获取JWT Token</h5>
+                    <p class="card-text">从您的应用程序、API响应、Cookie或其他数据源中获取完整的JWT Token。JWT Token通常由三部分组成，用点（.）分隔，形如：<code>xxxxxx.yyyyyy.zzzzzz</code></p>
+                    
+                    <h5 class="card-title mt-3">第二步：粘贴Token</h5>
+                    <p class="card-text">将获取到的JWT Token粘贴到输入框中。如果Token不完整（缺少任何一部分），解析结果可能不准确或报错。</p>
+                    
+                    <h5 class="card-title mt-3">第三步：解析Token</h5>
+                    <p class="card-text">点击"解析JWT"按钮，系统会自动：</p>
+                    <ul class="card-text">
+                        <li>将Token分解为Header、Payload、Signature三部分</li>
+                        <li>对Header和Payload进行Base64URL解码</li>
+                        <li>将Base64URL解码后的内容解析为JSON</li>
+                        <li>格式化JSON并显示在相应的面板中</li>
+                    </ul>
+                    
+                    <h5 class="card-title mt-3">第四步：查看结果</h5>
+                    <p class="card-text">解析结果会显示在三个卡片中：</p>
+                    <ul class="card-text">
+                        <li><strong>Header</strong>：显示Token的元数据（类型、算法等）</li>
+                        <li><strong>Payload</strong>：显示Token的声明（Claims，如用户ID、过期时间等）</li>
+                        <li><strong>Signature</strong>：显示Token的签名（用于验证完整性）</li>
+                        <li><strong>格式化显示</strong>：将Header和Payload合并为完整的JSON并美化</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>💡 实际应用场景</h4>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="card h-100 border-0 bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-bug text-primary me-2"></i> API调试</h5>
+                            <p class="card-text">在调试JWT认证的API时，解析返回的Token，快速查看Header中的算法和Payload中的用户信息，验证接口是否正常工作。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 border-0 bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-user-shield text-primary me-2"></i> 用户认证</h5>
+                            <p class="card-text">验证JWT Token中的用户身份信息，检查Payload中的声明是否符合预期，确保用户认证的准确性。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 border-0 bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-clock text-primary me-2"></i> Token验证</h5>
+                            <p class="card-text">检查JWT Token的过期时间（exp声明）和生效时间（nbf声明），确保Token在有效期内，避免过期导致的认证失败。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 border-0 bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-cog text-primary me-2"></i> 系统集成</h5>
+                            <p class="card-text">在集成第三方JWT认证系统时，解析对方提供的Token，理解其结构和数据格式，确保与自身系统的兼容性。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>❓ 常见问题FAQ</h4>
+            <div class="accordion" id="jwt-faq-accordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#jwt-faq-1">
+                            Q: JWT Token的结构是什么？
+                        </button>
+                    </h2>
+                    <div id="jwt-faq-1" class="accordion-collapse collapse show" data-bs-parent="#jwt-faq-accordion">
+                        <div class="accordion-body">
+                            A: JWT Token由<strong>三部分</strong>组成，用点（.）分隔：<code>Header.Payload.Signature</code>。<br>
+                            - <strong>Header</strong>：JSON对象，包含Token类型（typ，通常是"JWT"）和使用的哈希算法（alg，如HMAC SHA256、RSA等）<br>
+                            - <strong>Payload</strong>：JSON对象，包含声明（Claims），通常包括用户信息、过期时间等<br>
+                            - <strong>Signature</strong>：签名，用于验证Token的完整性和防止篡改
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#jwt-faq-2">
+                            Q: 什么是Base64URL编码？
+                        </button>
+                    </h2>
+                    <div id="jwt-faq-2" class="accordion-collapse collapse" data-bs-parent="#jwt-faq-accordion">
+                        <div class="accordion-body">
+                            A: Base64URL是Base64的一种变体，特别适用于URL和文件名。主要区别在于：<br>
+                            - 将标准Base64中的<code>+</code>替换为<code>-</code><br>
+                            - 将标准Base64中的<code>/</code>替换为<code>_</code><br>
+                            - 省略填充字符<code>=</code><br>
+                            JWT标准（RFC 7519）要求使用Base64URL编码，因为它对URL更加友好。
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#jwt-faq-3">
+                            Q: 为什么JWT不安全？
+                        </button>
+                    </h2>
+                    <div id="jwt-faq-3" class="accordion-collapse collapse" data-bs-parent="#jwt-faq-accordion">
+                        <div class="accordion-body">
+                            A: JWT本身<strong>并不存储密码</strong>，它只是一种数据格式。但JWT有一些需要注意的安全问题：<br>
+                            - JWT是<strong>明文的</strong>，Payload中的信息可以很容易被解码查看（只要有Token就能解析）<br>
+                            - 签名验证必须在服务器端进行，客户端无法验证Token的真实性<br>
+                            - 如果使用不对称算法（如RS256），需要确保私钥安全<br>
+                            - 如果使用对称算法（如HS256），需要确保密钥安全且不泄露
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#jwt-faq-4">
+                            Q: 如何验证JWT Token的有效性？
+                        </button>
+                    </h2>
+                    <div id="jwt-faq-4" class="accordion-collapse collapse" data-bs-parent="#jwt-faq-accordion">
+                        <div class="accordion-body">
+                            A: 验证JWT Token需要以下步骤：<br>
+                            1. 验证Token格式是否正确（三部分由点分隔）<br>
+                            2. 使用正确的算法和密钥验证签名<br>
+                            3. 检查Token是否过期（exp声明）<br>
+                            4. 检查Token生效时间（nbf声明）<br>
+                            5. 检查颁发者（iss声明）和受众（aud声明）是否符合预期<br>
+                            注意：<strong>仅解码JWT不能验证其有效性</strong>，必须通过密钥验证签名。
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#jwt-faq-5">
+                            Q: JWT和Session有什么区别？
+                        </button>
+                    </h2>
+                    <div id="jwt-faq-5" class="accordion-collapse collapse" data-bs-parent="#jwt-faq-accordion">
+                        <div class="accordion-body">
+                            A: <strong>JWT</strong>和<strong>Session</strong>都是用户认证的方式，但有本质区别：<br><br>
+                            <strong>JWT（Token方式）</strong>：<br>
+                            - 无状态（Stateless）：服务器不需要存储Token<br>
+                            - 自包含（Self-contained）：Token本身包含所有认证信息<br>
+                            - 可扩展性好：适合微服务架构<br>
+                            - 可跨域使用：适合API认证<br><br>
+                            <strong>Session（会话方式）</strong>：<br>
+                            - 有状态（Stateful）：服务器需要存储会话信息<br>
+                            - 依赖Cookie：通常通过Cookie存储Session ID<br>
+                            - 可回收：服务器可以主动销毁会话<br>
+                            - 安全性依赖服务器：更容易防止CSRF等攻击
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>📚 JWT基础知识</h4>
+            <div class="card border-0 bg-light">
+                <div class="card-body">
+                    <p><strong>JWT（JSON Web Token）</strong>是一种开放标准（RFC 7519），它定义了一种紧凑的、自包含的方式，用于在各方之间作为JSON对象安全地传输信息。JWT可以被签名（使用HMAC算法）或使用RSA或ECDSA的公钥/私钥对进行加密。</p>
+                    
+                    <h5 class="mt-3">JWT的标准声明（Registered Claims）</h5>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>声明</th>
+                                    <th>全称</th>
+                                    <th>描述</th>
+                                    <th>示例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>iss</td>
+                                    <td>Issuer</td>
+                                    <td>Token颁发者</td>
+                                    <td><code>"https://example.com"</code></td>
+                                </tr>
+                                <tr>
+                                    <td>sub</td>
+                                    <td>Subject</td>
+                                    <td>Token主题（通常是用户ID）</td>
+                                    <td><code>"1234567890"</code></td>
+                                </tr>
+                                <tr>
+                                    <td>aud</td>
+                                    <td> Audience</td>
+                                    <td>Token受众</td>
+                                    <td><code>"app1"</code></td>
+                                </tr>
+                                <tr>
+                                    <td>exp</td>
+                                    <td>Expiration Time</td>
+                                    <td>Token过期时间（Unix时间戳）</td>
+                                    <td><code>1516239022</code></td>
+                                </tr>
+                                <tr>
+                                    <td>nbf</td>
+                                    <td>Not Before</td>
+                                    <td>Token生效时间（Unix时间戳）</td>
+                                    <td><code>1516238722</code></td>
+                                </tr>
+                                <tr>
+                                    <td>iat</td>
+                                    <td>Issued At</td>
+                                    <td>Token颁发时间（Unix时间戳）</td>
+                                    <td><code>1516238022</code></td>
+                                </tr>
+                                <tr>
+                                    <td>jti</td>
+                                    <td>JWT ID</td>
+                                    <td>Token唯一标识符</td>
+                                    <td><code>"a1b2c3d4"</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h5 class="mt-3">常见的JWT算法</h5>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>算法</th>
+                                    <th>类型</th>
+                                    <th>描述</th>
+                                    <th>安全性</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>HS256</td>
+                                    <td>对称</td>
+                                    <td>HMAC + SHA-256</td>
+                                    <td>✅ 密钥安全即可</td>
+                                </tr>
+                                <tr>
+                                    <td>HS384</td>
+                                    <td>对称</td>
+                                    <td>HMAC + SHA-384</td>
+                                    <td>✅ 密钥安全即可</td>
+                                </tr>
+                                <tr>
+                                    <td>HS512</td>
+                                    <td>对称</td>
+                                    <td>HMAC + SHA-512</td>
+                                    <td>✅ 密钥安全即可</td>
+                                </tr>
+                                <tr>
+                                    <td>RS256</td>
+                                    <td>非对称</td>
+                                    <td>RSA + SHA-256</td>
+                                    <td>✅ 私钥安全即可</td>
+                                </tr>
+                                <tr>
+                                    <td>RS384</td>
+                                    <td>非对称</td>
+                                    <td>RSA + SHA-384</td>
+                                    <td>✅ 私钥安全即可</td>
+                                </tr>
+                                <tr>
+                                    <td>RS512</td>
+                                    <td>非对称</td>
+                                    <td>RSA + SHA-512</td>
+                                    <td>✅ 私钥安全即可</td>
+                                </tr>
+                                <tr>
+                                    <td>ES256</td>
+                                    <td>非对称</td>
+                                    <td>ECDSA + P-256 + SHA-256</td>
+                                    <td>✅ 私钥安全即可</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h5 class="mt-3">JWT的使用场景</h5>
+                    <ul>
+                        <li><strong>用户认证</strong>：最常见的用途，存储用户ID、角色等信息</li>
+                        <li><strong>信息交换</strong>：在各方之间安全传输信息</li>
+                        <li><strong>API授权</strong>：用于API的访问授权和权限控制</li>
+                        <li><strong>单点登录(SSO)</strong>：在多个系统间共享用户认证状态</li>
+                        <li><strong>微服务通信</strong>：在微服务间传递用户信息和权限</li>
+                    </ul>
+                    
+                    <h5 class="mt-3">JWT的优缺点</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-plus-circle text-success me-2"></i> 优点</h6>
+                            <ul>
+                                <li>无状态：服务器不需要存储会话信息</li>
+                                <li>可扩展性：适合分布式系统和微服务架构</li>
+                                <li>安全：支持多种签名和加密算法</li>
+                                <li>灵活：可以自定义声明，满足不同需求</li>
+                                <li>轻量级：JSON格式，传输效率高</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-minus-circle text-danger me-2"></i> 缺点</h6>
+                            <ul>
+                                <li>Token长度较长，URL传输时可能超长</li>
+                                <li>Token一旦颁发，在过期前无法撤销</li>
+                                <li>Payload信息是明文的，不可存储敏感数据</li>
+                                <li>需要处理Token过期和刷新机制</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

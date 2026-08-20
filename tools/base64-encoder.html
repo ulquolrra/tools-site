@@ -100,22 +100,196 @@
         </div>
 
         <div class="mt-4">
-            <h4>使用说明</h4>
-            <div class="alert alert-info">
-                <strong>功能介绍：</strong>
-                <ul class="mb-0">
-                    <li><strong>Base64编码：</strong>将文本转换为Base64编码格式</li>
-                    <li><strong>Base64解码：</strong>将Base64编码的文本转换回原始文本</li>
-                    <li><strong>文件上传：</strong>支持上传文本文件进行编解码</li>
-                    <li><strong>批量处理：</strong>可一次处理大量文本内容</li>
-                </ul>
+            <h4>📖 详细使用教程</h4>
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">第一步：输入内容</h5>
+                    <p class="card-text">在左侧的文本框中输入或粘贴您要处理的内容。可以是任意文本，包括中文、英文、特殊字符等。也可以通过"选择文件"按钮上传文本文件进行批量处理。</p>
+                    
+                    <h5 class="card-title mt-3">第二步：选择操作</h5>
+                    <ul class="card-text">
+                        <li><strong>Base64编码</strong>：将您的文本或文件内容转换为Base64编码格式，适用于需要将二进制数据转换为可打印字符的场景</li>
+                        <li><strong>Base64解码</strong>：将Base64编码的字符串转换回原始内容，适用于解析接收到的编码数据</li>
+                    </ul>
+                    
+                    <h5 class="card-title mt-3">第三步：获取结果</h5>
+                    <p class="card-text">处理结果会出现在右侧的输出框中。您可以直接复制结果，或者点击"复制结果"按钮一键复制，也可以使用"下载结果"按钮将结果保存为文件。</p>
+                </div>
             </div>
         </div>
 
         <div class="mt-4">
-            <h4>Base64是什么？</h4>
-            <div class="alert alert-light">
-                <p class="mb-0">Base64是一种基于64个可打印字符来表示二进制数据的编码方法。它通常用于在URL、Cookie、网页中传输8位字节代码的二进制数据，或者在电子邮件中传输附件。</p>
+            <h4>💡 实际应用场景</h4>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="card h-100 border-0 bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-image text-primary me-2"></i> 图片传输</h5>
+                            <p class="card-text">在HTML中嵌入图片时，常用Base64编码将图片数据直接放入img标签的src属性中，减少HTTP请求次数。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 border-0 bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-paper-plane text-primary me-2"></i> 邮件附件</h5>
+                            <p class="card-text">在电子邮件中传输二进制附件时，通常使用Base64编码将二进制数据转换为文本格式，确保数据完整传输。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 border-0 bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-link text-primary me-2"></i> URL安全传输</h5>
+                            <p class="card-text">在URL参数中传输特殊字符时，需要使用Base64编码避免URL编码带来的问题，确保数据传输的准确性。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 border-0 bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-shield-alt text-primary me-2"></i> 数据加密存储</h5>
+                            <p class="card-text">在数据库或配置文件中存储敏感数据时，常使用Base64编码进行简单的混淆处理，提高数据安全性。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>❓ 常见问题FAQ</h4>
+            <div class="accordion" id="base64-faq-accordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#base64-faq-1">
+                            Q: Base64编码和URL编码有什么区别？
+                        </button>
+                    </h2>
+                    <div id="base64-faq-1" class="accordion-collapse collapse show" data-bs-parent="#base64-faq-accordion">
+                        <div class="accordion-body">
+                            A: URL编码主要用于处理URL中的特殊字符（如空格、?、&等），而Base64编码用于将二进制数据转换为可打印的ASCII字符。URL编码通常用百分号表示（如%20表示空格），而Base64使用A-Z、a-z、0-9、+、/等64个字符。两者适用场景不同，URL编码用于URL传输，Base64用于数据编码。
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#base64-faq-2">
+                            Q: Base64编码后的字符串长度是原始数据的多少倍？
+                        </button>
+                    </h2>
+                    <div id="base64-faq-2" class="accordion-collapse collapse" data-bs-parent="#base64-faq-accordion">
+                        <div class="accordion-body">
+                            A: Base64编码使用64个字符（A-Z, a-z, 0-9, +, /）来表示原始数据。由于64=2^6，每3个字节（24位）的原始数据会被编码为4个字符。因此，编码后的长度通常是原始数据长度的4/3倍，并可能在末尾添加1-2个等号（=）作为填充字符。
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#base64-faq-3">
+                            Q: Base64编码是加密吗？
+                        </button>
+                    </h2>
+                    <div id="base64-faq-3" class="accordion-collapse collapse" data-bs-parent="#base64-faq-accordion">
+                        <div class="accordion-body">
+                            A: Base64不是加密，而是编码。加密是保护数据安全性的手段，只有持有密钥的人才能解密；而编码是数据表示方式的转换，任何人都可以解码。Base64编码的数据可以很容易地被解码回原始数据，因此不能用于安全保护。
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#base64-faq-4">
+                            Q: 为什么Base64字符串末尾会有等号？
+                        </button>
+                    </h2>
+                    <div id="base64-faq-4" class="accordion-collapse collapse" data-bs-parent="#base64-faq-accordion">
+                        <div class="accordion-body">
+                            A: Base64编码是以3个字节为单位进行的，如果原始数据长度不是3的倍数，那么在编码后需要添加填充字符（等号=）来保证字符串长度是4的倍数。1个等号表示最后缺少1个字节，2个等号表示最后缺少2个字节。
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#base64-faq-5">
+                            Q: 如何处理特别大的文件？
+                        </button>
+                    </h2>
+                    <div id="base64-faq-5" class="accordion-collapse collapse" data-bs-parent="#base64-faq-accordion">
+                        <div class="accordion-body">
+                            A: 对于特别大的文件（超过10MB），我们建议分段处理。您可以将文件分成多个较小的部分，分别进行编解码处理，然后合并结果。浏览器端处理大文件可能会导致内存不足或性能下降。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>📚 Base64基础知识</h4>
+            <div class="card border-0 bg-light">
+                <div class="card-body">
+                    <p><strong>Base64</strong>（基于64的编码）是一种将二进制数据转换为ASCII字符串的编码方式。它使用64个可打印字符（A-Z、a-z、0-9、+、/）来表示原始数据。</p>
+                    
+                    <h5 class="mt-3">Base64字符集</h5>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>字符范围</th>
+                                    <th>编码值</th>
+                                    <th>说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>A-Z</td>
+                                    <td>0-25</td>
+                                    <td>26个大写字母</td>
+                                </tr>
+                                <tr>
+                                    <td>a-z</td>
+                                    <td>26-51</td>
+                                    <td>26个小写字母</td>
+                                </tr>
+                                <tr>
+                                    <td>0-9</td>
+                                    <td>52-61</td>
+                                    <td>10个数字</td>
+                                </tr>
+                                <tr>
+                                    <td>+</td>
+                                    <td>62</td>
+                                    <td>加号</td>
+                                </tr>
+                                <tr>
+                                    <td>/</td>
+                                    <td>63</td>
+                                    <td>斜杠</td>
+                                </tr>
+                                <tr>
+                                    <td>=</td>
+                                    <td>填充字符</td>
+                                    <td>用于末尾对齐</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h5 class="mt-3">编码原理</h5>
+                    <ul>
+                        <li>将原始数据按<strong>3个字节（24位）</strong>分为一组</li>
+                        <li>将这24位分成<strong>4组，每组6位</strong></li>
+                        <li>每组6位可以表示<strong>0-63的数值</strong>，对应Base64字符集中的一个字符</li>
+                        <li>如果原始数据长度不是3的倍数，末尾使用<strong>=</strong>填充</li>
+                    </ul>
+                    
+                    <h5 class="mt-3">应用领域</h5>
+                    <ul>
+                        <li><strong>电子邮件</strong>：传输二进制附件（MIME标准）</li>
+                        <li><strong>URL传输</strong>：在URL参数中传输特殊字符</li>
+                        <li><strong>CSS/JS</strong>：嵌入图片或字体文件</li>
+                        <li><strong>数据存储</strong>：将二进制数据存储为文本格式</li>
+                        <li><strong>API通信</strong>：在JSON等文本格式中传输二进制数据</li>
+                    </ul>
+                </div>
             </div>
         </div>
 

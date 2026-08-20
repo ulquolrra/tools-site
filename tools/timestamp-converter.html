@@ -101,16 +101,252 @@
         </div>
 
         <div class="mt-4">
-            <h4>使用说明</h4>
-            <div class="alert alert-info">
-                <strong>功能介绍：</strong>
-                <ul class="mb-0">
-                    <li><strong>自动转换：</strong>智能识别输入是时间戳还是日期，自动进行转换</li>
-                    <li><strong>转时间戳：</strong>将日期格式转换为Unix时间戳（秒数或毫秒数）</li>
-                    <li><strong>转日期：</strong>将时间戳转换为可读的日期时间格式</li>
-                    <li><strong>当前时间：</strong>一键获取当前的时间戳和日期</li>
-                    <li><strong>支持格式：</strong>秒级（10位）、毫秒级（13位）时间戳</li>
-                </ul>
+            <h4>📖 详细使用教程</h4>
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">第一步：输入内容</h5>
+                    <p class="card-text">在左侧的输入框中输入要转换的内容。可以输入：</p>
+                    <ul class="card-text">
+                        <li><strong>Unix时间戳</strong>：如 <code>1625097600</code>（秒级，10位）或 <code>1625097600000</code>（毫秒级，13位）</li>
+                        <li><strong>日期时间格式</strong>：如 <code>2024-01-01 12:00:00</code> 或 <code>2024/01/01 12:00:00</code></li>
+                    </ul>
+                    
+                    <h5 class="card-title mt-3">第二步：选择转换方式</h5>
+                    <ul class="card-text">
+                        <li><strong>自动转换</strong>：智能识别输入类型，自动转换为另一种格式</li>
+                        <li><strong>转时间戳</strong>：无论输入什么，强制转换为Unix时间戳</li>
+                        <li><strong>转日期</strong>：无论输入什么，强制转换为可读的日期时间</li>
+                        <li><strong>当前时间</strong>：一键获取当前的时间戳和日期</li>
+                    </ul>
+                    
+                    <h5 class="card-title mt-3">第三步：查看结果</h5>
+                    <p class="card-text">转换结果会显示在右侧的输出框中。同时，系统会在下方显示转换后的日期时间（如果输入的是时间戳）或时间戳值（如果输入的是日期）。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>💡 实际应用场景</h4>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="card h-100 border-0 bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-code text-primary me-2"></i> 开发调试</h5>
+                            <p class="card-text">在开发过程中，经常需要将数据库中的时间戳转换为可读的日期格式，或者将用户输入的日期转换为时间戳存储，本工具可以快速完成这些转换。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 border-0 bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-server text-primary me-2"></i> 服务器日志分析</h5>
+                            <p class="card-text">分析服务器日志时，通常需要将Unix时间戳转换为本地时间，以便更好地理解日志事件发生的具体时间，便于问题定位和排查。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 border-0 bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-database text-primary me-2"></i> 数据库操作</h5>
+                            <p class="card-text">在数据库查询或数据插入时，经常需要处理时间戳。本工具可以帮助您快速验证时间戳对应的日期，或者生成特定日期的时间戳。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 border-0 bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-clock text-primary me-2"></i> 时间计算</h5>
+                            <p class="card-text">计算两个时间点之间的间隔，或者为特定的日期时间计算过期时间等。通过时间戳转换，可以方便地进行各种时间计算操作。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>❓ 常见问题FAQ</h4>
+            <div class="accordion" id="timestamp-faq-accordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#timestamp-faq-1">
+                            Q: 什么是Unix时间戳？
+                        </button>
+                    </h2>
+                    <div id="timestamp-faq-1" class="accordion-collapse collapse show" data-bs-parent="#timestamp-faq-accordion">
+                        <div class="accordion-body">
+                            A: <strong>Unix时间戳</strong>（又称为POSIX时间戳或Epoch时间）是从<strong>1970年1月1日 00:00:00 UTC</strong>（称为Unix epoch）到当前时刻所经过的秒数总和。它是一种全球统一的时间表示方式，<strong>不受时区影响</strong>。时间戳是一个整数，通常用于计算机系统中的时间表示。
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#timestamp-faq-2">
+                            Q: 秒级和毫秒级时间戳有什么区别？
+                        </button>
+                    </h2>
+                    <div id="timestamp-faq-2" class="accordion-collapse collapse" data-bs-parent="#timestamp-faq-accordion">
+                        <div class="accordion-body">
+                            A: <strong>秒级时间戳</strong>是从1970年1月1日到当前时刻的<strong>秒数</strong>，通常是<strong>10位数字</strong>（如：1625097600）。<br>
+                            <strong>毫秒级时间戳</strong>是从1970年1月1日到当前时刻的<strong>毫秒数</strong>，通常是<strong>13位数字</strong>（如：1625097600000）。<br><br>
+                            JavaScript等语言通常使用毫秒级时间戳（<code>Date.now()</code>返回的是毫秒数），而Unix/Linux系统通常使用秒级时间戳。
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#timestamp-faq-3">
+                            Q: 为什么时间戳是1970年1月1日开始？
+                        </button>
+                    </h2>
+                    <div id="timestamp-faq-3" class="accordion-collapse collapse" data-bs-parent="#timestamp-faq-accordion">
+                        <div class="accordion-body">
+                            A: 1970年1月1日 00:00:00 UTC 被称为<strong>Unix epoch（Unix纪元）</strong>。这是计算机科学中的一个约定俗成的起始点。选择这个日期作为起点主要是因为：<br>
+                            1. 它接近第一台数字计算机ENIAC（1946年）的发明时间<br>
+                            2. 它位于计算机发展的早期阶段<br>
+                            3. 它在Unix操作系统的开发中被采用（1970年代初）<br>
+                            4. 从1970年开始计数可以确保时间戳是正数，便于计算机处理
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#timestamp-faq-4">
+                            Q: 时间戳会不会在2038年溢出？
+                        </button>
+                    </h2>
+                    <div id="timestamp-faq-4" class="accordion-collapse collapse" data-bs-parent="#timestamp-faq-accordion">
+                        <div class="accordion-body">
+                            A: 对于<strong>32位有符号整数</strong>表示的秒级时间戳，最大值是2^31-1 = 2,147,483,647，对应的时间是<strong>2038年1月19日 03:14:07 UTC</strong>。超过这个时间，32位系统会发生溢出，时间戳会变为负数（被称为<strong>2038年问题</strong>）。<br><br>
+                            但是，现代大多数系统已经使用<strong>64位整数</strong>表示时间戳，可以支持到大约292亿年，因此<strong>不需要担心溢出问题</strong>。
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#timestamp-faq-5">
+                            Q: 如何在代码中获取当前时间戳？
+                        </button>
+                    </h2>
+                    <div id="timestamp-faq-5" class="accordion-collapse collapse" data-bs-parent="#timestamp-faq-accordion">
+                        <div class="accordion-body">
+                            A: 不同的编程语言有不同的方法：<br><br>
+                            <strong>JavaScript：</strong><br>
+                            <code>Math.floor(Date.now() / 1000)</code> - 秒级时间戳<br>
+                            <code>Date.now()</code> - 毫秒级时间戳<br><br>
+                            <strong>Python：</strong><br>
+                            <code>import time; int(time.time())</code> - 秒级时间戳<br>
+                            <code>import time; int(time.time() * 1000)</code> - 毫秒级时间戳<br><br>
+                            <strong>PHP：</strong><br>
+                            <code>time()</code> - 秒级时间戳<br>
+                            <code>round(microtime(true) * 1000)</code> - 毫秒级时间戳
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>📚 时间戳基础知识</h4>
+            <div class="card border-0 bg-light">
+                <div class="card-body">
+                    <p><strong>时间戳（Timestamp）</strong>是计算机科学中用于表示时间的一种方式。它将时间转换为一个数字，使得计算机可以方便地进行时间计算和比较。</p>
+                    
+                    <h5 class="mt-3">时间戳的类型</h5>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>类型</th>
+                                    <th>定义</th>
+                                    <th>位数</th>
+                                    <th>示例</th>
+                                    <th>对应日期</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>秒级时间戳</td>
+                                    <td>从1970年1月1日到现在的秒数</td>
+                                    <td>10位</td>
+                                    <td>1625097600</td>
+                                    <td>2021-06-30 16:00:00</td>
+                                </tr>
+                                <tr>
+                                    <td>毫秒级时间戳</td>
+                                    <td>从1970年1月1日到现在的毫秒数</td>
+                                    <td>13位</td>
+                                    <td>1625097600000</td>
+                                    <td>2021-06-30 16:00:00</td>
+                                </tr>
+                                <tr>
+                                    <td>微秒级时间戳</td>
+                                    <td>从1970年1月1日到现在的微秒数</td>
+                                    <td>16位</td>
+                                    <td>1625097600000000</td>
+                                    <td>2021-06-30 16:00:00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h5 class="mt-3">时间戳的用途</h5>
+                    <ul>
+                        <li><strong>时间计算</strong>：计算时间间隔、过期时间等</li>
+                        <li><strong>排序</strong>：按时间顺序排列事件或数据</li>
+                        <li><strong>数据库存储</strong>：以时间戳格式存储日期时间</li>
+                        <li><strong>缓存控制</strong>：设置缓存的过期时间</li>
+                        <li><strong>版本控制</strong>：为文件或数据添加时间戳版本</li>
+                        <li><strong>唯一ID生成</strong>：结合其他信息生成唯一标识符</li>
+                    </ul>
+                    
+                    <h5 class="mt-3">时间戳和日期格式的转换</h5>
+                    <ul>
+                        <li><strong>日期 → 时间戳</strong>：将可读的日期格式（如2024-01-01 12:00:00）转换为Unix时间戳</li>
+                        <li><strong>时间戳 → 日期</strong>：将Unix时间戳转换为可读的日期格式</li>
+                        <li><strong>时区处理</strong>：Unix时间戳基于UTC时间，需要根据需要转换为本地时间</li>
+                        <li><strong>格式化</strong>：根据需要格式化日期输出（如YYYY-MM-DD HH:mm:ss）</li>
+                    </ul>
+                    
+                    <h5 class="mt-3">时间戳在各领域的应用</h5>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>领域</th>
+                                    <th>应用场景</th>
+                                    <th>说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Web开发</td>
+                                    <td>Cookie过期时间</td>
+                                    <td>设置Cookie的expires属性</td>
+                                </tr>
+                                <tr>
+                                    <td>数据库</td>
+                                    <td>记录创建时间</td>
+                                    <td>存储记录的插入时间</td>
+                                </tr>
+                                <tr>
+                                    <td>文件系统</td>
+                                    <td>文件修改时间</td>
+                                    <td>统计文件的访问、修改、创建时间</td>
+                                </tr>
+                                <tr>
+                                    <td>日志系统</td>
+                                    <td>日志时间戳</td>
+                                    <td>记录日志事件发生的时间</td>
+                                </tr>
+                                <tr>
+                                    <td>分布式系统</td>
+                                    <td>时间同步</td>
+                                    <td>在不同节点间同步时间</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
 

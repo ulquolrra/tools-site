@@ -108,16 +108,153 @@
         </div>
 
         <div class="mt-4">
-            <h4>使用说明</h4>
-            <div class="alert alert-info">
-                <strong>功能介绍：</strong>
-                <ul class="mb-0">
-                    <li><strong>MD5：</strong>32位字符串，常用于密码存储、数据完整性检查等</li>
-                    <li><strong>SHA1：</strong>40位字符串，比MD5更安全，但已逐渐被淘汰</li>
-                    <li><strong>SHA256：</strong>64位字符串，当前推荐的安全哈希算法</li>
-                    <li><strong>特点：</strong>单向加密，不可逆，相同输入产生相同输出</li>
-                    <li><strong>应用：</strong>密码存储、数字签名、数据验证等</li>
-                </ul>
+            <h4>📖 详细使用教程</h4>
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">第一步：输入文本</h5>
+                    <p class="card-text">在左侧的文本输入框中输入或粘贴您要加密的文本内容。可以是任意字符串，包括中文、英文、数字、特殊字符等。也可以从示例下拉框中选择常见的示例文本进行测试。</p>
+                    
+                    <h5 class="card-title mt-3">第二步：选择加密算法</h5>
+                    <p class="card-text">我们提供三种常见的哈希算法：</p>
+                    <ul class="card-text">
+                        <li><strong>MD5</strong>：生成32位（128位）的哈希值，速度快但安全性较弱</li>
+                        <li><strong>SHA1</strong>：生成40位（160位）的哈希值，安全性中等，已逐渐被淘汰</li>
+                        <li><strong>SHA256</strong>：生成64位（256位）的哈希值，安全性强，是当前推荐的算法</li>
+                    </ul>
+                    
+                    <h5 class="card-title mt-3">第三步：获取结果</h5>
+                    <p class="card-text">点击对应的算法按钮后，加密结果会显示在右侧的输出框中。同时，系统会显示使用的算法类型和结果字符串的长度。您可以点击"复制结果"按钮将哈希值复制到剪贴板。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>💡 实际应用场景</h4>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="card h-100 border-0 bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-lock text-primary me-2"></i> 密码存储</h5>
+                            <p class="card-text">在数据库中存储用户密码时，绝对不能存储明文密码。需要使用哈希算法对密码进行单向加密后存储。验证时，对用户输入的密码进行相同的哈希运算，比较结果是否匹配。<strong>注意：MD5和SHA1不适合密码存储，建议使用SHA256并加盐</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 border-0 bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-file-signature text-primary me-2"></i> 数字签名</h5>
+                            <p class="card-text">对文件或数据进行哈希运算，生成唯一的数字指纹。可以用于验证数据的完整性，检测数据是否被篡改。在数字签名和认证系统中，哈希算法是基础支撑。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 border-0 bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-fingerprint text-primary me-2"></i> 数据唯一标识</h5>
+                            <p class="card-text">为文件、数据库记录等生成唯一的标识符。通过对内容进行哈希运算，可以生成一个相对唯一的ID，用于检测重复数据或作为数据的唯一标识。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 border-0 bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-link text-primary me-2"></i> 数据完整性验证</h5>
+                            <p class="card-text">在数据传输或存储过程中，可以通过哈希值来验证数据是否被篡改。发送方计算数据的哈希值并随数据一起发送，接收方重新计算哈希值并与接收到的哈希值比较，确保数据完整性。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>❓ 常见问题FAQ</h4>
+            <div class="accordion" id="md5-faq-accordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#md5-faq-1">
+                            Q: 哈希算法和加密算法有什么区别？
+                        </button>
+                    </h2>
+                    <div id="md5-faq-1" class="accordion-collapse collapse show" data-bs-parent="#md5-faq-accordion">
+                        <div class="accordion-body">
+                            A: <strong>哈希算法（Hash）</strong>是<strong>单向</strong>的，即从输入计算到哈希值很容易，但从哈希值反推输入<strong>几乎不可能</strong>。哈希算法的核心特性是：<br>
+                            - 相同输入产生相同输出<br>
+                            - 不同输入（即使只差一个字符）产生完全不同的输出<br>
+                            - 不可逆（理论上）<br><br>
+                            <strong>加密算法（Encryption）</strong>是<strong>双向</strong>的，即使用密钥可以将明文加密为密文，也可以将密文解密为明文。加密的核心特性是：<br>
+                            - 使用密钥进行加密和解密<br>
+                            - 可逆（有密钥即可解密）<br>
+                            - 保护数据的机密性
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#md5-faq-2">
+                            Q: 为什么说MD5不安全？
+                        </button>
+                    </h2>
+                    <div id="md5-faq-2" class="accordion-collapse collapse" data-bs-parent="#md5-faq-accordion">
+                        <div class="accordion-body">
+                            A: MD5算法存在多个已知的安全漏洞：<br>
+                            - <strong>碰撞攻击</strong>：研究人员已经可以构造出两个不同的输入，使它们产生相同的MD5哈希值<br>
+                            - <strong>长度扩展攻击</strong>：MD5对较长的输入存在特定的攻击方式<br>
+                            - <strong>雨表攻击</strong>：可以预先计算大量的哈希值，建立查找表，从而反推可能的输入<br><br>
+                            由于这些漏洞，MD5不再适合用于<strong>密码存储</strong>和<strong>安全相关</strong>的场景。对于需要高安全性的应用，建议使用SHA256或更强的算法，并配合<strong>加盐（Salt）</strong>技术。
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#md5-faq-3">
+                            Q: 为什么哈希值长度固定？
+                        </button>
+                    </h2>
+                    <div id="md5-faq-3" class="accordion-collapse collapse" data-bs-parent="#md5-faq-accordion">
+                        <div class="accordion-body">
+                            A: 哈希算法的一个重要特性是<strong>固定输出长度</strong>。无论输入有多长，哈希值的长度总是固定的：<br>
+                            - MD5：32个字符（128位）<br>
+                            - SHA1：40个字符（160位）<br>
+                            - SHA256：64个字符（256位）<br><br>
+                            这是通过哈希函数的内部机制实现的。哈希函数会将输入数据分割为固定大小的块，然后进行多次压缩和转换，最终产生固定长度的输出。这种特性使得哈希函数可以处理任意长度的输入，同时保持输出的一致性。
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#md5-faq-4">
+                            Q: 相同输入会产生相同的哈希值吗？
+                        </button>
+                    </h2>
+                    <div id="md5-faq-4" class="accordion-collapse collapse" data-bs-parent="#md5-faq-accordion">
+                        <div class="accordion-body">
+                            A: <strong>是的</strong>。哈希算法的一个基本特性是<strong>确定性</strong>：相同的输入总是会产生相同的哈希值。<br><br>
+                            正是因为这个特性，哈希算法可以用于：<br>
+                            - 密码验证：输入密码后计算哈希值，与数据库中存储的哈希值比较<br>
+                            - 数据完整性检查：对数据计算哈希值，稍后可以重新计算验证数据是否被修改<br>
+                            - 去重：通过哈希值检测重复数据<br><br>
+                            但是，这也意味着如果知道输入，就很容易验证哈希值是否匹配。因此，在密码存储等场景中，需要使用<strong>加盐（Salt）</strong>技术，为每个输入添加随机值，然后再计算哈希。
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#md5-faq-5">
+                            Q: 如何提高哈希算法的安全性？
+                        </button>
+                    </h2>
+                    <div id="md5-faq-5" class="accordion-collapse collapse" data-bs-parent="#md5-faq-accordion">
+                        <div class="accordion-body">
+                            A: 要提高哈希算法的安全性，可以采用以下措施：<br>
+                            1. <strong>使用更强的算法</strong>：选择SHA256或SHA3等更安全的哈希算法，避免使用MD5和SHA1<br>
+                            2. <strong>加盐（Salt）</strong>：为每个输入添加唯一的随机值，然后计算哈希。这样即使两个用户的密码相同，哈希值也会不同<br>
+                            3. <strong>多次迭代</strong>：对输入进行多次哈希运算（如1000次或更多），增加暴力破解的难度<br>
+                            4. <strong>使用密钥</strong>：使用HMAC（Hash-based Message Authentication Code）等基于密钥的哈希算法<br>
+                            5. <strong>添加椒盐</strong>：结合其他随机值，进一步增加复杂度<br><br>
+                            例如，安全的密码存储方式：<code>SHA256(SHA256(password + salt) + pepper)</code>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
