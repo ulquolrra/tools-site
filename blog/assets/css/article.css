@@ -29,25 +29,27 @@
     margin: 0 8px;
 }
 
-/* 文章内容容器 - 双列布局 */
+/* 文章内容容器 - Flexbox双列布局 */
 .article-content {
+    display: flex;
+    gap: 20px;
     position: relative;
 }
 
-/* 文章目录样式 - 改为右侧侧边栏 */
+/* 文章目录样式 - 右侧侧边栏，sticky定位 */
 .article-toc {
     position: -webkit-sticky;
     position: sticky;
     top: 20px;
-    float: right;
+    align-self: flex-start;
     width: 300px;
-    margin-left: 20px;
-    margin-bottom: 20px;
+    flex-shrink: 0;
     z-index: 10;
 }
 
 .article-toc .card {
     background-color: white !important;
+    margin-bottom: 20px;
 }
 
 .article-toc .card-body {
@@ -59,13 +61,13 @@
     overflow-y: auto;
 }
 
-/* 文章正文 - 清除浮动 */
+/* 文章正文 - 占据剩余空间 */
 .article-body {
     font-size: 1.05rem;
     line-height: 1.8;
     color: #333;
-    clear: both;
-    min-height: 200px; /* 确保内容区域足够高 */
+    flex: 1;
+    min-width: 0; /* 避免长内容溢出 */
 }
 
 .article-toc .nav-link {
@@ -347,17 +349,20 @@
         margin: 5px 0;
     }
     
+    .article-content {
+        flex-direction: column;
+    }
+    
     .article-toc {
         position: relative;
-        float: none !important;
         width: 100% !important;
-        margin-left: 0 !important;
-        margin-bottom: 20px !important;
+        align-self: auto;
+        margin-bottom: 20px;
     }
     
     .article-body {
-        padding-top: 0 !important;
-        clear: none !important;
+        width: 100%;
+    }
     }
     
     .article-navigation .card-body {
