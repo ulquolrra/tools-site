@@ -29,12 +29,21 @@
     margin: 0 8px;
 }
 
+/* 文章内容容器 */
+.article-content {
+    position: relative;
+}
+
 /* 文章目录样式 */
 .article-toc {
     position: -webkit-sticky;
     position: sticky;
     top: 20px;
     z-index: 10;
+}
+
+.article-toc .card {
+    background-color: white !important;
 }
 
 .article-toc .card-body {
@@ -68,7 +77,7 @@
     font-size: 1.05rem;
     line-height: 1.8;
     color: #333;
-    padding-top: 120px;
+    padding-top: 140px;  /* 为sticky目录预留空间 */
 }
 
 .article-body p {
