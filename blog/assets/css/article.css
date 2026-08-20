@@ -29,27 +29,18 @@
     margin: 0 8px;
 }
 
-/* 文章内容容器 - Flexbox双列布局 */
+/* 文章内容容器 */
 .article-content {
-    display: flex;
-    gap: 20px;
     position: relative;
 }
 
-/* 文章目录样式 - 右侧侧边栏，sticky定位 */
+/* 文章目录样式 - 仅顶部显示，无悬停效果 */
 .article-toc {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 20px;
-    align-self: flex-start;
-    width: 300px;
-    flex-shrink: 0;
-    z-index: 10;
+    margin-bottom: 20px;
 }
 
 .article-toc .card {
     background-color: white !important;
-    margin-bottom: 20px;
 }
 
 .article-toc .card-body {
@@ -61,15 +52,7 @@
     overflow-y: auto;
 }
 
-/* 文章正文 - 占据剩余空间 */
-.article-body {
-    font-size: 1.05rem;
-    line-height: 1.8;
-    color: #333;
-    flex: 1;
-    min-width: 0; /* 避免长内容溢出 */
-}
-
+/* 文章目录链接样式 */
 .article-toc .nav-link {
     color: #495057;
     padding: 8px 16px;
@@ -92,7 +75,6 @@
     font-size: 1.05rem;
     line-height: 1.8;
     color: #333;
-    padding-top: 140px;  /* 为sticky目录预留空间 */
 }
 
 .article-body p {
@@ -349,19 +331,8 @@
         margin: 5px 0;
     }
     
-    .article-content {
-        flex-direction: column;
-    }
-    
     .article-toc {
-        position: relative;
-        width: 100% !important;
-        align-self: auto;
         margin-bottom: 20px;
-    }
-    
-    .article-body {
-        width: 100%;
     }
     }
     
