@@ -34,6 +34,7 @@
     position: -webkit-sticky;
     position: sticky;
     top: 20px;
+    z-index: 10;
 }
 
 .article-toc .card-body {
@@ -67,6 +68,7 @@
     font-size: 1.05rem;
     line-height: 1.8;
     color: #333;
+    padding-top: 120px;
 }
 
 .article-body p {
@@ -325,6 +327,10 @@
     
     .article-toc {
         position: relative;
+    }
+    
+    .article-body {
+        padding-top: 0 !important;
     }
     
     .article-navigation .card-body {
