@@ -74,6 +74,7 @@ a:hover {
 
 .card-body {
     padding: 1.5rem;
+    color: #333;
 }
 
 .card-title {
@@ -477,8 +478,10 @@ pre {
     line-height: 1.6;
 }
 
-code {
+code,
+pre {
     background: #f6f8fa;
+    color: #212529 !important;
     padding: 0.2rem 0.4rem;
     border-radius: 4px;
     font-family: 'Courier New', monospace;
