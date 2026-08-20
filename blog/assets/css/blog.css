@@ -144,6 +144,47 @@ article .d-flex.justify-content-between.align-items-center small.text-muted {
     border-radius: 0 4px 4px 0;
 }
 
+/* 搜索结果样式 */
+#blogSearchResults {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+#blogSearchResults::-webkit-scrollbar {
+    width: 6px;
+}
+
+#blogSearchResults::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+#blogSearchResults::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+#blogSearchResults::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.blog-search-results .card.border-0.shadow-sm {
+    border-left: 3px solid #0d6efd;
+    margin-left: 0;
+}
+
+.blog-search-results .card.border-0.shadow-sm:hover {
+    border-left: 3px solid #0b5ed7;
+    transform: translateX(5px);
+}
+
+.search-highlight {
+    background-color: #fff3cd;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-weight: 600;
+}
+
 /* 关于博客区域 */
 .card-body.text-center .btn {
     min-width: 100px;
