@@ -468,8 +468,8 @@ footer a:hover {
 
 /* 代码块 */
 pre {
-    background: #282c34;
-    color: #abb2bf;
+    background: #f6f8fa !important;
+    color: #212529 !important;
     padding: 1rem;
     border-radius: 8px;
     overflow-x: auto;
@@ -478,10 +478,9 @@ pre {
     line-height: 1.6;
 }
 
-code,
-pre {
+code {
     background: #f6f8fa;
-    color: #212529 !important;
+    color: #d63384 !important;
     padding: 0.2rem 0.4rem;
     border-radius: 4px;
     font-family: 'Courier New', monospace;

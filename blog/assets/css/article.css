@@ -85,8 +85,8 @@
 }
 
 .article-body pre {
-    background-color: #2d2d2d;
-    color: #f8f8f2;
+    background-color: #2d2d2d !important;
+    color: #e0e0e0 !important;
     padding: 1.25rem;
     border-radius: 6px;
     overflow-x: auto;
@@ -96,7 +96,7 @@
 
 .article-body code {
     background-color: #f0f0f0;
-    color: #d63384;
+    color: #d63384 !important;
     padding: 2px 6px;
     border-radius: 4px;
     font-family: 'Courier New', monospace;
