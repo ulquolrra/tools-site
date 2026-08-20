@@ -29,46 +29,7 @@
     margin: 0 8px;
 }
 
-/* 文章内容容器 */
-.article-content {
-    position: relative;
-}
 
-/* 文章目录样式 - 仅顶部显示，无悬停效果 */
-.article-toc {
-    margin-bottom: 20px;
-}
-
-.article-toc .card {
-    background-color: white !important;
-}
-
-.article-toc .card-body {
-    padding: 20px;
-}
-
-.article-toc nav {
-    max-height: 400px;
-    overflow-y: auto;
-}
-
-/* 文章目录链接样式 */
-.article-toc .nav-link {
-    color: #495057;
-    padding: 8px 16px;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-}
-
-.article-toc .nav-link:hover {
-    background-color: #f8f9fa;
-    color: #0d6efd;
-}
-
-.article-toc .nav-link.active {
-    background-color: #0d6efd;
-    color: white;
-}
 
 /* 文章正文样式 */
 .article-body {

@@ -58,13 +58,6 @@
             </header>
 
             <div class="article-content">
-                <div class="article-toc card border-0 shadow-sm mb-4">
-                    <div class="card-body">
-                        <h5 class="mb-3"><i class="fas fa-list-ul me-2"></i> 文章目录</h5>
-                        <nav id="toc"></nav>
-                    </div>
-                </div>
-
                 <div class="article-body">
                     <p>在我们开发在线工具箱的过程中，发现一个规律：<strong>最受欢迎的工具都是那些能解决具体痛点、提升开发效率的工具</strong>。经过不断迭代和用户反馈，我们最终确定了14个核心工具，涵盖编码解码、格式转换、文本处理、时间处理等多个方面。</p>
                     <p>本文将深入分析每个工具的设计理念、实际使用场景、进阶技巧和常见问题解决方案。</p>
@@ -340,36 +333,8 @@ async function imageToBase64(file) {
     <script src="/assets/js/main.js"></script>
     <script src="/assets/js/error-tracking.js"></script>
     <script>
+        // 复制链接功能
         document.addEventListener('DOMContentLoaded', function() {
-            const headings = document.querySelectorAll('.article-body h2, .article-body h3');
-            const toc = document.getElementById('toc');
-            if (headings.length === 0 || !toc) return;
-            let html = '<ul class="nav nav-pills flex-column">';
-            headings.forEach((h, i) => {
-                const id = h.id || `h-${i}`;
-                if (!h.id) h.id = id;
-                const level = parseInt(h.tagName.substring(1));
-                const indent = level === 3 ? 'ms-3' : '';
-                html += `<li class="nav-item ${indent}"><a class="nav-link ${level === 3 ? 'small' : ''}" href="#${id}">${h.textContent}</a></li>`;
-            });
-            html += '</ul>';
-            toc.innerHTML = html;
-            const tocLinks = toc.querySelectorAll('a');
-            window.addEventListener('scroll', () => {
-                let current = '';
-                headings.forEach(h => {
-                    if (window.pageYOffset >= h.offsetTop - 200) current = h.id;
-                });
-                tocLinks.forEach(link => {
-                    link.classList.toggle('active', link.getAttribute('href') === '#' + current);
-                });
-            });
-            document.querySelectorAll('a[href^="#"]').forEach(a => {
-                a.addEventListener('click', e => {
-                    e.preventDefault();
-                    document.querySelector(a.getAttribute('href')).scrollIntoView({behavior: 'smooth', block: 'start'});
-                });
-            });
             document.querySelectorAll('.copy-link-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     navigator.clipboard.writeText(btn.dataset.link).then(() => {
