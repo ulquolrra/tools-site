@@ -88,6 +88,25 @@ if (typeof document !== 'undefined') {
                 link.setAttribute('target', '_blank');
             }
         });
+
+        // 导航菜单激活状态切换
+        const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                // 为点击的菜单项添加闪光效果类
+                this.classList.add('nav-pulse');
+                
+                // 移除所有菜单项的active类
+                navLinks.forEach(l => l.classList.remove('active'));
+                // 为点击的菜单项添加active类
+                this.classList.add('active');
+                
+                // 动画结束后移除闪光效果类
+                setTimeout(() => {
+                    this.classList.remove('nav-pulse');
+                }, 500);
+            });
+        });
     });
 }
 

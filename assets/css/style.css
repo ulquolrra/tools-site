@@ -522,3 +522,34 @@ code {
 .text-decoration-none:hover {
     text-decoration: underline;
 }
+
+/* 导航菜单激活状态 */
+.navbar-nav .nav-link.active {
+    font-weight: 600;
+    background-color: rgba(255,255,255,0.15);
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+}
+
+/* 导航菜单悬停效果 */
+.navbar-nav .nav-link:hover {
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 4px;
+}
+
+/* 导航菜单点击反馈 */
+.navbar-nav .nav-link:active {
+    background-color: rgba(255,255,255,0.2);
+    transform: scale(1.02);
+}
+
+/* 导航菜单点击闪光效果 */
+@keyframes navPulse {
+    0% { background-color: rgba(255,255,255,0.2); }
+    50% { background-color: rgba(255,255,255,0.4); }
+    100% { background-color: rgba(255,255,255,0.2); }
+}
+
+.navbar-nav .nav-link.nav-pulse {
+    animation: navPulse 0.5s ease;
+}
