@@ -100,11 +100,16 @@
     // 资源加载错误（图片、脚本、样式表等）
     window.addEventListener('error', function(event) {
         if (event.target && event.target.tagName) {
+            // 忽略广告脚本加载错误
+            const src = event.target.src || event.target.href || '';
+            if (src.includes('adsbygoogle.js') || src.includes('googlesyndication.com')) {
+                return; // 不处理广告脚本错误
+            }
             handleError(new Error(`资源加载失败: ${event.target.tagName}`), {
                 type: 'resource_error',
                 context: {
                     tag: event.target.tagName,
-                    src: event.target.src || event.target.href
+                    src: src
                 }
             });
         }
