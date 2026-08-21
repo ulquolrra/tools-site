@@ -109,6 +109,17 @@ article .d-flex.justify-content-between.align-items-center small.text-muted {
     transform: scale(1.02);
 }
 
+/* 导航菜单点击闪光效果 */
+@keyframes navPulse {
+    0% { background-color: rgba(255,255,255,0.2); }
+    50% { background-color: rgba(255,255,255,0.4); }
+    100% { background-color: rgba(255,255,255,0.2); }
+}
+
+.navbar-nav .nav-link.nav-pulse {
+    animation: navPulse 0.5s ease;
+}
+
 /* 移动端适配 */
 @media (max-width: 768px) {
     .blog-header {
