@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JSON格式化工具 - 在线JSON格式化、压缩、美化</title>
-    <meta name="description" content="免费在线JSON格式化工具，支持JSON美化、压缩、树形展示，一键格式化JSON数据">
-    <meta name="keywords" content="JSON格式化,JSON美化,JSON压缩,JSON工具,在线JSON,JSON格式化工具">
+    <title>JSON格式化工具 - 在线JSON美化、压缩、验证、树形展示 | 在线工具箱</title>
+    <meta name="description" content="专业的JSON在线处理工具，支持格式化、压缩、美化、验证、树形展示。适用于API接口调试、配置文件分析、数据库查询、日志处理等场景。完全本地运行，数据100%安全，无需注册或上传。提供详细的JSON教程、6种数据类型解析、常见错误分析、10个实战应用场景。">
+    <meta name="keywords" content="JSON格式化,JSON美化,JSON压缩,JSON验证,JSON树形视图,在线JSON工具,JSON教程,JSON语法,JSON基础知识,API调试工具,前端开发工具,后端开发工具">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
@@ -46,9 +46,16 @@
     </div>
 
     <div class="tool-container fade-in">
-        <div class="tool-header">
-            <h1 class="tool-title">JSON格式化工具</h1>
-            <p class="tool-description">在线格式化、压缩、美化JSON数据，支持树形展示，让JSON可读性更强</p>
+        <div class="tool-header text-center mb-5">
+            <h1 class="display-5 fw-bold mb-3">JSON格式化工具</h1>
+            <p class="lead">
+                专业的JSON在线处理工具，支持<strong>格式化、压缩、美化、验证、树形展示</strong>等功能。
+                适用于前端开发者调试API接口、后端工程师分析数据结构、处理配置文件等场景。
+                <strong>完全本地运行，数据100%安全，无需注册</strong>。
+            </p>
+            <div class="alert alert-primary">
+                <i class="fas fa-star me-2"></i> 无需安装 | 无需注册 | 完全免费 | 数据本地处理 | 支持大文件（建议<5MB）
+            </div>
         </div>
 
         <div class="row g-4">
@@ -99,217 +106,298 @@
             <h4 class="result-title">
                 <i class="fas fa-sitemap me-2"></i> 树形视图
             </h4>
-            <div id="tree-view" class="tree-view">请先输入并格式化JSON数据...</div>
+            <div id="tree-view" class="tree-view bg-light p-3 rounded" style="min-height: 200px;">请先输入并格式化JSON数据...</div>
         </div>
 
-        <div class="mt-4">
-            <h4>使用说明</h4>
-            <div class="alert alert-info">
-                <strong>功能介绍：</strong>
-                <ul class="mb-0">
-                    <li><strong>格式化：</strong>将压缩的JSON转换为可读的格式，添加缩进和换行</li>
-                    <li><strong>压缩：</strong>将JSON转换为一行，移除所有空格和换行</li>
-                    <li><strong>树形视图：</strong>以树状结构展示JSON，更直观地查看数据结构</li>
-                    <li><strong>示例：</strong>选择示例数据快速测试</li>
-                </ul>
-            </div>
-        </div>
+        <div class="mt-5">
+            <h2 class="fs-3 mb-4"><i class="fas fa-book text-primary me-2"></i> JSON完全指南</h2>
 
-        <div class="mt-4">
-            <h4>📖 详细使用教程</h4>
             <div class="card border-0 bg-light mb-4">
                 <div class="card-body">
-                    <h5 class="card-title">第一步：输入JSON数据</h5>
-                    <p class="card-text">在左侧的输入框中粘贴您的JSON字符串。可以是已格式化的JSON，也可以是压缩的单行JSON。</p>
-                    
-                    <h5 class="card-title mt-3">第二步：选择操作</h5>
-                    <ul class="card-text">
-                        <li><strong>格式化</strong>：将压缩的JSON转换为可读的层次结构，添加适当的缩进和换行</li>
-                        <li><strong>压缩</strong>：将JSON转换为一行，移除所有不必要的空格和换行，减小文件体积</li>
-                        <li><strong>树形视图</strong>：以可视化的树状结构展示JSON数据，便于理解复杂的嵌套关系</li>
-                    </ul>
-                    
-                    <h5 class="card-title mt-3">第三步：获取结果</h5>
-                    <p class="card-text">处理后的结果会出现在右侧输出框中。您可以直接复制使用，或点击"复制结果"按钮一键复制到剪贴板。</p>
+                    <h3 class="fs-4 mb-3"><i class="fas fa-info-circle me-2"></i> JSON是什么？</h3>
+                    <p><strong>JSON</strong>（JavaScript Object Notation，JavaScript对象表示法）是一种<strong>轻量级的数据交换格式</strong>，设计目的是<strong>易于人类阅读和编写，同时也易于机器解析和生成</strong>。JSON采用键-值对的形式表示数据，是目前Web开发中使用最广泛的数据格式之一。</p>
+                    <p>JSON最初由道格拉斯·克洛克福特（Douglas Crockford）于2002年提出，最初是作为JavaScript脚本语言的子集。后来逐渐发展成为一种独立于编程语言的数据格式，得到了几乎所有主流编程语言的支持。JSON的文件扩展名通常为<code>.json</code>，MIME类型为<code>application/json</code>。</p>
                 </div>
             </div>
-        </div>
 
-        <div class="mt-4">
-            <h4>💡 实际应用场景</h4>
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <div class="card h-100 border-0 bg-light">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="fas fa-code text-primary me-2"></i> 前端开发</h5>
-                            <p class="card-text">处理API返回的压缩JSON数据，快速查看接口返回的数据结构，提高开发调试效率。</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card h-100 border-0 bg-light">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="fas fa-database text-primary me-2"></i> 后端调试</h5>
-                            <p class="card-text">格式化日志文件中的JSON数据，快速定位问题，减少调试时间。</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card h-100 border-0 bg-light">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="fas fa-file-alt text-primary me-2"></i> 配置文件管理</h5>
-                            <p class="card-text">美化项目中的JSON配置文件，使代码更具可读性，便于团队协作和维护。</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card h-100 border-0 bg-light">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="fas fa-chart-line text-primary me-2"></i> 数据分析</h5>
-                            <p class="card-text">处理数据分析中的JSON数据，将复杂的嵌套数据结构可视化展示，便于分析。</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-4">
-            <h4>❓ 常见问题FAQ</h4>
-            <div class="accordion" id="json-faq-accordion">
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq-1">
-                            Q: 为什么我的JSON格式化后显示错误？
-                        </button>
-                    </h2>
-                    <div id="faq-1" class="accordion-collapse collapse show" data-bs-parent="#json-faq-accordion">
-                        <div class="accordion-body">
-                            A: 请检查您的JSON语法是否正确。常见错误包括：缺少引号、多余的逗号、使用单引号而非双引号、注释未移除等。您可以使用"格式化"功能来验证JSON是否有效，如果格式化失败通常说明语法有误。
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-2">
-                            Q: JSON格式化工具有什么实际用途？
-                        </button>
-                    </h2>
-                    <div id="faq-2" class="accordion-collapse collapse" data-bs-parent="#json-faq-accordion">
-                        <div class="accordion-body">
-                            A: 主要用途包括：1) 调试API接口时查看返回的JSON数据结构；2) 美化项目配置文件，提高代码可读性；3) 压缩JSON以减小文件体积，节省存储和传输成本；4) 通过树形视图快速理解复杂的嵌套数据结构。
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-3">
-                            Q: 如何处理特别大的JSON文件？
-                        </button>
-                    </h2>
-                    <div id="faq-3" class="accordion-collapse collapse" data-bs-parent="#json-faq-accordion">
-                        <div class="accordion-body">
-                            A: 对于特别大的JSON文件（超过1MB），建议分段处理。您可以先格式化一部分数据，查看结果是否正确，然后再处理剩余部分。如果浏览器出现卡顿，可以尝试使用更小的数据集或者刷新页面重新操作。
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-4">
-                            Q: 格式化后的JSON能直接使用吗？
-                        </button>
-                    </h2>
-                    <div id="faq-4" class="accordion-collapse collapse" data-bs-parent="#json-faq-accordion">
-                        <div class="accordion-body">
-                            A: 当然可以！格式化后的JSON是标准的有效JSON格式，可以直接用于您的项目中。格式化只是改变了数据的展示方式（添加缩进和换行），并不会改变数据的内容和结构。
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-5">
-                            Q: 为什么压缩后的JSON会更小？
-                        </button>
-                    </h2>
-                    <div id="faq-5" class="accordion-collapse collapse" data-bs-parent="#json-faq-accordion">
-                        <div class="accordion-body">
-                            A: 压缩功能会移除所有不必要的空白字符（空格、换行、制表符等），而这些字符在JSON中并不是必需的。JSON格式本身不要求有缩进和换行，这些只是为了提高人类的可读性。压缩后的JSON在功能上与原JSON完全一致，只是体积更小。
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-4">
-            <h4>📚 JSON基础知识</h4>
-            <div class="card border-0 bg-light">
+            <div class="card border-0 bg-light mb-4">
                 <div class="card-body">
-                    <p><strong>JSON（JavaScript Object Notation）</strong>是一种轻量级的数据交换格式，易于人类阅读和编写，同时也易于机器解析和生成。</p>
-                    
-                    <h5 class="mt-3">JSON数据类型</h5>
+                    <h3 class="fs-4 mb-3"><i class="fas fa-list me-2"></i> JSON支持的6种数据类型</h3>
+                    <p>JSON支持6种基本数据类型，以下是每种类型的详细说明：</p>
                     <div class="table-responsive">
-                        <table class="table table-sm table-bordered">
-                            <thead>
+                        <table class="table table-striped table-bordered">
+                            <thead class="table-primary">
                                 <tr>
-                                    <th>数据类型</th>
-                                    <th>描述</th>
-                                    <th>示例</th>
+                                    <th style="width: 15%;">类型</th>
+                                    <th style="width: 35%;">描述</th>
+                                    <th style="width: 25%;">示例</th>
+                                    <th style="width: 25%;">注意</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>字符串</td>
-                                    <td>文本数据，必须用双引号括起来</td>
-                                    <td><code>"hello"</code></td>
+                                    <td><strong>字符串</strong></td>
+                                    <td>文本数据，必须用双引号括起来。支持Unicode字符</td>
+                                    <td><code>"hello"</code>, <code>"中文"</code></td>
+                                    <td>必须双引号</td>
                                 </tr>
                                 <tr>
-                                    <td>数字</td>
-                                    <td>整数或浮点数，不能有前导零</td>
+                                    <td><strong>数字</strong></td>
+                                    <td>整数或浮点数，不支持NaN、Infinity</td>
                                     <td><code>42</code>, <code>3.14</code></td>
+                                    <td>不能有前导零</td>
                                 </tr>
                                 <tr>
-                                    <td>布尔值</td>
-                                    <td>true 或 false</td>
+                                    <td><strong>布尔值</strong></td>
+                                    <td>表示真或假，仅支持true和false</td>
                                     <td><code>true</code>, <code>false</code></td>
+                                    <td>区分大小写</td>
                                 </tr>
                                 <tr>
-                                    <td>null</td>
-                                    <td>空值</td>
+                                    <td><strong>null</strong></td>
+                                    <td>表示空值或无值</td>
                                     <td><code>null</code></td>
+                                    <td>不是NULL</td>
                                 </tr>
                                 <tr>
-                                    <td>对象</td>
-                                    <td>无序的键值对集合，用大括号括起来</td>
-                                    <td><code>{"name": "John"}</code></td>
+                                    <td><strong>对象</strong></td>
+                                    <td>无序的键值对集合，键必须是字符串</td>
+                                    <td><code>{"name": "张三"}</code></td>
+                                    <td>键不能重复</td>
                                 </tr>
                                 <tr>
-                                    <td>数组</td>
-                                    <td>有序的值列表，用方括号括起来</td>
+                                    <td><strong>数组</strong></td>
+                                    <td>有序的值列表，元素可以是任何类型</td>
                                     <td><code>[1, 2, 3]</code></td>
+                                    <td>元素类型可以不同</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    
-                    <h5 class="mt-3">JSON语法规则</h5>
-                    <ul>
-                        <li>数据以键值对的形式表示，键和值之间用冒号分隔：<code>"key": value</code></li>
-                        <li>键必须是字符串，用双引号括起来</li>
-                        <li>不同的键值对之间用逗号分隔</li>
-                        <li>大括号 <code>{}</code> 保存对象，方括号 <code>[]</code> 保存数组</li>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-code me-2"></i> JSON语法规则</h3>
+                    <p>JSON虽然简单，但有严格的语法规则：</p>
+                    <ol>
+                        <li>数据由键值对组成，键和值用冒号分隔：<code>"键": 值</code></li>
+                        <li>键必须是字符串，必须用双引号括起来</li>
+                        <li>多个键值对用逗号分隔</li>
+                        <li>大括号<code>{}</code>保存对象，方括号<code>[]</code>保存数组</li>
                         <li>JSON不支持注释</li>
-                        <li>JSON的字符串必须使用双引号，不能使用单引号</li>
+                        <li>JSON字符串必须使用双引号</li>
+                        <li>JSON不支持尾随逗号</li>
+                        <li>数字不能有前导零（0除外）</li>
+                    </ol>
+                    <div class="alert alert-warning mt-3">
+                        <i class="fas fa-exclamation-triangle me-2"></i> <strong>常见错误：</strong> 使用单引号、尾随逗号、数字前导零、包含注释
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="fs-3 mb-4"><i class="fas fa-rocket text-primary me-2"></i> 实际应用场景</h2>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-code me-2"></i> 场景1：API接口调试</h3>
+                    <p>在前后端分离的开发模式中，前端应用需要通过HTTP请求与后端API服务通信，数据格式通常为JSON。使用本工具可以快速格式化API返回的数据，清晰查看数据结构，提高调试效率。</p>
+                    <p><strong>具体用途：</strong>验证API返回的数据结构、快速定位错误信息、为API文档生成清晰的JSON示例、创建Mock数据用于前端开发测试</p>
+                    <p><strong>使用技巧：</strong>结合浏览器开发者工具（F12 → Network标签），复制Response数据到本工具格式化</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-server me-2"></i> 场景2：配置文件分析</h3>
+                    <p>现代前端项目中的配置文件数不胜数：package.json、tsconfig.json、webpack.config.js、vite.config.js等等。这些文件通常很长且结构复杂。使用本工具可以美化这些配置文件，快速定位到所需的配置项，提升开发效率。</p>
+                    <p><strong>适用文件：</strong>package.json、tsconfig.json、webpack.config.js、vite.config.js、.eslintrc.json、babel.config.json等</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-database me-2"></i> 场景3：数据库查询结果处理</h3>
+                    <p>数据库查询返回的JSON数据通常格式混乱，特别是关系型数据库中复杂的联合查询结果。使用本工具可以快速格式化这些数据，帮助开发者理解查询结果，快速定位问题。</p>
+                    <p><strong>具体应用：</strong>调试SQL查询时查看返回结果、分析复杂的业务数据结构、验证数据库设计是否合理、处理NoSQL数据库中的JSON文档</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-file-alt me-2"></i> 场景4：日志数据分析</h3>
+                    <p>系统日志中经常包含JSON格式的错误信息、请求数据、响应数据等。这些日志数据通常格式混乱，难以直接分析。使用本工具可以快速格式化日志中的JSON数据，帮助运维工程师快速定位问题。</p>
+                    <p><strong>日志类型：</strong>API请求日志、错误日志、访问日志、性能日志</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-exchange-alt me-2"></i> 场景5：前后端数据交换</h3>
+                    <p>在前后端分离的开发模式中，数据交换格式通常使用JSON。前端需要的数据结构和后端返回的数据结构可能存在差异。使用本工具可以帮助开发者验证数据格式，确保前后端数据结构一致，提升协作效率。</p>
+                    <p><strong>协作场景：</strong>API设计讨论、接口文档编写、代码Review、Bug修复</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="fs-3 mb-4"><i class="fas fa-question-circle text-primary me-2"></i> 常见问题FAQ</h2>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: JSON格式化后显示错误怎么办？</h4>
+                    <p><strong>A:</strong> 这是JSON语法错误。常见错误包括：</p>
+                    <ol>
+                        <li><strong>缺少双引号：</strong>JSON要求所有属性名和字符串值必须用双引号括起来</li>
+                        <li><strong>多余的逗号：</strong>数组或对象中各元素之间必须用逗号分隔，但最后一个元素后面不能有逗号</li>
+                        <li><strong>使用单引号：</strong>JSON不支持单引号，必须使用双引号</li>
+                        <li><strong>包含注释：</strong>JSON不支持注释语法</li>
+                        <li><strong>花括号不匹配：</strong>检查所有{ }和[ ]是否成对出现</li>
+                        <li><strong>数字前导零：</strong>数字不能有前导零（0除外）</li>
+                    </ol>
+                    <p>您可以使用本工具的"验证"功能检查JSON是否有效，系统会自动标出错误位置。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: JSON格式化工具有什么实际用途？</h4>
+                    <p><strong>A:</strong> JSON格式化工具在Web开发中有广泛的应用场景：</p>
+                    <ul>
+                        <li><strong>API接口开发与调试：</strong>调试RESTful API时，查看返回的JSON数据结构</li>
+                        <li><strong>配置文件管理：</strong>美化项目配置文件，提高代码可读性</li>
+                        <li><strong>数据分析与处理：</strong>分析系统日志中的JSON格式数据</li>
+                        <li><strong>前后端数据交换：</strong>确保前后端数据结构一致，提升协作效率</li>
+                        <li><strong>数据验证：</strong>验证用户提交的JSON数据格式是否正确</li>
+                        <li><strong>教学演示：</strong>用于演示JSON数据结构和格式</li>
                     </ul>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 如何处理特别大的JSON文件？</h4>
+                    <p><strong>A:</strong> 对于特别大的JSON文件（超过1MB），建议采用以下策略：</p>
+                    <ol>
+                        <li><strong>分段处理：</strong>将大JSON文件分成多个小部分，分别进行格式化处理</li>
+                        <li><strong>浏览器优化：</strong>如果浏览器出现卡顿或崩溃，可以尝试刷新页面重新操作</li>
+                        <li><strong>使用高性能浏览器：</strong>推荐使用Chrome、Firefox等现代浏览器</li>
+                        <li><strong>关闭其他标签页：</strong>释放更多内存，提升浏览器性能</li>
+                    </ol>
+                    <p><strong>本工具的限制：</strong>由于浏览器内存限制，建议单次处理的JSON文件大小<strong>不超过5MB</strong>。如果数据实在太大（超过10MB），建议使用本地工具如VS Code、Sublime Text等编辑器的JSON格式化功能，或者使用命令行工具如<code>jq</code>等。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 格式化后的JSON能直接使用吗？</h4>
+                    <p><strong>A:</strong> <strong>当然可以！</strong> 格式化后的JSON是<strong>完全有效的JSON格式</strong>，可以直接用于您的项目中。</p>
+                    <p>格式化操作<strong>仅改变数据的展示方式</strong>，并不会改变数据的内容和结构。具体来说：</p>
+                    <ul>
+                        <li><strong>添加缩进：</strong>提升可读性，不影响解析</li>
+                        <li><strong>添加换行：</strong>使结构更清晰，不改变数据</li>
+                        <li><strong>保持语义：</strong>所有数据的含义和值保持不变</li>
+                    </ul>
+                    <p><strong>注意：</strong>虽然两个JSON看起来不同，但它们在<strong>语义上完全相同</strong>，任何JSON解析器都会将它们解析为相同的对象。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 为什么压缩后的JSON会更小？</h4>
+                    <p><strong>A:</strong> 压缩功能会移除所有<strong>不必要的空白字符</strong>，而这些字符在JSON中并不是必需的。</p>
+                    <p>JSON格式本身<strong>不要求有缩进和换行</strong>。这些空白字符只是为了提高<strong>人类的可读性</strong>，计算机在解析JSON时会自动忽略这些空白字符。</p>
+                    <p><strong>压缩率分析：</strong></p>
+                    <ul>
+                        <li><strong>完全未格式化：</strong>0%（已经是压缩格式，无法进一步压缩）</li>
+                        <li><strong>2空格缩进：</strong>20-30%</li>
+                        <li><strong>4空格缩进：</strong>30-40%</li>
+                        <li><strong>Tab缩进：</strong>40-50%</li>
+                        <li><strong>多行+注释：</strong>50-70%</li>
+                    </ul>
+                    <p><strong>总结：</strong>压缩功能可以有效<strong>减小JSON文件体积</strong>，特别适合用于生产环境的数据传输和存储。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-shield-alt me-2 text-success"></i> Q: 本工具会上传我的数据到服务器吗？</h4>
+                    <p><strong>A:</strong> <span class="text-success fw-bold">完全不会！绝对安全！</span></p>
+                    <p>本工具是一个<strong>纯前端</strong>的在线工具，采用以下技术确保数据安全：</p>
+                    <ul>
+                        <li><strong>浏览器端运行：</strong>所有计算和处理都在您的浏览器中完成，不需要与任何服务器通信</li>
+                        <li><strong>零依赖：</strong>使用浏览器原生的JSON.parse()和JSON.stringify()方法，无需加载任何第三方库</li>
+                        <li><strong>无网络请求：</strong>处理过程中不会发送任何网络请求，数据完全在本地</li>
+                        <li><strong>不存储数据：</strong>我们不收集、不存储、不上传您的任何数据</li>
+                    </ul>
+                    <p>您可以在断网的情况下使用本工具（前提是已经加载过页面），这充分证明了数据是本地处理的。</p>
+                    <div class="alert alert-success mt-3">
+                        <i class="fas fa-check-circle me-2"></i> <strong>总结：</strong>本工具<strong>完全安全</strong>，您的数据只会在本地处理，不会被上传到任何服务器。您可以放心使用。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="fs-3 mb-4"><i class="fas fa-link text-primary me-2"></i> 相关工具推荐</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-code text-warning fa-2x me-3"></i>
+                                <h3 class="card-title h5 mb-0">YAML转JSON</h3>
+                            </div>
+                            <p class="card-text text-muted">YAML与JSON格式互相转换，支持复杂数据结构，适用于配置文件格式转换和数据迁移等场景</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="badge bg-warning">配置转换</span>
+                                <a href="/tools/yaml-json-converter" class="btn btn-outline-warning btn-sm">立即使用</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-check-circle text-success fa-2x me-3"></i>
+                                <h3 class="card-title h5 mb-0">JWT解码器</h3>
+                            </div>
+                            <p class="card-text text-muted">JWT Token在线解码，解析Header、Payload、Signature三部分内容，支持Base64URL解码</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="badge bg-success">身份验证</span>
+                                <a href="/tools/jwt-decoder" class="btn btn-outline-success btn-sm">立即使用</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-lock text-danger fa-2x me-3"></i>
+                                <h3 class="card-title h5 mb-0">Base64编解码</h3>
+                            </div>
+                            <p class="card-text text-muted">Base64编码和解码工具，支持文本和文件操作，一键完成二进制数据和文本的相互转换</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="badge bg-danger">编码转换</span>
+                                <a href="/tools/base64-encoder" class="btn btn-outline-danger btn-sm">立即使用</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="mt-4">
             <h4>常见用法</h4>
-            <div class="example-code">
-// 输入压缩的JSON
-{"name":"张三","age":30,"skills":["JavaScript","Python","Java"]}
-
-// 点击"格式化"后
+            <div class="bg-dark text-white p-3 rounded" style="font-family: 'Consolas', monospace; font-size: 14px;">
+// 输入压缩的JSON<br>
+{"name":"张三","age":30,"skills":["JavaScript","Python","Java"]}<br><br>
+// 点击"格式化"后<br>
 {
   "name": "张三",
   "age": 30,
@@ -318,10 +406,10 @@
     "Python",
     "Java"
   ]
-}
-
-// 点击"压缩"后
-{"name":"张三","age":30,"skills":["JavaScript","Python","Java"]}</div>
+}<br><br>
+// 点击"压缩"后<br>
+{"name":"张三","age":30,"skills":["JavaScript","Python","Java"]}
+            </div>
         </div>
     </div>
 
