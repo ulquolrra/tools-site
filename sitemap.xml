@@ -2,126 +2,126 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://alltoolsbox.xyz/</loc>
-        <lastmod>2026-09-15</lastmod>
+        <lastmod>2025-09-15</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
 
     <url>
         <loc>https://alltoolsbox.xyz/pages/about.html</loc>
-        <lastmod>2026-09-15</lastmod>
+        <lastmod>2025-09-15</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
 
     <url>
         <loc>https://alltoolsbox.xyz/pages/contact.html</loc>
-        <lastmod>2026-09-15</lastmod>
+        <lastmod>2025-09-15</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
 
     <url>
         <loc>https://alltoolsbox.xyz/pages/privacy.html</loc>
-        <lastmod>2026-09-15</lastmod>
+        <lastmod>2025-09-15</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
 
     <url>
         <loc>https://alltoolsbox.xyz/tools/json-formatter.html</loc>
-        <lastmod>2026-09-15</lastmod>
+        <lastmod>2025-09-15</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
 
     <url>
         <loc>https://alltoolsbox.xyz/tools/base64-encoder.html</loc>
-        <lastmod>2026-09-15</lastmod>
+        <lastmod>2025-09-15</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
 
     <url>
         <loc>https://alltoolsbox.xyz/tools/url-encoder.html</loc>
-        <lastmod>2026-09-15</lastmod>
+        <lastmod>2025-09-15</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
 
     <url>
         <loc>https://alltoolsbox.xyz/tools/timestamp-converter.html</loc>
-        <lastmod>2026-09-15</lastmod>
+        <lastmod>2025-09-15</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
 
     <url>
         <loc>https://alltoolsbox.xyz/tools/md5-encoder.html</loc>
-        <lastmod>2026-09-15</lastmod>
+        <lastmod>2025-09-15</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
 
     <url>
         <loc>https://alltoolsbox.xyz/tools/text-tools.html</loc>
-        <lastmod>2026-09-15</lastmod>
+        <lastmod>2025-09-15</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
 
     <url>
         <loc>https://alltoolsbox.xyz/tools/jwt-decoder.html</loc>
-        <lastmod>2026-09-15</lastmod>
+        <lastmod>2025-09-15</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
 
     <url>
         <loc>https://alltoolsbox.xyz/tools/html-entity-encoder.html</loc>
-        <lastmod>2026-09-15</lastmod>
+        <lastmod>2025-09-15</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
 
     <url>
         <loc>https://alltoolsbox.xyz/tools/password-generator.html</loc>
-        <lastmod>2026-09-15</lastmod>
+        <lastmod>2025-09-15</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
 
     <url>
         <loc>https://alltoolsbox.xyz/tools/yaml-json-converter.html</loc>
-        <lastmod>2026-09-15</lastmod>
+        <lastmod>2025-09-15</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
 
     <url>
         <loc>https://alltoolsbox.xyz/tools/qrcode-generator.html</loc>
-        <lastmod>2026-09-15</lastmod>
+        <lastmod>2025-09-15</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
 
     <url>
         <loc>https://alltoolsbox.xyz/tools/cron-generator.html</loc>
-        <lastmod>2026-09-15</lastmod>
+        <lastmod>2025-09-15</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
 
     <url>
         <loc>https://alltoolsbox.xyz/tools/css-box-shadow-generator.html</loc>
-        <lastmod>2026-09-15</lastmod>
+        <lastmod>2025-09-15</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
 
     <url>
         <loc>https://alltoolsbox.xyz/tools/text-counter.html</loc>
-        <lastmod>2026-09-15</lastmod>
+        <lastmod>2025-09-15</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
@@ -129,51 +129,51 @@
     <!-- 博客相关页面 -->
     <url>
         <loc>https://alltoolsbox.xyz/blog</loc>
-        <lastmod>2026-09-15</lastmod>
+        <lastmod>2025-09-15</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
         <loc>https://alltoolsbox.xyz/blog/index.html</loc>
-        <lastmod>2026-09-15</lastmod>
+        <lastmod>2025-09-15</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
         <loc>https://alltoolsbox.xyz/blog/post/adsense-approval-guide.html</loc>
-        <lastmod>2026-08-20</lastmod>
+        <lastmod>2025-08-20</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
 
     <url>
         <loc>https://alltoolsbox.xyz/blog/post/json-yaml-comparison.html</loc>
-        <lastmod>2026-08-20</lastmod>
+        <lastmod>2025-08-20</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
 
     <url>
         <loc>https://alltoolsbox.xyz/blog/post/tool-usage-guide.html</loc>
-        <lastmod>2026-08-20</lastmod>
+        <lastmod>2025-08-20</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://alltoolsbox.xyz/blog/post/tool-usage-tips.html</loc>
-        <lastmod>2026-08-21</lastmod>
+        <lastmod>2025-08-21</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://alltoolsbox.xyz/blog/post/frontend-performance-optimization.html</loc>
-        <lastmod>2026-08-21</lastmod>
+        <lastmod>2025-08-21</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://alltoolsbox.xyz/blog/post/seo-best-practices.html</loc>
-        <lastmod>2026-08-21</lastmod>
+        <lastmod>2025-08-21</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
