@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL格式化工具 - SQL语句在线美化、压缩 | 在线工具箱</title>
+    <meta name="description" content="专业的SQL格式化美化工具，支持MySQL、PostgreSQL、SQL Server、Oracle等数据库的SQL语句格式化、压缩、美化。支持关键词大小写、缩进、换行等选项自定义。完全本地运行，数据100%安全，无需注册。">
+    <meta name="keywords" content="SQL格式化,SQL美化,SQL压缩,SQL在线格式化,MySQL格式化,PostgreSQL格式化,SQL Server格式化,SQL语句格式化,SQL查询格式化,SQL代码整理">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8795586167197548" crossorigin="anonymous"></script>
+    <link rel="canonical" href="https://alltoolsbox.xyz/tools/sql-formatter.html" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/"><i class="fas fa-tools me-2"></i>在线工具箱</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">首页</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/blog">技术博客</a></li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/pages/about.html">关于我们</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/contact.html">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="text-center my-3">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8795586167197548" data-ad-slot="728x90_banner" data-ad-format="728x90" data-full-width-responsive="true"></ins>
+    </div>
+
+    <div class="tool-container fade-in">
+        <div class="tool-header text-center mb-5">
+            <h1 class="display-5 fw-bold mb-3">SQL格式化工具</h1>
+            <p class="lead">专业的SQL格式化美化工具，支持<strong>MySQL、PostgreSQL、SQL Server、Oracle</strong>等数据库。支持关键词大小写、缩进、换行等选项自定义。<strong>完全本地运行，数据100%安全</strong>。</p>
+            <div class="alert alert-primary"><i class="fas fa-star me-2"></i> 无需安装 | 无需注册 | 完全免费 | 数据本地处理 | 支持多种数据库</div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-12">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white"><i class="fas fa-cog me-2"></i> 格式化选项</div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="dialect-select" class="form-label">数据库方言</label>
+                                    <select class="form-select" id="dialect-select">
+                                        <option value="standard">标准SQL</option>
+                                        <option value="mysql">MySQL</option>
+                                        <option value="postgresql">PostgreSQL</option>
+                                        <option value="sqlserver">SQL Server</option>
+                                        <option value="oracle">Oracle</option>
+                                        <option value="sqlite">SQLite</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">关键词大小写</label>
+                                    <div class="d-flex gap-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="keywordCase" id="case-upper" value="upper" checked>
+                                            <label class="form-check-label" for="case-upper">大写</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="keywordCase" id="case-lower" value="lower">
+                                            <label class="form-check-label" for="case-lower">小写</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="keywordCase" id="case-preserve" value="preserve">
+                                            <label class="form-check-label" for="case-preserve">保持原样</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="indent-select" class="form-label">缩进空格数</label>
+                                    <select class="form-select" id="indent-select">
+                                        <option value="2">2个空格</option>
+                                        <option value="4" selected>4个空格</option>
+                                        <option value="8">8个空格</option>
+                                        <option value="tab">Tab键</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="line-break-select" class="form-label">换行方式</label>
+                                    <select class="form-select" id="line-break-select">
+                                        <option value="auto">自动换行</option>
+                                        <option value="always">总是换行</option>
+                                        <option value="compact">紧凑模式</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-3">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-success text-white"><i class="fas fa-file-code me-2"></i> 输入SQL</div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <textarea class="form-control font-monospace" id="sql-input" rows="12" placeholder="请输入要格式化的SQL语句..."></textarea>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-primary" id="format-btn"><i class="fas fa-magic me-1"></i> 格式化SQL</button>
+                            <button class="btn btn-outline-success copy-btn" data-target="sql-input"><i class="fas fa-copy me-1"></i> 复制输入</button>
+                            <button class="btn btn-outline-warning" id="load-example"><i class="fas fa-file-import me-1"></i> 加载示例</button>
+                            <button class="btn btn-outline-danger clear-btn" data-target="sql-input,sql-output"><i class="fas fa-trash me-1"></i> 清空</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-info text-white"><i class="fas fa-file-alt me-2"></i> 输出结果</div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <textarea class="form-control font-monospace" id="sql-output" rows="12" readonly placeholder="格式化结果将在此显示..."></textarea>
+                        </div>
+                        <div class="d-flex gap-2 justify-content-between align-items-center">
+                            <div>
+                                <button class="btn btn-outline-success copy-btn" data-target="sql-output"><i class="fas fa-copy me-1"></i> 复制结果</button>
+                            </div>
+                            <div class="text-muted small">
+                                字符数: <span id="char-count">0</span> | 行数: <span id="line-count">0</span> | 处理用时: <span id="format-time">0ms</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="fs-3 mb-4"><i class="fas fa-book text-primary me-2"></i> SQL格式化完全指南</h2>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-info-circle me-2"></i> SQL格式化是什么？</h3>
+                    <p><strong>SQL格式化</strong>是指根据特定的规则和风格，自动调整SQL语句的<strong>布局、缩进、换行、空格</strong>等，使SQL代码更具有<strong>可读性和维护性</strong>。</p>
+                    <p>格式化后的SQL通常具有以下特点：</p>
+                    <ul>
+                        <li><strong>一致的缩进：</strong>SELECT、FROM、WHERE等关键词对齐</li>
+                        <li><strong>合理的换行：</strong>子查询、条件等适当换行</li>
+                        <li><strong>统一的空格：</strong>关键词和括号间空格统一</li>
+                        <li><strong>清晰的结构：</strong>嵌套查询结构清晰</li>
+                        <li><strong>标准化大小写：</strong>关键词大小写保持一致</li>
+                    </ul>
+                    <div class="alert alert-info">
+                        <i class="fas fa-lightbulb me-2"></i> <strong>为什么需要格式化：</strong> 格式化可以提高SQL的可读性，方便团队协作，减少因为代码风格问题导致的错误，同时也便于后续的维护和调试。
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-database me-2"></i> 不同数据库的SQL差异</h3>
+                    <p>不同的数据库系统在SQL语法上存在一些差异，本工具支持的数据库方言有：</p>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead class="table-primary">
+                                <tr>
+                                    <th style="width: 20%;">数据库</th>
+                                    <th style="width: 40%;">特点</th>
+                                    <th style="width: 40%;">常用场景</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>标准SQL</td>
+                                    <td>遵循SQL标准，通用性最强</td>
+                                    <td>跨数据库应用</td>
+                                </tr>
+                                <tr>
+                                    <td>MySQL</td>
+                                    <td>开源数据库，使用反引号（`）作为标识符</td>
+                                    <td>Web应用、小型项目</td>
+                                </tr>
+                                <tr>
+                                    <td>PostgreSQL</td>
+                                    <td>功能强大，支持高级特性</td>
+                                    <td>企业级应用、复杂查询</td>
+                                </tr>
+                                <tr>
+                                    <td>SQL Server</td>
+                                    <td>Microsoft数据库，使用方括号（[]）作为标识符</td>
+                                    <td>Windows平台、企业应用</td>
+                                </tr>
+                                <tr>
+                                    <td>Oracle</td>
+                                    <td>企业级数据库，支持复杂事务</td>
+                                    <td>大型企业应用</td>
+                                </tr>
+                                <tr>
+                                    <td>SQLite</td>
+                                    <td>轻量级数据库，无需服务器</td>
+                                    <td>嵌入式应用、移动端</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-star me-2"></i> SQL格式化的好处</h3>
+                    <p>定期格式化SQL可以带来以下好处：</p>
+                    <ol>
+                        <li>
+                            <strong>提高可读性：</strong>统一的代码风格使得SQL更容易阅读和理解
+                        </li>
+                        <li>
+                            <strong>便于协作：</strong>团队成员使用相同的SQL风格，减少因为风格差异导致的混淆
+                        </li>
+                        <li>
+                            <strong>减少错误：</strong>规范的SQL格式可以减少一些低级错误，如缺少括号、逗号等
+                        </li>
+                        <li>
+                            <strong>易于维护：</strong>格式化后的SQL更容易进行后续的维护和扩展
+                        </li>
+                        <li>
+                            <strong>自动化检查：</strong>结合SQL lint工具，可以自动检查SQL质量
+                        </li>
+                        <li>
+                            <strong>提升效率：</strong>自动格式化可以节省大量手动调整SQL格式的时间
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-code me-2"></i> SQL格式化规范建议</h3>
+                    <p>以下是一些常见的SQL格式化规范建议：</p>
+                    <ul>
+                        <li>
+                            <strong>关键词大写：</strong>SELECT、FROM、WHERE、GROUP BY等关键词建议使用大写，以便于识别
+                        </li>
+                        <li>
+                            <strong>合理缩进：</strong>使用2-4个空格进行缩进，子查询比父查询多缩进一个层级
+                        </li>
+                        <li>
+                            <strong>适当换行：</strong>每个子句（SELECT、FROM、WHERE等）放在新的一行
+                        </li>
+                        <li>
+                            <strong>对齐列：</strong>在SELECT子句中，各列名保持对齐
+                        </li>
+                        <li>
+                            <strong>括号使用：</strong>复杂的表达式或子查询建议使用括号明确优先级
+                        </li>
+                        <li>
+                            <strong>注释：</strong>在复杂查询中添加适当的注释，解释查询逻辑
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="fs-3 mb-4"><i class="fas fa-rocket text-primary me-2"></i> 实际应用场景</h2>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-users me-2"></i> 场景1：团队协作开发</h3>
+                    <p>在团队开发中，不同成员可能有不同的SQL编写习惯，这会导致代码库中存在多种不同的风格。使用格式化工具可以确保所有SQL都符合统一的风格规范。</p>
+                    <p><strong>实施方案：</strong></p>
+                    <ul>
+                        <li><strong>统一规范：</strong>制定团队的SQL编写规范</li>
+                        <li><strong>使用工具：</strong>在开发工具中集成SQL格式化功能</li>
+                        <li><strong>代码审查：</strong>在代码审查过程中检查SQL格式</li>
+                        <li><strong>自动化：</strong>在CI/CD流程中添加SQL格式化检查</li>
+                    </ul>
+                    <p><strong>使用本工具：</strong>可以作为在线的SQL格式化工具，用于快速格式化SQL片段或调试查询逻辑。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-bug me-2"></i> 场景2：查询调试</h3>
+                    <p>在调试SQL查询时，经常需要查看查询的结构和逻辑。格式化后的SQL更容易阅读和分析，有助于快速定位问题。</p>
+                    <p><strong>调试技巧：</strong></p>
+                    <ul>
+                        <li><strong>格式化查询：</strong>将复杂的查询格式化，方便分析结构</li>
+                        <li><strong>逐步分析：</strong>从外层到内层逐步分析子查询</li>
+                        <li><strong>添加注释：</strong>在格式化后的SQL中添加注释，解释各部分功能</li>
+                        <li><strong>测试验证：</strong>格式化后验证查询的执行结果</li>
+                    </ul>
+                    <p><strong>使用本工具：</strong>可以快速格式化需要调试的SQL查询，提升调试效率。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-code me-2"></i> 场景3：代码迁移</h3>
+                    <p>在系统迁移或数据库变更时，经常需要将大量的SQL查询进行重新组织和格式化。格式化工具可以帮助快速完成这项任务。</p>
+                    <p><strong>迁移步骤：</strong></p>
+                    <ol>
+                        <li><strong>分析现有SQL：</strong>了解现有SQL的结构和逻辑</li>
+                        <li><strong>格式化SQL：</strong>将所有相关的SQL进行格式化，使结构清晰</li>
+                        <li><strong>适配新数据库：</strong>根据新数据库的语法特性调整SQL</li>
+                        <li><strong>优化查询：</strong>在格式化过程中同时优化查询性能</li>
+                        <li><strong>测试验证：</strong>验证迁移后的SQL功能是否正确</li>
+                    </ol>
+                    <p><strong>使用本工具：</strong>可以作为迁移过程中的辅助工具，快速格式化需要迁移的SQL片段。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-file-alt me-2"></i> 场景4：文档编写</h3>
+                    <p>在编写技术文档或数据库设计文档时，格式化后的SQL更容易理解和展示。整洁的SQL可以帮助读者更好地理解数据库设计和查询逻辑。</p>
+                    <p><strong>文档建议：</strong></p>
+                    <ul>
+                        <li><strong>格式化示例：</strong>在文档中提供格式化后的SQL示例</li>
+                        <li><strong>添加注释：</strong>在SQL中添加详细的注释，解释查询逻辑</li>
+                        <li><strong>分步展示：</strong>将复杂的查询分步展示，每步都有清晰的说明</li>
+                        <li><strong>使用语法高亮：</strong>在文档中使用语法高亮展示SQL代码</li>
+                    </ul>
+                    <p><strong>使用本工具：</strong>可以快速格式化文档中的SQL示例，使其更易于理解和分享。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="fs-3 mb-4"><i class="fas fa-question-circle text-primary me-2"></i> 常见问题FAQ</h2>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 格式化会改变SQL的执行结果吗？</h4>
+                    <p><strong>A:</strong> <strong>不会！</strong> 格式化工具只会改变SQL的<strong>布局和格式</strong>，不会改变SQL的<strong>逻辑和执行结果</strong>。</p>
+                    <p><strong>格式化不会修改：</strong></p>
+                    <ul>
+                        <li><strong>表名和列名：</strong>仅改变大小写（根据设置），不改变名称本身</li>
+                        <li><strong>查询逻辑：</strong>不改变WHERE条件、JOIN关系等查询逻辑</li>
+                        <li><strong>数据操作：</strong>不改变INSERT、UPDATE、DELETE等操作</li>
+                        <li><strong>函数和表达式：</strong>不改变SQL函数和表达式</li>
+                        <li><strong>参数和变量：</strong>不改变参数和变量的值</li>
+                    </ul>
+                    <p><strong>重要说明：</strong>格式化后的SQL在功能上与原SQL完全相同，只是展示方式不同。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 不同数据库方言有什么不同？</h4>
+                    <p><strong>A:</strong> 不同的数据库在SQL语法上存在一些差异，本工具会根据选择的方言进行相应的格式化处理。</p>
+                    <p><strong>主要差异：</strong></p>
+                    <ul>
+                        <li><strong>标识符引号：</strong>MySQL使用反引号（`），SQL Server使用方括号（[]），PostgreSQL和Oracle使用双引号（"）</li>
+                        <li><strong>字符串连接：</strong>MySQL和PostgreSQL使用||，SQL Server使用+，Oracle使用||或CONCAT()</li>
+                        <li><strong>限制条数：</strong>MySQL使用LIMIT，SQL Server使用TOP，Oracle使用ROWNUM</li>
+                        <li><strong>分页：</strong>不同数据库有不同的分页语法</li>
+                        <li><strong>日期函数：</strong>不同数据库有不同的日期处理函数</li>
+                    </ul>
+                    <p><strong>选择建议：</strong>选择与您使用的数据库匹配的方言，以获得最佳的格式化效果。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 如何处理特别长的SQL查询？</h4>
+                    <p><strong>A:</strong> 对于特别长的SQL查询，建议采用以下策略：</p>
+                    <ol>
+                        <li><strong>分段格式化：</strong>将长SQL分成多个部分，分别进行格式化</li>
+                        <li><strong>使用视图：</strong>将复杂的子查询定义为视图，简化主查询</li>
+                        <li><strong>添加注释：</strong>在SQL中添加注释，解释各部分的功能</li>
+                        <li><strong>使用CTE：</strong>使用WITH子句（公用表表达式）简化复杂查询</li>
+                    </ol>
+                    <p><strong>本工具的限制：</strong>由于浏览器内存限制，建议单次处理的SQL长度<strong>不超过100,000字符</strong>。如果SQL过长，建议分段处理。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 格式化后SQL的关键词为什么变成了大写/小写？</h4>
+                    <p><strong>A:</strong> 这是根据您选择的<strong>关键词大小写</strong>选项。SQL关键词（如SELECT、FROM、WHERE等）的大小写有多种约定：</p>
+                    <p><strong>常见约定：</strong></p>
+                    <ul>
+                        <li><strong>全大写：</strong>SELECT、FROM、WHERE等关键词全部使用大写，这是最常见的约定</li>
+                        <li><strong>全小写：</strong>所有关键词使用小写，这种方式较少见</li>
+                        <li><strong>保持原样：</strong>保持输入SQL中的大小写方式</li>
+                    </ul>
+                    <p><strong>选择建议：</strong>如果团队没有特别要求，建议使用<strong>大写</strong>，因为这样更易于识别关键词和非关键词。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 为什么格式化后的SQL看起来更长了？</h4>
+                    <p><strong>A:</strong> 格式化后的SQL确实可能看起来更长，这是因为：</p>
+                    <ul>
+                        <li><strong>添加了空格：</strong>在关键词、括号、逗号等位置添加了空格</li>
+                        <li><strong>添加了换行：</strong>在子句之间添加了换行符</li>
+                        <li><strong>添加了缩进：</strong>在嵌套结构中添加了缩进</li>
+                        <li><strong>一致的格式：</strong>统一了大小写、空格等格式</li>
+                    </ul>
+                    <p><strong>重要说明：</strong>虽然格式化后的SQL在字符数上可能增加，但它在<strong>可读性</strong>上有显著提升，值得这个代价。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-shield-alt me-2 text-success"></i> Q: 本工具会上传我的SQL到服务器吗？</h4>
+                    <p><strong>A:</strong> <span class="text-success fw-bold">完全不会！绝对安全！</span></p>
+                    <p>本工具是一个<strong>纯前端</strong>的在线工具，采用以下技术确保SQL安全：</p>
+                    <ul>
+                        <li><strong>浏览器端运行：</strong>所有格式化操作都在您的浏览器中完成，不需要与任何服务器通信</li>
+                        <li><strong>零依赖：</strong>使用sql-formatter等成熟的开源库进行格式化，不需要加载额外的第三方服务</li>
+                        <li><strong>无网络请求：</strong>处理过程中不会发送任何网络请求，SQL完全在本地</li>
+                        <li><strong>不存储数据：</strong>我们不收集、不存储、不上传您的任何SQL代码</li>
+                    </ul>
+                    <p>您可以在断网的情况下使用本工具（前提是已经加载过页面），这充分证明了SQL是本地处理的。</p>
+                    <div class="alert alert-success mt-3">
+                        <i class="fas fa-check-circle me-2"></i> <strong>总结：</strong>本工具<strong>完全安全</strong>，您的SQL只会在本地处理，不会被上传到任何服务器。您可以放心使用。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="fs-3 mb-4"><i class="fas fa-link text-primary me-2"></i> 相关工具推荐</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-code text-warning fa-2x me-3"></i>
+                                <h3 class="card-title h5 mb-0">代码格式化美化</h3>
+                            </div>
+                            <p class="card-text text-muted">支持JavaScript、CSS、HTML等代码格式化</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="badge bg-warning">代码工具</span>
+                                <a href="/tools/code-formatter.html" class="btn btn-outline-warning btn-sm">立即使用</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-braces text-primary fa-2x me-3"></i>
+                                <h3 class="card-title h5 mb-0">JSON格式化</h3>
+                            </div>
+                            <p class="card-text text-muted">JSON数据格式化、美化、压缩</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="badge bg-primary">数据处理</span>
+                                <a href="/tools/json-formatter.html" class="btn btn-outline-primary btn-sm">立即使用</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-text-height text-success fa-2x me-3"></i>
+                                <h3 class="card-title h5 mb-0">文本处理</h3>
+                            </div>
+                            <p class="card-text text-muted">字数统计、去重、大小写转换等</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="badge bg-success">文本处理</span>
+                                <a href="/tools/text-tools.html" class="btn btn-outline-success btn-sm">立即使用</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>常见用法</h4>
+            <div class="bg-dark text-white p-3 rounded font-monospace" style="font-size: 14px;">
+// 输入未格式化的SQL<br>
+SELECT id,name,age FROM users WHERE age>30 AND status=1 ORDER BY created_at DESC<br><br>
+
+// 格式化后（标准SQL，关键词大写，4空格缩进）<br>
+SELECT
+    id,
+    name,
+    age
+FROM
+    users
+WHERE
+    age > 30
+    AND status = 1
+ORDER BY
+    created_at DESC
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-3">SQL格式化工具</h5>
+                    <p class="text-muted small">免费、易用的在线SQL格式化工具，支持多种数据库方言，完全本地运行。</p>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">快速链接</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/" class="text-decoration-none">首页</a></li>
+                        <li class="mb-2"><a href="/pages/about.html" class="text-decoration-none">关于我们</a></li>
+                        <li class="mb-2"><a href="/pages/contact.html" class="text-decoration-none">联系我们</a></li>
+                        <li class="mb-2"><a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">推荐工具</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/tools/code-formatter.html" class="text-decoration-none">代码格式化</a></li>
+                        <li class="mb-2"><a href="/tools/json-formatter.html" class="text-decoration-none">JSON格式化</a></li>
+                        <li class="mb-2"><a href="/tools/base64-encoder.html" class="text-decoration-none">Base64编解码</a></li>
+                        <li class="mb-2"><a href="/tools/text-tools.html" class="text-decoration-none">文本处理</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center text-muted small">
+                <p>Copyright © 2024-2025 在线工具箱 | <a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="text-center my-4">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8795586167197548" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/error-tracking.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql-formatter/15.3.1/sql-formatter.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sqlInput = document.getElementById('sql-input');
+            const sqlOutput = document.getElementById('sql-output');
+            const formatBtn = document.getElementById('format-btn');
+            const loadExample = document.getElementById('load-example');
+            const charCount = document.getElementById('char-count');
+            const lineCount = document.getElementById('line-count');
+            const formatTime = document.getElementById('format-time');
+
+            // 获取格式化选项
+            function getFormatOptions() {
+                const dialect = document.getElementById('dialect-select').value;
+                const keywordCase = document.querySelector('input[name="keywordCase"]:checked').value;
+                const indent = document.getElementById('indent-select').value;
+                const lineBreak = document.getElementById('line-break-select').value;
+
+                return {
+                    language: dialect,
+                    keywordCase: keywordCase,
+                    indent: indent === 'tab' ? '\t' : parseInt(indent),
+                    linesBetweenQueries: lineBreak === 'compact' ? 1 : 2
+                };
+            }
+
+            // 格式化函数
+            formatBtn.addEventListener('click', function() {
+                const sql = sqlInput.value.trim();
+                if (!sql) {
+                    sqlOutput.value = '请输入要格式化的SQL语句';
+                    return;
+                }
+
+                const startTime = performance.now();
+
+                try {
+                    const options = getFormatOptions();
+                    const formattedSql = format(sql, options);
+                    sqlOutput.value = formattedSql;
+
+                    // 统计信息
+                    charCount.textContent = formattedSql.length;
+                    lineCount.textContent = formattedSql.split('\n').length;
+                } catch (e) {
+                    sqlOutput.value = `格式化错误: ${e.message}`;
+                    charCount.textContent = '0';
+                    lineCount.textContent = '0';
+                }
+
+                const endTime = performance.now();
+                const time = Math.round((endTime - startTime) * 1000) / 1000;
+                formatTime.textContent = `${time.toFixed(2)}ms`;
+            });
+
+            // 加载示例
+            const examples = [
+                `SELECT id,name,age FROM users WHERE age>30 AND status=1 ORDER BY created_at DESC`,
+                `SELECT u.id,u.name,u.email,o.order_id,o.total_price FROM users u JOIN orders o ON u.id=o.user_id WHERE o.status='completed' AND o.created_at>='2025-01-01' GROUP BY u.id HAVING COUNT(o.id)>5 ORDER BY SUM(o.total_price) DESC LIMIT 10`,
+                `INSERT INTO users(name,email,age,created_at) VALUES('张三','zhangsan@example.com',25,NOW()),('李四','lisi@example.com',30,NOW()),('王五','wangwu@example.com',35,NOW())`,
+                `SELECT 
+    u.id AS user_id,
+    u.name AS user_name,
+    COUNT(o.id) AS order_count,
+    SUM(o.total_price) AS total_spent,
+    MAX(o.created_at) AS last_order_date
+FROM users u
+LEFT JOIN orders o ON u.id = o.user_id
+WHERE u.status = 1
+GROUP BY u.id, u.name
+HAVING COUNT(o.id) > 0
+ORDER BY total_spent DESC
+LIMIT 20`
+            ];
+
+            loadExample.addEventListener('click', function() {
+                const randomExample = examples[Math.floor(Math.random() * examples.length)];
+                sqlInput.value = randomExample;
+            });
+        });
+    </script>
+</body>
+</html>

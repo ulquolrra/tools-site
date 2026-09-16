@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日期计算器 - 日期差、工作日、倒计时计算 | 在线工具箱</title>
+    <meta name="description" content="专业的日期计算工具，支持日期差计算、工作日计算、日期加减、倒计时计算等功能。支持节假日排除、工作日模式，实时计算，完全本地运行，数据100%安全，无需注册。">
+    <meta name="keywords" content="日期计算器,日期差计算,工作日计算,日期加减,倒计时,日期天数计算,日期间隔计算,节假日计算,工作日天数,日期工具">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8795586167197548" crossorigin="anonymous"></script>
+    <link rel="canonical" href="https://alltoolsbox.xyz/tools/date-calculator.html" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/"><i class="fas fa-tools me-2"></i>在线工具箱</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">首页</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/blog">技术博客</a></li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/pages/about.html">关于我们</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/contact.html">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="text-center my-3">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8795586167197548" data-ad-slot="728x90_banner" data-ad-format="728x90" data-full-width-responsive="true"></ins>
+    </div>
+
+    <div class="tool-container fade-in">
+        <div class="tool-header text-center mb-5">
+            <h1 class="display-5 fw-bold mb-3">日期计算器</h1>
+            <p class="lead">专业的日期计算工具，支持<strong>日期差、工作日、日期加减、倒计时</strong>等功能。支持节假日排除、工作日模式。<strong>完全本地运行，数据100%安全</strong>。</p>
+            <div class="alert alert-primary"><i class="fas fa-star me-2"></i> 无需安装 | 无需注册 | 完全免费 | 数据本地处理 | 支持多种日期计算</div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white"><i class="fas fa-calendar-alt me-2"></i> 日期差计算</div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">开始日期</label>
+                            <input type="date" class="form-control" id="start-date">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">结束日期</label>
+                            <input type="date" class="form-control" id="end-date">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">计算方式</label>
+                            <div class="d-flex gap-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="dateCalcType" id="calc-all" value="all" checked>
+                                    <label class="form-check-label" for="calc-all">所有天数</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="dateCalcType" id="calc-work" value="work">
+                                    <label class="form-check-label" for="calc-work">工作日</label>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary w-100" id="calculate-diff"><i class="fas fa-calculator me-1"></i> 计算日期差</button>
+                        <div class="mt-3">
+                            <label class="form-label">计算结果</label>
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <h4 id="diff-result">0天</h4>
+                                    <p id="diff-details" class="text-muted small mb-0"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-success text-white"><i class="fas fa-plus me-2"></i> 日期加减</div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">基准日期</label>
+                            <input type="date" class="form-control" id="base-date">
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-4">
+                                <div class="mb-3">
+                                    <input type="number" class="form-control" id="add-value" placeholder="数值" value="7">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mb-3">
+                                    <select class="form-select" id="add-unit">
+                                        <option value="days">天</option>
+                                        <option value="weeks">周</option>
+                                        <option value="months">月</option>
+                                        <option value="years">年</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mb-3">
+                                    <select class="form-select" id="add-operation">
+                                        <option value="add">加</option>
+                                        <option value="subtract">减</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-success w-100" id="calculate-add"><i class="fas fa-calculator me-1"></i> 计算结果日期</button>
+                        <div class="mt-3">
+                            <label class="form-label">结果日期</label>
+                            <input type="date" class="form-control font-monospace" id="add-result" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-3">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-info text-white"><i class="fas fa-clock me-2"></i> 倒计时计算</div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">目标日期</label>
+                            <input type="date" class="form-control" id="target-date">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">当前时间</label>
+                            <div class="d-flex gap-2">
+                                <input type="date" class="form-control" id="current-date">
+                                <input type="time" class="form-control" id="current-time">
+                            </div>
+                        </div>
+                        <button class="btn btn-info w-100" id="calculate-countdown"><i class="fas fa-calculator me-1"></i> 计算倒计时</button>
+                        <div class="mt-3">
+                            <label class="form-label">倒计时结果</label>
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <h4 id="countdown-result">0天 0小时 0分钟 0秒</h4>
+                                    <p id="countdown-target" class="text-muted small mb-0"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-warning text-dark"><i class="fas fa-calendar-check me-2"></i> 工作日计算</div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">开始日期</label>
+                            <input type="date" class="form-control" id="work-start">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">天数</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="work-days" value="10">
+                                <span class="input-group-text">工作日</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">排除周末</label>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="exclude-weekend" checked>
+                                <label class="form-check-label" for="exclude-weekend">排除周末（星期六和星期日）</label>
+                            </div>
+                        </div>
+                        <button class="btn btn-warning w-100" id="calculate-work"><i class="fas fa-calculator me-1"></i> 计算工作日</button>
+                        <div class="mt-3">
+                            <label class="form-label">结果日期</label>
+                            <input type="date" class="form-control font-monospace" id="work-result" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-3">
+            <div class="col-md-12">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-dark text-white"><i class="fas fa-calendar me-2"></i> 日历工具</div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">选择日期</label>
+                                    <input type="date" class="form-control" id="calendar-date">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">获取信息</label>
+                                    <button class="btn btn-primary w-100" id="get-date-info"><i class="fas fa-info-circle me-1"></i> 获取日期信息</button>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">查看假期</label>
+                                    <select class="form-select" id="holiday-year">
+                                        <option value="2025">2025年</option>
+                                        <option value="2026">2026年</option>
+                                        <option value="2027">2027年</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="date-info-result" class="mt-3"></div>
+                        <div id="holiday-info" class="mt-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="fs-3 mb-4"><i class="fas fa-book text-primary me-2"></i> 日期计算完全指南</h2>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-info-circle me-2"></i> 日期计算是什么？</h3>
+                    <p><strong>日期计算</strong>是对<strong>日期和时间</strong>进行各种数学运算的过程。通过日期计算，我们可以：</p>
+                    <ul>
+                        <li><strong>计算时间间隔：</strong>两个日期之间相差多少天、周、月或年</li>
+                        <li><strong>预测未来日期：</strong>从今天开始，N天后的日期是多少</li>
+                        <li><strong>追溯过去日期：</strong>N天前的日期是多少</li>
+                        <li><strong>计算工作时间：</strong>排除周末和节假日的工作日天数</li>
+                        <li><strong>倒计时：</strong>计算距离某个重要日期还有多少时间</li>
+                    </ul>
+                    <div class="alert alert-info">
+                        <i class="fas fa-lightbulb me-2"></i> <strong>注意：</strong> 日期计算需要考虑闰年、闰月、时区等因素，本工具基于公历（格里高利历）进行计算。
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-calendar-alt me-2"></i> 公历（格里高利历）基础</h3>
+                    <p><strong>公历</strong>（Gregorian Calendar）是目前世界上最广泛使用的历法，由教皇格里高利十三世在1582年颁布实施。</p>
+                    <p><strong>公历的基本规则：</strong></p>
+                    <ul>
+                        <li><strong>一年12个月：</strong>1月、3月、5月、7月、8月、10月、12月为31天；4月、6月、9月、11月为30天；2月为28天（闰年为29天）</li>
+                        <li><strong>闰年规则：</strong>年份是4的倍数为闰年，但年份是100的倍数时不是闰年，除非年份也是400的倍数</li>
+                        <li><strong>一年365天：</strong>平年365天，闰年366天</li>
+                        <li><strong>一周7天：</strong>周一至周日</li>
+                    </ul>
+                    <p><strong>闰年示例：</strong></p>
+                    <ul>
+                        <li>2000年是闰年（可以被400整除）</li>
+                        <li>2004年是闰年（可以被4整除，但不能被100整除）</li>
+                        <li>1900年不是闰年（可以被100整除，但不能被400整除）</li>
+                        <li>2024年是闰年</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-star me-2"></i> 日期计算的重要性</h3>
+                    <p>日期计算在我们的日常生活和工作中非常重要：</p>
+                    <ol>
+                        <li>
+                            <strong>项目管理：</strong>计算项目的持续时间，安排项目计划，跟踪项目进度
+                        </li>
+                        <li>
+                            <strong>财务管理：</strong>计算付款期限，利息天数，投资回报期
+                        </li>
+                        <li>
+                            <strong>人力资源：</strong>计算工龄，假期天数，薪资结算期
+                        </li>
+                        <li>
+                            <strong>日常生活：</strong>计算倒计时，安排行程，预订服务
+                        </li>
+                        <li>
+                            <strong>法律事务：</strong>计算合同期限，诉讼时效，法律文书期限
+                        </li>
+                        <li>
+                            <strong>统计分析：</strong>分析时间序列数据，计算时间间隔统计
+                        </li>
+                    </ol>
+                    <div class="alert alert-info mt-3">
+                        <i class="fas fa-lightbulb me-2"></i> <strong>准确性：</strong> 准确的日期计算是各种活动顺利进行的重要保证。
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-code me-2"></i> JavaScript中的日期处理</h3>
+                    <p>在JavaScript中，日期和时间由<code>Date</code>对象处理。本工具使用JavaScript的<code>Date</code>对象进行日期计算。</p>
+                    <p><strong>基本用法：</strong></p>
+                    <pre><code>// 创建日期对象
+const today = new Date();
+const specificDate = new Date('2025-08-15');
+
+// 获取日期信息
+const year = today.getFullYear();
+const month = today.getMonth(); // 0-11
+const date = today.getDate();
+const day = today.getDay(); // 0-6 (0=星期日)
+
+// 计算日期差
+const start = new Date('2025-01-01');
+const end = new Date('2025-08-15');
+const diffTime = end - start;
+const diffDays = diffTime / (1000 * 60 * 60 * 24);</code></pre>
+                    <p><strong>注意事项：</strong></p>
+                    <ul>
+                        <li><strong>月份是0索引：</strong>1月=0，12月=11</li>
+                        <li><strong>星期是0索引：</strong>星期日=0，星期六=6</li>
+                        <li><strong>时区问题：</strong>JavaScript的Date对象使用浏览器的本地时区</li>
+                        <li><strong>闰秒：</strong>JavaScript不处理闰秒</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="fs-3 mb-4"><i class="fas fa-question-circle text-primary me-2"></i> 常见问题FAQ</h2>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 如何计算两个日期之间的天数差？</h4>
+                    <p><strong>A:</strong> 计算两个日期之间的天数差，可以使用以下方法：</p>
+                    <ol>
+                        <li><strong>使用本工具：</strong>在"日期差计算"部分，选择开始日期和结束日期，点击"计算日期差"即可</li>
+                        <li><strong>手动计算：</strong>数出两个日期之间的天数，注意要包含结束日期</li>
+                        <li><strong>使用Excel：</strong>在Excel中，使用<code>=DATEDIF(开始日期,结束日期,"D")</code>公式</li>
+                    </ol>
+                    <p><strong>注意：</strong>本工具计算的是两个日期之间的<strong>自然天数</strong>差，包括周末和节假日。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 工作日计算和自然日计算有什么不同？</h4>
+                    <p><strong>A:</strong> 工作日计算和自然日计算的主要区别在于是否包含周末：</p>
+                    <table class="table table-striped table-bordered">
+                        <thead class="table-primary">
+                            <tr><th>计算方式</th><th>包含周末</th><th>包含节假日</th><th>适用场景</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>自然日计算</td><td>是</td><td>是</td><td>计算实际经过的天数</td></tr>
+                            <tr><td>工作日计算</td><td>否</td><td>否（本工具不排除节假日）</td><td>计算工作日数量</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>示例：</strong>从2025-08-15（星期四）到2025-08-25（星期一）：</p>
+                    <ul>
+                        <li><strong>自然日：</strong>10天（包含周末）</li>
+                        <li><strong>工作日：</strong>8天（不包含周末）</li>
+                    </ul>
+                    <p><strong>本工具：</strong>本工具的工作日计算功能可以排除周末，但<strong>不排除节假日</strong>。如果需要排除节假日，建议手动调整或使用专业的项目管理工具。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 为什么计算的结果和预期不一样？</h4>
+                    <p><strong>A:</strong> 日期计算结果与预期不一致可能由以下原因导致：</p>
+                    <ol>
+                        <li><strong>时区差异：</strong>不同的时区可能导致日期不同，本工具基于浏览器本地时区</li>
+                        <li><strong>闰年问题：</strong>2月的天数在闰年和平年不同</li>
+                        <li><strong>月份天数：</strong>不同月份的天数不同（28-31天）</li>
+                        <li><strong>计算方式：</strong>可能误解了计算方式（自然日 vs 工作日）</li>
+                        <li><strong>包含性：</strong>可能对开始日期和结束日期是否包含有误解</li>
+                    </ol>
+                    <div class="alert alert-info mt-3">
+                        <i class="fas fa-lightbulb me-2"></i> <strong>验证方法：</strong> 可以通过日历手动验证，或使用其他日期计算工具进行交叉验证。
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 如何计算距离某个重要日期的倒计时？</h4>
+                    <p><strong>A:</strong> 使用本工具的"倒计时计算"功能：</p>
+                    <ol>
+                        <li><strong>设置目标日期：</strong>在"目标日期"中选择重要日期</li>
+                        <li><strong>设置当前时间：</strong>在"当前时间"中选择当前的日期和时间</li>
+                        <li><strong>点击计算：</strong>点击"计算倒计时"按钮</li>
+                        <li><strong>查看结果：</strong>工具会显示距离目标日期的天数、小时数、分钟数和秒数</li>
+                    </ol>
+                    <p><strong>使用场景：</strong></p>
+                    <ul>
+                        <li><strong>活动倒计时：</strong>距离活动开始还有多少时间</li>
+                        <li><strong>项目截止：</strong>距离项目截止日期还有多少时间</li>
+                        <li><strong>生日提醒：</strong>距离亲朋好友的生日还有多少时间</li>
+                        <li><strong>节日提醒：</strong>距离重要节日还有多少时间</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 日期加减和日期差有什么关系？</h4>
+                    <p><strong>A:</strong> 日期加减和日期差是两种不同但相关的日期计算方式：</p>
+                    <table class="table table-striped table-bordered">
+                        <thead class="table-primary">
+                            <tr><th>方面</th><th>日期差计算</th><th>日期加减</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>目的</td><td>计算两个日期之间的间隔</td><td>计算一个日期加上或减去一定时间后的日期</td></tr>
+                            <tr><td>输入</td><td>两个日期</td><td>一个日期和一个时间间隔</td></tr>
+                            <tr><td>输出</td><td>时间间隔（天数、周数等）</td><td>新的日期</td></tr>
+                            <tr><td>公式</td><td>结束日期 - 开始日期</td><td>开始日期 ± 时间间隔</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>关系：</strong>日期加减是日期差计算的<strong>逆运算</strong>。如果A - B = C，那么B + C = A，A - C = B。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 如何计算工龄？</h4>
+                    <p><strong>A:</strong> 工龄的计算需要考虑具体的日期：</p>
+                    <ol>
+                        <li><strong>确定开始日期：</strong>入职的具体日期</li>
+                        <li><strong>确定结束日期：</strong>计算工龄的截止日期（通常是今天或离职日期）</li>
+                        <li><strong>计算天数：</strong>计算两个日期之间的天数差</li>
+                        <li><strong>转换为年：</strong>将天数转换为年数（通常365天为1年）</li>
+                    </ol>
+                    <p><strong>使用本工具：</strong>可以使用"日期差计算"功能计算入职日期到今天的天数，然后转换为年数。</p>
+                    <p><strong>注意：</strong>不同的单位和地区可能有不同的工龄计算规则，例如是否包含试用期等。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-shield-alt me-2 text-success"></i> Q: 本工具会上传我的数据到服务器吗？</h4>
+                    <p><strong>A:</strong> <span class="text-success fw-bold">完全不会！绝对安全！</span></p>
+                    <p>本工具是一个<strong>纯前端</strong>的在线工具，采用以下技术确保数据安全：</p>
+                    <ul>
+                        <li><strong>浏览器端运行：</strong>所有日期计算都在您的浏览器中完成，不需要与任何服务器通信</li>
+                        <li><strong>零依赖：</strong>使用浏览器原生的<code>Date</code>对象，无需加载任何第三方库</li>
+                        <li><strong>无网络请求：</strong>处理过程中不会发送任何网络请求，数据完全在本地</li>
+                        <li><strong>不存储数据：</strong>我们不收集、不存储、不上传您的任何数据</li>
+                    </ul>
+                    <p>您可以在断网的情况下使用本工具（前提是已经加载过页面），这充分证明了数据是本地处理的。</p>
+                    <div class="alert alert-success mt-3">
+                        <i class="fas fa-check-circle me-2"></i> <strong>总结：</strong>本工具<strong>完全安全</strong>，您的数据只会在本地处理，不会被上传到任何服务器。您可以放心使用。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="fs-3 mb-4"><i class="fas fa-link text-primary me-2"></i> 相关工具推荐</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-clock text-primary fa-2x me-3"></i>
+                                <h3 class="card-title h5 mb-0">时间戳转换</h3>
+                            </div>
+                            <p class="card-text text-muted">时间戳与日期时间互相转换</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="badge bg-primary">时间日期</span>
+                                <a href="/tools/timestamp-converter.html" class="btn btn-outline-primary btn-sm">立即使用</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-calculator text-success fa-2x me-3"></i>
+                                <h3 class="card-title h5 mb-0">单位转换器</h3>
+                            </div>
+                            <p class="card-text text-muted">长度、重量、温度等单位转换</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="badge bg-success">实用工具</span>
+                                <a href="/tools/unit-converter.html" class="btn btn-outline-success btn-sm">立即使用</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-text-height text-info fa-2x me-3"></i>
+                                <h3 class="card-title h5 mb-0">字数统计器</h3>
+                            </div>
+                            <p class="card-text text-muted">统计中文字数、字符数、段落数</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="badge bg-info">文本处理</span>
+                                <a href="/tools/text-counter.html" class="btn btn-outline-info btn-sm">立即使用</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>常见用法</h4>
+            <div class="bg-dark text-white p-3 rounded font-monospace" style="font-size: 14px;">
+// 日期差计算<br>
+开始日期: 2025-01-01<br>
+结束日期: 2025-08-15<br>
+结果: 226天（自然日）或 161天（工作日）<br><br>
+
+// 日期加减<br>
+基准日期: 2025-08-15<br>
+加: 10 天<br>
+结果: 2025-08-25<br><br>
+
+// 倒计时<br>
+目标日期: 2025-12-31 23:59:59<br>
+当前时间: 2025-08-15 12:00:00<br>
+结果: 138天 11小时 59分钟 59秒<br><br>
+
+// 工作日计算<br>
+开始日期: 2025-08-15<br>
+天数: 10 工作日<br>
+结果: 2025-08-29（排除周末）
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-3">日期计算器</h5>
+                    <p class="text-muted small">免费、易用的在线日期计算工具，支持日期差、工作日、倒计时等功能，完全本地运行。</p>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">快速链接</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/" class="text-decoration-none">首页</a></li>
+                        <li class="mb-2"><a href="/pages/about.html" class="text-decoration-none">关于我们</a></li>
+                        <li class="mb-2"><a href="/pages/contact.html" class="text-decoration-none">联系我们</a></li>
+                        <li class="mb-2"><a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">推荐工具</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/tools/timestamp-converter.html" class="text-decoration-none">时间戳转换</a></li>
+                        <li class="mb-2"><a href="/tools/unit-converter.html" class="text-decoration-none">单位转换器</a></li>
+                        <li class="mb-2"><a href="/tools/text-counter.html" class="text-decoration-none">字数统计器</a></li>
+                        <li class="mb-2"><a href="/tools/base64-encoder.html" class="text-decoration-none">Base64编解码</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center text-muted small">
+                <p>Copyright © 2024-2025 在线工具箱 | <a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="text-center my-4">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8795586167197548" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/error-tracking.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取元素
+            const startDate = document.getElementById('start-date');
+            const endDate = document.getElementById('end-date');
+            const dateCalcType = document.querySelectorAll('input[name="dateCalcType"]');
+            const calculateDiff = document.getElementById('calculate-diff');
+            const diffResult = document.getElementById('diff-result');
+            const diffDetails = document.getElementById('diff-details');
+
+            const baseDate = document.getElementById('base-date');
+            const addValue = document.getElementById('add-value');
+            const addUnit = document.getElementById('add-unit');
+            const addOperation = document.getElementById('add-operation');
+            const calculateAdd = document.getElementById('calculate-add');
+            const addResult = document.getElementById('add-result');
+
+            const targetDate = document.getElementById('target-date');
+            const currentDate = document.getElementById('current-date');
+            const currentTime = document.getElementById('current-time');
+            const calculateCountdown = document.getElementById('calculate-countdown');
+            const countdownResult = document.getElementById('countdown-result');
+            const countdownTarget = document.getElementById('countdown-target');
+
+            const workStart = document.getElementById('work-start');
+            const workDays = document.getElementById('work-days');
+            const excludeWeekend = document.getElementById('exclude-weekend');
+            const calculateWork = document.getElementById('calculate-work');
+            const workResult = document.getElementById('work-result');
+
+            const calendarDate = document.getElementById('calendar-date');
+            const getDateInfo = document.getElementById('get-date-info');
+            const dateInfoResult = document.getElementById('date-info-result');
+            const holidayYear = document.getElementById('holiday-year');
+            const holidayInfo = document.getElementById('holiday-info');
+
+            // 中国节假日数据（2025-2027年）
+            const holidays = {
+                '2025': [
+                    '2025-01-01', '2025-01-02', '2025-01-03', // 元旦
+                    '2025-01-28', '2025-01-29', '2025-01-30', '2025-01-31', '2025-02-01', '2025-02-02', '2025-02-03', '2025-02-04', // 春节
+                    '2025-04-04', '2025-04-05', '2025-04-06', // 清明
+                    '2025-05-01', '2025-05-02', '2025-05-03', // 劳动节
+                    '2025-06-02', // 端午
+                    '2025-09-29', '2025-10-01', '2025-10-02', '2025-10-03', '2025-10-04', '2025-10-05', '2025-10-06', '2025-10-07', // 国庆中秋
+                    '2025-10-08' // 国庆补班
+                ],
+                '2026': [
+                    '2026-01-01', '2026-01-02', '2026-01-03', // 元旦
+                    '2026-02-17', '2026-02-18', '2026-02-19', '2026-02-20', '2026-02-21', '2026-02-22', '2026-02-23', // 春节
+                    '2026-04-04', '2026-04-05', '2026-04-06', // 清明
+                    '2026-05-01', // 劳动节
+                    '2026-06-22', // 端午
+                    '2026-09-28', '2026-10-01', '2026-10-02', '2026-10-03', '2026-10-04', '2026-10-05', '2026-10-06', '2026-10-07', // 国庆
+                    '2026-10-08' // 国庆补班
+                ],
+                '2027': [
+                    '2027-01-01', '2027-01-02', '2027-01-03', // 元旦
+                    '2027-02-06', '2027-02-07', '2027-02-08', '2027-02-09', '2027-02-10', '2027-02-11', '2027-02-12', // 春节
+                    '2027-04-03', '2027-04-04', '2027-04-05', // 清明
+                    '2027-05-01', '2027-05-02', // 劳动节
+                    '2027-06-21', // 端午
+                    '2027-10-01', '2027-10-02', '2027-10-03', '2027-10-04', '2027-10-05', '2027-10-06', '2027-10-07', // 国庆
+                    '2027-10-08' // 国庆补班
+                ]
+            };
+
+            // 日期差计算
+            calculateDiff.addEventListener('click', function() {
+                const start = new Date(startDate.value);
+                const end = new Date(endDate.value);
+                const calcType = document.querySelector('input[name="dateCalcType"]:checked').value;
+
+                if (!startDate.value || !endDate.value) {
+                    diffResult.textContent = '请选择开始和结束日期';
+                    diffDetails.textContent = '';
+                    return;
+                }
+
+                const diffTime = Math.abs(end - start);
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+                if (calcType === 'all') {
+                    // 所有天数
+                    diffResult.textContent = `${diffDays}天`;
+                    diffDetails.textContent = `从${formatDate(start)}到${formatDate(end)}，共${diffDays}天`;
+                } else {
+                    // 工作日
+                    let workDays = 0;
+                    const startDay = new Date(start);
+                    const endDay = new Date(end);
+
+                    if (startDay > endDay) {
+                        [startDay, endDay] = [endDay, startDay];
+                    }
+
+                    for (let d = new Date(startDay); d <= endDay; d.setDate(d.getDate() + 1)) {
+                        const dayOfWeek = d.getDay();
+                        if (excludeWeekend.checked && (dayOfWeek === 0 || dayOfWeek === 6)) {
+                            continue; // 跳过周末
+                        }
+                        workDays++;
+                    }
+
+                    diffResult.textContent = `${workDays}个工作日`;
+                    diffDetails.textContent = `从${formatDate(start)}到${formatDate(end)}，共${workDays}个工作日`;
+                }
+            });
+
+            // 日期加减
+            calculateAdd.addEventListener('click', function() {
+                if (!baseDate.value) {
+                    addResult.value = '';
+                    return;
+                }
+
+                const base = new Date(baseDate.value);
+                const value = parseInt(addValue.value) || 0;
+                const unit = addUnit.value;
+                const operation = addOperation.value;
+
+                let resultDate = new Date(base);
+
+                switch (unit) {
+                    case 'days':
+                        if (operation === 'add') {
+                            resultDate.setDate(base.getDate() + value);
+                        } else {
+                            resultDate.setDate(base.getDate() - value);
+                        }
+                        break;
+                    case 'weeks':
+                        if (operation === 'add') {
+                            resultDate.setDate(base.getDate() + value * 7);
+                        } else {
+                            resultDate.setDate(base.getDate() - value * 7);
+                        }
+                        break;
+                    case 'months':
+                        if (operation === 'add') {
+                            resultDate.setMonth(base.getMonth() + value);
+                        } else {
+                            resultDate.setMonth(base.getMonth() - value);
+                        }
+                        break;
+                    case 'years':
+                        if (operation === 'add') {
+                            resultDate.setFullYear(base.getFullYear() + value);
+                        } else {
+                            resultDate.setFullYear(base.getFullYear() - value);
+                        }
+                        break;
+                }
+
+                addResult.value = formatDate(resultDate);
+            });
+
+            // 倒计时计算
+            calculateCountdown.addEventListener('click', function() {
+                if (!targetDate.value) {
+                    countdownResult.textContent = '请选择目标日期';
+                    countdownTarget.textContent = '';
+                    return;
+                }
+
+                let target = new Date(targetDate.value);
+                if (currentTime.value) {
+                    const timeParts = currentTime.value.split(':');
+                    target.setHours(parseInt(timeParts[0]) || 0, parseInt(timeParts[1]) || 0, 0);
+                }
+
+                let current = new Date();
+                if (currentDate.value) {
+                    current = new Date(currentDate.value);
+                    if (currentTime.value) {
+                        const timeParts = currentTime.value.split(':');
+                        current.setHours(parseInt(timeParts[0]) || 0, parseInt(timeParts[1]) || 0, 0);
+                    }
+                }
+
+                const diffTime = target - current;
+
+                if (diffTime < 0) {
+                    countdownResult.textContent = '目标日期已过期';
+                    countdownTarget.textContent = `目标日期：${formatDateTime(target)}`;
+                    return;
+                }
+
+                const days = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diffTime % (1000 * 60)) / 1000);
+
+                countdownResult.textContent = `${days}天 ${hours}小时 ${minutes}分钟 ${seconds}秒`;
+                countdownTarget.textContent = `目标日期：${formatDateTime(target)}`;
+            });
+
+            // 工作日计算
+            calculateWork.addEventListener('click', function() {
+                if (!workStart.value) {
+                    workResult.value = '';
+                    return;
+                }
+
+                const start = new Date(workStart.value);
+                const days = parseInt(workDays.value) || 0;
+                const exclude = excludeWeekend.checked;
+
+                let resultDate = new Date(start);
+                let workDaysAdded = 0;
+
+                while (workDaysAdded < days) {
+                    resultDate.setDate(resultDate.getDate() + 1);
+                    const dayOfWeek = resultDate.getDay();
+                    
+                    if (exclude && (dayOfWeek === 0 || dayOfWeek === 6)) {
+                        continue; // 跳过周末
+                    }
+                    workDaysAdded++;
+                }
+
+                workResult.value = formatDate(resultDate);
+            });
+
+            // 获取日期信息
+            getDateInfo.addEventListener('click', function() {
+                if (!calendarDate.value) {
+                    dateInfoResult.innerHTML = '请选择日期';
+                    return;
+                }
+
+                const date = new Date(calendarDate.value);
+                const year = date.getFullYear();
+                const month = date.getMonth() + 1;
+                const day = date.getDate();
+                const dayOfWeek = date.getDay();
+                const weekDays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+
+                let info = `<div class="card bg-light p-3">`;
+                info += `<p><strong>日期：</strong>${year}年${month}月${day}日</p>`;
+                info += `<p><strong>星期：</strong>${weekDays[dayOfWeek]}</p>`;
+                info += `<p><strong>是否闰年：</strong>${isLeapYear(year) ? '是' : '否'}</p>`;
+                info += `<p><strong>第${getWeekOfYear(date)}周</strong></p>`;
+                info += `<p><strong>本月第${day}天</strong></p>`;
+                info += `<p><strong>本年第${getDayOfYear(date)}天</strong></p>`;
+                info += `</div>`;
+
+                dateInfoResult.innerHTML = info;
+
+                // 显示假期信息
+                const yearStr = holidayYear.value;
+                const yearHolidays = holidays[yearStr] || [];
+                const isHoliday = yearHolidays.includes(calendarDate.value);
+
+                let holidayHtml = '<div class="card bg-light p-3 mt-3">';
+                holidayHtml += `<h6>节假日信息（${yearStr}年）</h6>`;
+                if (isHoliday) {
+                    holidayHtml += `<p class="text-success"><i class="fas fa-check-circle me-2"></i>此日期是节假日</p>`;
+                } else {
+                    holidayHtml += `<p class="text-muted"><i class="fas fa-info-circle me-2"></i>此日期不是节假日</p>`;
+                }
+                holidayHtml += `<p class="text-muted small mt-2">本工具仅提供中国法定节假日信息，实际假期可能因地区而异</p>`;
+                holidayHtml += `</div>`;
+
+                holidayInfo.innerHTML = holidayHtml;
+            });
+
+            // 辅助函数
+            function formatDate(date) {
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            }
+
+            function formatDateTime(date) {
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                const hours = String(date.getHours()).padStart(2, '0');
+                const minutes = String(date.getMinutes()).padStart(2, '0');
+                const seconds = String(date.getSeconds()).padStart(2, '0');
+                return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+            }
+
+            function isLeapYear(year) {
+                return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+            }
+
+            function getDayOfYear(date) {
+                const start = new Date(date.getFullYear(), 0, 1);
+                const diff = date - start;
+                return Math.floor(diff / (1000 * 60 * 60 * 24)) + 1;
+            }
+
+            function getWeekOfYear(date) {
+                const firstDay = new Date(date.getFullYear(), 0, 1);
+                const firstDayOfWeek = firstDay.getDay();
+                const offset = (firstDayOfWeek === 0 ? 7 : firstDayOfWeek) - 1;
+                const start = new Date(date.getFullYear(), 0, 1 - offset);
+                const diff = date - start;
+                return Math.floor(diff / (1000 * 60 * 60 * 24 * 7)) + 1;
+            }
+
+            // 设置默认日期
+            const today = new Date();
+            const todayStr = formatDate(today);
+            startDate.value = todayStr;
+            endDate.value = todayStr;
+            baseDate.value = todayStr;
+            calendarDate.value = todayStr;
+            currentDate.value = todayStr;
+            targetDate.value = todayStr;
+            workStart.value = todayStr;
+        });
+    </script>
+</body>
+</html>

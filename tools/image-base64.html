@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片Base64转换器 - 图片与Base64互相转换 | 在线工具箱</title>
+    <meta name="description" content="专业的图片Base64在线转换工具，支持JPG、PNG、GIF、WebP等格式图片与Base64编码互相转换。支持拖拽上传、剪贴板粘贴、URL加载，实时预览图片。完全本地运行，数据100%安全，无需注册。">
+    <meta name="keywords" content="图片Base64转换,Base64图片转换,图片转Base64,Base64转图片,在线图片转换,图片编码解码,Data URL生成,图片预览,剪贴板图片处理">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8795586167197548" crossorigin="anonymous"></script>
+    <link rel="canonical" href="https://alltoolsbox.xyz/tools/image-base64.html" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/"><i class="fas fa-tools me-2"></i>在线工具箱</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">首页</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/blog">技术博客</a></li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/pages/about.html">关于我们</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/contact.html">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="text-center my-3">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8795586167197548" data-ad-slot="728x90_banner" data-ad-format="728x90" data-full-width-responsive="true"></ins>
+    </div>
+
+    <div class="tool-container fade-in">
+        <div class="tool-header text-center mb-5">
+            <h1 class="display-5 fw-bold mb-3">图片Base64转换器</h1>
+            <p class="lead">专业的图片Base64在线转换工具，支持<strong>JPG、PNG、GIF、WebP</strong>等格式。支持拖拽上传、剪贴板粘贴、URL加载，实时预览图片。<strong>完全本地运行，数据100%安全</strong>。</p>
+            <div class="alert alert-primary"><i class="fas fa-star me-2"></i> 无需安装 | 无需注册 | 完全免费 | 数据本地处理 | 支持多种图片格式</div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white"><i class="fas fa-image me-2"></i> 图片输入</div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">选择上传方式</label>
+                            <div class="d-flex gap-2 flex-wrap">
+                                <button class="btn btn-outline-primary" id="upload-btn"><i class="fas fa-upload me-1"></i> 选择文件</button>
+                                <input type="file" id="file-input" accept="image/*" style="display: none;">
+                                <button class="btn btn-outline-success" id="paste-btn"><i class="fas fa-paste me-1"></i> 粘贴图片</button>
+                                <button class="btn btn-outline-info" id="url-btn"><i class="fas fa-link me-1"></i> 从URL加载</button>
+                                <button class="btn btn-outline-danger clear-btn" data-target="file-input,image-preview,base64-input,base64-output,image-info"><i class="fas fa-trash me-1"></i> 清空</button>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="file-input" class="form-label">拖拽图片到此区域</label>
+                            <div id="drop-area" class="border border-2 border-dashed rounded p-4 text-center" style="min-height: 200px; cursor: pointer;">
+                                <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-2"></i>
+                                <p class="text-muted mb-0">支持 JPG, PNG, GIF, WebP 等格式</p>
+                                <p class="text-muted small">最大 5MB</p>
+                                <img id="image-preview" class="img-fluid d-none mt-2" style="max-height: 180px; object-fit: contain;">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">图片信息</label>
+                            <div id="image-info" class="text-muted small">未选择图片</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-success text-white"><i class="fas fa-code me-2"></i> Base64输出</div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="base64-input" class="form-label">Base64输入（用于转图片）</label>
+                            <textarea class="form-control font-monospace" id="base64-input" rows="4" placeholder="粘贴Base64编码在此转换为图片..."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">转换结果</label>
+                            <textarea class="form-control font-monospace" id="base64-output" rows="6" readonly placeholder="图片转换结果将在此显示..."></textarea>
+                        </div>
+                        <div class="d-flex gap-2 justify-content-between">
+                            <div>
+                                <button class="btn btn-outline-success copy-btn" data-target="base64-output"><i class="fas fa-copy me-1"></i> 复制结果</button>
+                            </div>
+                            <div class="text-muted small">
+                                Base64长度: <span id="base64-length">0</span> 字符
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-3">
+            <div class="col-md-12">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-info text-white"><i class="fas fa-cog me-2"></i> 转换选项</div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">输出格式</label>
+                                    <select class="form-select" id="output-format">
+                                        <option value="data-url">Data URL (完整)</option>
+                                        <option value="base64-only">Base64编码 (仅)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">图片质量</label>
+                                    <select class="form-select" id="quality-select">
+                                        <option value="1.0">100% (无损)</option>
+                                        <option value="0.92">92% (高质量)</option>
+                                        <option value="0.85">85% (标准)</option>
+                                        <option value="0.7">70% (较小)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">图片格式</label>
+                                    <select class="form-select" id="format-select">
+                                        <option value="">保持原格式</option>
+                                        <option value="image/jpeg">JPEG</option>
+                                        <option value="image/png">PNG</option>
+                                        <option value="image/webp">WebP</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="fs-3 mb-4"><i class="fas fa-book text-primary me-2"></i> 图片Base64完全指南</h2>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-info-circle me-2"></i> Base64图片是什么？</h3>
+                    <p><strong>Base64图片编码</strong>是一种将图片数据转换为<strong>ASCII字符</strong>的编码方式。通过这种方式，图片可以以文本形式进行传输和存储，而无需依赖二进制数据格式。</p>
+                    <p>在Web开发中，Base64编码的图片常用于：</p>
+                    <ul>
+                        <li><strong>内嵌图片：</strong>直接在HTML或CSS中嵌入图片，减少HTTP请求</li>
+                        <li><strong>小图标：</strong>存储小尺寸的图标或背景图片</li>
+                        <li><strong>数据传输：</strong>在API中传输图片数据</li>
+                        <li><strong>脱机存储：</strong>在本地存储图片，无需网络请求</li>
+                    </ul>
+                    <div class="alert alert-info">
+                        <i class="fas fa-lightbulb me-2"></i> <strong>Data URL格式：</strong> <code>data:[&lt;mediatype&gt;][;base64],&lt;data&gt;</code>，例如：<code>data:image/png;base64,iVBORw0KGgo...</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-star me-2"></i> Base64图片的优缺点</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="text-success"><i class="fas fa-check-circle me-2"></i> 优点</h5>
+                            <ol>
+                                <li><strong>减少HTTP请求：</strong>图片直接嵌入HTML/CSS，无需额外请求</li>
+                                <li><strong>即时加载：</strong>页面加载时立即显示图片，无需等待</li>
+                                <li><strong>便于传输：</strong>可作为文本形式通过网络传输</li>
+                                <li><strong>支持所有图片格式：</strong>JPEG、PNG、GIF、WebP等</li>
+                                <li><strong>脱机使用：</strong>无需网络连接即可显示图片</li>
+                            </ol>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="text-danger"><i class="fas fa-times-circle me-2"></i> 缺点</h5>
+                            <ol>
+                                <li><strong>文件体积增大：</strong>Base64编码后体积约增加33%</li>
+                                <li><strong>无法缓存：</strong>不能利用浏览器缓存机制</li>
+                                <li><strong>维护困难：</strong>修改图片需重新生成Base64代码</li>
+                                <li><strong>不支持CDN：</strong>无法使用CDN加速图片加载</li>
+                                <li><strong>影响可读性：</strong>大段Base64代码影响HTML/CSS可读性</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="alert alert-warning mt-3">
+                        <i class="fas fa-exclamation-triangle me-2"></i> <strong>建议：</strong> 仅对小图标（&lt;10KB）使用Base64编码，大图片建议使用传统URL方式。
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-code me-2"></i> 图片格式对比</h3>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead class="table-primary">
+                                <tr>
+                                    <th style="width: 20%;">格式</th>
+                                    <th style="width: 25%;">特点</th>
+                                    <th style="width: 25%;">压缩率</th>
+                                    <th style="width: 30%;">适用场景</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>JPEG/JPG</td>
+                                    <td>有损压缩，不支持透明</td>
+                                    <td>高（50-90%）</td>
+                                    <td>照片、复杂图像</td>
+                                </tr>
+                                <tr>
+                                    <td>PNG</td>
+                                    <td>无损压缩，支持透明</td>
+                                    <td>中（30-70%）</td>
+                                    <td>图标、简单图形、需透明</td>
+                                </tr>
+                                <tr>
+                                    <td>GIF</td>
+                                    <td>无损，支持动画，仅256色</td>
+                                    <td>低（20-50%）</td>
+                                    <td>动画图标、简单动图</td>
+                                </tr>
+                                <tr>
+                                    <td>WebP</td>
+                                    <td>有损/无损，支持透明和动画</td>
+                                    <td>极高（60-90%）</td>
+                                    <td>现代浏览器，推荐使用</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="fs-3 mb-4"><i class="fas fa-rocket text-primary me-2"></i> 实际应用场景</h2>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-image me-2"></i> 场景1：HTML内嵌图片</h3>
+                    <p>在HTML中直接嵌入Base64编码的图片，减少HTTP请求，提升页面加载速度。</p>
+                    <p><strong>使用方式：</strong></p>
+                    <pre><code>&lt;img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..." alt="图片"&gt;</code></pre>
+                    <p><strong>适用场景：</strong></p>
+                    <ul>
+                        <li><strong>小图标：</strong>网站Logo、按钮图标、社交媒体图标</li>
+                        <li><strong>背景图片：</strong>CSS背景图片</li>
+                        <li><strong>Email模板：</strong>邮件中的图片显示</li>
+                        <li><strong>单页应用：</strong>SPA中的静态图片资源</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-css3 me-2"></i> 场景2：CSS背景图片</h3>
+                    <p>在CSS中使用Base64编码的图片作为背景，无需额外的图片请求。</p>
+                    <p><strong>使用方式：</strong></p>
+                    <pre><code>.element {
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDov...');
+  background-size: contain;
+  background-repeat: no-repeat;
+}</code></pre>
+                    <p><strong>优势：</strong></p>
+                    <ul>
+                        <li><strong>减少请求：</strong>无需额外的HTTP请求</li>
+                        <li><strong>立即渲染：</strong>CSS加载后立即显示背景</li>
+                        <li><strong>便于维护：</strong>CSS文件即包含所有资源</li>
+                    </ul>
+                    <div class="alert alert-info mt-3">
+                        <i class="fas fa-lightbulb me-2"></i> <strong>建议：</strong> 对于重复使用的图片，考虑使用CSS变量：<code>--bg-image: url('data:...')</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-server me-2"></i> 场景3：API数据传输</h3>
+                    <p>在API请求中传输图片数据，无需先上传图片到服务器。</p>
+                    <p><strong>使用方式：</strong></p>
+                    <pre><code>POST /api/upload
+Content-Type: application/json
+
+{
+  "title": "我的图片",
+  "image": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEA..."
+}</code></pre>
+                    <p><strong>适用场景：</strong></p>
+                    <ul>
+                        <li><strong>用户上传：</strong>前端直接传输图片数据</li>
+                        <li><strong>图片处理：</strong>传输图片到云处理服务</li>
+                        <li><strong>即时保存：</strong>无需先上传，直接保存到数据库</li>
+                    </ul>
+                    <div class="alert alert-warning mt-3">
+                        <i class="fas fa-exclamation-triangle me-2"></i> <strong>注意：</strong> 大图片的Base64编码会显著增加请求体积，建议限制图片大小或使用分块上传。
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-mobile-alt me-2"></i> 场景4：离线应用</h3>
+                    <p>在离线应用或PWA中使用Base64编码的图片，无需网络连接即可显示图片。</p>
+                    <p><strong>适用场景：</strong></p>
+                    <ul>
+                        <li><strong>PWA应用：</strong>渐进式Web应用中的图片资源</li>
+                        <li><strong>移动端：</strong>混合应用中的图片资源</li>
+                        <li><strong>桌面端：</strong>Electron应用中的图片资源</li>
+                        <li><strong>缓存策略：</strong>Service Worker缓存的图片资源</li>
+                    </ul>
+                    <p><strong>优势：</strong></p>
+                    <ul>
+                        <li><strong>完全离线：</strong>无需网络连接即可使用</li>
+                        <li><strong>快速加载：</strong>资源已打包在应用中</li>
+                        <li><strong>便于部署：</strong>无需管理图片文件</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="fs-3 mb-4"><i class="fas fa-question-circle text-primary me-2"></i> 常见问题FAQ</h2>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 图片转换为Base64后体积为什么会变大？</h4>
+                    <p><strong>A:</strong> Base64编码会将<strong>每3个字节</strong>的二进制数据转换为<strong>4个字符</strong>的ASCII文本，因此体积会增加约<strong>33%</strong>。</p>
+                    <p><strong>计算公式：</strong></p>
+                    <ul>
+                        <li><strong>Base64长度 = 图片字节数 × 4/3</strong></li>
+                        <li><strong>Data URL长度 = Base64长度 + 头部信息长度</strong>（约30-40字符）</li>
+                    </ul>
+                    <p><strong>示例：</strong>10KB的图片，转换为Base64后约为13.3KB（不含头部）。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 什么是Data URL？</h4>
+                    <p><strong>A:</strong> <strong>Data URL</strong>（数据URL）是一种<strong>内联数据</strong>的URL方案，允许在URL中直接嵌入数据内容。</p>
+                    <p><strong>Data URL格式：</strong></p>
+                    <pre><code>data:[&lt;mediatype&gt;][;base64],&lt;data&gt;</code></pre>
+                    <p><strong>组成部分：</strong></p>
+                    <ul>
+                        <li><strong>data: </strong>方案标识</li>
+                        <li><strong>&lt;mediatype&gt; </strong>MIME类型，例如image/png、image/jpeg</li>
+                        <li><strong>;base64 </strong>编码方式标识（可选，若数据为Base64编码则需要）</li>
+                        <li><strong>,&lt;data&gt; </strong>实际数据内容</li>
+                    </ul>
+                    <p><strong>示例：</strong></p>
+                    <pre><code>data:image/png;base64,iVBORw0KGgoAAAANSUhEUg...</code></pre>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 支持哪些图片格式？</h4>
+                    <p><strong>A:</strong> 本工具支持所有浏览器原生支持的图片格式，包括但不限于：</p>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead class="table-primary">
+                                <tr><th>格式</th><th>MIME类型</th><th>支持透明</th><th>支持动画</th><th>压缩算法</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>JPEG/JPG</td><td>image/jpeg</td><td>❌</td><td>❌</td><td>有损</td></tr>
+                                <tr><td>PNG</td><td>image/png</td><td>✅</td><td>❌</td><td>无损</td></tr>
+                                <tr><td>GIF</td><td>image/gif</td><td>✅</td><td>✅</td><td>无损</td></tr>
+                                <tr><td>WebP</td><td>image/webp</td><td>✅</td><td>✅</td><td>有损/无损</td></tr>
+                                <tr><td>SVG</td><td>image/svg+xml</td><td>✅</td><td>❌</td><td>矢量</td></tr>
+                                <tr><td>BMP</td><td>image/bmp</td><td>✅</td><td>❌</td><td>无损</td></tr>
+                                <tr><td>ICO</td><td>image/x-icon</td><td>✅</td><td>❌</td><td>无损</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p><strong>注意：</strong>不同浏览器对图片格式的支持可能不同，建议使用JPEG、PNG、WebP这三种主流格式。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: Base64图片对SEO有什么影响？</h4>
+                    <p><strong>A:</strong> Base64图片对SEO有一定影响，需要权衡使用：</p>
+                    <p><strong>正面影响：</strong></p>
+                    <ul>
+                        <li><strong>页面加载速度：</strong>减少HTTP请求，可能提升页面加载速度</li>
+                        <li><strong>用户体验：</strong>减少资源依赖，提升页面渲染速度</li>
+                    </ul>
+                    <p><strong>负面影响：</strong></p>
+                    <ul>
+                        <li><strong>图片无法被抓取：</strong>搜索引擎无法独立索引Base64图片</li>
+                        <li><strong>alt属性效果减弱：</strong>搜索引擎可能无法理解图片内容</li>
+                        <li><strong>图片搜索：</strong>无法出现在图片搜索结果中</li>
+                        <li><strong>页面体积：</strong>Base64编码增加页面体积</li>
+                    </ul>
+                    <div class="alert alert-warning mt-3">
+                        <i class="fas fa-exclamation-triangle me-2"></i> <strong>SEO建议：</strong> 对于重要的图片内容（如产品图片、文章配图），建议使用传统图片URL方式，以利于SEO。Base64图片适合用于装饰性的小图标。
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 图片有大小限制吗？</h4>
+                    <p><strong>A:</strong> 是的，本工具有以下限制：</p>
+                    <ul>
+                        <li><strong>单个文件大小：</strong><strong>最大5MB</strong>（浏览器内存限制）</li>
+                        <li><strong>Base64输出长度：</strong>约为原图的<strong>1.33倍</strong></li>
+                        <li><strong>Data URL总长度：</strong>浏览器对URL长度有限制，通常<strong>2MB左右</strong></li>
+                    </ul>
+                    <p><strong>建议：</strong></p>
+                    <ol>
+                        <li><strong>小图标：</strong>使用Base64编码，体积通常小于10KB</li>
+                        <li><strong>中等图片：</strong>可使用，但建议压缩图片大小</li>
+                        <li><strong>大图片：</strong>建议使用传统URL方式，避免Base64带来的性能问题</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-shield-alt me-2 text-success"></i> Q: 本工具会上传我的图片到服务器吗？</h4>
+                    <p><strong>A:</strong> <span class="text-success fw-bold">完全不会！绝对安全！</span></p>
+                    <p>本工具是一个<strong>纯前端</strong>的在线工具，采用以下技术确保图片安全：</p>
+                    <ul>
+                        <li><strong>浏览器端运行：</strong>所有图片处理都在您的浏览器中完成，不需要与任何服务器通信</li>
+                        <li><strong>使用FileReader API：</strong>使用浏览器原生的FileReader API读取图片文件</li>
+                        <li><strong>无网络请求：</strong>处理过程中不会发送任何网络请求，图片完全在本地</li>
+                        <li><strong>不存储数据：</strong>我们不收集、不存储、不上传您的任何图片数据</li>
+                    </ul>
+                    <p>您可以在断网的情况下使用本工具（前提是已经加载过页面），这充分证明了图片是本地处理的。</p>
+                    <div class="alert alert-success mt-3">
+                        <i class="fas fa-check-circle me-2"></i> <strong>总结：</strong>本工具<strong>完全安全</strong>，您的图片只会在本地处理，不会被上传到任何服务器。您可以放心使用。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="fs-3 mb-4"><i class="fas fa-link text-primary me-2"></i> 相关工具推荐</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-lock text-success fa-2x me-3"></i>
+                                <h3 class="card-title h5 mb-0">Base64编解码</h3>
+                            </div>
+                            <p class="card-text text-muted">文本和文件的Base64编码与解码工具</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="badge bg-success">编码转换</span>
+                                <a href="/tools/base64-encoder.html" class="btn btn-outline-success btn-sm">立即使用</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-link text-primary fa-2x me-3"></i>
+                                <h3 class="card-title h5 mb-0">URL编解码</h3>
+                            </div>
+                            <p class="card-text text-muted">URL参数编码解码工具</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="badge bg-primary">编码转换</span>
+                                <a href="/tools/url-encoder.html" class="btn btn-outline-primary btn-sm">立即使用</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-code text-warning fa-2x me-3"></i>
+                                <h3 class="card-title h5 mb-0">HTML实体转义</h3>
+                            </div>
+                            <p class="card-text text-muted">HTML特殊字符与实体编码互相转换</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="badge bg-warning">编码转换</span>
+                                <a href="/tools/html-entity-encoder.html" class="btn btn-outline-warning btn-sm">立即使用</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>常见用法</h4>
+            <div class="bg-dark text-white p-3 rounded font-monospace" style="font-size: 14px;">
+// 将图片转换为Base64<br>
+输入: [选择图片文件]<br>
+输出: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...<br><br>
+
+// 使用Base64图片<br>
+&lt;img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUg..." alt="图片"&gt;<br><br>
+
+// CSS背景<br>
+.element {
+  background-image: url('data:image/jpeg;base64,/9j/4AAQSkZ...');
+}
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-3">图片Base64转换器</h5>
+                    <p class="text-muted small">免费、易用的在线图片Base64转换工具，支持多种图片格式，完全本地运行。</p>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">快速链接</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/" class="text-decoration-none">首页</a></li>
+                        <li class="mb-2"><a href="/pages/about.html" class="text-decoration-none">关于我们</a></li>
+                        <li class="mb-2"><a href="/pages/contact.html" class="text-decoration-none">联系我们</a></li>
+                        <li class="mb-2"><a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">推荐工具</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/tools/base64-encoder.html" class="text-decoration-none">Base64编解码</a></li>
+                        <li class="mb-2"><a href="/tools/url-encoder.html" class="text-decoration-none">URL编解码</a></li>
+                        <li class="mb-2"><a href="/tools/color-converter.html" class="text-decoration-none">颜色代码转换</a></li>
+                        <li class="mb-2"><a href="/tools/qrcode-generator.html" class="text-decoration-none">二维码生成器</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center text-muted small">
+                <p>Copyright © 2024-2025 在线工具箱 | <a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="text-center my-4">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8795586167197548" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/error-tracking.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.getElementById('file-input');
+            const uploadBtn = document.getElementById('upload-btn');
+            const pasteBtn = document.getElementById('paste-btn');
+            const urlBtn = document.getElementById('url-btn');
+            const dropArea = document.getElementById('drop-area');
+            const imagePreview = document.getElementById('image-preview');
+            const base64Input = document.getElementById('base64-input');
+            const base64Output = document.getElementById('base64-output');
+            const imageInfo = document.getElementById('image-info');
+            const base64Length = document.getElementById('base64-length');
+            const outputFormat = document.getElementById('output-format');
+            const qualitySelect = document.getElementById('quality-select');
+            const formatSelect = document.getElementById('format-select');
+
+            let currentImageData = null;
+
+            function processImage(file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        currentImageData = e.target.result;
+                        displayImage(img);
+                        convertToBase64();
+                    };
+                    img.onerror = function() {
+                        alert('无法加载图片，请检查图片格式是否支持');
+                    };
+                    img.src = e.target.result;
+                };
+                reader.onerror = function() {
+                    alert('读取图片文件时出错');
+                };
+                reader.readAsDataURL(file);
+            }
+
+            function displayImage(img) {
+                imagePreview.src = img.src;
+                imagePreview.classList.remove('d-none');
+                
+                const info = `文件名: ${img.src.split('/').pop().split('?')[0]}<br>` +
+                            `尺寸: ${img.width} × ${img.height}px<br>` +
+                            `文件大小: ${formatFileSize(img.src.length)}`;
+                imageInfo.innerHTML = info;
+            }
+
+            function formatFileSize(bytes) {
+                if (bytes < 1024) return bytes + ' B';
+                if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
+                return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+            }
+
+            function convertToBase64() {
+                if (!currentImageData) {
+                    base64Output.value = '';
+                    base64Length.textContent = '0';
+                    return;
+                }
+
+                const outputFormatValue = outputFormat.value;
+                const quality = parseFloat(qualitySelect.value);
+                const targetFormat = formatSelect.value;
+
+                if (targetFormat) {
+                    convertImageFormat(currentImageData, targetFormat, quality, outputFormatValue);
+                } else {
+                    processBase64(currentImageData, outputFormatValue);
+                }
+            }
+
+            function processBase64(dataUrl, format) {
+                if (format === 'base64-only') {
+                    const base64 = dataUrl.split(',')[1];
+                    base64Output.value = base64;
+                    base64Length.textContent = base64.length;
+                } else {
+                    base64Output.value = dataUrl;
+                    base64Length.textContent = dataUrl.length;
+                }
+            }
+
+            function convertImageFormat(dataUrl, targetFormat, quality, outputFormat) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    
+                    if (targetFormat === 'image/jpeg') {
+                        ctx.fillStyle = '#ffffff';
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    }
+                    
+                    ctx.drawImage(img, 0, 0);
+                    
+                    const convertedDataUrl = canvas.toDataURL(targetFormat, quality);
+                    currentImageData = convertedDataUrl;
+                    displayImage(img);
+                    processBase64(convertedDataUrl, outputFormat);
+                };
+                img.src = dataUrl;
+            }
+
+            function handlePaste(e) {
+                const items = (e.clipboardData || window.clipboardData).items;
+                for (let i = 0; i < items.length; i++) {
+                    if (items[i].type.indexOf('image') !== -1) {
+                        const blob = items[i].getAsFile();
+                        processImage(blob);
+                        return;
+                    }
+                }
+                alert('剪贴板中未检测到图片');
+            }
+
+            function handleUrlLoad() {
+                const url = prompt('请输入图片URL地址:', 'https://');
+                if (!url) return;
+
+                fetch(url, { mode: 'cors' })
+                    .then(response => response.blob())
+                    .then(blob => {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            currentImageData = e.target.result;
+                            const img = new Image();
+                            img.onload = function() {
+                                displayImage(img);
+                                convertToBase64();
+                            };
+                            img.src = e.target.result;
+                        };
+                        reader.readAsDataURL(blob);
+                    })
+                    .catch(error => {
+                        alert('加载图片失败，可能是CORS跨域限制或图片地址无效');
+                        console.error('加载图片错误:', error);
+                    });
+            }
+
+            uploadBtn.addEventListener('click', function() {
+                fileInput.click();
+            });
+
+            fileInput.addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    processImage(this.files[0]);
+                }
+            });
+
+            pasteBtn.addEventListener('click', function() {
+                navigator.clipboard.read().then(function(clipboardItems) {
+                    for (const clipboardItem of clipboardItems) {
+                        if (clipboardItem.types.includes('image/png')) {
+                            clipboardItem.getType('image/png').then(function(blob) {
+                                processImage(blob);
+                            });
+                            return;
+                        }
+                    }
+                    alert('剪贴板中未检测到图片');
+                }).catch(function(err) {
+                    console.error('读取剪贴板失败:', err);
+                    alert('无法访问剪贴板，请使用其他方式上传图片');
+                });
+            });
+
+            urlBtn.addEventListener('click', handleUrlLoad);
+
+            dropArea.addEventListener('click', function() {
+                fileInput.click();
+            });
+
+            dropArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.classList.add('border-primary', 'bg-light');
+            });
+
+            dropArea.addEventListener('dragleave', function() {
+                this.classList.remove('border-primary', 'bg-light');
+            });
+
+            dropArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.classList.remove('border-primary', 'bg-light');
+                if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                    processImage(e.dataTransfer.files[0]);
+                }
+            });
+
+            base64Input.addEventListener('input', function() {
+                const base64 = this.value.trim();
+                if (base64) {
+                    try {
+                        const img = new Image();
+                        img.onload = function() {
+                            currentImageData = `data:image/png;base64,${base64}`;
+                            displayImage(img);
+                            convertToBase64();
+                        };
+                        img.onerror = function() {
+                            alert('无法加载Base64图片，请检查格式是否正确');
+                        };
+                        img.src = `data:image/png;base64,${base64}`;
+                    } catch (e) {
+                        alert('Base64格式无效');
+                    }
+                }
+            });
+
+            outputFormat.addEventListener('change', convertToBase64);
+            qualitySelect.addEventListener('change', convertToBase64);
+            formatSelect.addEventListener('change', convertToBase64);
+
+            document.addEventListener('paste', function(e) {
+                if (e.target.id !== 'base64-input' && e.target.id !== 'base64-output') {
+                    handlePaste(e);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

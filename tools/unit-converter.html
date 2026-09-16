@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单位转换器 - 长度、重量、温度、存储容量单位转换 | 在线工具箱</title>
+    <meta name="description" content="专业的单位在线转换工具，支持长度、重量、温度、存储容量、面积、体积、速度、时间等单位类别的相互转换。实时计算，支持批量转换，完全本地运行，数据100%安全，无需注册。">
+    <meta name="keywords" content="单位转换,单位转换器,长度单位转换,重量单位转换,温度转换,存储容量转换,面积转换,体积转换,在线单位转换,单位换算,单位计算">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8795586167197548" crossorigin="anonymous"></script>
+    <link rel="canonical" href="https://alltoolsbox.xyz/tools/unit-converter.html" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/"><i class="fas fa-tools me-2"></i>在线工具箱</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">首页</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/blog">技术博客</a></li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/pages/about.html">关于我们</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/contact.html">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="text-center my-3">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8795586167197548" data-ad-slot="728x90_banner" data-ad-format="728x90" data-full-width-responsive="true"></ins>
+    </div>
+
+    <div class="tool-container fade-in">
+        <div class="tool-header text-center mb-5">
+            <h1 class="display-5 fw-bold mb-3">单位转换器</h1>
+            <p class="lead">专业的单位在线转换工具，支持<strong>长度、重量、温度、存储容量</strong>等单位类别的相互转换。实时计算，支持批量转换。<strong>完全本地运行，数据100%安全</strong>。</p>
+            <div class="alert alert-primary"><i class="fas fa-star me-2"></i> 无需安装 | 无需注册 | 完全免费 | 数据本地处理 | 支持多种单位类别</div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white"><i class="fas fa-exchange-alt me-2"></i> 快速转换</div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="category-select" class="form-label">单位类别</label>
+                                    <select class="form-select" id="category-select">
+                                        <option value="length">长度</option>
+                                        <option value="weight">重量</option>
+                                        <option value="temperature">温度</option>
+                                        <option value="storage">存储容量</option>
+                                        <option value="area">面积</option>
+                                        <option value="volume">体积</option>
+                                        <option value="speed">速度</option>
+                                        <option value="time">时间</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">精确度</label>
+                                    <select class="form-select" id="precision-select">
+                                        <option value="2">2位小数</option>
+                                        <option value="4">4位小数</option>
+                                        <option value="6">6位小数</option>
+                                        <option value="8">8位小数</option>
+                                        <option value="10">10位小数</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="from-unit" class="form-label">从</label>
+                                    <select class="form-select" id="from-unit"></select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="to-unit" class="form-label">到</label>
+                                    <select class="form-select" id="to-unit"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-8">
+                                <div class="mb-3">
+                                    <input type="number" class="form-control" id="input-value" placeholder="输入数值">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3 d-grid">
+                                    <button class="btn btn-primary" id="convert-single"><i class="fas fa-exchange-alt me-1"></i> 转换</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">转换结果</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control font-monospace" id="result-value" readonly>
+                                <button class="btn btn-outline-success copy-btn" data-target="result-value"><i class="fas fa-copy me-1"></i> 复制</button>
+                            </div>
+                        </div>
+                        <div id="conversion-info" class="text-muted small"></div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mt-4">
+                    <div class="card-header bg-info text-white"><i class="fas fa-list me-2"></i> 批量转换</div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">单位类别</label>
+                                    <select class="form-select" id="batch-category">
+                                        <option value="length">长度</option>
+                                        <option value="weight">重量</option>
+                                        <option value="temperature">温度</option>
+                                        <option value="storage">存储容量</option>
+                                        <option value="area">面积</option>
+                                        <option value="volume">体积</option>
+                                        <option value="speed">速度</option>
+                                        <option value="time">时间</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="batch-precision" class="form-label">精确度</label>
+                                    <select class="form-select" id="batch-precision">
+                                        <option value="2">2位小数</option>
+                                        <option value="4">4位小数</option>
+                                        <option value="6">6位小数</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="batch-from" class="form-label">从</label>
+                                    <select class="form-select" id="batch-from"></select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="batch-to" class="form-label">到</label>
+                                    <select class="form-select" id="batch-to"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control" id="batch-input" rows="4" placeholder="输入数值，每行一个"></textarea>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-info" id="convert-batch"><i class="fas fa-exchange-alt me-1"></i> 批量转换</button>
+                            <button class="btn btn-outline-success copy-btn" data-target="batch-output"><i class="fas fa-copy me-1"></i> 复制</button>
+                            <button class="btn btn-outline-danger clear-btn" data-target="batch-input,batch-output"><i class="fas fa-trash me-1"></i> 清空</button>
+                        </div>
+                        <div class="mt-3">
+                            <label class="form-label">转换结果</label>
+                            <textarea class="form-control font-monospace" id="batch-output" rows="4" readonly></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-primary text-white"><i class="fas fa-info-circle me-2"></i> 单位信息</div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <h6>单位类别说明</h6>
+                            <div id="category-info"></div>
+                        </div>
+                        <div class="mb-3">
+                            <h6>常用转换</h6>
+                            <div id="common-conversions"></div>
+                        </div>
+                        <div>
+                            <h6>转换公式</h6>
+                            <div id="conversion-formula" class="text-muted small"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="fs-3 mb-4"><i class="fas fa-book text-primary me-2"></i> 单位转换完全指南</h2>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-info-circle me-2"></i> 单位转换是什么？</h3>
+                    <p><strong>单位转换</strong>是将一个物理量从一种<strong>计量单位</strong>转换为另一种<strong>计量单位</strong>的过程。在不同的领域和地区，人类发明了多种计量单位来衡量相同的物理量。</p>
+                    <p>单位转换的目的是实现：</p>
+                    <ul>
+                        <li><strong>统一标准：</strong>将不同单位制的测量结果转换为统一的单位</li>
+                        <li><strong>便于计算：</strong>选择合适的单位简化计算过程</li>
+                        <li><strong>国际交流：</strong>将本地单位转换为国际通用单位</li>
+                        <li><strong>精确表达：</strong>选择合适的单位更精确地表达数值</li>
+                    </ul>
+                    <div class="alert alert-info">
+                        <i class="fas fa-lightbulb me-2"></i> <strong>国际单位制（SI）：</strong> 米、千克、秒、安培、开尔文、摩尔、坎德拉等7个基本单位构成的单位制，是世界上最广泛使用的单位制。
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-list me-2"></i> 支持的单位类别</h3>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead class="table-primary">
+                                <tr>
+                                    <th style="width: 20%;">类别</th>
+                                    <th style="width: 50%;">包含单位</th>
+                                    <th style="width: 30%;">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>长度</td>
+                                    <td>毫米、厘米、分米、米、千米、英寸、英尺、码、英里、海里</td>
+                                    <td>距离和长度测量</td>
+                                </tr>
+                                <tr>
+                                    <td>重量</td>
+                                    <td>毫克、克、千克、吨、磅、盎司、英镑、公担</td>
+                                    <td>质量和重量测量</td>
+                                </tr>
+                                <tr>
+                                    <td>温度</td>
+                                    <td>摄氏度、华氏度、开尔文</td>
+                                    <td>温度测量</td>
+                                </tr>
+                                <tr>
+                                    <td>存储容量</td>
+                                    <td>位、字节、KB、MB、GB、TB、PB、EB</td>
+                                    <td>数字存储容量</td>
+                                </tr>
+                                <tr>
+                                    <td>面积</td>
+                                    <td>平方毫米、平方厘米、平方分米、平方米、公顷、平方千米、英亩、平方英尺、平方英里</td>
+                                    <td>面积测量</td>
+                                </tr>
+                                <tr>
+                                    <td>体积</td>
+                                    <td>立方毫米、立方厘米、立方分米、立方米、毫升、升、加仑、品脱、英寸、英尺</td>
+                                    <td>体积和容量测量</td>
+                                </tr>
+                                <tr>
+                                    <td>速度</td>
+                                    <td>米/秒、千米/时、英里/时、节、英尺/秒、马赫</td>
+                                    <td>速度测量</td>
+                                </tr>
+                                <tr>
+                                    <td>时间</td>
+                                    <td>毫秒、秒、分钟、小时、天、周、月、年</td>
+                                    <td>时间测量</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="fs-3 mb-4"><i class="fas fa-rocket text-primary me-2"></i> 实际应用场景</h2>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-globe me-2"></i> 场景1：国际贸易</h3>
+                    <p>在国际贸易中，经常需要进行不同计量单位之间的转换，以满足不同国家和地区的要求。</p>
+                    <p><strong>常见转换：</strong></p>
+                    <ul>
+                        <li><strong>长度：</strong>米 ↔ 英尺，千米 ↔ 英里</li>
+                        <li><strong>重量：</strong>千克 ↔ 磅，吨 ↔ 英吨</li>
+                        <li><strong>温度：</strong>摄氏度 ↔ 华氏度</li>
+                    </ul>
+                    <p><strong>使用本工具：</strong>可以快速进行国际贸易中的单位转换，确保交易准确性。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-flask me-2"></i> 场景2：科学实验</h3>
+                    <p>在科学实验中，精确的单位转换是确保实验结果准确性的重要保证。不同的实验可能使用不同的单位制。</p>
+                    <p><strong>常见转换：</strong></p>
+                    <ul>
+                        <li><strong>长度：</strong>米 ↔ 厘米 ↔ 毫米 ↔ 微米</li>
+                        <li><strong>重量：</strong>克 ↔ 毫克 ↔ 微克</li>
+                        <li><strong>温度：</strong>摄氏度 ↔ 开尔文</li>
+                        <li><strong>体积：</strong>升 ↔ 毫升 ↔ 微升</li>
+                    </ul>
+                    <p><strong>使用本工具：</strong>可以进行精确的科学计量单位转换，确保实验数据的准确性。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-code me-2"></i> 场景3：软件开发</h3>
+                    <p>在软件开发中，特别是处理用户输入或API数据时，经常需要进行单位转换，以满足不同的显示或存储要求。</p>
+                    <p><strong>常见转换：</strong></p>
+                    <ul>
+                        <li><strong>存储容量：</strong>字节 ↔ KB ↔ MB ↔ GB ↔ TB</li>
+                        <li><strong>时间：</strong>秒 ↔ 毫秒 ↔ 微秒，小时 ↔ 分钟 ↔ 秒</li>
+                        <li><strong>速度：</strong>KB/s ↔ MB/s ↔ GB/s</li>
+                    </ul>
+                    <p><strong>使用本工具：</strong>可以快速进行开发中的单位转换，确保数据处理的准确性。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-ruler me-2"></i> 场景4：日常生活</h3>
+                    <p>在日常生活中，我们也经常需要进行单位转换，特别是在健康、烹饪、运动等方面。</p>
+                    <p><strong>常见转换：</strong></p>
+                    <ul>
+                        <li><strong>健康：</strong>磅 ↔ 千克，英尺 ↔ 米</li>
+                        <li><strong>烹饪：</strong>毫升 ↔ 杯，克 ↔ 盎司</li>
+                        <li><strong>运动：</strong>千米 ↔ 英里，米/秒 ↔ 千米/时</li>
+                        <li><strong>温度：</strong>华氏度 ↔ 摄氏度</li>
+                    </ul>
+                    <p><strong>使用本工具：</strong>可以快速进行日常生活中的单位转换，方便又实用。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="fs-3 mb-4"><i class="fas fa-question-circle text-primary me-2"></i> 常见问题FAQ</h2>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 为什么1千克等于2.2磅？</h4>
+                    <p><strong>A:</strong> 1千克等于2.20462磅，这是由<strong>国际单位制</strong>和<strong>英制单位</strong>之间的定义决定的。</p>
+                    <p><strong>定义来源：</strong></p>
+                    <ul>
+                        <li><strong>千克：</strong>国际单位制中质量的基本单位，定义为普朗克常数的固定数值</li>
+                        <li><strong>磅：</strong>英制质量单位，定义为7000格令（grain），而1格令定义为64.79891毫克</li>
+                        <li><strong>转换关系：</strong>1磅 = 0.45359237千克，因此1千克 ≈ 2.20462磅</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 摄氏度和华氏度如何转换？</h4>
+                    <p><strong>A:</strong> 摄氏度（℃）和华氏度（℉）之间的转换公式如下：</p>
+                    <ul>
+                        <li><strong>摄氏度 → 华氏度：</strong><code>℉ = ℃ × 9/5 + 32</code></li>
+                        <li><strong>华氏度 → 摄氏度：</strong><code>℃ = (℉ - 32) × 5/9</code></li>
+                    </ul>
+                    <p><strong>示例：</strong></p>
+                    <ul>
+                        <li>0℃ = 32℉（水的冰点）</li>
+                        <li>100℃ = 212℉（水的沸点）</li>
+                        <li>37℃ = 98.6℉（人体正常体温）</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 存储容量的单位是如何定义的？</h4>
+                    <p><strong>A:</strong> 存储容量的单位采用<strong>二进制</strong>和<strong>十进制</strong>两种定义方式：</p>
+                    <p><strong>二进制定义（IEC标准）：</strong></p>
+                    <ul>
+                        <li>1 KiB = 1024 字节</li>
+                        <li>1 MiB = 1024 KiB = 1,048,576 字节</li>
+                        <li>1 GiB = 1024 MiB = 1,073,741,824 字节</li>
+                        <li>1 TiB = 1024 GiB = 1,099,511,627,776 字节</li>
+                    </ul>
+                    <p><strong>十进制定义（SI标准）：</strong></p>
+                    <ul>
+                        <li>1 KB = 1000 字节</li>
+                        <li>1 MB = 1000 KB = 1,000,000 字节</li>
+                        <li>1 GB = 1000 MB = 1,000,000,000 字节</li>
+                        <li>1 TB = 1000 GB = 1,000,000,000,000 字节</li>
+                    </ul>
+                    <div class="alert alert-info mt-3">
+                        <i class="fas fa-lightbulb me-2"></i> <strong>注意：</strong> 本工具采用<strong>十进制</strong>定义（1KB=1000字节），这是大多数操作系统和存储设备制造商使用的标准。
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 1英寸等于多少厘米？</h4>
+                    <p><strong>A:</strong> 1英寸（inch）= <strong>2.54厘米</strong>（精确值）。</p>
+                    <p><strong>定义：</strong>英寸的国际定义是25.4毫米（2.54厘米），这个定义在1958年由美国、英国、加拿大、澳大利亚、新西兰和南非共同确认。</p>
+                    <p><strong>其他长度单位：</strong></p>
+                    <ul>
+                        <li>1英尺 = 12英寸 = 30.48厘米</li>
+                        <li>1码 = 3英尺 = 91.44厘米</li>
+                        <li>1英里 = 5280英尺 = 1.609344千米</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 为什么需要单位转换？</h4>
+                    <p><strong>A:</strong> 单位转换在以下情况下非常重要：</p>
+                    <ol>
+                        <li><strong>国际交流：</strong>不同国家使用不同的单位制，转换可以确保沟通一致</li>
+                        <li><strong>跨学科合作：</strong>不同学科使用不同的单位，转换可以促进合作</li>
+                        <li><strong>数据标准化：</strong>将数据转换为标准单位，便于存储和处理</li>
+                        <li><strong>精确计算：</strong>选择合适的单位可以提高计算的精确性和便利性</li>
+                        <li><strong>用户体验：</strong>为用户提供熟悉的单位，提升用户体验</li>
+                    </ol>
+                    <p><strong>示例：</strong>一个美国游客在欧洲旅行，需要将华氏温度转换为摄氏度，才能理解当地的天气预报。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 单位转换的精确度如何控制？</h4>
+                    <p><strong>A:</strong> 在本工具中，您可以通过<strong>精确度</strong>选项来控制转换结果的小数位数：</p>
+                    <ul>
+                        <li><strong>2位小数：</strong>结果保留2位小数，适合大多数日常使用</li>
+                        <li><strong>4位小数：</strong>结果保留4位小数，适合需要更高精度的场景</li>
+                        <li><strong>6位小数：</strong>结果保留6位小数，适合科学计算</li>
+                        <li><strong>8位小数：</strong>结果保留8位小数，适合高精度需求</li>
+                        <li><strong>10位小数：</strong>结果保留10位小数，适合极高精度需求</li>
+                    </ul>
+                    <p><strong>注意：</strong> 更高的精确度不一定意味着更准确的结果，需要根据实际需求选择合适的精确度。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-shield-alt me-2 text-success"></i> Q: 本工具会上传我的数据到服务器吗？</h4>
+                    <p><strong>A:</strong> <span class="text-success fw-bold">完全不会！绝对安全！</span></p>
+                    <p>本工具是一个<strong>纯前端</strong>的在线工具，采用以下技术确保数据安全：</p>
+                    <ul>
+                        <li><strong>浏览器端运行：</strong>所有单位转换计算都在您的浏览器中完成，不需要与任何服务器通信</li>
+                        <li><strong>零依赖：</strong>使用浏览器原生JavaScript进行计算，无需加载任何第三方库</li>
+                        <li><strong>无网络请求：</strong>处理过程中不会发送任何网络请求，数据完全在本地</li>
+                        <li><strong>不存储数据：</strong>我们不收集、不存储、不上传您的任何数据</li>
+                    </ul>
+                    <p>您可以在断网的情况下使用本工具（前提是已经加载过页面），这充分证明了数据是本地处理的。</p>
+                    <div class="alert alert-success mt-3">
+                        <i class="fas fa-check-circle me-2"></i> <strong>总结：</strong>本工具<strong>完全安全</strong>，您的数据只会在本地处理，不会被上传到任何服务器。您可以放心使用。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="fs-3 mb-4"><i class="fas fa-link text-primary me-2"></i> 相关工具推荐</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-calculator text-warning fa-2x me-3"></i>
+                                <h3 class="card-title h5 mb-0">日期计算器</h3>
+                            </div>
+                            <p class="card-text text-muted">日期差计算、工作日计算、倒计时</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="badge bg-warning">时间日期</span>
+                                <a href="/tools/date-calculator.html" class="btn btn-outline-warning btn-sm">立即使用</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-clock text-primary fa-2x me-3"></i>
+                                <h3 class="card-title h5 mb-0">时间戳转换</h3>
+                            </div>
+                            <p class="card-text text-muted">时间戳与日期时间互相转换</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="badge bg-primary">时间日期</span>
+                                <a href="/tools/timestamp-converter.html" class="btn btn-outline-primary btn-sm">立即使用</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-text-height text-success fa-2x me-3"></i>
+                                <h3 class="card-title h5 mb-0">字数统计器</h3>
+                            </div>
+                            <p class="card-text text-muted">统计中文字数、字符数、段落数</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="badge bg-success">文本处理</span>
+                                <a href="/tools/text-counter.html" class="btn btn-outline-success btn-sm">立即使用</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>常见用法</h4>
+            <div class="bg-dark text-white p-3 rounded font-monospace" style="font-size: 14px;">
+// 长度转换<br>
+输入: 10 米 → 转换为 千米 = 0.01 千米<br><br>
+
+// 重量转换<br>
+输入: 100 千克 → 转换为 磅 = 220.46 磅<br><br>
+
+// 温度转换<br>
+输入: 100 摄氏度 → 转换为 华氏度 = 212 华氏度<br><br>
+
+// 存储容量转换<br>
+输入: 1024 MB → 转换为 GB = 1 GB
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-3">单位转换器</h5>
+                    <p class="text-muted small">免费、易用的在线单位转换工具，支持多种单位类别，完全本地运行。</p>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">快速链接</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/" class="text-decoration-none">首页</a></li>
+                        <li class="mb-2"><a href="/pages/about.html" class="text-decoration-none">关于我们</a></li>
+                        <li class="mb-2"><a href="/pages/contact.html" class="text-decoration-none">联系我们</a></li>
+                        <li class="mb-2"><a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">推荐工具</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/tools/timestamp-converter.html" class="text-decoration-none">时间戳转换</a></li>
+                        <li class="mb-2"><a href="/tools/date-calculator.html" class="text-decoration-none">日期计算器</a></li>
+                        <li class="mb-2"><a href="/tools/text-counter.html" class="text-decoration-none">字数统计器</a></li>
+                        <li class="mb-2"><a href="/tools/base64-encoder.html" class="text-decoration-none">Base64编解码</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center text-muted small">
+                <p>Copyright © 2024-2025 在线工具箱 | <a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="text-center my-4">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8795586167197548" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/error-tracking.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 单位定义
+            const units = {
+                length: {
+                    name: '长度',
+                    description: '距离和长度的度量单位',
+                    units: {
+                        'mm': { name: '毫米', factor: 0.001 },
+                        'cm': { name: '厘米', factor: 0.01 },
+                        'dm': { name: '分米', factor: 0.1 },
+                        'm': { name: '米', factor: 1 },
+                        'km': { name: '千米', factor: 1000 },
+                        'in': { name: '英寸', factor: 0.0254 },
+                        'ft': { name: '英尺', factor: 0.3048 },
+                        'yd': { name: '码', factor: 0.9144 },
+                        'mi': { name: '英里', factor: 1609.344 },
+                        'nmi': { name: '海里', factor: 1852 }
+                    },
+                    common: [
+                        { from: 'm', to: 'cm', text: '1米 = 100厘米' },
+                        { from: 'km', to: 'm', text: '1千米 = 1000米' },
+                        { from: 'in', to: 'cm', text: '1英寸 = 2.54厘米' },
+                        { from: 'mi', to: 'km', text: '1英里 ≈ 1.609千米' }
+                    ]
+                },
+                weight: {
+                    name: '重量',
+                    description: '质量和重量的度量单位',
+                    units: {
+                        'mg': { name: '毫克', factor: 0.000001 },
+                        'g': { name: '克', factor: 0.001 },
+                        'kg': { name: '千克', factor: 1 },
+                        't': { name: '吨', factor: 1000 },
+                        'lb': { name: '磅', factor: 0.45359237 },
+                        'oz': { name: '盎司', factor: 0.028349523125 },
+                        'st': { name: '英石', factor: 6.35029318 },
+                        'q': { name: '公担', factor: 100 }
+                    },
+                    common: [
+                        { from: 'kg', to: 'g', text: '1千克 = 1000克' },
+                        { from: 't', to: 'kg', text: '1吨 = 1000千克' },
+                        { from: 'lb', to: 'kg', text: '1磅 ≈ 0.4536千克' },
+                        { from: 'kg', to: 'lb', text: '1千克 ≈ 2.2046磅' }
+                    ]
+                },
+                temperature: {
+                    name: '温度',
+                    description: '温度的度量单位',
+                    isTemperature: true,
+                    units: {
+                        'c': { name: '摄氏度', symbol: '℃' },
+                        'f': { name: '华氏度', symbol: '℉' },
+                        'k': { name: '开尔文', symbol: 'K' }
+                    },
+                    common: [
+                        { from: 'c', to: 'f', text: '0℃ = 32℉ (冰点)' },
+                        { from: 'c', to: 'f', text: '100℃ = 212℉ (沸点)' },
+                        { from: 'c', to: 'k', text: '0℃ = 273.15K (绝对零度差)' }
+                    ]
+                },
+                storage: {
+                    name: '存储容量',
+                    description: '数字信息存储的度量单位',
+                    units: {
+                        'b': { name: '字节', factor: 1 },
+                        'KB': { name: '千字节', factor: 1000 },
+                        'MB': { name: '兆字节', factor: 1000000 },
+                        'GB': { name: '吉字节', factor: 1000000000 },
+                        'TB': { name: '太字节', factor: 1000000000000 },
+                        'PB': { name: '拍字节', factor: 1000000000000000 },
+                        'EB': { name: '艾字节', factor: 1000000000000000000 }
+                    },
+                    common: [
+                        { from: 'KB', to: 'B', text: '1KB = 1000字节' },
+                        { from: 'MB', to: 'KB', text: '1MB = 1000KB' },
+                        { from: 'GB', to: 'MB', text: '1GB = 1000MB' },
+                        { from: 'TB', to: 'GB', text: '1TB = 1000GB' }
+                    ]
+                },
+                area: {
+                    name: '面积',
+                    description: '平面区域的度量单位',
+                    units: {
+                        'mm2': { name: '平方毫米', factor: 0.000001 },
+                        'cm2': { name: '平方厘米', factor: 0.0001 },
+                        'dm2': { name: '平方分米', factor: 0.01 },
+                        'm2': { name: '平方米', factor: 1 },
+                        'ha': { name: '公顷', factor: 10000 },
+                        'km2': { name: '平方千米', factor: 1000000 },
+                        'acre': { name: '英亩', factor: 4046.8564224 },
+                        'ft2': { name: '平方英尺', factor: 0.09290304 },
+                        'mi2': { name: '平方英里', factor: 2589988.110336 }
+                    },
+                    common: [
+                        { from: 'm2', to: 'dm2', text: '1平方米 = 100平方分米' },
+                        { from: 'ha', to: 'm2', text: '1公顷 = 10000平方米' },
+                        { from: 'acre', to: 'm2', text: '1英亩 ≈ 4046.86平方米' },
+                        { from: 'mi2', to: 'km2', text: '1平方英里 ≈ 2.59平方千米' }
+                    ]
+                },
+                volume: {
+                    name: '体积',
+                    description: '三维空间的度量单位',
+                    units: {
+                        'mm3': { name: '立方毫米', factor: 0.000000001 },
+                        'cm3': { name: '立方厘米', factor: 0.000001 },
+                        'dm3': { name: '立方分米', factor: 0.001 },
+                        'm3': { name: '立方米', factor: 1 },
+                        'ml': { name: '毫升', factor: 0.000001 },
+                        'l': { name: '升', factor: 0.001 },
+                        'gal': { name: '加仑', factor: 0.003785411784 },
+                        'pt': { name: '品脱', factor: 0.000473176473 },
+                        'in3': { name: '立方英寸', factor: 0.000016387064 },
+                        'ft3': { name: '立方英尺', factor: 0.028316846592 }
+                    },
+                    common: [
+                        { from: 'm3', to: 'dm3', text: '1立方米 = 1000立方分米' },
+                        { from: 'l', to: 'ml', text: '1升 = 1000毫升' },
+                        { from: 'gal', to: 'l', text: '1加仑 ≈ 3.785升' },
+                        { from: 'ft3', to: 'm3', text: '1立方英尺 ≈ 0.0283立方米' }
+                    ]
+                },
+                speed: {
+                    name: '速度',
+                    description: '物体运动快慢的度量单位',
+                    units: {
+                        'm/s': { name: '米/秒', factor: 1 },
+                        'km/h': { name: '千米/时', factor: 0.27777777777778 },
+                        'mph': { name: '英里/时', factor: 0.44704 },
+                        'kn': { name: '节', factor: 0.51444444444444 },
+                        'ft/s': { name: '英尺/秒', factor: 0.3048 },
+                        'mach': { name: '马赫', factor: 340.29 }
+                    },
+                    common: [
+                        { from: 'm/s', to: 'km/h', text: '1米/秒 = 3.6千米/时' },
+                        { from: 'km/h', to: 'm/s', text: '1千米/时 ≈ 0.2778米/秒' },
+                        { from: 'mph', to: 'km/h', text: '1英里/时 ≈ 1.609千米/时' },
+                        { from: 'kn', to: 'km/h', text: '1节 = 1.852千米/时' }
+                    ]
+                },
+                time: {
+                    name: '时间',
+                    description: '时间间隔的度量单位',
+                    units: {
+                        'ms': { name: '毫秒', factor: 0.001 },
+                        's': { name: '秒', factor: 1 },
+                        'min': { name: '分钟', factor: 60 },
+                        'h': { name: '小时', factor: 3600 },
+                        'd': { name: '天', factor: 86400 },
+                        'w': { name: '周', factor: 604800 },
+                        'mon': { name: '月', factor: 2592000 },
+                        'y': { name: '年', factor: 31536000 }
+                    },
+                    common: [
+                        { from: 'min', to: 's', text: '1分钟 = 60秒' },
+                        { from: 'h', to: 'min', text: '1小时 = 60分钟' },
+                        { from: 'd', to: 'h', text: '1天 = 24小时' },
+                        { from: 'y', to: 'd', text: '1年 ≈ 365天' }
+                    ]
+                }
+            };
+
+            // 元素定义
+            const categorySelect = document.getElementById('category-select');
+            const fromUnit = document.getElementById('from-unit');
+            const toUnit = document.getElementById('to-unit');
+            const inputValue = document.getElementById('input-value');
+            const resultValue = document.getElementById('result-value');
+            const convertSingle = document.getElementById('convert-single');
+            const batchCategory = document.getElementById('batch-category');
+            const batchFrom = document.getElementById('batch-from');
+            const batchTo = document.getElementById('batch-to');
+            const batchInput = document.getElementById('batch-input');
+            const batchOutput = document.getElementById('batch-output');
+            const convertBatch = document.getElementById('convert-batch');
+            const precisionSelect = document.getElementById('precision-select');
+            const batchPrecision = document.getElementById('batch-precision');
+            const categoryInfo = document.getElementById('category-info');
+            const commonConversions = document.getElementById('common-conversions');
+            const conversionFormula = document.getElementById('conversion-formula');
+            const conversionInfo = document.getElementById('conversion-info');
+
+            let currentCategory = 'length';
+
+            // 初始化单位选择
+            function initUnitSelects(category) {
+                const unitList = units[category].units;
+                const unitKeys = Object.keys(unitList);
+
+                // 更新from和to选择框
+                fromUnit.innerHTML = '';
+                toUnit.innerHTML = '';
+                batchFrom.innerHTML = '';
+                batchTo.innerHTML = '';
+
+                unitKeys.forEach(key => {
+                    const unit = unitList[key];
+                    const option1 = document.createElement('option');
+                    option1.value = key;
+                    option1.textContent = `${unit.name} (${key})`;
+                    fromUnit.appendChild(option1);
+
+                    const option2 = document.createElement('option');
+                    option2.value = key;
+                    option2.textContent = `${unit.name} (${key})`;
+                    toUnit.appendChild(option2);
+
+                    const option3 = document.createElement('option');
+                    option3.value = key;
+                    option3.textContent = `${unit.name} (${key})`;
+                    batchFrom.appendChild(option3);
+
+                    const option4 = document.createElement('option');
+                    option4.value = key;
+                    option4.textContent = `${unit.name} (${key})`;
+                    batchTo.appendChild(option4);
+                });
+
+                // 设置默认选中
+                if (category === 'temperature') {
+                    fromUnit.value = 'c';
+                    toUnit.value = 'f';
+                    batchFrom.value = 'c';
+                    batchTo.value = 'f';
+                } else {
+                    fromUnit.value = unitKeys[0];
+                    toUnit.value = unitKeys[1] || unitKeys[0];
+                    batchFrom.value = unitKeys[0];
+                    batchTo.value = unitKeys[1] || unitKeys[0];
+                }
+
+                // 更新信息面板
+                updateInfoPanel(category);
+            }
+
+            // 更新信息面板
+            function updateInfoPanel(category) {
+                const cat = units[category];
+                
+                // 更新类别信息
+                categoryInfo.innerHTML = `<p><strong>${cat.name}：</strong>${cat.description}</p>`;
+
+                // 更新常用转换
+                let commonHtml = '<div class="table-responsive"><table class="table table-sm table-bordered"><thead><tr><th>转换</th></tr></thead><tbody>';
+                cat.common.forEach(conversion => {
+                    commonHtml += `<tr><td>${conversion.text}</td></tr>`;
+                });
+                commonHtml += '</tbody></table></div>';
+                commonConversions.innerHTML = commonHtml;
+
+                // 更新转换公式
+                conversionFormula.innerHTML = '<p>选择具体单位后将显示转换公式</p>';
+            }
+
+            // 转换单个值
+            function convertSingleValue() {
+                const value = parseFloat(inputValue.value);
+                const from = fromUnit.value;
+                const to = toUnit.value;
+                const precision = parseInt(precisionSelect.value);
+
+                if (isNaN(value)) {
+                    resultValue.value = '请输入有效数值';
+                    conversionInfo.innerHTML = '';
+                    return;
+                }
+
+                const category = currentCategory;
+                const unitList = units[category].units;
+
+                if (category === 'temperature') {
+                    // 温度转换
+                    const result = convertTemperature(value, from, to);
+                    resultValue.value = result.toFixed(precision);
+                    updateConversionInfo(category, from, to, value, result);
+                } else {
+                    // 其他单位转换
+                    const fromFactor = unitList[from].factor;
+                    const toFactor = unitList[to].factor;
+                    const result = value * fromFactor / toFactor;
+                    resultValue.value = result.toFixed(precision);
+                    updateConversionInfo(category, from, to, value, result);
+                }
+            }
+
+            // 温度转换
+            function convertTemperature(value, from, to) {
+                if (from === to) return value;
+
+                // 转换为摄氏度
+                let celsius;
+                switch (from) {
+                    case 'c':
+                        celsius = value;
+                        break;
+                    case 'f':
+                        celsius = (value - 32) * 5/9;
+                        break;
+                    case 'k':
+                        celsius = value - 273.15;
+                        break;
+                }
+
+                // 从摄氏度转换为目标单位
+                switch (to) {
+                    case 'c':
+                        return celsius;
+                    case 'f':
+                        return celsius * 9/5 + 32;
+                    case 'k':
+                        return celsius + 273.15;
+                }
+            }
+
+            // 更新转换信息
+            function updateConversionInfo(category, from, to, input, result) {
+                const fromUnit = units[category].units[from];
+                const toUnit = units[category].units[to];
+
+                if (category === 'temperature') {
+                    conversionInfo.innerHTML = `<p>${input} ${fromUnit.name} = ${result.toFixed(2)} ${toUnit.name}</p>`;
+                    conversionFormula.innerHTML = getTemperatureFormula(from, to);
+                } else {
+                    const fromName = fromUnit.name || from;
+                    const toName = toUnit.name || to;
+                    conversionInfo.innerHTML = `<p>${input} ${fromName} = ${result.toFixed(2)} ${toName}</p>`;
+                    conversionFormula.innerHTML = `<p>${fromName} × ${fromUnit.factor} / ${toUnit.factor} = ${toName}</p>`;
+                }
+            }
+
+            // 获取温度转换公式
+            function getTemperatureFormula(from, to) {
+                const formulas = {
+                    'c-f': '℉ = ℃ × 9/5 + 32',
+                    'c-k': 'K = ℃ + 273.15',
+                    'f-c': '℃ = (℉ - 32) × 5/9',
+                    'f-k': 'K = (℉ - 32) × 5/9 + 273.15',
+                    'k-c': '℃ = K - 273.15',
+                    'k-f': '℉ = (K - 273.15) × 9/5 + 32'
+                };
+                const key = `${from}-${to}`;
+                return `<p>${formulas[key] || '温度转换公式'}</p>`;
+            }
+
+            // 批量转换
+            function convertBatchValues() {
+                const values = batchInput.value.trim().split('\n').filter(v => v.trim());
+                const from = batchFrom.value;
+                const to = batchTo.value;
+                const precision = parseInt(batchPrecision.value);
+                const category = batchCategory.value;
+                const unitList = units[category].units;
+
+                const results = [];
+
+                values.forEach(value => {
+                    const num = parseFloat(value.trim());
+                    if (isNaN(num)) {
+                        results.push('无效数值');
+                        return;
+                    }
+
+                    let result;
+                    if (category === 'temperature') {
+                        result = convertTemperature(num, from, to);
+                    } else {
+                        const fromFactor = unitList[from].factor;
+                        const toFactor = unitList[to].factor;
+                        result = num * fromFactor / toFactor;
+                    }
+                    results.push(result.toFixed(precision));
+                });
+
+                batchOutput.value = results.join('\n');
+            }
+
+            // 事件监听
+            categorySelect.addEventListener('change', function() {
+                currentCategory = this.value;
+                initUnitSelects(currentCategory);
+            });
+
+            fromUnit.addEventListener('change', convertSingleValue);
+            toUnit.addEventListener('change', convertSingleValue);
+            inputValue.addEventListener('input', convertSingleValue);
+            convertSingle.addEventListener('click', convertSingleValue);
+
+            batchCategory.addEventListener('change', function() {
+                const category = this.value;
+                initUnitSelects(category);
+            });
+
+            batchFrom.addEventListener('change', convertBatchValues);
+            batchTo.addEventListener('change', convertBatchValues);
+            batchInput.addEventListener('input', convertBatchValues);
+            batchPrecision.addEventListener('change', convertBatchValues);
+            convertBatch.addEventListener('click', convertBatchValues);
+
+            // 初始化
+            initUnitSelects('length');
+            updateInfoPanel('length');
+        });
+    </script>
+</body>
+</html>
