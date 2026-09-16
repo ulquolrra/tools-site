@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>代码格式化美化工具 - JavaScript、CSS、HTML在线格式化 | 在线工具箱</title>
+    <meta name="description" content="专业的代码格式化美化工具，支持JavaScript、CSS、HTML、JSON等多种编程语言的代码美化、压缩、格式化。支持ES6+语法、自定义缩进、去除注释等功能。完全本地运行，数据100%安全，无需注册。">
+    <meta name="keywords" content="代码格式化,代码美化,JavaScript格式化,CSS格式化,HTML格式化,JSON格式化,代码压缩,ES6格式化,在线格式化工具,代码整理,代码排版">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8795586167197548"
+         crossorigin="anonymous"></script>
+    <link rel="canonical" href="https://alltoolsbox.xyz/tools/code-formatter.html" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-tools me-2"></i>在线工具箱
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">首页</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/blog">技术博客</a></li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/pages/about.html">关于我们</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/contact.html">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="text-center my-3">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-8795586167197548"
+             data-ad-slot="728x90_banner"
+             data-ad-format="728x90"
+             data-full-width-responsive="true"></ins>
+    </div>
+
+    <div class="tool-container fade-in">
+        <div class="tool-header text-center mb-5">
+            <h1 class="display-5 fw-bold mb-3">代码格式化美化工具</h1>
+            <p class="lead">
+                专业的代码格式化美化工具，支持<strong>JavaScript、CSS、HTML、JSON</strong>等多种编程语言。
+                支持ES6+语法、自定义缩进、去除注释等功能。
+                <strong>完全本地运行，数据100%安全，无需注册</strong>。
+            </p>
+            <div class="alert alert-primary">
+                <i class="fas fa-star me-2"></i> 无需安装 | 无需注册 | 完全免费 | 数据本地处理 | 支持多种编程语言
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-12">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <i class="fas fa-cog me-2"></i> 格式化选项
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="language-select" class="form-label">编程语言</label>
+                                    <select class="form-select" id="language-select">
+                                        <option value="javascript">JavaScript</option>
+                                        <option value="css">CSS</option>
+                                        <option value="html">HTML</option>
+                                        <option value="json">JSON</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="indent-select" class="form-label">缩进方式</label>
+                                    <select class="form-select" id="indent-select">
+                                        <option value="2">2个空格</option>
+                                        <option value="4" selected>4个空格</option>
+                                        <option value="tab">Tab键</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">是否去除注释</label>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="remove-comments">
+                                        <label class="form-check-label" for="remove-comments">去除注释</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">是否压缩</label>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="minify-code">
+                                        <label class="form-check-label" for="minify-code">压缩代码</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-3">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-success text-white">
+                        <i class="fas fa-file-code me-2"></i> 输入代码
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <textarea class="form-control font-monospace" id="code-input" rows="15" placeholder="请输入要格式化的代码..."></textarea>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-primary" id="format-btn">
+                                <i class="fas fa-magic me-1"></i> 格式化代码
+                            </button>
+                            <button class="btn btn-outline-success copy-btn" data-target="code-input">
+                                <i class="fas fa-copy me-1"></i> 复制输入
+                            </button>
+                            <button class="btn btn-outline-warning" id="load-example">
+                                <i class="fas fa-file-import me-1"></i> 加载示例
+                            </button>
+                            <button class="btn btn-outline-danger clear-btn" data-target="code-input">
+                                <i class="fas fa-trash me-1"></i> 清空
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-info text-white">
+                        <i class="fas fa-file-alt me-2"></i> 输出结果
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <textarea class="form-control font-monospace" id="code-output" rows="15" readonly placeholder="格式化结果将在这里显示..."></textarea>
+                        </div>
+                        <div class="d-flex gap-2 justify-content-between align-items-center">
+                            <div>
+                                <span class="text-muted small me-3">字符数: <span id="char-count">0</span></span>
+                                <span class="text-muted small me-3">行数: <span id="line-count">0</span></span>
+                                <span class="text-muted small">处理用时: <span id="format-time">0ms</span></span>
+                            </div>
+                            <button class="btn btn-outline-success copy-btn" data-target="code-output">
+                                <i class="fas fa-copy me-1"></i> 复制结果
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="fs-3 mb-4"><i class="fas fa-book text-primary me-2"></i> 代码格式化完全指南</h2>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-info-circle me-2"></i> 代码格式化是什么？</h3>
+                    <p><strong>代码格式化</strong>（Code Formatting）是指根据特定的规则和风格，自动调整代码的<strong>布局、缩进、换行、空格</strong>等，使代码更具有<strong>可读性和维护性</strong>。</p>
+                    <p>格式化后的代码通常具有以下特点：</p>
+                    <ul>
+                        <li><strong>一致的缩进：</strong>统一使用空格或Tab进行缩进，且缩进层级清晰</li>
+                        <li><strong>合理的换行：</strong>在适当的位置进行换行，避免过长的代码行</li>
+                        <li><strong>统一的空格：</strong>在运算符、逗号等位置统一添加或去除空格</li>
+                        <li><strong>标准化的引号：</strong>统一使用单引号或双引号</li>
+                        <li><strong>清晰的结构：</strong>大括号、括号等的位置和格式保持一致</li>
+                    </ul>
+                    <div class="alert alert-info">
+                        <i class="fas fa-lightbulb me-2"></i> <strong>为什么需要格式化：</strong> 格式化可以提高代码的可读性，方便团队协作，减少因为代码风格问题导致的错误，同时也便于后续的维护和扩展。
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-cog me-2"></i> 不同语言的格式化特点</h3>
+                    <p>不同的编程语言在格式化时有不同的特点和要求：</p>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead class="table-primary">
+                                <tr>
+                                    <th style="width: 20%;">语言</th>
+                                    <th style="width: 40%;">特点</th>
+                                    <th style="width: 40%;">常用风格</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>JavaScript</td>
+                                    <td>支持ES6+语法，有大量可选的格式化风格</td>
+                                    <td>StandardJS、Airbnb、Prettier</td>
+                                </tr>
+                                <tr>
+                                    <td>CSS</td>
+                                    <td>相对简单，主要是缩进和换行的问题</td>
+                                    <td>每个属性一行，或按组织排列</td>
+                                </tr>
+                                <tr>
+                                    <td>HTML</td>
+                                    <td>标签嵌套层级清晰，属性排列整齐</td>
+                                    <td>每个标签一行，或自适应排列</td>
+                                </tr>
+                                <tr>
+                                    <td>JSON</td>
+                                    <td>简单的键值对格式，注意引号和逗号</td>
+                                    <td>2个或4个空格缩进</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-star me-2"></i> 格式化代码的好处</h3>
+                    <p>定期格式化代码可以带来以下好处：</p>
+                    <ol>
+                        <li>
+                            <strong>提高可读性：</strong>统一的代码风格使得代码更容易阅读和理解
+                        </li>
+                        <li>
+                            <strong>便于协作：</strong>团队成员使用相同的代码风格，减少因为风格差异导致的混淆
+                        </li>
+                        <li>
+                            <strong>减少错误：</strong>规范的代码格式可以减少一些低级错误，如缺少分号、括号不匹配等
+                        </li>
+                        <li>
+                            <strong>易于维护：</strong>格式化后的代码更容易进行后续的维护和扩展
+                        </li>
+                        <li>
+                            <strong>自动化检查：</strong>结合lint工具，可以自动检查代码质量
+                        </li>
+                        <li>
+                            <strong>提升效率：</strong>自动格式化可以节省大量手动调整代码格式的时间
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-code me-2"></i> 常用格式化工具对比</h3>
+                    <p>除了本工具，还有其他许多优秀的格式化工具和库：</p>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead class="table-primary">
+                                <tr>
+                                    <th style="width: 25%;">工具/库</th>
+                                    <th style="width: 25%;">支持语言</th>
+                                    <th style="width: 25%;">特点</th>
+                                    <th style="width: 25%;">使用场景</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Prettier</td>
+                                    <td>JS、TS、CSS、HTML、JSON等</td>
+                                    <td>意见化，自动格式化</td>
+                                    <td>项目开发，CI/CD</td>
+                                </tr>
+                                <tr>
+                                    <td>ESLint</td>
+                                    <td>JavaScript</td>
+                                    <td>可配置，包含lint功能</td>
+                                    <td>代码检查，团队规范</td>
+                                </tr>
+                                <tr>
+                                    <td>Stylelint</td>
+                                    <td>CSS、SCSS、Less</td>
+                                    <td>CSS专用lint工具</td>
+                                    <td>CSS代码规范</td>
+                                </tr>
+                                <tr>
+                                    <td>HTMLHint</td>
+                                    <td>HTML</td>
+                                    <td>HTML代码检查</td>
+                                    <td>HTML代码质量</td>
+                                </tr>
+                                <tr>
+                                    <td>Beautifier</td>
+                                    <td>JS、CSS、HTML</td>
+                                    <td>js-beautify库</td>
+                                    <td>在线格式化</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="fs-3 mb-4"><i class="fas fa-rocket text-primary me-2"></i> 实际应用场景</h2>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-users me-2"></i> 场景1：团队协作开发</h3>
+                    <p>在团队开发中，不同成员可能有不同的代码风格偏好，这会导致代码库中存在多种不同的风格。使用格式化工具可以确保所有代码都符合统一的风格规范。</p>
+                    <p><strong>实施方案：</strong></p>
+                    <ul>
+                        <li><strong>安装Prettier：</strong>在项目中安装Prettier作为开发依赖</li>
+                        <li><strong>配置格式化规则：</strong>在项目根目录创建.prettierrc文件，配置格式化规则</li>
+                        <li><strong>集成到编辑器：</strong>在VS Code等编辑器中安装Prettier插件，保存时自动格式化</li>
+                        <li><strong>Git Hooks：</strong>使用husky等工具，在提交代码前自动格式化</li>
+                        <li><strong>CI/CD集成：</strong>在CI/CD流程中添加格式化检查步骤</li>
+                    </ul>
+                    <p><strong>使用本工具：</strong>可以作为在线的格式化工具，用于快速格式化代码片段或调试格式化效果。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-bug me-2"></i> 场景2：调试和排错</h3>
+                    <p>在调试代码时，经常需要查看变量的值、对象的结构等。格式化后的代码更容易阅读，有助于快速定位问题。</p>
+                    <p><strong>调试技巧：</strong></p>
+                    <ul>
+                        <li><strong>格式化压缩代码：</strong>将生产环境中的压缩代码格式化，方便调试</li>
+                        <li><strong>格式化日志输出：</strong>将JSON格式的日志数据格式化，方便查看</li>
+                        <li><strong>格式化API响应：</strong>将API返回的数据格式化，方便分析</li>
+                        <li><strong>格式化配置文件：</strong>将各种配置文件格式化，方便查看和修改</li>
+                    </ul>
+                    <p><strong>使用本工具：</strong>可以快速格式化各种类型的代码和数据，方便调试和分析。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-code me-2"></i> 场景3：代码重构</h3>
+                    <p>在代码重构过程中，经常需要对大量的代码进行重新组织和格式化。格式化工具可以帮助快速完成这项任务。</p>
+                    <p><strong>重构步骤：</strong></p>
+                    <ol>
+                        <li><strong>分析现有代码：</strong>先了解现有代码的结构和逻辑</li>
+                        <li><strong>格式化代码：</strong>将所有相关的代码进行格式化，使结构清晰</li>
+                        <li><strong>重命名变量：</strong>将不清晰的变量名重命名为更有意义的名称</li>
+                        <li><strong>提取公共逻辑：</strong>将重复的代码提取为公共函数或模块</li>
+                        <li><strong>优化代码结构：</strong>调整代码结构，使其更符合最佳实践</li>
+                        <li><strong>添加注释：</strong>为重构后的代码添加适当的注释</li>
+                    </ol>
+                    <p><strong>使用本工具：</strong>可以作为重构过程中的辅助工具，快速格式化需要重构的代码片段。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-file-alt me-2"></i> 场景4：学习和示例</h3>
+                    <p>在学习编程或准备代码示例时，格式化后的代码更容易理解和展示。整洁的代码可以帮助学习者更好地理解代码逻辑和结构。</p>
+                    <p><strong>学习建议：</strong></p>
+                    <ul>
+                        <li><strong>阅读他人代码：</strong>格式化后的代码更容易阅读和理解</li>
+                        <li><strong>编写示例代码：</strong>为他人准备的示例代码应该格式化得当</li>
+                        <li><strong>分享代码片段：</strong>在论坛或社区分享的代码应该经过格式化</li>
+                        <li><strong>代码审查：</strong>在代码审查过程中，格式化后的代码更容易审查</li>
+                    </ul>
+                    <p><strong>使用本工具：</strong>可以快速格式化学习或示例代码，使其更易于理解和分享。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="fs-3 mb-4"><i class="fas fa-question-circle text-primary me-2"></i> 常见问题FAQ</h2>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 格式化后的代码和原代码有什么不同？</h4>
+                    <p><strong>A:</strong> 格式化后的代码和原代码在<strong>功能上完全相同</strong>，但<strong>外观和布局可能不同</strong>。</p>
+                    <p><strong>主要差异：</strong></p>
+                    <ul>
+                        <li><strong>缩进：</strong>统一使用指定的缩进方式（空格或Tab）</li>
+                        <li><strong>换行：</strong>在适当的位置添加换行，避免过长的代码行</li>
+                        <li><strong>空格：</strong>在运算符、逗号等位置统一添加或去除空格</li>
+                        <li><strong>引号：</strong>统一使用单引号或双引号</li>
+                        <li><strong>分号：</strong>在需要的位置统一添加或去除分号</li>
+                        <li><strong>注释：</strong>可选去除或保留注释（根据设置）</li>
+                    </ul>
+                    <p><strong>重要说明：</strong>格式化不会改变代码的逻辑和功能，只会改变代码的展示方式。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 格式化会改变代码的功能吗？</h4>
+                    <p><strong>A:</strong> <strong>不会！</strong> 格式化工具只会改变代码的<strong>布局和格式</strong>，不会改变代码的<strong>逻辑和功能</strong>。</p>
+                    <p><strong>格式化工具通常不会修改：</strong></p>
+                    <ul>
+                        <li><strong>变量名：</strong>不会重命名变量</li>
+                        <li><strong>函数逻辑：</strong>不会改变函数的实现逻辑</li>
+                        <li><strong>代码结构：</strong>不会改变代码的结构和流程</li>
+                        <li><strong>数据值：</strong>不会改变字符串、数字等数据值</li>
+                        <li><strong>语法结构：</strong>不会改变代码的语法结构</li>
+                    </ul>
+                    <p><strong>特殊情况：</strong>如果选择了"压缩"模式，工具可能会进行一些更激进的优化，如去除空白、缩短变量名等。但这些优化通常不会改变代码的功能，只是改变了代码的可读性。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 如何选择合适的缩进方式？</h4>
+                    <p><strong>A:</strong> 缩进方式的选择通常取决于团队或项目的规范：</p>
+                    <p><strong>常见的缩进方式：</strong></p>
+                    <ul>
+                        <li><strong>2个空格：</strong>JavaScript社区较为流行，如Google、Airbnb等公司使用</li>
+                        <li><strong>4个空格：</strong>较为常见，适用于大多数编程语言</li>
+                        <li><strong>Tab键：</strong>在某些社区较为流行，如Go语言社区推荐使用Tab</li>
+                    </ul>
+                    <p><strong>选择建议：</strong></p>
+                    <ol>
+                        <li><strong>遵循团队规范：</strong>如果团队有明确的代码风格规范，应遵循团队的规范</li>
+                        <li><strong>保持一致：</strong>在一个项目中，应保持一致的缩进方式</li>
+                        <li><strong>考虑可读性：</strong>选择能够提高代码可读性的缩进方式</li>
+                        <li><strong>工具配置：</strong>在格式化工具中配置相应的缩进方式</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 压缩代码和格式化代码有什么不同？</h4>
+                    <p><strong>A:</strong> 压缩和格式化是两个不同的概念，有不同的目的和效果：</p>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead class="table-primary">
+                                <tr>
+                                    <th>方面</th>
+                                    <th>格式化</th>
+                                    <th>压缩</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>目的</td>
+                                    <td>提高代码可读性</td>
+                                    <td>减小代码体积</td>
+                                </tr>
+                                <tr>
+                                    <td>空格处理</td>
+                                    <td>保留或统一空格</td>
+                                    <td>去除所有不必要的空格</td>
+                                </tr>
+                                <tr>
+                                    <td>换行处理</td>
+                                    <td>保留或优化换行</td>
+                                    <td>去除所有换行</td>
+                                </tr>
+                                <tr>
+                                    <td>注释处理</td>
+                                    <td>可选保留或去除</td>
+                                    <td>去除所有注释</td>
+                                </tr>
+                                <tr>
+                                    <td>变量名处理</td>
+                                    <td>保持不变</td>
+                                    <td>可能缩短变量名</td>
+                                </tr>
+                                <tr>
+                                    <td>代码长度</td>
+                                    <td>可能增加或减少</td>
+                                    <td>显著减少</td>
+                                </tr>
+                                <tr>
+                                    <td>可读性</td>
+                                    <td>提高</td>
+                                    <td>降低</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p><strong>使用场景：</strong></p>
+                    <ul>
+                        <li><strong>开发阶段：</strong>使用格式化，保持代码可读性</li>
+                        <li><strong>生产部署：</strong>使用压缩，减小代码体积，提高加载速度</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 如何处理特别大的代码文件？</h4>
+                    <p><strong>A:</strong> 对于特别大的代码文件，建议采用以下策略：</p>
+                    <ol>
+                        <li><strong>分段处理：</strong>将大文件分成多个小部分，分别进行格式化处理</li>
+                        <li><strong>浏览器优化：</strong>如果浏览器出现卡顿或崩溃，可以尝试刷新页面重新操作</li>
+                        <li><strong>使用高性能浏览器：</strong>推荐使用Chrome、Firefox等现代浏览器</li>
+                        <li><strong>关闭其他标签页：</strong>释放更多内存，提升浏览器性能</li>
+                        <li><strong>本地工具：</strong>如果文件实在太大（超过1MB），建议使用本地工具如VS Code、Prettier CLI等</li>
+                    </ol>
+                    <p><strong>本工具的限制：</strong>由于浏览器内存限制，建议单次处理的代码文件大小<strong>不超过1MB</strong>。如果文件过大，建议使用本地格式化工具。</p>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-shield-alt me-2 text-success"></i> Q: 本工具会上传我的代码到服务器吗？</h4>
+                    <p><strong>A:</strong> <span class="text-success fw-bold">完全不会！绝对安全！</span></p>
+                    <p>本工具是一个<strong>纯前端</strong>的在线工具，采用以下技术确保代码安全：</p>
+                    <ul>
+                        <li><strong>浏览器端运行：</strong>所有格式化操作都在您的浏览器中完成，不需要与任何服务器通信</li>
+                        <li><strong>使用成熟库：</strong>使用js-beautify等成熟的开源库进行格式化，不需要加载额外的第三方服务</li>
+                        <li><strong>无网络请求：</strong>处理过程中不会发送任何网络请求，代码完全在本地</li>
+                        <li><strong>不存储数据：</strong>我们不收集、不存储、不上传您的任何代码</li>
+                    </ul>
+                    <p>您可以在断网的情况下使用本工具（前提是已经加载过页面），这充分证明了代码是本地处理的。</p>
+                    <div class="alert alert-success mt-3">
+                        <i class="fas fa-check-circle me-2"></i> <strong>总结：</strong>本工具<strong>完全安全</strong>，您的代码只会在本地处理，不会被上传到任何服务器。您可以放心使用。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="fs-3 mb-4"><i class="fas fa-link text-primary me-2"></i> 相关工具推荐</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-braces text-primary fa-2x me-3"></i>
+                                <h3 class="card-title h5 mb-0">JSON格式化</h3>
+                            </div>
+                            <p class="card-text text-muted">JSON数据格式化、美化、压缩，支持树形展示和验证功能</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="badge bg-primary">数据处理</span>
+                                <a href="/tools/json-formatter.html" class="btn btn-outline-primary btn-sm">立即使用</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-code text-warning fa-2x me-3"></i>
+                                <h3 class="card-title h5 mb-0">正则表达式测试器</h3>
+                            </div>
+                            <p class="card-text text-muted">在线测试、调试正则表达式，支持匹配、替换、提取功能</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="badge bg-warning">文本处理</span>
+                                <a href="/tools/regex-tester.html" class="btn btn-outline-warning btn-sm">立即使用</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-palette text-success fa-2x me-3"></i>
+                                <h3 class="card-title h5 mb-0">颜色代码转换器</h3>
+                            </div>
+                            <p class="card-text text-muted">HEX、RGB、HSL、CMYK颜色代码互相转换，支持颜色选择器</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="badge bg-success">设计工具</span>
+                                <a href="/tools/color-converter.html" class="btn btn-outline-success btn-sm">立即使用</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>常见用法</h4>
+            <div class="bg-dark text-white p-3 rounded" style="font-family: 'Consolas', monospace; font-size: 14px;">
+// 输入未格式化的代码<br>
+function add(a,b){return a+b;}<br>
+const obj={name:'John',age:30,hobby:'coding'};<br><br>
+
+// 格式化后（4个空格缩进）<br>
+function add(a, b) {<br>
+    return a + b;<br>
+}<br><br>
+const obj = {<br>
+    name: 'John',<br>
+    age: 30,<br>
+    hobby: 'coding'<br>
+};<br><br>
+
+// 压缩后<br>
+function add(a,b){return a+b}const obj={name:'John',age:30,hobby:'coding'};
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-3">代码格式化美化工具</h5>
+                    <p class="text-muted small">免费、易用的在线代码格式化工具，支持JavaScript、CSS、HTML等多种编程语言。</p>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">快速链接</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/" class="text-decoration-none">首页</a></li>
+                        <li class="mb-2"><a href="/pages/about.html" class="text-decoration-none">关于我们</a></li>
+                        <li class="mb-2"><a href="/pages/contact.html" class="text-decoration-none">联系我们</a></li>
+                        <li class="mb-2"><a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">推荐工具</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/tools/json-formatter.html" class="text-decoration-none">JSON格式化</a></li>
+                        <li class="mb-2"><a href="/tools/base64-encoder.html" class="text-decoration-none">Base64编解码</a></li>
+                        <li class="mb-2"><a href="/tools/html-entity-encoder.html" class="text-decoration-none">HTML实体转义</a></li>
+                        <li class="mb-2"><a href="/tools/text-tools.html" class="text-decoration-none">文本处理</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center text-muted small">
+                <p>Copyright © 2024-2025 在线工具箱 | <a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="text-center my-4">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-8795586167197548"
+             data-ad-slot="1234567890"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/error-tracking.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.11/beautify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.11/beautify-css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.11/beautify-html.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeInput = document.getElementById('code-input');
+            const codeOutput = document.getElementById('code-output');
+            const formatBtn = document.getElementById('format-btn');
+            const languageSelect = document.getElementById('language-select');
+            const indentSelect = document.getElementById('indent-select');
+            const removeComments = document.getElementById('remove-comments');
+            const minifyCode = document.getElementById('minify-code');
+            const charCount = document.getElementById('char-count');
+            const lineCount = document.getElementById('line-count');
+            const formatTime = document.getElementById('format-time');
+            const loadExample = document.getElementById('load-example');
+
+            // 加载示例代码
+            const examples = {
+                javascript: `function calculateFactorial(n){if(n<=1)return 1;return n*calculateFactorial(n-1)}const numbers=[1,2,3,4,5];const doubled=numbers.map(x=>x*2);class Person{constructor(name,age){this.name=name;this.age=age}}`,
+                css: `.container{display:flex;flex-direction:column;align-items:center;justify-content:center}.button{background-color:#fff;border:1px solid #ccc;padding:10px 20px;border-radius:5px}.button:hover{background-color:#f0f0f0}`,
+                html: `<!DOCTYPE html><html><head><title>Test</title></head><body><div class="container"><h1>Hello</h1><p>World</p></div></body></html>`,
+                json: `{"name":"John","age":30,"skills":["JavaScript","CSS","HTML"],"address":{"city":"Beijing","country":"China"}}`
+            };
+
+            loadExample.addEventListener('click', function() {
+                const lang = languageSelect.value;
+                codeInput.value = examples[lang] || examples.javascript;
+            });
+
+            // 格式化函数
+            formatBtn.addEventListener('click', function() {
+                const code = codeInput.value;
+                const language = languageSelect.value;
+                const indentSize = indentSelect.value === 'tab' ? '\t' : parseInt(indentSelect.value);
+                const removeCommentsChecked = removeComments.checked;
+                const minifyChecked = minifyCode.checked;
+
+                if (!code) {
+                    codeOutput.value = '请输入要格式化的代码';
+                    return;
+                }
+
+                const startTime = performance.now();
+
+                try {
+                    let formattedCode = code;
+
+                    if (minifyChecked) {
+                        // 压缩模式
+                        if (language === 'javascript') {
+                            formattedCode = js_beautify(code, {
+                                indent_size: 0,
+                                space_in_paren: false,
+                                space_in_bracket: false,
+                                space_after_anon_function: false
+                            }).trim();
+                        } else if (language === 'css') {
+                            formattedCode = css_beautify(code, {
+                                indent_size: 0
+                            }).trim();
+                        } else if (language === 'html') {
+                            formattedCode = html_beautify(code, {
+                                indent_size: 0
+                            }).trim();
+                        } else if (language === 'json') {
+                            formattedCode = JSON.stringify(JSON.parse(code));
+                        }
+                    } else {
+                        // 格式化模式
+                        const options = {
+                            indent_size: indentSize,
+                            indent_char: indentSize === '\t' ? '\t' : ' ',
+                            preserve_newlines: true,
+                            max_preserve_newlines: 5
+                        };
+
+                        if (language === 'javascript') {
+                            formattedCode = js_beautify(code, options);
+                        } else if (language === 'css') {
+                            formattedCode = css_beautify(code, options);
+                        } else if (language === 'html') {
+                            formattedCode = html_beautify(code, options);
+                        } else if (language === 'json') {
+                            formattedCode = js_beautify(code, options);
+                        }
+
+                        // 去除注释
+                        if (removeCommentsChecked && language === 'javascript') {
+                            formattedCode = formattedCode.replace(/\/\*[\s\S]*?\*\/|\/\/[\s\S]*?\n/g, '');
+                        }
+                    }
+
+                    codeOutput.value = formattedCode;
+
+                    // 统计信息
+                    charCount.textContent = formattedCode.length;
+                    lineCount.textContent = formattedCode.split('\n').length;
+
+                } catch (e) {
+                    codeOutput.value = `格式化错误: ${e.message}`;
+                    charCount.textContent = '0';
+                    lineCount.textContent = '0';
+                }
+
+                const endTime = performance.now();
+                const time = Math.round((endTime - startTime) * 1000) / 1000;
+                formatTime.textContent = `${time.toFixed(2)}ms`;
+            });
+        });
+    </script>
+</body>
+</html>

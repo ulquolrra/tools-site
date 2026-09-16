@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>颜色代码转换器 - HEX、RGB、HSL、CMYK互相转换 | 在线工具箱</title>
+    <meta name="description" content="专业的颜色代码在线转换工具，支持HEX、RGB、HSL、CMYK四种颜色格式互相转换。支持颜色选择器，实时预览颜色效果，批量转换功能。完全本地运行，数据100%安全。">
+    <meta name="keywords" content="颜色代码转换,HEX转RGB,RGB转HEX,HSL转换,CMYK转换,颜色转换器,颜色选择器,color picker,CSS颜色">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8795586167197548" crossorigin="anonymous"></script>
+    <link rel="canonical" href="https://alltoolsbox.xyz/tools/color-converter.html" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/"><i class="fas fa-tools me-2"></i>在线工具箱</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">首页</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/blog">技术博客</a></li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/pages/about.html">关于我们</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/contact.html">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="text-center my-3">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8795586167197548" data-ad-slot="728x90_banner" data-ad-format="728x90" data-full-width-responsive="true"></ins>
+    </div>
+
+    <div class="tool-container fade-in">
+        <div class="tool-header text-center mb-5">
+            <h1 class="display-5 fw-bold mb-3">颜色代码转换器</h1>
+            <p class="lead">专业的颜色代码在线转换工具，支持<strong>HEX、RGB、HSL、CMYK</strong>四种颜色格式互相转换。支持颜色选择器，实时预览颜色效果，批量转换功能。<strong>完全本地运行，数据100%安全</strong>。</p>
+            <div class="alert alert-primary"><i class="fas fa-star me-2"></i> 无需安装 | 无需注册 | 完全免费 | 数据本地处理</div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white"><i class="fas fa-palette me-2"></i> 颜色选择器</div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">选择颜色</label>
+                                <input type="color" class="form-control form-control-color" id="color-picker" value="#3498db">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">颜色预览</label>
+                                <div id="color-preview" class="border rounded" style="height: 50px; background-color: #3498db;"></div>
+                            </div>
+                        </div>
+                        <div class="row g-3 mt-3">
+                            <div class="col-md-3">
+                                <label for="hex-input" class="form-label">HEX</label>
+                                <div class="input-group"><span class="input-group-text">#</span>
+                                <input type="text" class="form-control" id="hex-input" value="3498db" maxlength="6" placeholder="RRGGBB">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="rgb-input" class="form-label">RGB</label>
+                                <input type="text" class="form-control" id="rgb-input" value="rgb(52, 152, 219)" placeholder="rgb(0-255,...)">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="hsl-input" class="form-label">HSL</label>
+                                <input type="text" class="form-control" id="hsl-input" value="hsl(210, 66%, 53%)" placeholder="hsl(0-360,...)">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="cmyk-input" class="form-label">CMYK</label>
+                                <input type="text" class="form-control" id="cmyk-input" value="cmyk(76%, 30%, 0%, 14%)" placeholder="cmyk(...)">
+                            </div>
+                        </div>
+                        <div class="d-flex gap-2 mt-3">
+                            <button class="btn btn-primary" id="convert-btn"><i class="fas fa-sync-alt me-1"></i> 转换所有格式</button>
+                            <button class="btn btn-outline-success" id="random-color"><i class="fas fa-random me-1"></i> 随机颜色</button>
+                            <button class="btn btn-outline-warning copy-btn" data-target="hex-input"><i class="fas fa-copy me-1"></i> 复制HEX</button>
+                            <button class="btn btn-outline-danger clear-btn" data-target="hex-input,rgb-input,hsl-input,cmyk-input"><i class="fas fa-trash me-1"></i> 清空</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mt-4">
+                    <div class="card-header bg-info text-white"><i class="fas fa-list me-2"></i> 批量转换</div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="batch-input" class="form-label">输入颜色值（每行一个）</label>
+                                <textarea class="form-control" id="batch-input" rows="4" placeholder="#ff0000\n#00ff00"></textarea>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">转换格式</label>
+                                <select class="form-select" id="batch-format">
+                                    <option value="hex">HEX</option>
+                                    <option value="rgb">RGB</option>
+                                    <option value="hsl">HSL</option>
+                                    <option value="cmyk">CMYK</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">包含前缀</label>
+                                <div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="batch-prefix" checked><label class="form-check-label">包含前缀</label></div>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-end">
+                                <button class="btn btn-info w-100" id="batch-convert"><i class="fas fa-exchange-alt me-1"></i> 转换</button>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <label class="form-label">转换结果</label>
+                            <textarea class="form-control font-monospace" id="batch-output" rows="4" readonly placeholder="结果..."></textarea>
+                        </div>
+                        <div class="d-flex gap-2 mt-2 justify-content-end">
+                            <button class="btn btn-outline-success copy-btn" data-target="batch-output"><i class="fas fa-copy me-1"></i> 复制</button>
+                            <button class="btn btn-outline-danger clear-btn" data-target="batch-input,batch-output"><i class="fas fa-trash me-1"></i> 清空</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mt-4">
+                    <div class="card-header bg-success text-white"><i class="fas fa-palette me-2"></i> 色阶生成</div>
+                    <div class="card-body">
+                        <div class="d-flex gap-2 flex-wrap" id="shades-result"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-primary text-white"><i class="fas fa-info-circle me-2"></i> 颜色信息</div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <h6>当前颜色</h6>
+                            <div id="current-color-display" style="width: 100%; height: 80px; background-color: #3498db; border-radius: 5px;"></div>
+                        </div>
+                        <h6>颜色详情</h6>
+                        <table class="table table-sm table-bordered mb-3">
+                            <tbody>
+                                <tr><td class="text-muted small">HEX</td><td id="color-hex">#3498DB</td></tr>
+                                <tr><td class="text-muted small">RGB</td><td id="color-rgb-text">52, 152, 219</td></tr>
+                                <tr><td class="text-muted small">HSL</td><td id="color-hsl-text">210°, 66%, 53%</td></tr>
+                                <tr><td class="text-muted small">CMYK</td><td id="color-cmyk-text">76%, 30%, 0%, 14%</td></tr>
+                            </tbody>
+                        </table>
+                        <h6>对比度</h6>
+                        <div class="d-flex gap-2 mb-3">
+                            <div class="flex-grow-1 bg-light p-2 rounded text-center small">白色背景<br><span id="contrast-white">4.61</span></div>
+                            <div class="flex-grow-1 bg-dark text-white p-2 rounded text-center small">黑色背景<br><span id="contrast-black">12.61</span></div>
+                        </div>
+                        <h6>颜色温度</h6>
+                        <div id="color-temp" class="text-center py-2">冷色调</div>
+                        <h6>WEB安全颜色</h6>
+                        <div id="web-safe" class="text-center py-2">#3399CC</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="fs-3 mb-4"><i class="fas fa-book text-primary me-2"></i> 颜色代码指南</h2>
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-info-circle me-2"></i> 颜色模型是什么？</h3>
+                    <p><strong>颜色模型</strong>是描述和定义颜色的一种方法，通过数值来表示颜色。不同的颜色模型适用于不同的应用场景：</p>
+                    <ul>
+                        <li><strong>RGB：</strong>红绿蓝三原色，适用于屏幕显示（加色模型）</li>
+                        <li><strong>CMYK：</strong>青品红黄黑，适用于印刷（减色模型）</li>
+                        <li><strong>HSL：</strong>色相、饱和度、明度，更直观的描述方式</li>
+                        <li><strong>HEX：</strong>十六进制，是RGB的十六进制表示</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-palette me-2"></i> 四种颜色格式详解</h3>
+                    <div class="mb-3">
+                        <h5><i class="fas fa-hashtag me-2 text-primary"></i> HEX（十六进制）</h5>
+                        <p>格式：<code>#RRGGBB</code> 或 <code>#RGB</code>。例如：<code>#FF0000</code>（红色）</p>
+                    </div>
+                    <div class="mb-3">
+                        <h5><i class="fas fa-cube me-2 text-success"></i> RGB（红绿蓝）</h5>
+                        <p>格式：<code>rgb(R, G, B)</code>，R、G、B范围0-255。例如：<code>rgb(255, 0, 0)</code>（红色）</p>
+                    </div>
+                    <div class="mb-3">
+                        <h5><i class="fas fa-circle me-2 text-warning"></i> HSL（色相饱和度明度）</h5>
+                        <p>格式：<code>hsl(H, S%, L%)</code>，H范围0-360，S、L范围0-100%。例如：<code>hsl(0, 100%, 50%)</code>（红色）</p>
+                    </div>
+                    <div class="mb-3">
+                        <h5><i class="fas fa-print me-2 text-dark"></i> CMYK（青品红黄黑）</h5>
+                        <p>格式：<code>cmyk(C%, M%, Y%, K%)</code>，每个通道范围0-100%。例如：<code>cmyk(0%, 100%, 100%, 0%)</code>（红色）</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 bg-light mb-4">
+                <div class="card-body">
+                    <h3 class="fs-4 mb-3"><i class="fas fa-star me-2"></i> 格式选择建议</h3>
+                    <table class="table table-striped table-bordered">
+                        <thead class="table-primary">
+                            <tr><th>应用场景</th><th>推荐格式</th><th>理由</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Web开发</td><td>HEX</td><td>简洁，易于阅读</td></tr>
+                            <tr><td>JavaScript</td><td>RGB/RGBA</td><td>便于动态计算透明度</td></tr>
+                            <tr><td>设计稿</td><td>RGB</td><td>设计软件标准</td></tr>
+                            <tr><td>色彩搭配</td><td>HSL</td><td>便于调整色相、饱和度、明度</td></tr>
+                            <tr><td>印刷</td><td>CMYK</td><td>印刷标准格式</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="fs-3 mb-4"><i class="fas fa-question-circle text-primary me-2"></i> 常见问题FAQ</h2>
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: RGB和HEX有什么关系？</h4>
+                    <p><strong>A:</strong> RGB和HEX是同一种颜色模型的不同表示方式。HEX是RGB的十六进制表示，例如RGB(255,0,0)等于HEX(#FF0000)。</p>
+                </div>
+            </div>
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 为什么RGB转换为CMYK后颜色会不一样？</h4>
+                    <p><strong>A:</strong> RGB和CMYK具有不同的色域范围。RGB色域通常大于CMYK色域，有些颜色在一种模型中可以表示，但在另一种模型中无法精确表示。这是正常现象。</p>
+                </div>
+            </div>
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-exclamation-circle me-2 text-danger"></i> Q: 什么是WEB安全颜色？</h4>
+                    <p><strong>A:</strong> WEB安全颜色是指在256色调色板中可以在大多数计算机和浏览器中一致显示的颜色。这些颜色不会因为显示设备的不同而产生明显差异。HEX代码的每两位相同，如#FF0000、#336699等。</p>
+                </div>
+            </div>
+            <div class="card border-0 bg-light mb-3">
+                <div class="card-body">
+                    <h4 class="mb-2"><i class="fas fa-shield-alt me-2 text-success"></i> Q: 本工具会上传我的数据吗？</h4>
+                    <p><strong>A:</strong> <span class="text-success fw-bold">完全不会！</span>本工具纯前端运行，所有计算在您的浏览器中完成，数据完全在本地，不会上传到任何服务器。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="fs-3 mb-4"><i class="fas fa-link text-primary me-2"></i> 相关工具推荐</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3"><i class="fas fa-code text-warning fa-2x me-3"></i>
+                            <h3 class="card-title h5 mb-0">代码格式化美化</h3></div>
+                            <p class="card-text text-muted">支持JavaScript、CSS、HTML等代码格式化</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="badge bg-warning">代码工具</span>
+                                <a href="/tools/code-formatter.html" class="btn btn-outline-warning btn-sm">立即使用</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3"><i class="fas fa-palette text-success fa-2x me-3"></i>
+                            <h3 class="card-title h5 mb-0">CSS阴影生成</h3></div>
+                            <p class="card-text text-muted">在线生成CSS box-shadow属性</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="badge bg-success">CSS工具</span>
+                                <a href="/tools/css-box-shadow-generator.html" class="btn btn-outline-success btn-sm">立即使用</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3"><i class="fas fa-cog me-2 text-primary fa-2x me-3"></i>
+                            <h3 class="card-title h5 mb-0">正则表达式测试器</h3></div>
+                            <p class="card-text text-muted">在线测试、调试正则表达式</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="badge bg-primary">文本处理</span>
+                                <a href="/tools/regex-tester.html" class="btn btn-outline-primary btn-sm">立即使用</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>常见用法</h4>
+            <div class="bg-dark text-white p-3 rounded font-monospace" style="font-size: 14px;">
+// HEX 转 RGB<br>
+输入: #3498db → 输出: rgb(52, 152, 219)<br><br>
+// RGB 转 HEX<br>
+输入: rgb(52, 152, 219) → 输出: #3498db<br><br>
+// HEX 转 HSL<br>
+输入: #3498db → 输出: hsl(210, 66%, 53%)<br><br>
+// HEX 转 CMYK<br>
+输入: #3498db → 输出: cmyk(76%, 30%, 0%, 14%)
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6"><h5 class="mb-3">颜色代码转换器</h5><p class="text-muted small">免费、易用的在线颜色代码转换工具，支持HEX、RGB、HSL、CMYK四种格式互相转换。</p></div>
+                <div class="col-md-3"><h5 class="mb-3">快速链接</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/" class="text-decoration-none">首页</a></li>
+                        <li class="mb-2"><a href="/pages/about.html" class="text-decoration-none">关于我们</a></li>
+                        <li class="mb-2"><a href="/pages/contact.html" class="text-decoration-none">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3"><h5 class="mb-3">推荐工具</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/tools/json-formatter.html" class="text-decoration-none">JSON格式化</a></li>
+                        <li class="mb-2"><a href="/tools/css-box-shadow-generator.html" class="text-decoration-none">CSS阴影生成</a></li>
+                        <li class="mb-2"><a href="/tools/base64-encoder.html" class="text-decoration-none">Base64编解码</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center text-muted small"><p>Copyright © 2024-2025 在线工具箱 | <a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></p></div>
+        </div>
+    </footer>
+
+    <div class="text-center my-4">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8795586167197548" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/error-tracking.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const colorPicker = document.getElementById('color-picker');
+            const colorPreview = document.getElementById('color-preview');
+            const hexInput = document.getElementById('hex-input');
+            const rgbInput = document.getElementById('rgb-input');
+            const hslInput = document.getElementById('hsl-input');
+            const cmykInput = document.getElementById('cmyk-input');
+            const convertBtn = document.getElementById('convert-btn');
+            const randomColorBtn = document.getElementById('random-color');
+            const batchInput = document.getElementById('batch-input');
+            const batchFormat = document.getElementById('batch-format');
+            const batchPrefix = document.getElementById('batch-prefix');
+            const batchConvert = document.getElementById('batch-convert');
+            const batchOutput = document.getElementById('batch-output');
+            const shadesResult = document.getElementById('shades-result');
+            const currentColorDisplay = document.getElementById('current-color-display');
+            const colorHex = document.getElementById('color-hex');
+            const colorRgbText = document.getElementById('color-rgb-text');
+            const colorHslText = document.getElementById('color-hsl-text');
+            const colorCmykText = document.getElementById('color-cmyk-text');
+            const contrastWhite = document.getElementById('contrast-white');
+            const contrastBlack = document.getElementById('contrast-black');
+            const colorTemp = document.getElementById('color-temp');
+            const webSafe = document.getElementById('web-safe');
+
+            function hexToRgb(hex) {
+                hex = hex.replace(/^#/, '');
+                if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+                return { r: parseInt(hex.substring(0, 2), 16), g: parseInt(hex.substring(2, 4), 16), b: parseInt(hex.substring(4, 6), 16) };
+            }
+            function rgbToHex(r, g, b) {
+                const toHex = (c) => { const hex = Math.round(c).toString(16); return hex.length === 1 ? '0' + hex : hex; };
+                return { r: toHex(r), g: toHex(g), b: toHex(b) };
+            }
+            function rgbToHsl(r, g, b) {
+                r /= 255; g /= 255; b /= 255;
+                const max = Math.max(r, g, b), min = Math.min(r, g, b);
+                let h, s, l = (max + min) / 2;
+                if (max === min) { h = s = 0; }
+                else {
+                    const d = max - min;
+                    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+                    switch (max) {
+                        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                        case g: h = (b - r) / d + 2; break;
+                        case b: h = (r - g) / d + 4; break;
+                    }
+                    h *= 60;
+                }
+                return { h: Math.round(h), s: Math.round(s * 100), l: Math.round(l * 100) };
+            }
+            function hslToRgb(h, s, l) {
+                s /= 100; l /= 100;
+                let r, g, b;
+                if (s === 0) { r = g = b = l; }
+                else {
+                    const hue2rgb = (p, q, t) => {
+                        if (t < 0) t += 1; if (t > 1) t -= 1;
+                        if (t < 1/6) return p + (q - p) * 6 * t;
+                        if (t < 1/2) return q;
+                        if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+                        return p;
+                    };
+                    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+                    const p = 2 * l - q;
+                    r = hue2rgb(p, q, h / 360 + 1/3);
+                    g = hue2rgb(p, q, h / 360);
+                    b = hue2rgb(p, q, h / 360 - 1/3);
+                }
+                return { r: Math.round(r * 255), g: Math.round(g * 255), b: Math.round(b * 255) };
+            }
+            function rgbToCmyk(r, g, b) {
+                r /= 255; g /= 255; b /= 255;
+                const k = 1 - Math.max(r, g, b);
+                const c = (1 - r - k) / (1 - k) || 0;
+                const m = (1 - g - k) / (1 - k) || 0;
+                const y = (1 - b - k) / (1 - k) || 0;
+                return { c: Math.round(c * 100), m: Math.round(m * 100), y: Math.round(y * 100), k: Math.round(k * 100) };
+            }
+            function cmykToRgb(c, m, y, k) {
+                c /= 100; m /= 100; y /= 100; k /= 100;
+                return { r: Math.round(255 * (1 - c) * (1 - k)), g: Math.round(255 * (1 - m) * (1 - k)), b: Math.round(255 * (1 - y) * (1 - k)) };
+            }
+            function getContrastRatio(color1, color2) {
+                const l1 = getLuminance(color1); const l2 = getLuminance(color2);
+                const lighter = Math.max(l1, l2); const darker = Math.min(l1, l2);
+                return (lighter + 0.05) / (darker + 0.05);
+            }
+            function getLuminance(color) {
+                const r = color.r / 255, g = color.g / 255, b = color.b / 255;
+                const rs = r <= 0.03928 ? r / 12.92 : Math.pow((r + 0.055) / 1.055, 2.4);
+                const gs = g <= 0.03928 ? g / 12.92 : Math.pow((g + 0.055) / 1.055, 2.4);
+                const bs = b <= 0.03928 ? b / 12.92 : Math.pow((b + 0.055) / 1.055, 2.4);
+                return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
+            }
+            function getWebSafeColor(hex) {
+                const r = parseInt(hex.substring(1, 3), 16), g = parseInt(hex.substring(3, 5), 16), b = parseInt(hex.substring(5, 7), 16);
+                const safeR = Math.round(r / 51) * 51; const safeG = Math.round(g / 51) * 51; const safeB = Math.round(b / 51) * 51;
+                const safeHex = rgbToHex(safeR, safeG, safeB);
+                return `#${safeHex.r}${safeHex.g}${safeHex.b}`.toUpperCase();
+            }
+            function getColorTemperature(r, g, b) {
+                const sum = r + g + b; if (sum === 0) return '无';
+                const rRatio = r / sum, bRatio = b / sum;
+                if (rRatio > 0.4 && bRatio < 0.3) return '暖色调';
+                else if (bRatio > 0.4 && rRatio < 0.3) return '冷色调';
+                return '中性色调';
+            }
+            function parseColor(input, format) {
+                try {
+                    input = input.trim();
+                    if (format === 'hex') {
+                        if (input.startsWith('#')) input = input.substring(1);
+                        if (/^[0-9A-Fa-f]{3,6}$/.test(input)) return hexToRgb(input);
+                    } else if (format === 'rgb') {
+                        const rgbMatch = input.match(/^rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i);
+                        if (rgbMatch) return { r: parseInt(rgbMatch[1]), g: parseInt(rgbMatch[2]), b: parseInt(rgbMatch[3]) };
+                    } else if (format === 'hsl') {
+                        const hslMatch = input.match(/^hsl\(\s*(\d+)\s*,\s*(\d+)%\s*,\s*(\d+)%\s*\)$/i);
+                        if (hslMatch) return hslToRgb(parseInt(hslMatch[1]), parseInt(hslMatch[2]), parseInt(hslMatch[3]));
+                    } else if (format === 'cmyk') {
+                        const cmykMatch = input.match(/^cmyk\(\s*(\d+)%\s*,\s*(\d+)%\s*,\s*(\d+)%\s*,\s*(\d+)%\s*\)$/i);
+                        if (cmykMatch) return cmykToRgb(parseInt(cmykMatch[1]), parseInt(cmykMatch[2]), parseInt(cmykMatch[3]), parseInt(cmykMatch[4]));
+                    }
+                } catch (e) {}
+                return null;
+            }
+
+            function updateAll() {
+                const hexValue = colorPicker.value;
+                const rgb = hexToRgb(hexValue);
+                colorPreview.style.backgroundColor = hexValue;
+                currentColorDisplay.style.backgroundColor = hexValue;
+                hexInput.value = hexValue.substring(1);
+                colorHex.textContent = hexValue.toUpperCase();
+                const rgbText = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+                rgbInput.value = rgbText;
+                colorRgbText.textContent = `${rgb.r}, ${rgb.g}, ${rgb.b}`;
+                const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+                const hslText = `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`;
+                hslInput.value = hslText;
+                colorHslText.textContent = `${hsl.h}°, ${hsl.s}%, ${hsl.l}%`;
+                const cmyk = rgbToCmyk(rgb.r, rgb.g, rgb.b);
+                const cmykText = `cmyk(${cmyk.c}%, ${cmyk.m}%, ${cmyk.y}%, ${cmyk.k}%)`;
+                cmykInput.value = cmykText;
+                colorCmykText.textContent = `${cmyk.c}%, ${cmyk.m}%, ${cmyk.y}%, ${cmyk.k}%`;
+                const whiteContrast = getContrastRatio({ r: 255, g: 255, b: 255 }, rgb);
+                const blackContrast = getContrastRatio({ r: 0, g: 0, b: 0 }, rgb);
+                contrastWhite.textContent = whiteContrast.toFixed(2);
+                contrastBlack.textContent = blackContrast.toFixed(2);
+                colorTemp.textContent = getColorTemperature(rgb.r, rgb.g, rgb.b);
+                webSafe.textContent = getWebSafeColor(hexValue);
+                updateShades(rgb, hsl);
+            }
+
+            function updateShades(rgb, hsl) {
+                let html = '<div class="d-flex gap-2 flex-wrap">';
+                for (let i = -4; i <= 4; i++) {
+                    const multiplier = 1 + (i * 0.2);
+                    const adjustedHsl = { h: hsl.h, s: Math.min(100, Math.max(0, hsl.s * multiplier)), l: Math.min(100, Math.max(0, hsl.l * multiplier)) };
+                    const adjustedRgb = hslToRgb(adjustedHsl.h, adjustedHsl.s, adjustedHsl.l);
+                    const hex = rgbToHex(adjustedRgb.r, adjustedRgb.g, adjustedRgb.b);
+                    const shadeHex = `#${hex.r}${hex.g}${hex.b}`;
+                    const width = i === 0 ? '120px' : '60px';
+                    const border = i === 0 ? '3px solid #000' : '1px solid #ddd';
+                    html += `<div style="width: ${width}; height: 40px; background-color: ${shadeHex}; border: ${border}; border-radius: 4px;" title="${shadeHex.toUpperCase()}"></div>`;
+                }
+                html += '</div>';
+                shadesResult.innerHTML = html;
+            }
+
+            colorPicker.addEventListener('input', updateAll);
+            hexInput.addEventListener('input', function() {
+                let hex = hexInput.value; if (!hex.startsWith('#')) hex = '#' + hex;
+                if (/^#[0-9A-Fa-f]{0,6}$/.test(hex)) { colorPicker.value = hex; updateAll(); }
+            });
+            rgbInput.addEventListener('input', function() {
+                const rgb = parseColor(rgbInput.value, 'rgb'); if (rgb) { colorPicker.value = `#${rgbToHex(rgb.r, rgb.g, rgb.b).r}${rgbToHex(rgb.r, rgb.g, rgb.b).g}${rgbToHex(rgb.r, rgb.g, rgb.b).b}`; updateAll(); }
+            });
+            hslInput.addEventListener('input', function() {
+                const hsl = hslInput.value.match(/^hsl\((\d+),\s*(\d+)%,\s*(\d+)%\)$/i);
+                if (hsl) { const rgb = hslToRgb(parseInt(hsl[1]), parseInt(hsl[2]), parseInt(hsl[3])); const hex = rgbToHex(rgb.r, rgb.g, rgb.b); colorPicker.value = `#${hex.r}${hex.g}${hex.b}`; updateAll(); }
+            });
+            cmykInput.addEventListener('input', function() {
+                const cmyk = cmykInput.value.match(/^cmyk\((\d+)%,\s*(\d+)%,\s*(\d+)%,\s*(\d+)%\)$/i);
+                if (cmyk) { const rgb = cmykToRgb(parseInt(cmyk[1]), parseInt(cmyk[2]), parseInt(cmyk[3]), parseInt(cmyk[4])); const hex = rgbToHex(rgb.r, rgb.g, rgb.b); colorPicker.value = `#${hex.r}${hex.g}${hex.b}`; updateAll(); }
+            });
+            convertBtn.addEventListener('click', updateAll);
+            randomColorBtn.addEventListener('click', function() {
+                const letters = '0123456789ABCDEF'; let color = '#';
+                for (let i = 0; i < 6; i++) color += letters[Math.floor(Math.random() * 16)];
+                colorPicker.value = color; updateAll();
+            });
+
+            batchConvert.addEventListener('click', function() {
+                const inputLines = batchInput.value.trim().split('\n').filter(line => line.trim());
+                const format = batchFormat.value; const includePrefix = batchPrefix.checked; const results = [];
+                inputLines.forEach(line => {
+                    let color = line.trim(), rgb = null;
+                    if (/^#[0-9A-Fa-f]{3,6}$/i.test(color)) rgb = hexToRgb(color.substring(1));
+                    else if (/^rgb\(/i.test(color)) rgb = parseColor(color, 'rgb');
+                    else if (/^hsl\(/i.test(color)) { const hsl = color.match(/^hsl\((\d+),\s*(\d+)%,\s*(\d+)%\)$/i); if (hsl) rgb = hslToRgb(parseInt(hsl[1]), parseInt(hsl[2]), parseInt(hsl[3])); }
+                    else if (/^cmyk\(/i.test(color)) { const cmyk = color.match(/^cmyk\((\d+)%,\s*(\d+)%,\s*(\d+)%,\s*(\d+)%\)$/i); if (cmyk) rgb = cmykToRgb(parseInt(cmyk[1]), parseInt(cmyk[2]), parseInt(cmyk[3]), parseInt(cmyk[4])); }
+                    if (rgb) {
+                        switch (format) {
+                            case 'hex': const hex = rgbToHex(rgb.r, rgb.g, rgb.b); results.push(includePrefix ? `#${hex.r}${hex.g}${hex.b}` : `${hex.r}${hex.g}${hex.b}`); break;
+                            case 'rgb': results.push(includePrefix ? `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})` : `${rgb.r}, ${rgb.g}, ${rgb.b}`); break;
+                            case 'hsl': const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b); results.push(includePrefix ? `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)` : `${hsl.h}, ${hsl.s}%, ${hsl.l}%`); break;
+                            case 'cmyk': const cmyk = rgbToCmyk(rgb.r, rgb.g, rgb.b); results.push(includePrefix ? `cmyk(${cmyk.c}%, ${cmyk.m}%, ${cmyk.y}%, ${cmyk.k}%)` : `${cmyk.c}%, ${cmyk.m}%, ${cmyk.y}%, ${cmyk.k}%`); break;
+                        }
+                    }
+                });
+                batchOutput.value = results.join('\n');
+            });
+
+            updateAll();
+        });
+    </script>
+</body>
+</html>
