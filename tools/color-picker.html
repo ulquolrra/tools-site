@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RGB颜色选择器 - 在线工具箱</title>
+    <meta name="description" content="在线RGB颜色选择器，可视化拾色工具，支持HEX、RGB、HSL、CMYK格式转换，实时预览颜色，生成调色板">
+    <meta name="keywords" content="颜色选择器,RGB,HSL,HEX,CMYK,拾色器,颜色转换,在线拾色">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <style>
+        .color-picker-container {
+            background: #1a1a2e;
+            border: 1px solid #0f3460;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .color-display {
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .color-display canvas {
+            cursor: crosshair;
+        }
+        
+        .color-info {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid #0f3460;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .color-values {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .color-value-item {
+            background: rgba(255,255,255,0.05);
+            border-radius: 6px;
+            padding: 10px;
+        }
+        
+        .color-value-label {
+            font-size: 12px;
+            color: #adb5bd;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            display: block;
+        }
+        
+        .color-value-input {
+            width: 100%;
+            padding: 6px 10px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid #0f3460;
+            border-radius: 4px;
+            color: #e8e8e8;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        
+        .color-value-input:focus {
+            outline: none;
+            border-color: #0d6efd;
+        }
+        
+        .color-value-display {
+            font-size: 14px;
+            font-weight: 600;
+            color: #e8e8e8;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .palette-container {
+            margin-top: 20px;
+        }
+        
+        .palette-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .palette-color {
+            height: 60px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .palette-color:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        .palette-color.selected {
+            border: 3px solid #0d6efd;
+            box-shadow: 0 0 10px rgba(13, 110, 253, 0.5);
+        }
+        
+        .palette-color-hex {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 2px 5px;
+            font-size: 10px;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+        }
+        
+        .sliders-container {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid #0f3460;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .slider-group {
+            margin-bottom: 15px;
+        }
+        
+        .slider-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: #e8e8e8;
+        }
+        
+        .slider-input {
+            width: 60px;
+            padding: 4px 8px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid #0f3460;
+            border-radius: 4px;
+            color: #e8e8e8;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+        
+        .slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255,255,255,0.1);
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #0d6efd;
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(13, 110, 253, 0.5);
+        }
+        
+        .slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #0d6efd;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 5px rgba(13, 110, 253, 0.5);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .action-btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: #0d6efd;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #0b5ed7;
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid #0f3460;
+            color: #e8e8e8;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: #0d6efd;
+            color: #0d6efd;
+            transform: translateY(-1px);
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #218838;
+            transform: translateY(-1px);
+        }
+        
+        .color-history {
+            margin-top: 20px;
+        }
+        
+        .history-title {
+            font-size: 14px;
+            color: #e8e8e8;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .history-colors {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .history-color {
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+        
+        .history-color:hover {
+            transform: scale(1.1);
+            border-color: #0d6efd;
+        }
+        
+        .format-selector {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
+        .format-btn {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid #0f3460;
+            border-radius: 6px;
+            color: #e8e8e8;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .format-btn.active {
+            background: #0d6efd;
+            border-color: #0d6efd;
+            color: white;
+        }
+        
+        .format-btn:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: #0d6efd;
+        }
+        
+        .color-context {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .color-display {
+                height: 150px;
+            }
+            
+            .color-values {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        .gradient-preview {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+            margin: 15px 0;
+            height: 30px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        .gradient-color {
+            height: 100%;
+            border-radius: 4px;
+        }
+    </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8795586167197548" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-tools me-2"></i>在线工具箱
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">首页</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/blog">技术博客</a></li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/pages/about.html">关于我们</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/contact.html">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="text-center my-3">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8795586167197548" data-ad-slot="728x90_banner" data-ad-format="728x90" data-full-width-responsive="true"></ins>
+    </div>
+
+    <main class="container my-4">
+        <div class="text-center mb-4 fade-in">
+            <h1 class="display-5 fw-bold mb-3"><i class="fas fa-palette me-2"></i> RGB颜色选择器</h1>
+            <p class="lead text-muted">在线可视化拾色工具，支持多种格式转换，实时预览颜色</p>
+        </div>
+
+        <div class="color-picker-container">
+            <div class="color-display" id="colorDisplay">
+                <canvas id="colorCanvas" width="600" height="200"></canvas>
+                <div id="colorCrosshair" style="position: absolute; width: 20px; height: 20px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.5); pointer-events: none; left: 300px; top: 100px; transform: translate(-10px, -10px);"></div>
+            </div>
+            
+            <div class="color-info">
+                <div class="color-values">
+                    <div class="color-value-item">
+                        <span class="color-value-label">HEX</span>
+                        <input type="text" class="color-value-input" id="hexInput" value="#FF0000" maxlength="7">
+                    </div>
+                    <div class="color-value-item">
+                        <span class="color-value-label">RGB</span>
+                        <div class="color-value-display" id="rgbDisplay">RGB(255, 0, 0)</div>
+                    </div>
+                    <div class="color-value-item">
+                        <span class="color-value-label">HSL</span>
+                        <div class="color-value-display" id="hslDisplay">HSL(0, 100%, 50%)</div>
+                    </div>
+                    <div class="color-value-item">
+                        <span class="color-value-label">CMYK</span>
+                        <div class="color-value-display" id="cmykDisplay">CMYK(0, 100, 100, 0)</div>
+                    </div>
+                </div>
+                
+                <div class="format-selector">
+                    <button class="format-btn active" data-format="hex" onclick="setActiveFormat('hex')">
+                        <i class="fas fa-hashtag"></i> HEX
+                    </button>
+                    <button class="format-btn" data-format="rgb" onclick="setActiveFormat('rgb')">
+                        <i class="fas fa-ruler"></i> RGB
+                    </button>
+                    <button class="format-btn" data-format="hsl" onclick="setActiveFormat('hsl')">
+                        <i class="fas fa-circle"></i> HSL
+                    </button>
+                    <button class="format-btn" data-format="cmyk" onclick="setActiveFormat('cmyk')">
+                        <i class="fas fa-print"></i> CMYK
+                    </button>
+                </div>
+                
+                <div class="color-context">
+                    <span><i class="fas fa-eye me-1"></i> 当前颜色: <strong id="colorName">纯红色</strong></span>
+                    <span class="ms-3"><i class="fas fa-palette me-1"></i> 类型: <strong id="colorType">纯色</strong></span>
+                </div>
+            </div>
+
+            <div class="sliders-container">
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span><i class="fas fa-circle me-1" style="color: #dc3545;"></i> 红色 (R)</span>
+                        <input type="number" class="slider-input" id="redInput" value="255" min="0" max="255" oninput="updateFromSliders()">
+                    </div>
+                    <input type="range" class="slider" id="redSlider" value="255" min="0" max="255" oninput="updateFromSliders()">
+                </div>
+                
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span><i class="fas fa-circle me-1" style="color: #28a745;"></i> 绿色 (G)</span>
+                        <input type="number" class="slider-input" id="greenInput" value="0" min="0" max="255" oninput="updateFromSliders()">
+                    </div>
+                    <input type="range" class="slider" id="greenSlider" value="0" min="0" max="255" oninput="updateFromSliders()">
+                </div>
+                
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span><i class="fas fa-circle me-1" style="color: #007bff;"></i> 蓝色 (B)</span>
+                        <input type="number" class="slider-input" id="blueInput" value="0" min="0" max="255" oninput="updateFromSliders()">
+                    </div>
+                    <input type="range" class="slider" id="blueSlider" value="0" min="0" max="255" oninput="updateFromSliders()">
+                </div>
+                
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span><i class="fas fa-circle me-1"></i> 透明度</span>
+                        <input type="number" class="slider-input" id="alphaInput" value="100" min="0" max="100" oninput="updateFromSliders()">
+                    </div>
+                    <input type="range" class="slider" id="alphaSlider" value="100" min="0" max="100" oninput="updateFromSliders()">
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="action-btn btn-primary" onclick="copyColor('hex')">
+                    <i class="fas fa-copy"></i> 复制HEX
+                </button>
+                <button class="action-btn btn-primary" onclick="copyColor('rgb')">
+                    <i class="fas fa-copy"></i> 复制RGB
+                </button>
+                <button class="action-btn btn-primary" onclick="copyColor('hsl')">
+                    <i class="fas fa-copy"></i> 复制HSL
+                </button>
+                <button class="action-btn btn-success" onclick="addToPalette()">
+                    <i class="fas fa-plus"></i> 添加到调色板
+                </button>
+                <button class="action-btn btn-secondary" onclick="generateRandomColor()">
+                    <i class="fas fa-random"></i> 随机颜色
+                </button>
+                <button class="action-btn btn-secondary" onclick="toggleColorMode()">
+                    <i class="fas fa-adjust"></i> <span id="colorModeText">切换深色模式</span>
+                </button>
+            </div>
+            
+            <div class="gradient-preview" id="gradientPreview"></div>
+            
+            <div class="palette-container">
+                <div class="history-title">
+                    <i class="fas fa-th"></i> 调色板
+                    <button class="btn btn-sm btn-secondary ms-3" onclick="clearPalette()" style="background: rgba(255,255,255,0.1); border: 1px solid #0f3460; color: #e8e8e8;">
+                        <i class="fas fa-trash"></i> 清空
+                    </button>
+                    <button class="btn btn-sm btn-secondary ms-2" onclick="exportPalette()" style="background: rgba(255,255,255,0.1); border: 1px solid #0f3460; color: #e8e8e8;">
+                        <i class="fas fa-download"></i> 导出
+                    </button>
+                </div>
+                <div class="palette-grid" id="paletteGrid"></div>
+            </div>
+            
+            <div class="color-history">
+                <div class="history-title">
+                    <i class="fas fa-history"></i> 历史颜色
+                    <button class="btn btn-sm btn-secondary ms-3" onclick="clearHistory()" style="background: rgba(255,255,255,0.1); border: 1px solid #0f3460; color: #e8e8e8;">
+                        <i class="fas fa-trash"></i> 清空
+                    </button>
+                </div>
+                <div class="history-colors" id="historyColors"></div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title mb-3"><i class="fas fa-info-circle me-2 text-primary"></i> 颜色选择器使用说明</h5>
+                <p class="card-text">
+                    <strong>如何使用颜色选择器？</strong>
+                </p>
+                <ol>
+                    <li><strong>拾色：</strong> 在颜色滑块区域单击或拖动鼠标选择颜色</li>
+                    <li><strong>调整：</strong> 使用下方的RGB滑块精确调整红、绿、蓝和透明度</li>
+                    <li><strong>复制：</strong> 点击"复制HEX/RGB/HSL"按钮复制对应的颜色值</li>
+                    <li><strong>添加到调色板：</strong> 点击"添加到调色板"按钮保存当前颜色</li>
+                    <li><strong>随机颜色：</strong> 点击"随机颜色"按钮获取随机颜色</li>
+                </ol>
+                <p class="card-text mt-3">
+                    <strong>颜色格式说明：</strong>
+                </p>
+                <ul>
+                    <li><strong>HEX：</strong> 十六进制颜色值，格式为#RRGGBB或#RRGGBBAA，最常用的颜色表示方式</li>
+                    <li><strong>RGB：</strong> 红绿蓝三原色值，范围0-255，格式为rgb(r, g, b)或rgba(r, g, b, a)</li>
+                    <li><strong>HSL：</strong> 色相、饱和度、明度，格式为hsl(h, s%, l%)或hsla(h, s%, l%, a)</li>
+                    <li><strong>CMYK：</strong> 青、品红、黄、黑四色，主要用于印刷，范围0-100%</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card mt-3">
+            <div class="card-body">
+                <h5 class="card-title mb-3"><i class="fas fa-lightbulb me-2 text-warning"></i> 颜色设计技巧</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>配色原则</h6>
+                        <ul>
+                            <li><strong>60-30-10规则：</strong> 60%主色调，30%次色调，10%强调色</li>
+                            <li><strong>对比色：</strong> 色轮上相对的颜色，形成强烈对比</li>
+                            <li><strong>类似色：</strong> 色轮上相邻的颜色，和谐搭配</li>
+                            <li><strong>单色配色：</strong> 使用同一色相的不同明度和饱和度</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>颜色心理学</h6>
+                        <ul>
+                            <li><strong>红色：</strong> 热情、激情、危险</li>
+                            <li><strong>蓝色：</strong> 信任、专业、平静</li>
+                            <li><strong>绿色：</strong> 天然、健康、财富</li>
+                            <li><strong>黄色：</strong> 愉快、温暖、警告</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="text-center my-4">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8795586167197548" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    </div>
+
+    <footer class="bg-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-3">在线工具箱</h5>
+                    <p class="text-muted small">提供免费、易用的在线工具，帮助开发者和普通用户高效完成日常任务。</p>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">快速链接</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/pages/about.html" class="text-decoration-none">关于我们</a></li>
+                        <li class="mb-2"><a href="/pages/contact.html" class="text-decoration-none">联系我们</a></li>
+                        <li class="mb-2"><a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">推荐工具</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/tools/color-converter.html" class="text-decoration-none">颜色代码转换器</a></li>
+                        <li class="mb-2"><a href="/tools/css-box-shadow-generator.html" class="text-decoration-none">CSS阴影生成</a></li>
+                        <li class="mb-2"><a href="/tools/markdown-editor.html" class="text-decoration-none">Markdown编辑器</a></li>
+                        <li class="mb-2"><a href="/tools/text-tools.html" class="text-decoration-none">文本处理</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center text-muted small">
+                <p>Copyright © 2024-2025 在线工具箱 | <a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/error-tracking.js"></script>
+    <script>
+        // 状态管理
+        let currentColor = { r: 255, g: 0, b: 0, a: 1 };
+        let paletteColors = [];
+        let historyColors = [];
+        let isMouseDown = false;
+        let hue = 0;
+        let isLightMode = false;
+        
+        // DOM元素
+        const colorCanvas = document.getElementById('colorCanvas');
+        const colorDisplay = document.getElementById('colorDisplay');
+        const colorCrosshair = document.getElementById('colorCrosshair');
+        const hexInput = document.getElementById('hexInput');
+        const rgbDisplay = document.getElementById('rgbDisplay');
+        const hslDisplay = document.getElementById('hslDisplay');
+        const cmykDisplay = document.getElementById('cmykDisplay');
+        const colorName = document.getElementById('colorName');
+        const colorType = document.getElementById('colorType');
+        const redSlider = document.getElementById('redSlider');
+        const redInput = document.getElementById('redInput');
+        const greenSlider = document.getElementById('greenSlider');
+        const greenInput = document.getElementById('greenInput');
+        const blueSlider = document.getElementById('blueSlider');
+        const blueInput = document.getElementById('blueInput');
+        const alphaSlider = document.getElementById('alphaSlider');
+        const alphaInput = document.getElementById('alphaInput');
+        const paletteGrid = document.getElementById('paletteGrid');
+        const historyColorsContainer = document.getElementById('historyColors');
+        const gradientPreview = document.getElementById('gradientPreview');
+        const colorModeText = document.getElementById('colorModeText');
+        
+        const ctx = colorCanvas.getContext('2d');
+        
+        // 初始化颜色画布
+        function initColorCanvas() {
+            updateColorCanvas();
+            updateCrosshair();
+        }
+        
+        // 绘制颜色画布
+        function updateColorCanvas() {
+            const width = colorCanvas.width;
+            const height = colorCanvas.height;
+            
+            // 创建渐变
+            const gradient = ctx.createLinearGradient(0, 0, width, 0);
+            
+            // 设置渐变颜色
+            const step = 1 / width;
+            for (let i = 0; i <= 1; i += step) {
+                const r = Math.floor(255 * i);
+                const g = 0;
+                const b = 0;
+                gradient.addColorStop(i, `rgb(${r}, ${g}, ${b})`);
+            }
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, width, height);
+            
+            // 添加白色到透明的渐变
+            const alphaGradient = ctx.createLinearGradient(0, 0, 0, height);
+            alphaGradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+            alphaGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            ctx.fillStyle = alphaGradient;
+            ctx.fillRect(0, 0, width, height);
+            
+            // 添加黑色到透明的渐变
+            const blackGradient = ctx.createLinearGradient(0, 0, width, height);
+            blackGradient.addColorStop(0, 'rgba(0, 0, 0, 0)');
+            blackGradient.addColorStop(1, 'rgba(0, 0, 0, 1)');
+            ctx.fillStyle = blackGradient;
+            ctx.fillRect(0, 0, width, height);
+        }
+        
+        // 更新十字准星位置
+        function updateCrosshair() {
+            const hue = currentColor.h || 0;
+            const saturation = currentColor.s || 1;
+            const lightness = currentColor.l || 0.5;
+            
+            // 将HSL转换为画布坐标
+            const x = (hue / 360) * colorCanvas.width;
+            const y = ((1 - lightness) * 100) * (colorCanvas.height / 100);
+            
+            colorCrosshair.style.left = x + 'px';
+            colorCrosshair.style.top = y + 'px';
+        }
+        
+        // 从画布获取颜色
+        function getColorFromCanvas(x, y) {
+            const imgData = ctx.getImageData(x, y, 1, 1);
+            return {
+                r: imgData.data[0],
+                g: imgData.data[1],
+                b: imgData.data[2],
+                a: imgData.data[3] / 255
+            };
+        }
+        
+        // 更新所有颜色显示
+        function updateAllDisplays() {
+            updateColorDisplay();
+            updateHexInput();
+            updateRGBDisplays();
+            updateHSLDisplays();
+            updateCMYKDisplays();
+            updateSliders();
+            updateCrosshair();
+            updateColorInfo();
+            updateGradientPreview();
+            addToHistory();
+        }
+        
+        // 更新颜色显示
+        function updateColorDisplay() {
+            const alpha = currentColor.a || 1;
+            const rgba = `rgba(${currentColor.r}, ${currentColor.g}, ${currentColor.b}, ${alpha})`;
+            colorDisplay.style.background = rgba;
+        }
+        
+        // 更新HEX输入
+        function updateHexInput() {
+            const r = Math.round(currentColor.r);
+            const g = Math.round(currentColor.g);
+            const b = Math.round(currentColor.b);
+            const a = Math.round((currentColor.a || 1) * 255);
+            const hex = rgbToHex(r, g, b, a);
+            hexInput.value = hex;
+        }
+        
+        // 更新RGB显示
+        function updateRGBDisplays() {
+            const r = Math.round(currentColor.r);
+            const g = Math.round(currentColor.g);
+            const b = Math.round(currentColor.b);
+            const a = currentColor.a !== undefined ? currentColor.a : 1;
+            rgbDisplay.textContent = `RGB(${r}, ${g}, ${b}` + (a < 1 ? `, ${a.toFixed(2)})` : ')');
+        }
+        
+        // 更新HSL显示
+        function updateHSLDisplays() {
+            const hsl = rgbToHsl(currentColor.r, currentColor.g, currentColor.b);
+            const a = currentColor.a !== undefined ? currentColor.a : 1;
+            hslDisplay.textContent = `HSL(${Math.round(hsl.h)}, ${Math.round(hsl.s * 100)}%, ${Math.round(hsl.l * 100)}%` + (a < 1 ? `, ${a.toFixed(2)})` : ')');
+            
+            // 更新全局hue
+            hue = hsl.h;
+        }
+        
+        // 更新CMYK显示
+        function updateCMYKDisplays() {
+            const cmyk = rgbToCmyk(currentColor.r, currentColor.g, currentColor.b);
+            const a = currentColor.a !== undefined ? currentColor.a : 1;
+            cmykDisplay.textContent = `CMYK(${Math.round(cmyk.c * 100)}%, ${Math.round(cmyk.m * 100)}%, ${Math.round(cmyk.y * 100)}%, ${Math.round(cmyk.k * 100)}%)`;
+        }
+        
+        // 更新滑块
+        function updateSliders() {
+            redSlider.value = currentColor.r;
+            redInput.value = currentColor.r;
+            greenSlider.value = currentColor.g;
+            greenInput.value = currentColor.g;
+            blueSlider.value = currentColor.b;
+            blueInput.value = currentColor.b;
+            alphaSlider.value = Math.round((currentColor.a || 1) * 100);
+            alphaInput.value = Math.round((currentColor.a || 1) * 100);
+        }
+        
+        // 更新颜色信息
+        function updateColorInfo() {
+            const hsl = rgbToHsl(currentColor.r, currentColor.g, currentColor.b);
+            colorName.textContent = getColorName(currentColor.r, currentColor.g, currentColor.b);
+            colorType.textContent = getColorType(hsl);
+        }
+        
+        // 更新渐变预览
+        function updateGradientPreview() {
+            const colors = [];
+            for (let i = 0; i < 5; i++) {
+                const factor = i / 4;
+                const r = Math.round(currentColor.r * factor);
+                const g = Math.round(currentColor.g * factor);
+                const b = Math.round(currentColor.b * factor);
+                colors.push(`rgb(${r}, ${g}, ${b})`);
+            }
+            
+            let html = '';
+            colors.forEach(color => {
+                html += `<div class="gradient-color" style="background: ${color};"></div>`;
+            });
+            gradientPreview.innerHTML = html;
+        }
+        
+        // RGB到HEX
+        function rgbToHex(r, g, b, a) {
+            const toHex = (c) => {
+                const hex = Math.round(c).toString(16).toUpperCase();
+                return hex.length === 1 ? '0' + hex : hex;
+            };
+            
+            const hex = toHex(r) + toHex(g) + toHex(b);
+            if (a !== undefined && a < 255) {
+                return '#' + hex + toHex(a);
+            }
+            return '#' + hex;
+        }
+        
+        // RGB到HSL
+        function rgbToHsl(r, g, b) {
+            r = r / 255;
+            g = g / 255;
+            b = b / 255;
+            
+            const max = Math.max(r, g, b);
+            const min = Math.min(r, g, b);
+            let h = 0, s, l = (max + min) / 2;
+            
+            if (max === min) {
+                h = s = 0;
+            } else {
+                const d = max - min;
+                s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+                
+                switch (max) {
+                    case r:
+                        h = (g - b) / d + (g < b ? 6 : 0);
+                        break;
+                    case g:
+                        h = (b - r) / d + 2;
+                        break;
+                    case b:
+                        h = (r - g) / d + 4;
+                        break;
+                }
+                
+                h = h * 60;
+            }
+            
+            return { h, s, l };
+        }
+        
+        // RGB到CMYK
+        function rgbToCmyk(r, g, b) {
+            const c = 1 - r / 255;
+            const m = 1 - g / 255;
+            const y = 1 - b / 255;
+            const k = Math.min(c, m, y);
+            
+            return {
+                c: k === 1 ? 0 : (c - k) / (1 - k),
+                m: k === 1 ? 0 : (m - k) / (1 - k),
+                y: k === 1 ? 0 : (y - k) / (1 - k),
+                k: k
+            };
+        }
+        
+        // HSL到RGB
+        function hslToRgb(h, s, l) {
+            let r, g, b;
+            
+            if (s === 0) {
+                r = g = b = l;
+            } else {
+                const hue2rgb = (p, q, t) => {
+                    if (t < 0) t += 1;
+                    if (t > 1) t -= 1;
+                    if (t < 1 / 6) return p + (q - p) * 6 * t;
+                    if (t < 1 / 2) return q;
+                    if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+                    return p;
+                };
+                
+                const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+                const p = 2 * l - q;
+                
+                r = hue2rgb(p, q, h / 360 + 1 / 3);
+                g = hue2rgb(p, q, h / 360);
+                b = hue2rgb(p, q, h / 360 - 1 / 3);
+            }
+            
+            return {
+                r: Math.round(r * 255),
+                g: Math.round(g * 255),
+                b: Math.round(b * 255)
+            };
+        }
+        
+        // 获取颜色名称
+        function getColorName(r, g, b) {
+            const colors = [
+                { name: '纯黑', r: 0, g: 0, b: 0, maxDiff: 30 },
+                { name: '纯白', r: 255, g: 255, b: 255, maxDiff: 30 },
+                { name: '纯红', r: 255, g: 0, b: 0, maxDiff: 40 },
+                { name: '纯绿', r: 0, g: 255, b: 0, maxDiff: 40 },
+                { name: '纯蓝', r: 0, g: 0, b: 255, maxDiff: 40 },
+                { name: '黄色', r: 255, g: 255, b: 0, maxDiff: 50 },
+                { name: '青色', r: 0, g: 255, b: 255, maxDiff: 50 },
+                { name: '品红', r: 255, g: 0, b: 255, maxDiff: 50 },
+                { name: '灰色', r: 128, g: 128, b: 128, maxDiff: 50 },
+                { name: '银色', r: 192, g: 192, b: 192, maxDiff: 50 },
+                { name: '橙色', r: 255, g: 165, b: 0, maxDiff: 60 },
+                { name: '紫色', r: 128, g: 0, b: 128, maxDiff: 60 },
+                { name: '粉红', r: 255, g: 192, b: 203, maxDiff: 60 },
+                { name: '青绿', r: 0, g: 128, b: 128, maxDiff: 60 }
+            ];
+            
+            for (const color of colors) {
+                const dr = Math.abs(r - color.r);
+                const dg = Math.abs(g - color.g);
+                const db = Math.abs(b - color.b);
+                if (dr <= color.maxDiff && dg <= color.maxDiff && db <= color.maxDiff) {
+                    return color.name;
+                }
+            }
+            
+            return '自定义颜色';
+        }
+        
+        // 获取颜色类型
+        function getColorType(hsl) {
+            const h = hsl.h;
+            const s = hsl.s;
+            const l = hsl.l;
+            
+            if (s < 0.1) {
+                if (l > 0.8) return '浅灰色';
+                if (l > 0.5) return '中灰色';
+                return '深灰色';
+            }
+            
+            if (h >= 0 && h < 30) return '红橙色';
+            if (h >= 30 && h < 60) return '橙色';
+            if (h >= 60 && h < 90) return '黄橙色';
+            if (h >= 90 && h < 120) return '黄绿色';
+            if (h >= 120 && h < 150) return '绿色';
+            if (h >= 150 && h < 180) return '青绿色';
+            if (h >= 180 && h < 210) return '青色';
+            if (h >= 210 && h < 240) return '蓝青色';
+            if (h >= 240 && h < 270) return '蓝色';
+            if (h >= 270 && h < 300) return '蓝紫色';
+            if (h >= 300 && h < 330) return '紫色';
+            if (h >= 330 && h < 360) return '品红';
+            
+            return '彩色';
+        }
+        
+        // 从画布点击获取颜色
+        colorCanvas.addEventListener('click', (e) => {
+            const rect = colorCanvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const color = getColorFromCanvas(x, y);
+            currentColor = { r: color.r, g: color.g, b: color.b, a: color.a };
+            updateAllDisplays();
+        });
+        
+        // 从画布拖动获取颜色
+        colorCanvas.addEventListener('mousedown', (e) => {
+            isMouseDown = true;
+            const rect = colorCanvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const color = getColorFromCanvas(x, y);
+            currentColor = { r: color.r, g: color.g, b: color.b, a: color.a };
+            updateAllDisplays();
+        });
+        
+        colorCanvas.addEventListener('mousemove', (e) => {
+            if (isMouseDown) {
+                const rect = colorCanvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const color = getColorFromCanvas(x, y);
+                currentColor = { r: color.r, g: color.g, b: color.b, a: color.a };
+                updateAllDisplays();
+            }
+        });
+        
+        colorCanvas.addEventListener('mouseup', () => {
+            isMouseDown = false;
+        });
+        
+        colorCanvas.addEventListener('mouseleave', () => {
+            isMouseDown = false;
+        });
+        
+        // 从滑块更新颜色
+        function updateFromSliders() {
+            currentColor.r = parseInt(redSlider.value);
+            currentColor.g = parseInt(greenSlider.value);
+            currentColor.b = parseInt(blueSlider.value);
+            currentColor.a = parseInt(alphaSlider.value) / 100;
+            
+            // 同步输入框
+            redInput.value = currentColor.r;
+            greenInput.value = currentColor.g;
+            blueInput.value = currentColor.b;
+            alphaInput.value = Math.round(currentColor.a * 100);
+            
+            updateAllDisplays();
+        }
+        
+        // 从输入框更新
+        redInput.addEventListener('input', () => {
+            const val = parseInt(redInput.value) || 0;
+            redSlider.value = val;
+            currentColor.r = val;
+            updateAllDisplays();
+        });
+        
+        greenInput.addEventListener('input', () => {
+            const val = parseInt(greenInput.value) || 0;
+            greenSlider.value = val;
+            currentColor.g = val;
+            updateAllDisplays();
+        });
+        
+        blueInput.addEventListener('input', () => {
+            const val = parseInt(blueInput.value) || 0;
+            blueSlider.value = val;
+            currentColor.b = val;
+            updateAllDisplays();
+        });
+        
+        alphaInput.addEventListener('input', () => {
+            const val = parseInt(alphaInput.value) || 0;
+            alphaSlider.value = val;
+            currentColor.a = val / 100;
+            updateAllDisplays();
+        });
+        
+        // 从HEX输入更新
+        hexInput.addEventListener('input', () => {
+            const hex = hexInput.value;
+            const color = hexToRgb(hex);
+            if (color) {
+                currentColor.r = color.r;
+                currentColor.g = color.g;
+                currentColor.b = color.b;
+                currentColor.a = color.a !== undefined ? color.a : 1;
+                updateAllDisplays();
+            }
+        });
+        
+        // HEX到RGB
+        function hexToRgb(hex) {
+            hex = hex.replace('#', '');
+            
+            if (hex.length === 3) {
+                hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+            }
+            
+            if (hex.length !== 6 && hex.length !== 8) return null;
+            
+            const r = parseInt(hex.substring(0, 2), 16);
+            const g = parseInt(hex.substring(2, 4), 16);
+            const b = parseInt(hex.substring(4, 6), 16);
+            let a = 1;
+            
+            if (hex.length === 8) {
+                a = parseInt(hex.substring(6, 8), 16) / 255;
+            }
+            
+            return { r, g, b, a };
+        }
+        
+        // 复制颜色
+        function copyColor(format) {
+            let text = '';
+            const a = currentColor.a !== undefined ? currentColor.a : 1;
+            
+            if (format === 'hex') {
+                text = rgbToHex(currentColor.r, currentColor.g, currentColor.b, Math.round(a * 255));
+            } else if (format === 'rgb') {
+                text = `rgb(${currentColor.r}, ${currentColor.g}, ${currentColor.b}` + (a < 1 ? `, ${a})` : ')');
+            } else if (format === 'hsl') {
+                const hsl = rgbToHsl(currentColor.r, currentColor.g, currentColor.b);
+                text = `hsl(${Math.round(hsl.h)}, ${Math.round(hsl.s * 100)}%, ${Math.round(hsl.l * 100)}%` + (a < 1 ? `, ${a})` : ')');
+            }
+            
+            if (text) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast(`已复制 ${format.toUpperCase()} 值: ${text}`);
+                });
+            }
+        }
+        
+        // 添加到调色板
+        function addToPalette() {
+            const hex = rgbToHex(currentColor.r, currentColor.g, currentColor.b);
+            if (!paletteColors.some(c => c.hex === hex)) {
+                paletteColors.push({ r: currentColor.r, g: currentColor.g, b: currentColor.b, a: currentColor.a, hex });
+                if (paletteColors.length > 10) {
+                    paletteColors.shift();
+                }
+                renderPalette();
+                showToast('颜色已添加到调色板！');
+            } else {
+                showToast('该颜色已在调色板中！');
+            }
+        }
+        
+        // 渲染调色板
+        function renderPalette() {
+            paletteGrid.innerHTML = '';
+            paletteColors.forEach((color, index) => {
+                const div = document.createElement('div');
+                div.className = 'palette-color';
+                div.style.background = `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a || 1})`;
+                div.innerHTML = `<span class="palette-color-hex">${color.hex}</span>`;
+                div.onclick = () => selectFromPalette(index);
+                paletteGrid.appendChild(div);
+            });
+        }
+        
+        // 从调色板选择
+        function selectFromPalette(index) {
+            const color = paletteColors[index];
+            currentColor = { ...color };
+            updateAllDisplays();
+        }
+        
+        // 添加到历史记录
+        function addToHistory() {
+            const hex = rgbToHex(currentColor.r, currentColor.g, currentColor.b);
+            if (!historyColors.some(c => c.hex === hex)) {
+                historyColors.unshift({ r: currentColor.r, g: currentColor.g, b: currentColor.b, a: currentColor.a, hex });
+                if (historyColors.length > 8) {
+                    historyColors.pop();
+                }
+                renderHistory();
+            }
+        }
+        
+        // 渲染历史记录
+        function renderHistory() {
+            historyColorsContainer.innerHTML = '';
+            historyColors.forEach((color, index) => {
+                const div = document.createElement('div');
+                div.className = 'history-color';
+                div.style.background = `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a || 1})`;
+                div.title = color.hex;
+                div.onclick = () => selectFromHistory(index);
+                historyColorsContainer.appendChild(div);
+            });
+        }
+        
+        // 从历史记录选择
+        function selectFromHistory(index) {
+            const color = historyColors[index];
+            currentColor = { ...color };
+            updateAllDisplays();
+        }
+        
+        // 清空调色板
+        function clearPalette() {
+            paletteColors = [];
+            renderPalette();
+            showToast('调色板已清空！');
+        }
+        
+        // 清空历史记录
+        function clearHistory() {
+            historyColors = [];
+            renderHistory();
+            showToast('历史记录已清空！');
+        }
+        
+        // 导出调色板
+        function exportPalette() {
+            if (paletteColors.length === 0) {
+                showToast('调色板为空！');
+                return;
+            }
+            
+            let text = '调色板颜色:\n\n';
+            paletteColors.forEach((color, index) => {
+                text += `${index + 1}. ${color.hex} - RGB(${color.r}, ${color.g}, ${color.b})\n`;
+            });
+            
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('调色板已复制到剪贴板！');
+            });
+        }
+        
+        // 生成随机颜色
+        function generateRandomColor() {
+            currentColor.r = Math.floor(Math.random() * 256);
+            currentColor.g = Math.floor(Math.random() * 256);
+            currentColor.b = Math.floor(Math.random() * 256);
+            currentColor.a = 1;
+            updateAllDisplays();
+        }
+        
+        // 切换颜色模式
+        function toggleColorMode() {
+            isLightMode = !isLightMode;
+            colorModeText.textContent = isLightMode ? '切换深色模式' : '切换深色模式';
+            
+            // 这里可以添加亮色模式的样式切换
+            // document.body.classList.toggle('light-mode');
+            
+            showToast(isLightMode ? '已切换到亮色模式' : '已切换到深色模式');
+        }
+        
+        // 设置活跃格式
+        function setActiveFormat(format) {
+            document.querySelectorAll('.format-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-format="${format}"]`).classList.add('active');
+        }
+        
+        // Toast提示
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'position-fixed bottom-0 start-50 translate-middle-x p-3 bg-primary text-white rounded-top shadow mb-4';
+            toast.style.zIndex = 10001;
+            toast.style.transition = 'opacity 0.3s';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => document.body.removeChild(toast), 300);
+            }, 2000);
+        }
+        
+        // 初始化
+        initColorCanvas();
+        renderPalette();
+        renderHistory();
+        updateAllDisplays();
+    </script>
+</body>
+</html>

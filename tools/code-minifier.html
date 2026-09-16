@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>代码压缩工具 - 在线工具箱</title>
+    <meta name="description" content="在线代码压缩工具，支持JavaScript、CSS、HTML压缩，去除空白、注释，减小文件体积，提升网页加载速度">
+    <meta name="keywords" content="代码压缩,JavaScript压缩,CSS压缩,HTML压缩,在线压缩,代码优化">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <style>
+        .code-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .code-panel {
+            background: #1a1a2e;
+            border: 1px solid #0f3460;
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #0f3460;
+        }
+        
+        .panel-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #e8e8e8;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .panel-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .code-area {
+            flex: 1;
+            background: transparent;
+            color: #e8e8e8;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            border: none;
+            resize: none;
+            outline: none;
+            overflow: auto;
+            min-height: 300px;
+        }
+        
+        .code-area::placeholder {
+            color: #6c757d;
+        }
+        
+        .code-result {
+            flex: 1;
+            background: transparent;
+            color: #e8e8e8;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            border: none;
+            resize: none;
+            overflow: auto;
+            min-height: 300px;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        
+        .option-panel {
+            background: #16213e;
+            border: 1px solid #0f3460;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .option-group {
+            margin-bottom: 15px;
+        }
+        
+        .option-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        .option-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #e8e8e8;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .option-select {
+            width: 100%;
+            padding: 8px 12px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid #0f3460;
+            border-radius: 6px;
+            color: #e8e8e8;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        
+        .btn-action {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .btn-compress {
+            background: #0d6efd;
+            border: 1px solid #0d6efd;
+            color: white;
+        }
+        
+        .btn-compress:hover {
+            background: #0b5ed7;
+            border-color: #0b5ed7;
+            transform: translateY(-1px);
+        }
+        
+        .btn-copy {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid #0f3460;
+            color: #e8e8e8;
+        }
+        
+        .btn-copy:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: #0d6efd;
+            color: #0d6efd;
+            transform: translateY(-1px);
+        }
+        
+        .btn-clear {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid #dc3545;
+            color: #dc3545;
+        }
+        
+        .btn-clear:hover {
+            background: rgba(220,53,69,0.1);
+            border-color: #dc3545;
+            color: #ff6b6b;
+            transform: translateY(-1px);
+        }
+        
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 10px;
+            border-top: 1px solid #0f3460;
+        }
+        
+        .stat-item {
+            font-size: 13px;
+            color: #adb5bd;
+        }
+        
+        .compression-result {
+            font-size: 14px;
+            color: #28a745;
+            font-weight: 600;
+        }
+        
+        .compression-warning {
+            font-size: 14px;
+            color: #ffc107;
+            font-weight: 600;
+        }
+        
+        .code-language-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            font-size: 11px;
+            color: #0d6efd;
+            border: 1px solid #0d6efd;
+        }
+        
+        @media (max-width: 992px) {
+            .code-container {
+                grid-template-columns: 1fr;
+            }
+            .code-panel {
+                min-height: 350px;
+            }
+        }
+        
+        .syntax-hint {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+    </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8795586167197548" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-tools me-2"></i>在线工具箱
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">首页</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/blog">技术博客</a></li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/pages/about.html">关于我们</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/contact.html">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="text-center my-3">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8795586167197548" data-ad-slot="728x90_banner" data-ad-format="728x90" data-full-width-responsive="true"></ins>
+    </div>
+
+    <main class="container my-4">
+        <div class="text-center mb-4 fade-in">
+            <h1 class="display-5 fw-bold mb-3"><i class="fas fa-compress me-2"></i> 代码压缩工具</h1>
+            <p class="lead text-muted">在线压缩JavaScript、CSS、HTML代码，去除空白和注释，减小文件体积</p>
+        </div>
+
+        <div class="option-panel">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="option-group">
+                        <label class="option-label">代码类型</label>
+                        <select id="codeType" class="option-select" onchange="updateExamples()">
+                            <option value="javascript">JavaScript</option>
+                            <option value="css">CSS</option>
+                            <option value="html">HTML</option>
+                        </select>
+                        <span class="code-language-badge" id="langBadge">JavaScript</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="option-group">
+                        <label class="option-label">压缩级别</label>
+                        <select id="compressLevel" class="option-select">
+                            <option value="normal">普通压缩（保留部分格式）</option>
+                            <option value="aggressive" selected>激进压缩（最大压缩）</option>
+                            <option value="custom">自定义</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-3 mt-2">
+                <div class="col-12 col-md-6">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="removeComments" checked>
+                        <label class="form-check-label" style="color: #e8e8e8; font-size: 14px;">去除注释</label>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="removeWhitespace" checked>
+                        <label class="form-check-label" style="color: #e8e8e8; font-size: 14px;">去除空白</label>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="minifyNames" checked>
+                        <label class="form-check-label" style="color: #e8e8e8; font-size: 14px;">压缩变量名</label>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="preserveLineBreaks">
+                        <label class="form-check-label" style="color: #e8e8e8; font-size: 14px;">保留换行</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="code-container">
+            <div class="code-panel">
+                <div class="panel-header">
+                    <span class="panel-title">
+                        <i class="fas fa-code"></i> 源代码
+                    </span>
+                    <span class="panel-actions">
+                        <button class="btn-action btn-clear" onclick="clearInput()">
+                            <i class="fas fa-trash"></i> 清空
+                        </button>
+                        <button class="btn-action" onclick="loadExample()" style="background: rgba(255,255,255,0.1); border: 1px solid #0f3460; color: #e8e8e8;">
+                            <i class="fas fa-file-import"></i> 示例
+                        </button>
+                    </span>
+                </div>
+                <textarea class="code-area" id="sourceCode" placeholder="在这里输入需要压缩的代码...
+
+// 示例代码
+function helloWorld() {
+    // 这是一个注释
+    const message = 'Hello, World!';
+    console.log(message);
+    return message;
+} 
+
+// 调用函数
+helloWorld();"></textarea>
+            </div>
+            <div class="code-panel">
+                <div class="panel-header">
+                    <span class="panel-title">
+                        <i class="fas fa-compress-alt"></i> 压缩结果
+                    </span>
+                    <span class="panel-actions">
+                        <button class="btn-action btn-copy" onclick="copyResult()">
+                            <i class="fas fa-copy"></i> 复制
+                        </button>
+                        <button class="btn-action" onclick="downloadResult()" style="background: rgba(255,255,255,0.1); border: 1px solid #0f3460; color: #e8e8e8;">
+                            <i class="fas fa-download"></i> 下载
+                        </button>
+                    </span>
+                </div>
+                <div class="code-result" id="resultCode"></div>
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <i class="fas fa-file-code me-1"></i> 原始大小: <span id="originalSize">0 B</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-compress me-1"></i> 压缩大小: <span id="compressedSize">0 B</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-percentage me-1"></i> 压缩率: <span id="compressionRate">0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <button class="btn btn-primary btn-lg btn-compress" onclick="compressCode()">
+                <i class="fas fa-compress me-2"></i> 压缩代码
+            </button>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title mb-3"><i class="fas fa-info-circle me-2 text-primary"></i> 代码压缩说明</h5>
+                <p class="card-text">
+                    <strong>为什么要压缩代码？</strong>
+                </p>
+                <ul>
+                    <li><strong>减小文件体积：</strong> 压缩后的JavaScript/CSS文件可以减少50-80%的体积，显著提升网页加载速度</li>
+                    <li><strong>减少HTTP请求：</strong> 更小的文件意味着更快的下载速度，改善用户体验</li>
+                    <li><strong>节省带宽：</strong> 对于高流量网站，压缩可以显著降低服务器带宽成本</li>
+                    <li><strong>SEO优化：</strong> 页面加载速度是搜索引擎排名的重要因素，压缩有助于SEO</li>
+                </ul>
+                <p class="card-text mt-3">
+                    <strong>注意事项：</strong>
+                </p>
+                <ul>
+                    <li>压缩后的代码难以阅读和调试，建议保留原始文件</li>
+                    <li>激进压缩可能会改变代码行为，请谨慎使用</li>
+                    <li>压缩前请确保代码已完成测试</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card mt-3">
+            <div class="card-body">
+                <h5 class="card-title mb-3"><i class="fas fa-lightbulb me-2 text-warning"></i> 压缩技巧</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>JavaScript压缩技巧</h6>
+                        <ul>
+                            <li>使用<code>const</code>和<code>let</code>代替<code>var</code></li>
+                            <li>使用箭头函数简化代码</li>
+                            <li>使用字符串模板代替连接运算符</li>
+                            <li>去除多余的分号和空格</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>CSS压缩技巧</h6>
+                        <ul>
+                            <li>合并重复的选择器</li>
+                            <li>使用缩写属性（如<code>margin</code>）</li>
+                            <li>使用16进制颜色缩写（如<code>#fff</code>）</li>
+                            <li>去除注释和空白</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="text-center my-4">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8795586167197548" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    </div>
+
+    <footer class="bg-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-3">在线工具箱</h5>
+                    <p class="text-muted small">提供免费、易用的在线工具，帮助开发者和普通用户高效完成日常任务。</p>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">快速链接</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/pages/about.html" class="text-decoration-none">关于我们</a></li>
+                        <li class="mb-2"><a href="/pages/contact.html" class="text-decoration-none">联系我们</a></li>
+                        <li class="mb-2"><a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">推荐工具</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/tools/json-formatter.html" class="text-decoration-none">JSON格式化</a></li>
+                        <li class="mb-2"><a href="/tools/markdown-editor.html" class="text-decoration-none">Markdown编辑器</a></li>
+                        <li class="mb-2"><a href="/tools/code-formatter.html" class="text-decoration-none">代码格式化</a></li>
+                        <li class="mb-2"><a href="/tools/text-tools.html" class="text-decoration-none">文本处理</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center text-muted small">
+                <p>Copyright © 2024-2025 在线工具箱 | <a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/assets/js/error-tracking.js"></script>
+    <script>
+        const sourceCode = document.getElementById('sourceCode');
+        const resultCode = document.getElementById('resultCode');
+        const codeTypeSelect = document.getElementById('codeType');
+        const compressLevel = document.getElementById('compressLevel');
+        const removeComments = document.getElementById('removeComments');
+        const removeWhitespace = document.getElementById('removeWhitespace');
+        const minifyNames = document.getElementById('minifyNames');
+        const preserveLineBreaks = document.getElementById('preserveLineBreaks');
+        const originalSizeSpan = document.getElementById('originalSize');
+        const compressedSizeSpan = document.getElementById('compressedSize');
+        const compressionRateSpan = document.getElementById('compressionRate');
+        const langBadge = document.getElementById('langBadge');
+
+        // 示例代码
+        const examples = {
+            javascript: `// JavaScript示例代码
+// 这是一个完整的JavaScript函数
+
+/**
+ * 计算两个数的和
+ * @param {number} a - 第一个数
+ * @param {number} b - 第二个数
+ * @returns {number} 两个数的和
+ */
+function addNumbers(a, b) {
+    // 验证输入
+    if (typeof a !== 'number' || typeof b !== 'number') {
+        throw new Error('参数必须是数字');
+    }
+    
+    // 计算结果
+    const result = a + b;
+    
+    // 返回结果
+    return result;
+}
+
+// 使用示例
+const num1 = 10;
+const num2 = 20;
+const sum = addNumbers(num1, num2);
+
+// 输出结果
+console.log('结果:', sum);
+
+// 定义一个对象
+const user = {
+    name: '张三',
+    age: 25,
+    email: 'zhangsan@example.com',
+    
+    // 方法
+    getInfo: function() {
+        return this.name + ' (' + this.age + ') - ' + this.email;
+    }
+};
+
+// 使用对象
+console.log(user.getInfo());
+
+// 定义一个数组
+const numbers = [1, 2, 3, 4, 5];
+
+// 使用map方法
+const doubled = numbers.map(function(num) {
+    return num * 2;
+});
+
+console.log('倍增后的数组:', doubled);`,
+            
+            css: `/* CSS示例代码 */
+
+/* 重置默认样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 页面主体样式 */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333333;
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+/* 容器样式 */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* 标题样式 */
+h1 {
+    font-size: 2.5em;
+    color: #212529;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 2em;
+    color: #343a40;
+    margin-bottom: 15px;
+    font-weight: 600;
+    border-bottom: 2px solid #0d6efd;
+    padding-bottom: 10px;
+}
+
+/* 按钮样式 */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #0d6efd;
+    color: #ffffff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #0b5ed7;
+}
+
+/* 卡片样式 */
+.card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #dee2e6;
+}
+
+/* 表格样式 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th,
+table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+
+table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+table tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* 表单样式 */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* 工具类 */
+.text-center {
+    text-align: center;
+}
+
+.mt-3 {
+    margin-top: 15px;
+}
+
+.mb-3 {
+    margin-bottom: 15px;
+}`,
+            
+            html: `<!DOCTYPE html>
+<!-- HTML5文档类型声明 -->
+<html lang="zh-CN">
+<!-- 头部信息 -->
+<head>
+    <!-- 字符编码 -->
+    <meta charset="UTF-8">
+    
+    <!-- 视口设置 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- 页面标题 -->
+    <title>网页标题</title>
+    
+    <!-- 页面描述 -->
+    <meta name="description" content="这是一个示例网页">
+    
+    <!-- 页面关键词 -->
+    <meta name="keywords" content="示例, HTML, CSS, JavaScript">
+    
+    <!-- 样式表 -->
+    <style>
+        /* CSS样式 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        
+        .nav {
+            background-color: #333;
+            padding: 10px 0;
+        }
+        
+        .nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .nav a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .main {
+            padding: 20px 0;
+        }
+        
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 20px;
+        }
+    </style>
+    
+    <!-- 外部CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<!-- 主体内容 -->
+<body>
+    <!-- 头部 -->
+    <header class="header">
+        <h1>网站标题</h1>
+        <p>欢迎来到我们的网站</p>
+    </header>
+    
+    <!-- 导航栏 -->
+    <nav class="nav">
+        <ul>
+            <li><a href="#">首页</a></li>
+            <li><a href="#">关于</a></li>
+            <li><a href="#">服务</a></li>
+            <li><a href="#">联系</a></li>
+        </ul>
+    </nav>
+    
+    <!-- 主要内容 -->
+    <main class="main">
+        <div class="container">
+            <section class="hero">
+                <h2>英雄区域</h2>
+                <p>这是网站的主要介绍内容</p>
+                <button onclick="alert('点击了按钮')">立即开始</button>
+            </section>
+            
+            <section class="features">
+                <h3>功能特性</h3>
+                <ul>
+                    <li>特性1</li>
+                    <li>特性2</li>
+                    <li>特性3</li>
+                </ul>
+            </section>
+            
+            <section class="about">
+                <h3>关于我们</h3>
+                <p>公司简介和描述...</p>
+            </section>
+        </div>
+    </main>
+    
+    <!-- 尾部 -->
+    <footer class="footer">
+        <p>版权 © 2025 公司名称. 保留所有权利.</p>
+    </footer>
+    
+    <!-- 外部JavaScript -->
+    <script src="script.js"></script>
+    
+    <!-- 内联JavaScript -->
+    <script>
+        // JavaScript代码
+        function init() {
+            console.log('页面初始化');
+        }
+        
+        // 调用初始化函数
+        init();
+    </script>
+</body>
+</html>`
+        };
+
+        // 更新示例代码
+        function updateExamples() {
+            const type = codeTypeSelect.value;
+            langBadge.textContent = type.toUpperCase();
+            if (sourceCode.value.trim() === '') {
+                sourceCode.value = examples[type];
+                updateStats();
+            }
+        }
+
+        // 加载示例
+        function loadExample() {
+            const type = codeTypeSelect.value;
+            sourceCode.value = examples[type];
+            updateStats();
+        }
+
+        // 清空输入
+        function clearInput() {
+            sourceCode.value = '';
+            resultCode.textContent = '';
+            updateStats();
+        }
+
+        // 压缩代码
+        function compressCode() {
+            const code = sourceCode.value;
+            const type = codeTypeSelect.value;
+            const level = compressLevel.value;
+            const shouldRemoveComments = removeComments.checked;
+            const shouldRemoveWhitespace = removeWhitespace.checked;
+            const shouldMinifyNames = minifyNames.checked;
+            const shouldPreserveLineBreaks = preserveLineBreaks.checked;
+
+            if (!code.trim()) {
+                showToast('请输入要压缩的代码！', 'error');
+                return;
+            }
+
+            try {
+                let compressed = '';
+                
+                if (type === 'javascript') {
+                    compressed = compressJavaScript(code, level, shouldRemoveComments, shouldRemoveWhitespace, shouldMinifyNames, shouldPreserveLineBreaks);
+                } else if (type === 'css') {
+                    compressed = compressCSS(code, shouldRemoveComments, shouldRemoveWhitespace, shouldPreserveLineBreaks);
+                } else if (type === 'html') {
+                    compressed = compressHTML(code, shouldRemoveComments, shouldRemoveWhitespace, shouldPreserveLineBreaks);
+                }
+
+                resultCode.textContent = compressed;
+                updateStats();
+                showToast('代码压缩完成！', 'success');
+            } catch (e) {
+                showToast('压缩失败: ' + e.message, 'error');
+            }
+        }
+
+        // JavaScript压缩
+        function compressJavaScript(code, level, removeComments, removeWhitespace, minifyNames, preserveLineBreaks) {
+            // 移除单行注释
+            if (removeComments) {
+                code = code.replace(/\/\/[^\n]*/g, '');
+            }
+            
+            // 移除多行注释
+            if (removeComments) {
+                code = code.replace(/\/\*[\s\S]*?\*\//g, '');
+            }
+            
+            // 移除字符串中的空格（谨慎处理）
+            if (removeWhitespace) {
+                // 移除换行和tab
+                code = code.replace(/[\r\n\t]+/g, ' ');
+                
+                // 在特定字符附近移除空格
+                code = code.replace(/ +([,;{}()=+\-*/%<>!&|^~?:])\s*/g, '$1');
+                code = code.replace(/\s+([,;{}()=+\-*/%<>!&|^~?:])\s*/g, '$1');
+                
+                // 移除等号附近的空格
+                code = code.replace(/\s*=\s*/g, '=');
+                
+                // 移除分号前的空格
+                code = code.replace(/\s*;/g, ';');
+                
+                // 移除逗号前的空格
+                code = code.replace(/\s*,/g, ',');
+                
+                // 移除括号内的空格
+                code = code.replace(/(\(|\{|\ specialization\}|\[])\s+/g, '$1');
+                code = code.replace(/\s+(\)|\}|\]|:)/g, '$1');
+            }
+            
+            // 压缩变量名（简单实现）
+            if (minifyNames && level === 'aggressive') {
+                // 匹配var/let/const/function声明的变量
+                code = code.replace(/var (\w+)/g, 'var a');
+                code = code.replace(/let (\w+)/g, 'let b');
+                code = code.replace(/const (\w+)/g, 'const c');
+                code = code.replace(/function (\w+)/g, 'function d');
+                
+                // 替换重复的变量名（简化处理）
+                code = code.replace(/(\w+)(\s*=\s*[^;]+;)\s+\1/g, '$1$2');
+            }
+            
+            // 移除多余的空格
+            code = code.replace(/\s+/g, ' ');
+            
+            // 如果保留换行，则保留
+            if (!preserveLineBreaks) {
+                code = code.replace(/\s+/g, ' ');
+            }
+            
+            return code.trim();
+        }
+
+        // CSS压缩
+        function compressCSS(code, removeComments, removeWhitespace, preserveLineBreaks) {
+            // 移除注释
+            if (removeComments) {
+                code = code.replace(/\/\*[\s\S]*?\*\//g, '');
+            }
+            
+            // 移除空格
+            if (removeWhitespace) {
+                // 移除换行和tab
+                code = code.replace(/[\r\n\t]/g, ' ');
+                
+                // 移除选择器后的空格
+                code = code.replace(/\s+([,{}>~+])/g, '$1');
+                
+                // 移除属性值后的空格
+                code = code.replace(/([:;])\s+/g, '$1');
+                
+                // 移除冒号前的空格
+                code = code.replace(/\s*:\s*/g, ':');
+                
+                // 移除分号后的空格
+                code = code.replace(/;\s*/g, ';');
+                
+                // 移除逗号后的空格
+                code = code.replace(/,\s*/g, ',');
+                
+                // 移除括号内的空格
+                code = code.replace(/(\(|\{)\s+/g, '$1');
+                code = code.replace(/\s+(\)|\})/g, '$1');
+                
+                // 移除0后面的单位
+                code = code.replace(/0(px|em|rem|%)/g, '0');
+                
+                // 移除最后一个分号
+                code = code.replace(/;}/g, '}');
+            }
+            
+            // 合并重复的选择器
+            code = code.replace(/([^\{]+)\s*\{\s*\}/g, '');
+            
+            // 合并空格
+            code = code.replace(/\s+/g, ' ');
+            
+            if (!preserveLineBreaks) {
+                code = code.replace(/\s+/g, ' ');
+            }
+            
+            return code.trim();
+        }
+
+        // HTML压缩
+        function compressHTML(code, removeComments, removeWhitespace, preserveLineBreaks) {
+            // 移除注释
+            if (removeComments) {
+                code = code.replace(/<!--[\s\S]*?-->/g, '');
+            }
+            
+            // 移除空格
+            if (removeWhitespace) {
+                // 移除换行
+                code = code.replace(/[\r\n]/g, ' ');
+                
+                // 移除tag之间的空格
+                code = code.replace(/\s*(<[^>]+>)\s*/g, '$1');
+                
+                // 移除标签内的空格（保留必要的空格）
+                code = code.replace(/<(\w+) \s+([^>]*)>/g, '<$1 $2>');
+                
+                // 移除多余的空格
+                code = code.replace(/\s+/g, ' ');
+            }
+            
+            // 移除空属性
+            code = code.replace(/=""/g, '');
+            code = code.replace(/=\"\s*\"/g, '');
+            code = code.replace(/='\s*'/g, '');
+            
+            // 移除bool属性的值
+            code = code.replace(/=(true|false|checked|selected|disabled|readonly)/g, '=$1');
+            
+            if (!preserveLineBreaks) {
+                code = code.replace(/\s+/g, ' ');
+            }
+            
+            return code.trim();
+        }
+
+        // 复制结果
+        async function copyResult() {
+            const result = resultCode.textContent;
+            if (!result) {
+                showToast('没有内容可以复制！', 'error');
+                return;
+            }
+            
+            try {
+                await navigator.clipboard.writeText(result);
+                showToast('代码已复制到剪贴板！', 'success');
+            } catch (e) {
+                // 降级方案
+                const textarea = document.createElement('textarea');
+                textarea.value = result;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showToast('代码已复制到剪贴板！', 'success');
+            }
+        }
+
+        // 下载结果
+        function downloadResult() {
+            const result = resultCode.textContent;
+            if (!result) {
+                showToast('没有内容可以下载！', 'error');
+                return;
+            }
+            
+            const type = codeTypeSelect.value;
+            const extension = type === 'javascript' ? 'js' : type === 'css' ? 'css' : 'html';
+            const blob = new Blob([result], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'minified.' + extension;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('文件已下载！', 'success');
+        }
+
+        // 更新统计信息
+        function updateStats() {
+            const original = sourceCode.value;
+            const compressed = resultCode.textContent;
+            
+            originalSizeSpan.textContent = formatBytes(original.length);
+            compressedSizeSpan.textContent = compressed ? formatBytes(compressed.length) : '0 B';
+            
+            if (compressed && original.length > 0) {
+                const rate = ((original.length - compressed.length) / original.length * 100).toFixed(1);
+                compressionRateSpan.textContent = rate + '%';
+                compressionRateSpan.className = rate > 0 ? 'compression-result' : 'compression-warning';
+            } else {
+                compressionRateSpan.textContent = '0%';
+                compressionRateSpan.className = 'compression-warning';
+            }
+        }
+
+        // 格式化字节数
+        function formatBytes(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+        }
+
+        // Toast提示
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = 'position-fixed bottom-0 start-50 translate-middle-x p-3 rounded-top shadow mb-4';
+            toast.style.zIndex = 10001;
+            toast.style.transition = 'opacity 0.3s';
+            toast.style.color = type === 'error' ? '#dc3545' : '#28a745';
+            
+            if (type === 'success') {
+                toast.style.background = '#d4edda';
+            } else {
+                toast.style.background = '#f8d7da';
+            }
+            
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => document.body.removeChild(toast), 300);
+            }, 2000);
+        }
+
+        // 初始化
+        updateStats();
+        updateExamples();
+        
+        // 绑定事件
+        sourceCode.addEventListener('input', updateStats);
+    </script>
+</body>
+</html>

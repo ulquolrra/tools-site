@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTTP状态码查询 - 在线工具箱</title>
+    <meta name="description" content="HTTP状态码查询工具，查询500+个HTTP状态码的含义、描述和解决方案，支持分类搜索、快速查询">
+    <meta name="keywords" content="HTTP状态码,状态码查询,404,500,200,1xx,2xx,3xx,4xx,5xx,Restful API">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <style>
+        .status-code-container {
+            background: #1a1a2e;
+            border: 1px solid #0f3460;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .search-container {
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .search-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 10px 15px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid #0f3460;
+            border-radius: 6px;
+            color: #e8e8e8;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #0d6efd;
+        }
+        
+        .search-select {
+            padding: 10px 15px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid #0f3460;
+            border-radius: 6px;
+            color: #e8e8e8;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        
+        .category-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .category-tag {
+            padding: 6px 12px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid #0f3460;
+            border-radius: 20px;
+            color: #e8e8e8;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .category-tag:hover {
+            background: #0d6efd;
+            border-color: #0d6efd;
+        }
+        
+        .category-tag.active {
+            background: #0d6efd;
+            border-color: #0d6efd;
+        }
+        
+        .status-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid #0f3460;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            transition: all 0.2s;
+        }
+        
+        .status-card:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: #0d6efd;
+            transform: translateX(5px);
+        }
+        
+        .status-code {
+            font-size: 24px;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .status-1xx { color: #0dcaf0; }
+        .status-2xx { color: #28a745; }
+        .status-3xx { color: #ffc107; }
+        .status-4xx { color: #fd7e14; }
+        .status-5xx { color: #dc3545; }
+        
+        .status-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        
+        .status-category {
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .category-1xx { background: rgba(13, 202, 240, 0.2); color: #0dcaf0; }
+        .category-2xx { background: rgba(40, 167, 69, 0.2); color: #28a745; }
+        .category-3xx { background: rgba(255, 193, 7, 0.2); color: #ffc107; }
+        .category-4xx { background: rgba(253, 126, 20, 0.2); color: #fd7e14; }
+        .category-5xx { background: rgba(220, 53, 69, 0.2); color: #dc3545; }
+        
+        .status-description {
+            color: #adb5bd;
+            font-size: 14px;
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        
+        .status-detail {
+            background: rgba(0,0,0,0.2);
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 10px;
+            font-size: 13px;
+            color: #e8e8e8;
+        }
+        
+        .status-detail strong {
+            color: #0d6efd;
+        }
+        
+        .quick-access {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid #0f3460;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .quick-access-title {
+            font-size: 14px;
+            color: #e8e8e8;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .quick-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .quick-btn {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid #0f3460;
+            border-radius: 6px;
+            color: #e8e8e8;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .quick-btn:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: #0d6efd;
+            transform: translateY(-2px);
+        }
+        
+        .results-info {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid #0f3460;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #adb5bd;
+            font-size: 13px;
+        }
+        
+        .results-count {
+            font-weight: 600;
+            color: #0d6efd;
+        }
+        
+        .results-container {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #adb5bd;
+            font-size: 14px;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+            font-size: 14px;
+        }
+        
+        .status-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .copy-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid #0f3460;
+            border-radius: 4px;
+            padding: 4px 8px;
+            color: #e8e8e8;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .copy-btn:hover {
+            background: #0d6efd;
+            border-color: #0d6efd;
+        }
+        
+        @media (max-width: 768px) {
+            .search-input-group {
+                flex-direction: column;
+            }
+            
+            .quick-buttons {
+                flex-direction: column;
+            }
+            
+            .quick-btn {
+                width: 100%;
+            }
+        }
+        
+        .filter-panel {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid #0f3460;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .filter-title {
+            font-size: 14px;
+            color: #e8e8e8;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .filter-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+        
+        .filter-row:last-child {
+            margin-bottom: 0;
+        }
+        
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #adb5bd;
+        }
+        
+        .filter-group input[type="radio"],
+        .filter-group input[type="checkbox"] {
+            cursor: pointer;
+        }
+        
+        .filter-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            font-size: 12px;
+            color: #e8e8e8;
+        }
+        
+        .common-codes {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid #0f3460;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .common-title {
+            font-size: 14px;
+            color: #e8e8e8;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .common-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        
+        .common-code {
+            padding: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .common-code:hover {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid #0d6efd;
+            transform: translateY(-2px);
+        }
+        
+        .common-code .code-value {
+            font-size: 18px;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .common-code .code-label {
+            font-size: 11px;
+            color: #adb5bd;
+            margin-top: 4px;
+        }
+    </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8795586167197548" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-tools me-2"></i>在线工具箱
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">首页</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/blog">技术博客</a></li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/pages/about.html">关于我们</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/contact.html">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="text-center my-3">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8795586167197548" data-ad-slot="728x90_banner" data-ad-format="728x90" data-full-width-responsive="true"></ins>
+    </div>
+
+    <main class="container my-4">
+        <div class="text-center mb-4 fade-in">
+            <h1 class="display-5 fw-bold mb-3"><i class="fas fa-server me-2"></i> HTTP状态码查询</h1>
+            <p class="lead text-muted">查询500+个HTTP状态码的含义、描述和解决方案</p>
+        </div>
+
+        <div class="quick-access">
+            <div class="quick-access-title"><i class="fas fa-bolt me-2"></i> 快速访问</div>
+            <div class="quick-buttons">
+                <button class="quick-btn" onclick="quickSearch('200')">200 OK</button>
+                <button class="quick-btn" onclick="quickSearch('201')">201 Created</button>
+                <button class="quick-btn" onclick="quickSearch('204')">204 No Content</button>
+                <button class="quick-btn" onclick="quickSearch('301')">301 Moved</button>
+                <button class="quick-btn" onclick="quickSearch('302')">302 Found</button>
+                <button class="quick-btn" onclick="quickSearch('304')">304 Not Modified</button>
+                <button class="quick-btn" onclick="quickSearch('400')">400 Bad Request</button>
+                <button class="quick-btn" onclick="quickSearch('401')">401 Unauthorized</button>
+                <button class="quick-btn" onclick="quickSearch('403')">403 Forbidden</button>
+                <button class="quick-btn" onclick="quickSearch('404')">404 Not Found</button>
+                <button class="quick-btn" onclick="quickSearch('405')">405 Method Not Allowed</button>
+                <button class="quick-btn" onclick="quickSearch('500')">500 Server Error</button>
+                <button class="quick-btn" onclick="quickSearch('502')">502 Bad Gateway</button>
+                <button class="quick-btn" onclick="quickSearch('503')">503 Service Unavailable</button>
+                <button class="quick-btn" onclick="quickSearch('504')">504 Gateway Timeout</button>
+            </div>
+        </div>
+
+        <div class="search-container">
+            <div class="search-input-group">
+                <input type="text" class="search-input" id="searchInput" placeholder="搜索状态码或描述...">
+                <select class="search-select" id="categoryFilter">
+                    <option value="">所有分类</option>
+                    <option value="1">信息响应 (1xx)</option>
+                    <option value="2">成功响应 (2xx)</option>
+                    <option value="3">重定向 (3xx)</option>
+                    <option value="4">客户端错误 (4xx)</option>
+                    <option value="5">服务器错误 (5xx)</option>
+                </select>
+                <button class="btn btn-primary" onclick="searchStatusCodes()">
+                    <i class="fas fa-search"></i> 搜索
+                </button>
+            </div>
+            
+            <div class="category-tags">
+                <button class="category-tag active" data-category="" onclick="filterByCategory('')">全部</button>
+                <button class="category-tag" data-category="1" onclick="filterByCategory('1')">1xx 信息</button>
+                <button class="category-tag" data-category="2" onclick="filterByCategory('2')">2xx 成功</button>
+                <button class="category-tag" data-category="3" onclick="filterByCategory('3')">3xx 重定向</button>
+                <button class="category-tag" data-category="4" onclick="filterByCategory('4')">4xx 客户端</button>
+                <button class="category-tag" data-category="5" onclick="filterByCategory('5')">5xx 服务器</button>
+                <button class="category-tag" data-category="webdav" onclick="filterByCategory('webdav')">WebDAV</button>
+                <button class="category-tag" data-category="custom" onclick="filterByCategory('custom')">自定义</button>
+            </div>
+        </div>
+
+        <div class="filter-panel">
+            <div class="filter-title"><i class="fas fa-filter me-2"></i> 筛选器</div>
+            <div class="filter-row">
+                <div class="filter-group">
+                    <input type="checkbox" id="filterCommon" checked onchange="applyFilters()">
+                    <label for="filterCommon">常见状态码</label>
+                </div>
+                <div class="filter-group">
+                    <input type="checkbox" id="filterOfficial" checked onchange="applyFilters()">
+                    <label for="filterOfficial">官方标准</label>
+                </div>
+                <div class="filter-group">
+                    <input type="checkbox" id="filterSuccess" onchange="applyFilters()">
+                    <label for="filterSuccess">成功响应</label>
+                </div>
+                <div class="filter-group">
+                    <input type="checkbox" id="filterError" onchange="applyFilters()">
+                    <label for="filterError">错误响应</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="results-info" id="resultsInfo">
+            <span><i class="fas fa-list me-1"></i> 显示所有状态码</span>
+            <span class="results-count"><i class="fas fa-database me-1"></i> 共 0 条</span>
+        </div>
+
+        <div class="results-container" id="resultsContainer">
+            <div class="loading"><i class="fas fa-spinner fa-spin me-2"></i> 正在加载...</div>
+        </div>
+
+        <div class="common-codes">
+            <div class="common-title"><i class="fas fa-star me-2"></i> 常见状态码速查</div>
+            <div class="common-grid" id="commonCodesGrid">
+            </div>
+        </div>
+
+        <div class="status-code-container" id="statusDetailsContainer">
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title mb-3"><i class="fas fa-info-circle me-2 text-primary"></i> HTTP状态码说明</h5>
+                <p class="card-text">
+                    <strong>什么是HTTP状态码？</strong>
+                </p>
+                <p class="card-text text-muted">
+                    HTTP状态码是服务器用来响应客户端请求的三位数字代码。它告诉客户端请求是否成功，或者需要采取什么行动。
+                </p>
+                
+                <h6 class="mt-3"><i class="fas fa-list me-2"></i> 状态码分类</h6>
+                <div class="table-responsive">
+                    <table class="table table-sm table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="width: 80px;">分类</th>
+                                <th>范围</th>
+                                <th>含义</th>
+                                <th>示例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center"><span class="badge bg-info">1xx</span></td>
+                                <td>100-199</td>
+                                <td>信息响应 - 请求已收到，继续处理</td>
+                                <td>100 Continue, 101 Switching Protocols</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center"><span class="badge bg-success">2xx</span></td>
+                                <td>200-299</td>
+                                <td>成功响应 - 请求成功处理</td>
+                                <td>200 OK, 201 Created, 204 No Content</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center"><span class="badge bg-warning text-dark">3xx</span></td>
+                                <td>300-399</td>
+                                <td>重定向 - 需要进一步操作完成请求</td>
+                                <td>301 Moved Permanently, 302 Found, 304 Not Modified</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center"><span class="badge bg-danger">4xx</span></td>
+                                <td>400-499</td>
+                                <td>客户端错误 - 请求包含语法错误或无法完成</td>
+                                <td>400 Bad Request, 404 Not Found, 403 Forbidden</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center"><span class="badge bg-secondary">5xx</span></td>
+                                <td>500-599</td>
+                                <td>服务器错误 - 服务器无法完成有效请求</td>
+                                <td>500 Internal Server Error, 502 Bad Gateway, 503 Service Unavailable</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <p class="card-text mt-3">
+                    <strong>注意事项：</strong>
+                </p>
+                <ul class="text-muted">
+                    <li>1xx和2xx表示请求处理正常</li>
+                    <li>3xx表示需要客户端进一步处理</li>
+                    <li>4xx表示客户端错误，需要修改请求</li>
+                    <li>5xx表示服务器错误，通常需要服务器端修复</li>
+                    <li>并非所有状态码都是标准的，有些是服务器自定义的</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card mt-3">
+            <div class="card-body">
+                <h5 class="card-title mb-3"><i class="fas fa-lightbulb me-2 text-warning"></i> 状态码最佳实践</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>API设计建议</h6>
+                        <ul class="text-muted">
+                            <li><strong>200 OK：</strong> GET、PUT请求成功，返回完整资源</li>
+                            <li><strong>201 Created：</strong> POST请求成功，资源已创建，返回资源位置</li>
+                            <li><strong>204 No Content：</strong> DELETE请求成功，不返回实体内容</li>
+                            <li><strong>400 Bad Request：</strong> 客户端参数错误，需要修正</li>
+                            <li><strong>401 Unauthorized：</strong> 需要身份验证，请提供凭证</li>
+                            <li><strong>403 Forbidden：</strong> 无权限访问，拒绝请求</li>
+                            <li><strong>404 Not Found：</strong> 资源不存在</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>常见错误处理</h6>
+                        <ul class="text-muted">
+                            <li><strong>500 Server Error：</strong> 服务器内部错误，检查日志</li>
+                            <li><strong>502 Bad Gateway：</strong> 网关错误，检查代理配置</li>
+                            <li><strong>503 Service Unavailable：</strong> 服务暂时不可用</li>
+                            <li><strong>504 Gateway Timeout：</strong> 网关超时，检查后端连接</li>
+                            <li><strong>429 Too Many Requests：</strong> 请求过多，限流保护</li>
+                            <li><strong>405 Method Not Allowed：</strong> HTTP方法不支持</li>
+                            <li><strong>415 Unsupported Media Type：</strong> 不支持的媒体类型</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="text-center my-4">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8795586167197548" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    </div>
+
+    <footer class="bg-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-3">在线工具箱</h5>
+                    <p class="text-muted small">提供免费、易用的在线工具，帮助开发者和普通用户高效完成日常任务。</p>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">快速链接</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/pages/about.html" class="text-decoration-none">关于我们</a></li>
+                        <li class="mb-2"><a href="/pages/contact.html" class="text-decoration-none">联系我们</a></li>
+                        <li class="mb-2"><a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">推荐工具</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/tools/json-formatter.html" class="text-decoration-none">JSON格式化</a></li>
+                        <li class="mb-2"><a href="/tools/code-formatter.html" class="text-decoration-none">代码格式化</a></li>
+                        <li class="mb-2"><a href="/tools/markdown-editor.html" class="text-decoration-none">Markdown编辑器</a></li>
+                        <li class="mb-2"><a href="/tools/text-tools.html" class="text-decoration-none">文本处理</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center text-muted small">
+                <p>Copyright © 2024-2025 在线工具箱 | <a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/error-tracking.js"></script>
+    <script>
+        // HTTP状态码数据
+        const statusCodes = [
+            // 1xx Informational
+            { code: 100, message: 'Continue', category: 1, description: '继续。客户端应继续发送请求头', official: true, common: true },
+            { code: 101, message: 'Switching Protocols', category: 1, description: '切换协议。服务器将切换协议', official: true, common: true },
+            { code: 102, message: 'Processing', category: 1, description: '处理将被继续执行', official: true, common: false },
+            { code: 103, message: 'Early Hints', category: 1, description: '预先提示，用于预加载资源', official: true, common: false },
+            
+            // 2xx Success
+            { code: 200, message: 'OK', category: 2, description: '请求成功。服务器成功返回请求的数据', official: true, common: true, success: true },
+            { code: 201, message: 'Created', category: 2, description: '已创建。请求成功且服务器创建了新的资源', official: true, common: true, success: true },
+            { code: 202, message: 'Accepted', category: 2, description: '已接受。服务器已接受请求但尚未处理完成', official: true, common: true, success: true },
+            { code: 203, message: 'Non-Authoritative Information', category: 2, description: '非授权信息。请求成功但返回的元信息不是原始服务器的', official: true, common: false, success: true },
+            { code: 204, message: 'No Content', category: 2, description: '无内容。服务器成功处理请求但不返回任何内容', official: true, common: true, success: true },
+            { code: 205, message: 'Reset Content', category: 2, description: '重置内容。服务器成功处理请求但不返回任何内容，要求客户端重置文档视图', official: true, common: false, success: true },
+            { code: 206, message: 'Partial Content', category: 2, description: '部分内容。服务器成功处理了部分GET请求', official: true, common: true, success: true },
+            { code: 207, message: 'Multi-Status', category: 2, description: '多状态。返回多个资源的状态', official: true, common: false, success: true, webdav: true },
+            { code: 208, message: 'Already Reported', category: 2, description: '已报告。成员已经在之前的响应中返回', official: true, common: false, success: true, webdav: true },
+            { code: 226, message: 'IM Used', category: 2, description: '服务器已经满足了请求所做的部分GET请求', official: true, common: false, success: true },
+            
+            // 3xx Redirection
+            { code: 300, message: 'Multiple Choices', category: 3, description: '多种选择。请求的资源有多个选择', official: true, common: true },
+            { code: 301, message: 'Moved Permanently', category: 3, description: '永久移动。请求的资源已永久移动到新URI', official: true, common: true },
+            { code: 302, message: 'Found', category: 3, description: '临时移动。请求的资源已临时移动到新URI', official: true, common: true },
+            { code: 303, message: 'See Other', category: 3, description: '查看其他位置。请求的资源可以在其他URI找到', official: true, common: true },
+            { code: 304, message: 'Not Modified', category: 3, description: '未修改。资源未修改，可以使用缓存', official: true, common: true },
+            { code: 305, message: 'Use Proxy', category: 3, description: '使用代理。必须通过指定的代理访问资源', official: false, common: false },
+            { code: 306, message: 'Switch Proxy', category: 3, description: '切换代理。已被弃用', official: false, common: false },
+            { code: 307, message: 'Temporary Redirect', category: 3, description: '临时重定向。请求的资源已临时移动到新URI', official: true, common: true },
+            { code: 308, message: 'Permanent Redirect', category: 3, description: '永久重定向。请求的资源已永久移动到新URI', official: true, common: false },
+            
+            // 4xx Client Error
+            { code: 400, message: 'Bad Request', category: 4, description: '错误请求。服务器无法理解请求的语法', official: true, common: true, error: true },
+            { code: 401, message: 'Unauthorized', category: 4, description: '未授权。请求要求身份验证', official: true, common: true, error: true },
+            { code: 402, message: 'Payment Required', category: 4, description: '需要付款。保留用于将来使用', official: true, common: false, error: true },
+            { code: 403, message: 'Forbidden', category: 4, description: '禁止访问。服务器理解请求但拒绝执行', official: true, common: true, error: true },
+            { code: 404, message: 'Not Found', category: 4, description: '未找到。服务器找不到请求的资源', official: true, common: true, error: true },
+            { code: 405, message: 'Method Not Allowed', category: 4, description: '方法不允许。请求行中指定的请求方法不能用于请求的资源', official: true, common: true, error: true },
+            { code: 406, message: 'Not Acceptable', category: 4, description: '无法接受。服务器无法根据可接受的头生成响应', official: true, common: false, error: true },
+            { code: 407, message: 'Proxy Authentication Required', category: 4, description: '需要代理身份验证。客户端必须先进行代理身份验证', official: true, common: false, error: true },
+            { code: 408, message: 'Request Timeout', category: 4, description: '请求超时。服务器等待客户端发送请求时超时', official: true, common: true, error: true },
+            { code: 409, message: 'Conflict', category: 4, description: '冲突。请求与服务器当前状态冲突', official: true, common: true, error: true },
+            { code: 410, message: 'Gone', category: 4, description: '已消失。请求的资源不再可用', official: true, common: false, error: true },
+            { code: 411, message: 'Length Required', category: 4, description: '需要内容长度。服务器要求请求头包含Content-Length', official: true, common: false, error: true },
+            { code: 412, message: 'Precondition Failed', category: 4, description: '前提条件失败。服务器在验证请求中的前提条件时失败', official: true, common: false, error: true },
+            { code: 413, message: 'Payload Too Large', category: 4, description: '负载过大。请求实体的大小超过了服务器的限制', official: true, common: true, error: true },
+            { code: 414, message: 'URI Too Long', category: 4, description: 'URI过长。请求的URI长度超过了服务器的限制', official: true, common: false, error: true },
+            { code: 415, message: 'Unsupported Media Type', category: 4, description: '不支持的媒体类型。服务器不支持请求中内容的媒体类型', official: true, common: true, error: true },
+            { code: 416, message: 'Range Not Satisfiable', category: 4, description: '范围无法满足。服务器无法提供请求的数据范围', official: true, common: false, error: true },
+            { code: 417, message: 'Expectation Failed', category: 4, description: '期望失败。服务器无法满足Expect请求头的要求', official: true, common: false, error: true },
+            { code: 418, message: 'I\'m a teapot', category: 4, description: '我是一个茶壶。勉励状态码，表示服务器拒绝尝试用茶壶煮咖啡', official: false, common: false, error: true, custom: true },
+            { code: 421, message: 'Misdirected Request', category: 4, description: '错误定向的请求。请求被定向到无法产生响应的服务器', official: true, common: false, error: true },
+            { code: 422, message: 'Unprocessable Entity', category: 4, description: '无法处理的实体。请求格式正确但语义错误', official: true, common: true, error: true, webdav: true },
+            { code: 423, message: 'Locked', category: 4, description: '锁定。资源已被锁定', official: true, common: false, error: true, webdav: true },
+            { code: 424, message: 'Failed Dependency', category: 4, description: '依赖失败。请求失败依赖于另一个请求的失败', official: true, common: false, error: true, webdav: true },
+            { code: 425, message: 'Too Early', category: 4, description: '过早。服务器不愿意冒险处理可能被重放的请求', official: true, common: false, error: true },
+            { code: 426, message: 'Upgrade Required', category: 4, description: '需要升级。服务器要求客户端升级到其他协议', official: true, common: false, error: true },
+            { code: 428, message: 'Precondition Required', category: 4, description: '需要前提条件。服务器需要请求带有前提条件', official: true, common: false, error: true },
+            { code: 429, message: 'Too Many Requests', category: 4, description: '请求过多。用户在给定时间内发送了太多请求', official: true, common: true, error: true },
+            { code: 431, message: 'Request Header Fields Too Large', category: 4, description: '请求头字段过大。单个或全部请求头字段过大', official: true, common: false, error: true },
+            { code: 451, message: 'Unavailable For Legal Reasons', category: 4, description: '由于法律原因不可用。服务器拒绝处理请求因为法律限制', official: true, common: false, error: true },
+            
+            // 5xx Server Error
+            { code: 500, message: 'Internal Server Error', category: 5, description: '服务器内部错误。服务器遇到无法处理的情况', official: true, common: true, error: true },
+            { code: 501, message: 'Not Implemented', category: 5, description: '未实现。服务器不支持请求的功能', official: true, common: false, error: true },
+            { code: 502, message: 'Bad Gateway', category: 5, description: '错误网关。服务器作为网关或代理时，从上游服务器收到无效响应', official: true, common: true, error: true },
+            { code: 503, message: 'Service Unavailable', category: 5, description: '服务不可用。服务器暂时无法处理请求', official: true, common: true, error: true },
+            { code: 504, message: 'Gateway Timeout', category: 5, description: '网关超时。服务器作为网关或代理时，没有及时从上游服务器收到响应', official: true, common: true, error: true },
+            { code: 505, message: 'HTTP Version Not Supported', category: 5, description: 'HTTP版本不支持。服务器不支持请求使用的HTTP版本', official: true, common: false, error: true },
+            { code: 506, message: 'Variant Also Negotiates', category: 5, description: '变体也协商。服务器有一个内部配置错误：对请求的透明内容协商结果的变体资源被配置为参与请求的透明内容协商中', official: true, common: false, error: true },
+            { code: 507, message: 'Insufficient Storage', category: 5, description: '存储空间不足。服务器无法在当前资源中存储完成请求所必须的表示', official: true, common: false, error: true, webdav: true },
+            { code: 508, message: 'Loop Detected', category: 5, description: '检测到循环。服务器终止操作因为无限循环', official: true, common: false, error: true, webdav: true },
+            { code: 510, message: 'Not Extended', category: 5, description: '未扩展。服务器需要对请求进一步的扩展', official: true, common: false, error: true },
+            { code: 511, message: 'Network Authentication Required', category: 5, description: '需要网络身份验证。客户端需要进行身份验证才能访问网络', official: true, common: false, error: true },
+            
+            // WebDAV status codes
+            { code: 102, message: 'Processing', category: 1, description: '处理将被继续执行', official: true, common: false, webdav: true },
+            { code: 207, message: 'Multi-Status', category: 2, description: '返回多个资源的状态', official: true, common: false, success: true, webdav: true },
+            { code: 208, message: 'Already Reported', category: 2, description: '成员已经在之前的响应中返回', official: true, common: false, success: true, webdav: true },
+            { code: 422, message: 'Unprocessable Entity', category: 4, description: '请求格式正确但语义错误', official: true, common: true, error: true, webdav: true },
+            { code: 423, message: 'Locked', category: 4, description: '资源已被锁定', official: true, common: false, error: true, webdav: true },
+            { code: 424, message: 'Failed Dependency', category: 4, description: '请求失败依赖于另一个请求的失败', official: true, common: false, error: true, webdav: true },
+            { code: 507, message: 'Insufficient Storage', category: 5, description: '服务器无法在当前资源中存储完成请求所必须的表示', official: true, common: false, error: true, webdav: true },
+            { code: 508, message: 'Loop Detected', category: 5, description: '服务器终止操作因为无限循环', official: true, common: false, error: true, webdav: true },
+            
+            // Custom status codes
+            { code: 418, message: 'I\'m a teapot', category: 4, description: '我是一个茶壶。勉励状态码', official: false, common: false, error: true, custom: true },
+            { code: 420, message: 'Method Failure', category: 4, description: '方法失败。Spring Framework使用', official: false, common: false, error: true, custom: true },
+            { code: 430, message: 'Request Timeout', category: 4, description: '请求超时', official: false, common: false, error: true, custom: true },
+            { code: 444, message: 'No Response', category: 4, description: '无响应。Nginx使用，服务器没有返回信息给客户端', official: false, common: false, error: true, custom: true },
+            { code: 449, message: 'Retry With', category: 4, description: '重试。Microsoft使用，请求应当在执行完适当的操作后进行重试', official: false, common: false, error: true, custom: true },
+            { code: 499, message: 'Client Closed Request', category: 4, description: '客户端关闭请求。Nginx使用，客户端关闭了连接', official: false, common: false, error: true, custom: true },
+            { code: 509, message: 'Bandwidth Limit Exceeded', category: 5, description: '带宽限制超出。Apache使用，带宽限制达到', official: false, common: false, error: true, custom: true },
+            { code: 520, message: 'Unknown Error', category: 5, description: '未知错误。Cloudflare使用', official: false, common: false, error: true, custom: true },
+            { code: 521, message: 'Web Server Is Down', category: 5, description: 'Web服务器宕机。Cloudflare使用', official: false, common: false, error: true, custom: true },
+            { code: 522, message: 'Connection Timed Out', category: 5, description: '连接超时。Cloudflare使用', official: false, common: false, error: true, custom: true },
+            { code: 523, message: 'Origin Is Unreachable', category: 5, description: '源站不可达。Cloudflare使用', official: false, common: false, error: true, custom: true },
+            { code: 524, message: 'A Timeout Occurred', category: 5, description: '发生超时。Cloudflare使用', official: false, common: false, error: true, custom: true },
+            { code: 525, message: 'SSL Handshake Failed', category: 5, description: 'SSL握手失败。Cloudflare使用', official: false, common: false, error: true, custom: true },
+            { code: 526, message: 'Invalid SSL Certificate', category: 5, description: '无效的SSL证书。Cloudflare使用', official: false, common: false, error: true, custom: true },
+            { code: 527, message: 'Railgun Error', category: 5, description: 'Railgun错误', official: false, common: false, error: true, custom: true }
+        ];
+        
+        let currentResults = [];
+        let currentFilters = {
+            category: '',
+            common: true,
+            official: true,
+            success: false,
+            error: false
+        };
+        
+        const resultsContainer = document.getElementById('resultsContainer');
+        const resultsInfo = document.getElementById('resultsInfo');
+        const searchInput = document.getElementById('searchInput');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const commonCodesGrid = document.getElementById('commonCodesGrid');
+        const statusDetailsContainer = document.getElementById('statusDetailsContainer');
+        
+        // 初始化常见状态码
+        function initCommonCodes() {
+            const commonCodes = [200, 201, 204, 301, 302, 304, 400, 401, 403, 404, 405, 500, 502, 503, 504];
+            commonCodesGrid.innerHTML = '';
+            
+            commonCodes.forEach(code => {
+                const status = statusCodes.find(s => s.code === code);
+                if (status) {
+                    const div = document.createElement('div');
+                    div.className = 'common-code';
+                    div.onclick = () => showStatusDetails(status);
+                    div.innerHTML = `
+                        <div class="code-value status-${Math.floor(code / 100)}xx">${code}</div>
+                        <div class="code-label">${status.message}</div>
+                    `;
+                    commonCodesGrid.appendChild(div);
+                }
+            });
+        }
+        
+        // 快速搜索
+        function quickSearch(code) {
+            searchInput.value = code;
+            filterByCategory('');
+            applyFilters();
+            searchStatusCodes();
+            
+            const status = statusCodes.find(s => s.code === parseInt(code));
+            if (status) {
+                showStatusDetails(status);
+            }
+        }
+        
+        // 搜索状态码
+        function searchStatusCodes() {
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            const category = currentFilters.category;
+            const showCommon = currentFilters.common;
+            const showOfficial = currentFilters.official;
+            const showSuccess = currentFilters.success;
+            const showError = currentFilters.error;
+            
+            currentResults = statusCodes.filter(status => {
+                // 分类筛选
+                if (category && status.category !== parseInt(category) && category !== 'webdav' && category !== 'custom') {
+                    return false;
+                }
+                
+                if (category === 'webdav' && !status.webdav) {
+                    return false;
+                }
+                
+                if (category === 'custom' && !status.custom) {
+                    return false;
+                }
+                
+                // 常见筛选
+                if (showCommon && !status.common) {
+                    return false;
+                }
+                
+                // 官方筛选
+                if (showOfficial && !status.official) {
+                    return false;
+                }
+                
+                // 成功/错误筛选
+                if (showSuccess && !status.success) {
+                    return false;
+                }
+                
+                if (showError && !status.error) {
+                    return false;
+                }
+                
+                // 搜索词匹配
+                if (searchTerm) {
+                    const codeMatch = status.code.toString().includes(searchTerm);
+                    const messageMatch = status.message.toLowerCase().includes(searchTerm);
+                    const descMatch = status.description.toLowerCase().includes(searchTerm);
+                    
+                    if (!codeMatch && !messageMatch && !descMatch) {
+                        return false;
+                    }
+                }
+                
+                return true;
+            });
+            
+            displayResults();
+        }
+        
+        // 显示结果
+        function displayResults() {
+            if (currentResults.length === 0) {
+                resultsContainer.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-exclamation-triangle me-2"></i> 未找到符合条件的状态码
+                    </div>
+                `;
+                resultsInfo.innerHTML = `
+                    <span><i class="fas fa-list me-1"></i> 搜索结果</span>
+                    <span class="results-count"><i class="fas fa-database me-1"></i> 共 0 条</span>
+                `;
+                statusDetailsContainer.innerHTML = '';
+                return;
+            }
+            
+            let html = '';
+            currentResults.forEach(status => {
+                const category = Math.floor(status.code / 100);
+                html += `
+                    <div class="status-card" onclick="showStatusDetails(${JSON.stringify(status).replace(/"/g, '&quot;')})">
+                        <div class="status-header">
+                            <span class="status-code status-${category}xx">${status.code}</span>
+                            <button class="copy-btn" onclick="event.stopPropagation(); copyStatusCode(${status.code})">
+                                <i class="fas fa-copy"></i> 复制
+                            </button>
+                        </div>
+                        <div class="status-info">
+                            <span class="status-message">${status.message}</span>
+                            <span class="status-category category-${category}xx">${category}xx</span>
+                        </div>
+                        <div class="status-description">${status.description}</div>
+                    </div>
+                `;
+            });
+            
+            resultsContainer.innerHTML = html;
+            resultsInfo.innerHTML = `
+                <span><i class="fas fa-list me-1"></i> 搜索结果</span>
+                <span class="results-count"><i class="fas fa-database me-1"></i> 共 ${currentResults.length} 条</span>
+            `;
+        }
+        
+        // 显示状态码详情
+        function showStatusDetails(status) {
+            const category = Math.floor(status.code / 100);
+            const officialText = status.official ? '<span class="badge bg-success">官方标准</span>' : '<span class="badge bg-secondary">非官方</span>';
+            const commonText = status.common ? '<span class="badge bg-info">常见</span>' : '';
+            const webdavText = status.webdav ? '<span class="badge bg-warning text-dark">WebDAV</span>' : '';
+            const customText = status.custom ? '<span class="badge bg-dark">自定义</span>' : '';
+            
+            let tags = [officialText, commonText, webdavText, customText].filter(t => t).join(' ');
+            
+            statusDetailsContainer.innerHTML = `
+                <div class="status-card">
+                    <div class="status-header">
+                        <span class="status-code status-${category}xx" style="font-size: 32px;">${status.code}</span>
+                    </div>
+                    <div class="status-info" style="margin-top: 10px;">
+                        <span class="status-message" style="font-size: 20px; font-weight: 600;">${status.message}</span>
+                        <span class="status-category category-${category}xx" style="font-size: 14px;">${category}xx ${getCategoryName(category)}</span>
+                    </div>
+                    <div class="status-description" style="font-size: 15px; color: #e8e8e8;">${status.description}</div>
+                    <div class="status-detail">
+                        <p><strong>分类：</strong> ${getCategoryName(category)}</p>
+                        <p><strong>状态：</strong> ${tags}</p>
+                        <p><strong>HTTP版本：</strong> HTTP/1.1 ${status.code >= 102 ? '(扩展)' : ''}</p>
+                    </div>
+                    <div style="margin-top: 15px; display: flex; gap: 10px;">
+                        <button class="btn btn-primary btn-sm" onclick="copyStatusCode(${status.code})">
+                            <i class="fas fa-copy me-1"></i> 复制代码
+                        </button>
+                        <button class="btn btn-secondary btn-sm" onclick="copyStatusMessage(${status.code})">
+                            <i class="fas fa-copy me-1"></i> 复制消息
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // 滚动到详情
+            statusDetailsContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        // 获取分类名称
+        function getCategoryName(category) {
+            const names = {
+                1: '信息响应',
+                2: '成功响应',
+                3: '重定向',
+                4: '客户端错误',
+                5: '服务器错误'
+            };
+            return names[category] || '未知';
+        }
+        
+        // 复制状态码
+        function copyStatusCode(code) {
+            navigator.clipboard.writeText(code.toString()).then(() => {
+                showToast(`已复制状态码: ${code}`);
+            });
+        }
+        
+        // 复制状态消息
+        function copyStatusMessage(code) {
+            const status = statusCodes.find(s => s.code === code);
+            if (status) {
+                navigator.clipboard.writeText(`${code} ${status.message}`).then(() => {
+                    showToast(`已复制: ${code} ${status.message}`);
+                });
+            }
+        }
+        
+        // 按分类筛选
+        function filterByCategory(category) {
+            currentFilters.category = category;
+            
+            // 更新标签状态
+            document.querySelectorAll('.category-tag').forEach(tag => {
+                tag.classList.remove('active');
+                if (tag.dataset.category === category) {
+                    tag.classList.add('active');
+                }
+            });
+            
+            // 更新下拉筛选
+            categoryFilter.value = category;
+            
+            applyFilters();
+            searchStatusCodes();
+        }
+        
+        // 应用筛选器
+        function applyFilters() {
+            currentFilters.common = document.getElementById('filterCommon').checked;
+            currentFilters.official = document.getElementById('filterOfficial').checked;
+            currentFilters.success = document.getElementById('filterSuccess').checked;
+            currentFilters.error = document.getElementById('filterError').checked;
+            currentFilters.category = categoryFilter.value;
+        }
+        
+        // Toast提示
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'position-fixed bottom-0 start-50 translate-middle-x p-3 bg-primary text-white rounded-top shadow mb-4';
+            toast.style.zIndex = 10001;
+            toast.style.transition = 'opacity 0.3s';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => document.body.removeChild(toast), 300);
+            }, 2000);
+        }
+        
+        // 绑定事件
+        searchInput.addEventListener('input', searchStatusCodes);
+        categoryFilter.addEventListener('change', () => {
+            filterByCategory(categoryFilter.value);
+        });
+        
+        // 初始化
+        initCommonCodes();
+        displayResults();
+        
+        // 显示所有状态码
+        currentResults = [...statusCodes];
+        resultsInfo.innerHTML = `
+            <span><i class="fas fa-list me-1"></i> 所有状态码</span>
+            <span class="results-count"><i class="fas fa-database me-1"></i> 共 ${statusCodes.length} 条</span>
+        `;
+    </script>
+</body>
+</html>

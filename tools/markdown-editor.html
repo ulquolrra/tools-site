@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown编辑器 - 在线工具箱</title>
+    <meta name="description" content="在线Markdown编辑器，实时预览，支持标题、列表、链接、图片、代码块、表格等所有Markdown语法，一键转换为HTML">
+    <meta name="keywords" content="Markdown,编辑器,转换器,在线编辑,实时预览,HTML转换">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <style>
+        :root {
+            --primary-bg: #1a1a2e;
+            --secondary-bg: #16213e;
+            --border-color: #0f3460;
+        }
+        
+        .editor-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            height: calc(100vh - 200px);
+            min-height: 600px;
+        }
+        
+        .editor-panel {
+            background: var(--primary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .panel-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #e8e8e8;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .panel-actions {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .editor-area, .preview-area {
+            flex: 1;
+            overflow: auto;
+            background: transparent;
+            color: #e8e8e8;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            border: none;
+            resize: none;
+        }
+        
+        .editor-area {
+            outline: none;
+        }
+        
+        .editor-area::placeholder {
+            color: #6c757d;
+        }
+        
+        .preview-area {
+            padding: 15px;
+            overflow-wrap: break-word;
+        }
+        
+        .preview-area h1 { font-size: 2em; margin: 15px 0; }
+        .preview-area h2 { font-size: 1.7em; margin: 14px 0; }
+        .preview-area h3 { font-size: 1.4em; margin: 13px 0; }
+        .preview-area h4 { font-size: 1.2em; margin: 12px 0; }
+        .preview-area h5 { font-size: 1.1em; margin: 11px 0; }
+        .preview-area h6 { font-size: 1em; margin: 10px 0; }
+        .preview-area p { margin: 10px 0; line-height: 1.6; }
+        .preview-area ul, .preview-area ol { margin: 10px 0; padding-left: 25px; }
+        .preview-area li { margin: 5px 0; }
+        .preview-area blockquote {
+            border-left: 4px solid #495057;
+            padding-left: 15px;
+            margin: 10px 0;
+            color: #adb5bd;
+            font-style: italic;
+        }
+        .preview-area code {
+            background: rgba(0,0,0,0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .preview-area pre {
+            background: rgba(0,0,0,0.3);
+            padding: 12px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .preview-area pre code {
+            background: transparent;
+            padding: 0;
+        }
+        .preview-area table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 10px 0;
+        }
+        .preview-area th, .preview-area td {
+            border: 1px solid #495057;
+            padding: 8px;
+            text-align: left;
+        }
+        .preview-area th { background: rgba(255,255,255,0.1); }
+        .preview-area a {
+            color: #0d6efd;
+            text-decoration: underline;
+        }
+        .preview-area img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        .preview-area hr {
+            border: none;
+            border-top: 1px solid #495057;
+            margin: 20px 0;
+        }
+        
+        .toolbar {
+            background: var(--secondary-bg);
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+        
+        .toolbar-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--border-color);
+            color: #e8e8e8;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s;
+        }
+        
+        .toolbar-btn:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-1px);
+        }
+        
+        .toolbar-btn.active {
+            background: #0d6efd;
+            border-color: #0d6efd;
+        }
+        
+        .insert-template {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .template-btn {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            color: #e8e8e8;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        
+        .template-btn:hover {
+            background: var(--primary-bg);
+            border-color: #0d6efd;
+        }
+        
+        .template-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 10000;
+        }
+        
+        .template-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: var(--primary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 25px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow: auto;
+        }
+        
+        .modal-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .modal-table th, .modal-table td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: left;
+        }
+        
+        .modal-table th { background: var(--secondary-bg); }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: #e8e8e8;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .theme-toggle {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--border-color);
+            color: #e8e8e8;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        @media (max-width: 992px) {
+            .editor-container {
+                grid-template-columns: 1fr;
+                height: auto;
+                min-height: 800px;
+            }
+            .editor-panel {
+                min-height: 400px;
+            }
+        }
+        
+        .light-theme {
+            --primary-bg: #ffffff;
+            --secondary-bg: #f8f9fa;
+            --border-color: #dee2e6;
+        }
+        
+        .light-theme .editor-area,
+        .light-theme .preview-area,
+        .light-theme .panel-title,
+        .light-theme .toolbar-btn,
+        .light-theme .template-btn,
+        .light-theme .modal-content,
+        .light-theme .theme-toggle,
+        .light-theme .close-modal {
+            color: #212529;
+            background: #ffffff;
+            border-color: #dee2e6;
+        }
+        
+        .light-theme .editor-panel,
+        .light-theme .modal-content {
+            background: #ffffff;
+            border-color: #dee2e6;
+        }
+        
+        .light-theme .toolbar,
+        .light-theme .template-btn,
+        .light-theme .theme-toggle {
+            background: #f8f9fa;
+            border-color: #dee2e6;
+        }
+        
+        .light-theme .preview-area h1,
+        .light-theme .preview-area h2,
+        .light-theme .preview-area h3,
+        .light-theme .preview-area h4,
+        .light-theme .preview-area h5,
+        .light-theme .preview-area h6 {
+            color: #212529;
+        }
+        
+        .light-theme .preview-area blockquote {
+            border-left-color: #6c757d;
+            color: #6c757d;
+        }
+        
+        .light-theme .preview-area code,
+        .light-theme .preview-area pre {
+            background: #f8f9fa;
+            color: #212529;
+        }
+        
+        .light-theme .preview-area table th,
+        .light-theme .preview-area table td {
+            border-color: #dee2e6;
+        }
+        
+        .light-theme .preview-area a {
+            color: #0d6efd;
+        }
+    </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8795586167197548" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-tools me-2"></i>在线工具箱
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">首页</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/blog">技术博客</a></li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/pages/about.html">关于我们</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/contact.html">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="text-center my-3">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8795586167197548" data-ad-slot="728x90_banner" data-ad-format="728x90" data-full-width-responsive="true"></ins>
+    </div>
+
+    <main class="container my-4">
+        <div class="text-center mb-4 fade-in">
+            <h1 class="display-5 fw-bold mb-3"><i class="fas fa-edit me-2"></i> Markdown编辑器</h1>
+            <p class="lead text-muted">在线Markdown编辑器，实时预览，支持完整Markdown语法，一键转换HTML</p>
+        </div>
+
+        <div class="toolbar">
+            <button class="toolbar-btn" onclick="insertMarkdown('# 标题1')" title="标题1">
+                <i class="fas fa-heading"></i> H1
+            </button>
+            <button class="toolbar-btn" onclick="insertMarkdown('## 标题2')" title="标题2">
+                <i class="fas fa-heading"></i> H2
+            </button>
+            <button class="toolbar-btn" onclick="insertMarkdown('### 标题3')" title="标题3">
+                <i class="fas fa-heading"></i> H3
+            </button>
+            <button class="toolbar-btn" onclick="insertMarkdown('**加粗文本**')" title="加粗">
+                <i class="fas fa-bold"></i> Bold
+            </button>
+            <button class="toolbar-btn" onclick="insertMarkdown('_斜体文本_')" title="斜体">
+                <i class="fas fa-italic"></i> Italic
+            </button>
+            <button class="toolbar-btn" onclick="insertMarkdown('- 列表项')" title="无序列表">
+                <i class="fas fa-list-ul"></i> UL
+            </button>
+            <button class="toolbar-btn" onclick="insertMarkdown('1. 列表项')" title="有序列表">
+                <i class="fas fa-list-ol"></i> OL
+            </button>
+            <button class="toolbar-btn" onclick="insertMarkdown('`代码`')" title="行内代码">
+                <i class="fas fa-code"></i> Code
+            </button>
+            <button class="toolbar-btn" onclick="insertMarkdown('```\n代码块\n```')" title="代码块">
+                <i class="fas fa-file-code"></i> Code Block
+            </button>
+            <button class="toolbar-btn" onclick="insertMarkdown('[链接文本](https://)')" title="链接">
+                <i class="fas fa-link"></i> Link
+            </button>
+            <button class="toolbar-btn" onclick="insertMarkdown('![图片描述](https://)')" title="图片">
+                <i class="fas fa-image"></i> Image
+            </button>
+            <button class="toolbar-btn" onclick="insertMarkdown('> 引用文本')" title="引用">
+                <i class="fas fa-quote-right"></i> Blockquote
+            </button>
+            <button class="toolbar-btn" onclick="insertMarkdown('---')" title="分隔线">
+                <i class="fas fa-minus"></i> HR
+            </button>
+            <button class="toolbar-btn" onclick="insertTable()" title="表格">
+                <i class="fas fa-table"></i> Table
+            </button>
+            <button class="toolbar-btn" onclick="clearEditor()" title="清空">
+                <i class="fas fa-trash"></i> Clear
+            </button>
+            <button class="toolbar-btn" onclick="copyToClipboard()" title="复制HTML">
+                <i class="fas fa-copy"></i> Copy HTML
+            </button>
+            <button class="toolbar-btn" onclick="downloadMarkdown()" title="下载Markdown">
+                <i class="fas fa-download"></i> Download MD
+            </button>
+            <button class="toolbar-btn theme-toggle" onclick="toggleTheme()" title="切换主题">
+                <i class="fas fa-moon" id="themeIcon"></i> Theme
+            </button>
+        </div>
+
+        <div class="insert-template">
+            <button class="template-btn" onclick="showTemplateModal('markdown')">
+                <i class="fas fa-file-code me-1"></i> Markdown模板
+            </button>
+            <button class="template-btn" onclick="showTemplateModal('html')">
+                <i class="fas fa-code me-1"></i> HTML模板
+            </button>
+            <button class="template-btn" onclick="showTemplateModal('cheatsheet')">
+                <i class="fas fa-book me-1"></i> 语法速查
+            </button>
+        </div>
+
+        <div class="editor-container">
+            <div class="editor-panel">
+                <div class="panel-header">
+                    <span class="panel-title">
+                        <i class="fas fa-pencil-alt"></i> 编辑器
+                    </span>
+                    <span class="panel-actions">
+                        <small class="text-muted" id="charCount">0 字符</small>
+                        <small class="text-muted ms-3" id="lineCount">0 行</small>
+                    </span>
+                </div>
+                <textarea class="editor-area" id="editor" placeholder="在这里输入Markdown内容...\n\n# 标题1\n## 标题2\n\n**加粗文本** _斜体文本_\n\n- 列表项1\n- 列表项2\n\n[链接文本](https://example.com)"></textarea>
+            </div>
+            <div class="editor-panel">
+                <div class="panel-header">
+                    <span class="panel-title">
+                        <i class="fas fa-eye"></i> 预览
+                    </span>
+                </div>
+                <div class="preview-area" id="preview"></div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title mb-3"><i class="fas fa-info-circle me-2 text-primary"></i> Markdown语法速查</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered">
+                                <tbody>
+                                    <tr><td><code># 标题1</code></td><td>大标题</td></tr>
+                                    <tr><td><code>## 标题2</code></td><td>二级标题</td></tr>
+                                    <tr><td><code>### 标题3</code></td><td>三级标题</td></tr>
+                                    <tr><td><code>**文本**</code></td><td><strong>加粗</strong></td></tr>
+                                    <tr><td><code>*文本*</code></td><td><em>斜体</em></td></tr>
+                                    <tr><td><code>~~文本~~</code></td><td><s>删除线</s></td></tr>
+                                    <tr><td><code>`代码`</code></td><td><code>行内代码</code></td></tr>
+                                    <tr><td><code>---</code></td><td>分隔线</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered">
+                                <tbody>
+                                    <tr><td><code>- 列表</code></td><td>无序列表</td></tr>
+                                    <tr><td><code>1. 列表</code></td><td>有序列表</td></tr>
+                                    <tr><td><code>[文本](url)</code></td><td><a href="#">链接</a></td></tr>
+                                    <tr><td><code>![文本](url)</code></td><td>图片</td></tr>
+                                    <tr><td><code>> 引用</code></td><td>引用块</td></tr>
+                                    <tr><td><code>```代码```</code></td><td>代码块</td></tr>
+                                    <tr><td><code>| 表格 |</code></td><td>表格</td></tr>
+                                    <tr><td><code>[TOC]</code></td><td>生成目录</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="text-center my-4">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8795586167197548" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    </div>
+
+    <footer class="bg-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-3">在线工具箱</h5>
+                    <p class="text-muted small">提供免费、易用的在线工具，帮助开发者和普通用户高效完成日常任务。</p>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">快速链接</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/pages/about.html" class="text-decoration-none">关于我们</a></li>
+                        <li class="mb-2"><a href="/pages/contact.html" class="text-decoration-none">联系我们</a></li>
+                        <li class="mb-2"><a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">推荐工具</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/tools/json-formatter.html" class="text-decoration-none">JSON格式化</a></li>
+                        <li class="mb-2"><a href="/tools/base64-encoder.html" class="text-decoration-none">Base64编解码</a></li>
+                        <li class="mb-2"><a href="/tools/url-encoder.html" class="text-decoration-none">URL编解码</a></li>
+                        <li class="mb-2"><a href="/tools/text-tools.html" class="text-decoration-none">文本处理</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center text-muted small">
+                <p>Copyright © 2024-2025 在线工具箱 | <a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 表格模态框 -->
+    <div id="tableModal" class="template-modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeTableModal()">×</button>
+            <h4 class="mb-3"><i class="fas fa-table me-2"></i> 生成表格</h4>
+            <div class="mb-3">
+                <label class="form-label">行数</label>
+                <input type="number" id="tableRows" value="3" min="1" max="20" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">列数</label>
+                <input type="number" id="tableCols" value="3" min="1" max="10" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">对齐方式</label>
+                <select id="tableAlign" class="form-select">
+                    <option value="left">左对齐</option>
+                    <option value="center">居中对齐</option>
+                    <option value="right">右对齐</option>
+                </select>
+            </div>
+            <div class="d-flex gap-2">
+                <button class="btn btn-primary" onclick="generateTable()">生成表格</button>
+                <button class="btn btn-secondary" onclick="closeTableModal()">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Markdown模板模态框 -->
+    <div id="markdownModal" class="template-modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <button class="close-modal" onclick="closeAllModals()">×</button>
+            <h4 class="mb-3"><i class="fas fa-file-code me-2"></i> Markdown模板</h4>
+            <div class="mb-3">
+                <select id="templateSelect" class="form-select" onchange="loadTemplate()">
+                    <option value="article">文章模板</option>
+                    <option value="readme">README模板</option>
+                    <option value="api">API文档模板</option>
+                    <option value="meeting">会议记录模板</option>
+                    <option value="todo">待办事项模板</option>
+                </select>
+            </div>
+            <pre id="templateContent" style="background: rgba(0,0,0,0.1); padding: 15px; border-radius: 6px; overflow: auto; max-height: 400px;"></pre>
+            <div class="d-flex gap-2 mt-3">
+                <button class="btn btn-primary" onclick="insertTemplate()">插入模板</button>
+                <button class="btn btn-secondary" onclick="closeAllModals()">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HTML模板模态框 -->
+    <div id="htmlModal" class="template-modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <button class="close-modal" onclick="closeAllModals()">×</button>
+            <h4 class="mb-3"><i class="fas fa-code me-2"></i> HTML模板</h4>
+            <div class="mb-3">
+                <select id="htmlTemplateSelect" class="form-select" onchange="loadHtmlTemplate()">
+                    <option value="basic">基础HTML5模板</option>
+                    <option value="responsive">响应式布局</option>
+                    <option value="form">表单模板</option>
+                    <option value="card">卡片布局</option>
+                    <option value="navbar">导航栏</option>
+                </select>
+            </div>
+            <pre id="htmlTemplateContent" style="background: rgba(0,0,0,0.1); padding: 15px; border-radius: 6px; overflow: auto; max-height: 400px;"></pre>
+            <div class="d-flex gap-2 mt-3">
+                <button class="btn btn-primary" onclick="insertHtmlTemplate()">插入模板</button>
+                <button class="btn btn-secondary" onclick="closeAllModals()">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 语法速查模态框 -->
+    <div id="cheatsheetModal" class="template-modal">
+        <div class="modal-content" style="max-width: 900px;">
+            <button class="close-modal" onclick="closeAllModals()">×</button>
+            <h4 class="mb-3"><i class="fas fa-book me-2"></i> Markdown完整语法速查</h4>
+            <div id="cheatsheetContent"></div>
+            <div class="d-flex justify-content-end mt-3">
+                <button class="btn btn-secondary" onclick="closeAllModals()">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/11.0.0/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/assets/js/error-tracking.js"></script>
+    <script>
+        // 配置marked
+        marked.setOptions({
+            breaks: true,
+            gfm: true,
+            headerIds: true,
+            highlight: function(code, lang) {
+                if (lang && hljs.getLanguage(lang)) {
+                    return hljs.highlight(lang, code).value;
+                }
+                return hljs.highlightAuto(code).value;
+            }
+        });
+
+        const editor = document.getElementById('editor');
+        const preview = document.getElementById('preview');
+        const charCount = document.getElementById('charCount');
+        const lineCount = document.getElementById('lineCount');
+        const tableModal = document.getElementById('tableModal');
+        const markdownModal = document.getElementById('markdownModal');
+        const htmlModal = document.getElementById('htmlModal');
+        const cheatsheetModal = document.getElementById('cheatsheetModal');
+
+        // 主题切换
+        let isLightTheme = false;
+        function toggleTheme() {
+            isLightTheme = !isLightTheme;
+            document.body.classList.toggle('light-theme');
+            document.getElementById('themeIcon').className = isLightTheme ? 'fas fa-sun' : 'fas fa-moon';
+            localStorage.setItem('markdownTheme', isLightTheme ? 'light' : 'dark');
+        }
+
+        // 加载保存的主题
+        if (localStorage.getItem('markdownTheme') === 'light') {
+            toggleTheme();
+        }
+
+        // 初始化预览
+        function updatePreview() {
+            const markdown = editor.value;
+            preview.innerHTML = marked.parse(markdown) || '<p>请输入Markdown内容...</p>';
+            charCount.textContent = markdown.length + ' 字符';
+            lineCount.textContent = markdown.split('\n').length + ' 行';
+            
+            // 给预览中的代码块添加语言类
+            preview.querySelectorAll('pre').forEach(pre => {
+                if (!pre.classList.contains('hljs')) {
+                    pre.classList.add('hljs');
+                }
+            });
+        }
+
+        // 插入Markdown
+        function insertMarkdown(text) {
+            const start = editor.selectionStart;
+            const end = editor.selectionEnd;
+            const before = editor.value.substring(0, start);
+            const after = editor.value.substring(end);
+            editor.value = before + text + after;
+            editor.selectionStart = start + text.length;
+            editor.selectionEnd = start + text.length;
+            editor.focus();
+            updatePreview();
+        }
+
+        // 生成表格
+        function insertTable() {
+            const rows = parseInt(document.getElementById('tableRows').value) || 3;
+            const cols = parseInt(document.getElementById('tableCols').value) || 3;
+            const align = document.getElementById('tableAlign').value;
+            
+            let header = '| ';
+            let separator = '| ';
+            for (let c = 0; c < cols; c++) {
+                header += '列' + (c + 1) + ' | ';
+                separator += (align === 'left' ? ':---' : align === 'center' ? ':---:' : '---:')) + ' | ';
+            }
+            
+            let table = header.trim() + '\n' + separator.trim() + '\n';
+            for (let r = 0; r < rows; r++) {
+                let row = '| ';
+                for (let c = 0; c < cols; c++) {
+                    row += '单元格 | ';
+                }
+                table += row.trim() + '\n';
+            }
+            
+            insertMarkdown(table);
+            closeTableModal();
+        }
+
+        // 清空编辑器
+        function clearEditor() {
+            editor.value = '';
+            updatePreview();
+        }
+
+        // 复制HTML到剪贴板
+        async function copyToClipboard() {
+            const html = preview.innerHTML;
+            try {
+                await navigator.clipboard.writeText(html);
+                showToast('HTML已复制到剪贴板！');
+            } catch (e) {
+                // 降级方案
+                const textarea = document.createElement('textarea');
+                textarea.value = html;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showToast('HTML已复制到剪贴板！');
+            }
+        }
+
+        // 下载Markdown
+        function downloadMarkdown() {
+            const markdown = editor.value;
+            if (!markdown.trim()) {
+                showToast('请先输入内容！');
+                return;
+            }
+            const blob = new Blob([markdown], { type: 'text/markdown' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'document.md';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('Markdown文件已下载！');
+        }
+
+        // Toast提示
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'position-fixed bottom-0 start-50 translate-middle-x p-3 bg-primary text-white rounded-top shadow mb-4';
+            toast.style.zIndex = 10001;
+            toast.style.transition = 'opacity 0.3s';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => document.body.removeChild(toast), 300);
+            }, 2000);
+        }
+
+        // 模态框相关
+        function closeTableModal() {
+            tableModal.classList.remove('active');
+        }
+
+        function closeAllModals() {
+            markdownModal.classList.remove('active');
+            htmlModal.classList.remove('active');
+            cheatsheetModal.classList.remove('active');
+        }
+
+        function showTemplateModal(type) {
+            if (type === 'markdown') {
+                loadTemplate();
+                markdownModal.classList.add('active');
+            } else if (type === 'html') {
+                loadHtmlTemplate();
+                htmlModal.classList.add('active');
+            } else if (type === 'cheatsheet') {
+                loadCheatsheet();
+                cheatsheetModal.classList.add('active');
+            }
+        }
+
+        // 模板内容
+        const templates = {
+            article: `# 文章标题
+
+> 简介：这是一篇关于...的文章
+
+## 概述
+
+本文将介绍...
+
+## 主要内容
+
+### 小节1
+
+内容详情...
+
+### 小节2
+
+更多内容...
+
+## 结论
+
+总结和思考...`,
+            
+            readme: `# 项目名称
+
+## 项目描述
+
+这是一个...的项目
+
+## 特性
+
+- 特性1
+- 特性2
+- 特性3
+
+## 安装
+
+\`\`\`bash
+npm install
+\`\`\`
+
+## 使用
+
+\`\`\`javascript
+const example = require('example');
+\`\`\`
+
+## API
+
+### 方法1
+
+描述：...
+参数：...
+返回值：...
+
+## 许可证
+
+MIT`,
+            
+            api: `# API文档
+
+## 认证
+
+所有请求需要在Header中添加：
+\`\`\`
+Authorization: Bearer <token>
+\`\`\`
+
+## 端点
+
+### GET /api/users
+
+获取用户列表
+
+**参数：**
+- page: 页码 (number)
+- limit: 每页数量 (number)
+
+**响应：**
+\`\`\`json
+{
+  "data": [],
+  "total": 0,
+  "page": 1
+}
+\`\`\`
+
+### POST /api/users
+
+创建用户
+
+**请求体：**
+\`\`\`json
+{
+  "name": "用户名",
+  "email": "邮箱"
+}
+\`\`\`
+
+**响应：**
+\`\`\`json
+{
+  "id": 1,
+  "name": "用户名",
+  "email": "邮箱"
+}
+\`\`\``,
+            
+            meeting: `# 会议记录
+
+## 会议信息
+
+- **时间：** 2025-XX-XX XX:XX
+- **地点：** 会议室/在线
+- **参与人：** 
+- Joy
+- Tom
+- Jerry
+
+## 会议目标
+
+1. 目标1
+2. 目标2
+3. 目标3
+
+## 讨论内容
+
+### 议题1
+
+- 讨论要点
+- 决策结果
+- 下一步行动
+
+### 议题2
+
+- 讨论要点
+- 决策结果
+- 下一步行动
+
+## 行动计划
+
+| 任务 | 负责人 | 截止日期 | 状态 |
+| ---- | ---- | ---- | ---- |
+| 任务1 | Joy | 2025-XX-XX | 进行中 |
+| 任务2 | Tom | 2025-XX-XX | 待开始 |
+
+## 下次会议
+
+- 时间：
+- 议题：`,
+            
+            todo: `# 待办事项
+
+## 📌 重要任务
+
+- [x] 已完成的任务1
+- [ ] 待完成的任务2
+- [ ] 待完成的任务3
+
+## 📅 今日计划
+
+- [ ]  Morning
+  - [ ] 任务A
+  - [ ] 任务B
+- [ ]  Afternoon
+  - [ ] 任务C
+  - [ ] 任务D
+
+## 📝 备注
+
+- 备注1
+- 备注2
+
+## 🎯 目标
+
+### 本周目标
+- [ ] 目标1
+- [ ] 目标2
+
+### 本月目标
+- [ ] 目标A
+- [ ] 目标B`
+        };
+
+        const htmlTemplates = {
+            basic: `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>页面标题</title>
+    <meta name="description" content="页面描述">
+</head>
+<body>
+    <header>
+        <h1>网站标题</h1>
+        <nav>
+            <a href="/">首页</a>
+            <a href="/about">关于</a>
+            <a href="/contact">联系</a>
+        </nav>
+    </header>
+    
+    <main>
+        <h2>欢迎使用</h2>
+        <p>这是主内容区域</p>
+    </main>
+    
+    <footer>
+        <p>版权 © 2025</p>
+    </footer>
+</body>
+</html>`,
+            
+            responsive: `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>响应式布局</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+        .row { display: flex; flex-wrap: wrap; margin: 0 -15px; }
+        .col-md-6 { flex: 0 0 50%; padding: 0 15px; }
+        .col-md-4 { flex: 0 0 33.33%; padding: 0 15px; }
+        @media (max-width: 768px) {
+            .col-md-6, .col-md-4 { flex: 0 0 100%; }
+        }
+    </style>
+</head>
+<body>
+    <header style="background: #333; color: white; padding: 20px 0;">
+        <div class="container">
+            <h1>响应式网站</h1>
+        </div>
+    </header>
+    
+    <div class="container" style="padding: 20px 0;">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>左边内容</h2>
+                <p>在桌面端占一半，在移动端占满宽度</p>
+            </div>
+            <div class="col-md-6">
+                <h2>右边内容</h2>
+                <p>在桌面端占一半，在移动端占满宽度</p>
+            </div>
+        </div>
+        
+        <div class="row" style="margin-top: 20px;">
+            <div class="col-md-4">
+                <h3>列1</h3>
+                <p>三分之一宽度</p>
+            </div>
+            <div class="col-md-4">
+                <h3>列2</h3>
+                <p>三分之一宽度</p>
+            </div>
+            <div class="col-md-4">
+                <h3>列3</h3>
+                <p>三分之一宽度</p>
+            </div>
+        </div>
+    </div>
+    
+    <footer style="background: #333; color: white; padding: 20px 0; text-align: center;">
+        <div class="container">
+            <p>版权 © 2025</p>
+        </div>
+    </footer>
+</body>
+</html>`,
+            
+            form: `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表单页面</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group input,
+        .form-group textarea,
+        .form-group select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+        .form-group textarea { min-height: 100px; }
+        button { background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>联系我们</h1>
+    <form action="/submit" method="POST">
+        <div class="form-group">
+            <label for="name">姓名</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="email">邮箱</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="subject">主题</label>
+            <select id="subject" name="subject">
+                <option value="feedback">反馈</option>
+                <option value="support">技术支持</option>
+                <option value="general">一般咨询</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="message">内容</label>
+            <textarea id="message" name="message" required></textarea>
+        </div>
+        
+        <button type="submit">提交</button>
+    </form>
+</body>
+</html>`,
+            
+            card: `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>卡片布局</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .card-image { width: 100%; height: 180px; background: #ddd; }
+        .card-body { padding: 20px; }
+        .card-title { font-size: 18px; font-weight: bold; margin-bottom: 10px; }
+        .card-text { color: #666; line-height: 1.6; margin-bottom: 15px; }
+        .btn { display: inline-block; padding: 8px 16px; background: #007bff; color: white; text-decoration: none; border-radius: 4px; }
+        .btn:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>卡片展示</h1>
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-image"></div>
+                <div class="card-body">
+                    <h3 class="card-title">卡片1</h3>
+                    <p class="card-text">这是第一个卡片的描述内容</p>
+                    <a href="#" class="btn">查看详情</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-image"></div>
+                <div class="card-body">
+                    <h3 class="card-title">卡片2</h3>
+                    <p class="card-text">这是第二个卡片的描述内容</p>
+                    <a href="#" class="btn">查看详情</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-image"></div>
+                <div class="card-body">
+                    <h3 class="card-title">卡片3</h3>
+                    <p class="card-text">这是第三个卡片的描述内容</p>
+                    <a href="#" class="btn">查看详情</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>`,
+            
+            navbar: `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>导航栏</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; }
+        .navbar { background: #333; color: white; padding: 15px 0; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; display: flex; justify-content: space-between; align-items: center; }
+        .nav-links { display: flex; list-style: none; gap: 20px; }
+        .nav-links a { color: white; text-decoration: none; padding: 5px 0; }
+        .nav-links a:hover { color: #007bff; }
+        .logo { font-size: 24px; font-weight: bold; }
+        .hamburger { display: none; cursor: pointer; }
+        @media (max-width: 768px) {
+            .nav-links { display: none; position: absolute; top: 60px; left: 0; right: 0; background: #333; flex-direction: column; padding: 20px; }
+            .nav-links.active { display: flex; }
+            .hamburger { display: block; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">LOGO</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#">首页</a></li>
+                <li><a href="#">产品</a></li>
+                <li><a href="#">服务</a></li>
+                <li><a href="#">关于</a></li>
+                <li><a href="#">联系</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span>☰</span>
+            </div>
+        </div>
+    </nav>
+    
+    <script>
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>`
+        };
+
+        function loadTemplate() {
+            const type = document.getElementById('templateSelect').value;
+            document.getElementById('templateContent').textContent = templates[type];
+        }
+
+        function insertTemplate() {
+            const type = document.getElementById('templateSelect').value;
+            insertMarkdown(templates[type]);
+            closeAllModals();
+        }
+
+        function loadHtmlTemplate() {
+            const type = document.getElementById('htmlTemplateSelect').value;
+            document.getElementById('htmlTemplateContent').textContent = htmlTemplates[type];
+        }
+
+        function insertHtmlTemplate() {
+            const type = document.getElementById('htmlTemplateSelect').value;
+            insertMarkdown('\`\`\`html\n' + htmlTemplates[type] + '\n\`\`\`');
+            closeAllModals();
+        }
+
+        function loadCheatsheet() {
+            const cheatsheet = document.getElementById('cheatsheetContent');
+            cheatsheet.innerHTML = `
+                <table class="table table-sm table-bordered" style="color: #e8e8e8; width: 100%;">
+                    <thead>
+                        <tr><th>语法</th><th>描述</th><th>示例</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>#</code></td><td>标题1</td><td># 标题文本</td></tr>
+                        <tr><td><code>##</code></td><td>标题2</td><td>## 标题文本</td></tr>
+                        <tr><td><code>###</code></td><td>标题3</td><td>### 标题文本</td></tr>
+                        <tr><td><code>**text**</code></td><td>加粗</td><td><strong>加粗文本</strong></td></tr>
+                        <tr><td><code>*text*</code></td><td>斜体</td><td><em>斜体文本</em></td></tr>
+                        <tr><td><code>~~text~~</code></td><td>删除线</td><td><s>删除线文本</s></td></tr>
+                        <tr><td><code>\`code\`</code></td><td>行内代码</td><td><code>print("hello")</code></td></tr>
+                        <tr><td><code>\`\`\`language\ncode\n\`\`\`</code></td><td>代码块</td><td>-</td></tr>
+                        <tr><td><code>- item</code></td><td>无序列表</td><td>- 列表项</td></tr>
+                        <tr><td><code>1. item</code></td><td>有序列表</td><td>1. 列表项</td></tr>
+                        <tr><td><code>[text](url)</code></td><td>链接</td><td><a href="#">链接文本</a></td></tr>
+                        <tr><td><code>![alt](url)</code></td><td>图片</td><td>-</td></tr>
+                        <tr><td><code>> text</code></td><td>引用块</td><td>引用内容</td></tr>
+                        <tr><td><code>---</code></td><td>分隔线</td><td>-</td></tr>
+                        <tr><td><code>| Col1 | Col2 |</code></td><td>表格</td><td>-</td></tr>
+                        <tr><td><code>| --- | --- |</code></td><td>表格对齐</td><td>-</td></tr>
+                        <tr><td><code>[TOC]</code></td><td>生成目录</td><td>-</td></tr>
+                        <tr><td><code>\\</code></td><td>换行</td><td>-</td></tr>
+                        <tr><td><code>---\n</code></td><td>水平线</td><td>-</td></tr>
+                        <tr><td><code>\\*escaped\\*</code></td><td>转义符号</td><td>*escaped*</td></tr>
+                        <tr><td><code>:emoji:</code></td><td>表情符号</td><td>:smile:</td></tr>
+                        <tr><td><code>==</code></td><td>下划线标题1</td><td>下划线标题文本</td></tr>
+                        <tr><td><code>--</code></td><td>下划线标题2</td><td>下划线标题文本</td></tr>
+                        <tr><td><code>[^1]</code></td><td>脚注</td><td>[^1]: 脚注内容</td></tr>
+                        <tr><td><code>~~~</code></td><td>GFM代码块</td><td>-</td></tr>
+                        <tr><td><code>@@@</code></td><td>GFM代码块</td><td>-</td></tr>
+                        <tr><td><code>:---</code></td><td>左对齐</td><td>-</td></tr>
+                        <tr><td><code>:---:</code></td><td>居中对齐</td><td>-</td></tr>
+                        <tr><td><code>---:</code></td><td>右对齐</td><td>-</td></tr>
+                    </tbody>
+                </table>
+            `;
+        }
+
+        // 绑定事件
+        editor.addEventListener('input', updatePreview);
+        editor.addEventListener('scroll', () => {
+            preview.scrollTop = editor.scrollTop;
+        });
+
+        // 初始化
+        updatePreview();
+    </script>
+</body>
+</html>
