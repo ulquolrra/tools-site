@@ -313,7 +313,7 @@ const encodedKeyword = encodeURIComponent(keyword);
                     <ol class="step-list">
                         <li><strong>用户生成内容展示：</strong>当网站需要显示用户输入的内容时（如评论、帖子、用户简介等），必须进行HTML实体编码，防止恶意用户注入脚本。<strong>安全最佳实践：</strong>永远不要相信用户输入的内容！在显示任何用户生成的HTML内容时，必须进行HTML实体编码。</li>
                         <li><strong>代码展示：</strong>在技术博客或文档中展示代码时，需要进行HTML实体编码，以防止代码被浏览器解析。<strong>我们的做法：</strong>在我们的技术博客中，所有展示的代码都经过HTML实体编码处理，确保代码能够正确显示。</li>
-                        <li><strong>搜索结果展示：</strong>当展示搜索结果时，如果结果中包含特殊字符，需要进行编码。<strong>实际案例：</strong>用户搜索"HTML <script>"时，需要将&lt;和&gt;符号进行编码，否则会被浏览器解析为标签。</li>
+                        <li><strong>搜索结果展示：</strong>当展示搜索结果时，如果结果中包含特殊字符，需要进行编码。<strong>实际案例：</strong>用户搜索"HTML &lt;script&gt;"时，需要将&lt;和&gt;符号进行编码，否则会被浏览器解析为标签。</li>
                         <li><strong>表单数据回显：</strong>在表单提交后回显用户输入的数据时，需要进行HTML实体编码。<strong>防护措施：</strong>不仅需要在展示时进行编码，还需要在存储时进行适当的处理，防止存储型XSS攻击。</li>
                         <li><strong>Rich Text编辑器：</strong>使用Rich Text编辑器时，需要特别注意HTML实体编码的处理。<strong>技术要点：</strong>在保存和展示Rich Text内容时，都需要进行适当的编码处理。</li>
                     </ol>
