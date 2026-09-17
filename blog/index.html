@@ -76,17 +76,17 @@
                                 <div class="card-body">
                                     <span class="badge bg-primary mb-2">工具使用</span>
                                     <h3 class="card-title h5">
-                                        <a href="/blog/post/tool-usage-guide.html" class="text-decoration-none">
-                                            14个在线工具的深度使用场景和进阶技巧
+                                        <a href="/blog/post/20-essential-online-tools-for-developers.html" class="text-decoration-none">
+                                            20个前端开发者必备的在线工具推荐
                                         </a>
                                     </h3>
                                     <p class="card-text text-muted small mb-3">
-                                        本文详细介绍了我们工具站中14个工具的实战应用场景，包括JSON格式化、Base64编解码、时间戳转换等工具的高级用法和最佳实践。
+                                        精选20个前端开发必备的在线工具，涵盖数据处理、编码解码、文本处理等多个场景。每个工具包含核心功能、使用场景、代码示例和最佳实践。
                                     </p>
                                     <div class="d-flex justify-content-between align-items-center small text-muted">
-                                        <span><i class="fas fa-calendar me-1"></i> 2025-08-20</span>
+                                        <span><i class="fas fa-calendar me-1"></i> 2025-09-17</span>
                                         <span><i class="fas fa-eye me-1"></i> 234</span>
-                                        <span><i class="fas fa-tag me-1"></i> 工具教程</span>
+                                        <span><i class="fas fa-tag me-1"></i> 工具推荐</span>
                                     </div>
                                 </div>
                             </div>
@@ -152,21 +152,33 @@
                         <h5 class="card-title mb-3"><i class="fas fa-fire me-2"></i> 热门文章</h5>
                         <ul class="list-unstyled mb-0">
                             <li class="mb-3">
+                                <a href="/blog/post/20-essential-online-tools-for-developers.html" class="text-decoration-none">
+                                    <h6 class="mb-1">20个前端开发者必备的在线工具推荐</h6>
+                                    <small class="text-muted"><i class="fas fa-eye me-1"></i> 234 阅读</small>
+                                </a>
+                            </li>
+                            <li class="mb-3">
                                 <a href="/blog/post/tool-usage-guide.html" class="text-decoration-none">
                                     <h6 class="mb-1">14个在线工具的深度使用场景和进阶技巧</h6>
-                                    <small class="text-muted"><i class="fas fa-eye me-1"></i> 234 阅读</small>
+                                    <small class="text-muted"><i class="fas fa-eye me-1"></i> 189 阅读</small>
                                 </a>
                             </li>
                             <li class="mb-3">
                                 <a href="/blog/post/adsense-approval-guide.html" class="text-decoration-none">
                                     <h6 class="mb-1">如何通过内容优化让工具站顺利通过AdSense审核</h6>
-                                    <small class="text-muted"><i class="fas fa-eye me-1"></i> 189 阅读</small>
+                                    <small class="text-muted"><i class="fas fa-eye me-1"></i> 156 阅读</small>
                                 </a>
                             </li>
                             <li class="mb-3">
-                                <a href="/blog/post/json-yaml-comparison.html" class="text-decoration-none">
-                                    <h6 class="mb-1">YAML vs JSON：配置文件格式选择的完整指南</h6>
-                                    <small class="text-muted"><i class="fas fa-eye me-1"></i> 156 阅读</small>
+                                <a href="/blog/post/regex-complete-guide.html" class="text-decoration-none">
+                                    <h6 class="mb-1">正则表达式完全指南：从入门到精通</h6>
+                                    <small class="text-muted"><i class="fas fa-eye me-1"></i> 125 阅读</small>
+                                </a>
+                            </li>
+                            <li class="mb-3">
+                                <a href="/blog/post/jwt-authentication-complete-guide.html" class="text-decoration-none">
+                                    <h6 class="mb-1">JWT认证完全指南：从原理到实战应用</h6>
+                                    <small class="text-muted"><i class="fas fa-eye me-1"></i> 105 阅读</small>
                                 </a>
                             </li>
                         </ul>
@@ -238,6 +250,60 @@
     <script>
         // 博客文章数据
         const blogArticles = [
+            {
+                title: '20个前端开发者必备的在线工具推荐',
+                url: '/blog/post/20-essential-online-tools-for-developers.html',
+                excerpt: '精选20个前端开发必备的在线工具，涵盖数据处理、编码解码、文本处理等多个场景。每个工具包含核心功能、使用场景、代码示例和最佳实践。',
+                date: '2025-09-17',
+                views: 1,
+                tags: ['前端开发', '开发工具', '在线工具', '效率提升', 'JSON', 'Base64', 'JWT', '时间戳'],
+                category: '工具使用'
+            },
+            {
+                title: 'JWT认证完全指南：从原理到实战应用',
+                url: '/blog/post/jwt-authentication-complete-guide.html',
+                excerpt: '深入解析JWT的工作原理、结构组成、安全考虑和最佳实践，包含详细代码示例和实际应用案例。',
+                date: '2025-09-17',
+                views: 1,
+                tags: ['JWT', '认证', '授权', 'JSON Web Token', '安全', 'Node.js', 'JavaScript'],
+                category: '工具使用'
+            },
+            {
+                title: '时间处理完全指南：时间戳、日期格式与时区转换',
+                url: '/blog/post/time-processing-complete-guide.html',
+                excerpt: '深入解析时间处理的各个方面，包含时间戳转换、时区处理、日期操作和代码示例。',
+                date: '2025-09-17',
+                views: 1,
+                tags: ['时间处理', '时间戳', '日期格式', '时区转换', 'JavaScript', 'Python', 'UNIX时间戳'],
+                category: '数据处理'
+            },
+            {
+                title: '正则表达式完全指南：从入门到精通',
+                url: '/blog/post/regex-complete-guide.html',
+                excerpt: '深入解析正则表达式的基础语法、高级特性、实际应用场景和性能优化。包含丰富代码示例、常见用例和最佳实践，帮助开发者掌握正则表达式的强大功能。',
+                date: '2025-09-17',
+                views: 1,
+                tags: ['正则表达式', 'Regex', '字符串处理', 'JavaScript', 'Python', '性能优化', '安全'],
+                category: 'Web开发'
+            },
+            {
+                title: '代码格式化美化最佳实践：提升代码可读性与可维护性',
+                url: '/blog/post/code-formatting-best-practices.html',
+                excerpt: '深入解析代码格式化的重要性、常见工具、最佳实践和团队协作规范。包含JavaScript、CSS、HTML等代码示例，帮助开发者提升代码质量和开发效率。',
+                date: '2025-09-17',
+                views: 1,
+                tags: ['代码格式化', '代码美化', 'Prettier', 'ESLint', '代码质量', '团队协作'],
+                category: 'Web开发'
+            },
+            {
+                title: '颜色代码转换与现代设计应用',
+                url: '/blog/post/color-conversion-design-guide.html',
+                excerpt: '深入解析颜色代码转换的原理、方法、工具和设计应用。包含HEX、RGB、HSL、CMYK等颜色模型的详细解析，以及现代Web设计中的颜色应用最佳实践。',
+                date: '2025-09-17',
+                views: 1,
+                tags: ['颜色代码', '颜色转换', 'Web设计', 'HEX', 'RGB', 'HSL', '颜色理论', '无障碍'],
+                category: 'Web开发'
+            },
             {
                 title: '14个在线工具的深度使用场景和进阶技巧',
                 url: '/blog/post/tool-usage-guide.html',
