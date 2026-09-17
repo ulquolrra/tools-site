@@ -1,0 +1,15 @@
+# Cloudflare Pages Redirects
+# 格式: source destination code
+# 更多信息: https://developers.cloudflare.com/pages/platform/redirects/
+
+# 博客目录重定向到带斜杠的版本
+/blog    /blog/    301
+
+# 确保blog/index.html重定向到blog/
+/blog/index.html    /blog/    301
+
+# 确保工具目录访问正常
+/tools    /tools/    301
+
+# 确保pages目录访问正常  
+/pages    /pages/    301
