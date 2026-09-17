@@ -2,3 +2,11 @@ User-agent: *
 Allow: /
 
 Sitemap: https://alltoolsbox.xyz/sitemap.xml
+
+# Google AdSense Bot
+User-agent: Mediapartners-Google
+Allow: /
+
+# Google Ads Bot
+User-agent: Googlebot-ads
+Allow: /
