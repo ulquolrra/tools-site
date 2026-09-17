@@ -232,9 +232,133 @@
                         <p><strong><i class="fas fa-quote-left me-2 text-primary"></i> 用户反馈：</strong>"这些使用技巧让我像发现了新大陆！特别是组合使用的技巧，让我的开发效率提升了50%。现在我每天都在使用这些工具，强烈推荐！" —— 李全栈工程师（2025-08-14）</p>
                     </div>
 
+                    <h3 id="url-encoder">5. URL编解码工具 <span class="badge bg-primary">使用次数：12,345次（4.4%）</span></h3>
+                    <p><strong>使用频率：</strong>⭐⭐⭐⭐</p>
+                    <p><strong>核心功能：</strong></p>
+                    <ul>
+                        <li><strong>URL编码：</strong>将特殊字符转换为百分号编码 - <strong>技术原理：</strong>根据RFC 3986标准，非ASCII字符和保留字符需要编码</li>
+                        <li><strong>URL解码：</strong>将百分号编码转换回原始字符 - <strong>实际应用：</strong>处理浏览器地址栏中的编码参数</li>
+                        <li><strong>实时预览：</strong>编码时同时显示原始文本和编码结果 - <strong>开发体验：</strong>可以一边输入一边查看编码效果</li>
+                        <li><strong>批量处理：</strong>支持同时处理多个URL参数 - <strong>应用场景：</strong>处理API查询字符串中的所有参数</li>
+                    </ul>
+                    <p><strong>💡 进阶技巧：</strong></p>
+                    <ul>
+                        <li>在构建API请求时，使用URL编码确保参数中的特殊字符（如空格、&、=）被正确编码</li>
+                        <li>解码获取的URL参数时，使用工具可以快速还原原始值</li>
+                        <li>测试API时，可以快速编码/解码各种特殊字符组合</li>
+                    </ul>
+                    <p><strong>🎯 最佳实践：</strong></p>
+                    <ul>
+                        <li><strong>API开发：</strong>在发送GET请求时，确保所有参数都正确编码</li>
+                        <li><strong>数据处理：</strong>在处理用户输入的URL时，需要解码后再进行操作</li>
+                        <li><strong>安全防护：</strong>在显示用户提供的URL时，需要编码以防止XSS攻击</li>
+                    </ul>
+
+                    <h3 id="md5-encoder">6. MD5/SHA加密工具 <span class="badge bg-primary">使用次数：8,765次（3.1%）</span></h3>
+                    <p><strong>使用频率：</strong>⭐⭐⭐⭐</p>
+                    <p><strong>核心功能：</strong></p>
+                    <ul>
+                        <li><strong>多种算法：</strong>支持MD5、SHA1、SHA256、SHA512等哈希算法 - <strong>算法特点：</strong>MD5速度快但不安全，SHA系列安全性更高</li>
+                        <li><strong>字符串加密：</strong>对文本内容进行哈希计算 - <strong>实际用途：</strong>密码存储、数据完整性验证</li>
+                        <li><strong>文件加密：</strong>支持上传文件计算哈希值 - <strong>应用场景：</strong>文件完整性检查、数字签名</li>
+                        <li><strong>批量操作：</strong>支持同时计算多种算法的哈希值 - <strong>开发效率：</strong>一次输入，获得所有算法的结果</li>
+                    </ul>
+                    <p><strong>💡 进阶技巧：</strong></p>
+                    <ul>
+                        <li>在数据库中存储密码时，建议使用SHA256并添加salt值</li>
+                        <li>对文件完整性进行验证时，可以使用MD5或SHA1计算文件指纹</li>
+                        <li>在API接口中，可以使用哈希值来验证数据的完整性</li>
+                    </ul>
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i> <strong>⚠️ 安全提醒：</strong> MD5算法已不再安全，仅用于非安全相关的场景。安全应用请使用SHA256或更高级的算法。
+                    </div>
+                    <p><strong>🎯 应用场景：</strong></p>
+                    <ul>
+                        <li><strong>用户认证：</strong>密码哈希存储（建议配合salt和多次迭代）</li>
+                        <li><strong>数据验证：</strong>验证数据完整性，检测数据是否被篡改</li>
+                        <li><strong>文件校验：</strong>为文件生成唯一指纹，用于文件对比</li>
+                        <li><strong>缓存标识：</strong>为数据生成唯一哈希值，用作缓存键</li>
+                    </ul>
+
+                    <h3 id="jwt-decoder">7. JWT解码器 <span class="badge bg-primary">使用次数：6,543次（2.3%）</span></h3>
+                    <p><strong>使用频率：</strong>⭐⭐⭐⭐</p>
+                    <p><strong>核心功能：</strong></p>
+                    <ul>
+                        <li><strong>三部分解析：</strong>分别解析Header、Payload、Signature - <strong>JWT结构：</strong>Header.Payload.Signature</li>
+                        <li><strong>Base64URL解码：</strong>将JWT各部分从Base64URL格式解码 - <strong>技术细节：</strong>使用URL安全的Base64变体</li>
+                        <li><strong>JSON格式化：</strong>自动格式化Payload部分的JSON内容 - <strong>用户体验：</strong>无需手动解码和格式化</li>
+                        <li><strong>验证支持：</strong>可以验证Token的签名有效性 - <strong>安全检查：</strong>虽然客户端验证有限，但可以快速检查格式</li>
+                    </ul>
+                    <p><strong>💡 进阶技巧：</strong></p>
+                    <ul>
+                        <li>在调试认证问题时，解码JWT可以快速查看Token中包含的用户信息</li>
+                        <li>检查Token过期时间，及时处理即将过期的Token</li>
+                        <li>验证Token签名，确保Token未被篡改</li>
+                        <li>在学习JWT时，解码不同算法的Token，理解各部分的含义</li>
+                    </ul>
+                    <p><strong>🎯 实际应用：</strong></p>
+                    <ul>
+                        <li><strong>API调试：</strong>在调试需要JWT认证的API时，解码Token查看其中的用户ID、角色等信息</li>
+                        <li><strong>权限验证：</strong>检查Token中的权限声明，确认用户权限</li>
+                        <li><strong>问题排查：</strong>在认证失败时，解码Token查看是否缺少必要的声明</li>
+                        <li><strong>安全审计：</strong>审计Token中的敏感信息，确保不包含机密数据</li>
+                    </ul>
+                    <div class="bg-light p-3 rounded">
+                        <p><strong><i class="fas fa-quote-left me-2 text-primary"></i> 用户反馈：</strong>"JWT解码器是调试认证问题的神器！之前每次都要手动解码，现在一个工具就搞定了。" —— 王后端工程师（2025-08-18）</p>
+                    </div>
+
+                    <h3 id="password-generator">8. 密码生成器 <span class="badge bg-primary">使用次数：5,432次（1.9%）</span></h3>
+                    <p><strong>使用频率：</strong>⭐⭐⭐</p>
+                    <p><strong>核心功能：</strong></p>
+                    <ul>
+                        <li><strong>自定义长度：</strong>生成8-128位长度的随机密码 - <strong>安全建议：</strong>至少12位，包含大小写字母、数字、特殊字符</li>
+                        <li><strong>字符集合：</strong>可选择包含的字符类型 - <strong>最佳实践：</strong>启用所有字符类型以提高密码强度</li>
+                        <li><strong>批量生成：</strong>一次生成多个密码 - <strong>应用场景：</strong>为多个账户创建不同的密码</li>
+                        <li><strong>强度评估：</strong>自动评估密码强度等级 - <strong>安全指标：</strong>绿色表示强度充足</li>
+                        <li><strong>UUID生成：</strong>同时支持生成UUID v4 - <strong>唯一标识：</strong>用于生成全局唯一的ID</li>
+                    </ul>
+                    <p><strong>💡 进阶技巧：</strong></p>
+                    <ul>
+                        <li>为不同的系统使用不同的密码，避免一个密码泄露导致所有账户受影响</li>
+                        <li>定期更换密码，特别是重要账户的密码</li>
+                        <li>将生成的密码保存在安全的密码管理器中</li>
+                        <li>使用UUID v4生成数据库主键或API令牌</li>
+                    </ul>
+                    <p><strong>🎯 安全最佳实践：</strong></p>
+                    <ul>
+                        <li><strong>密码长度：</strong>至少12位，重要账户建议16位以上</li>
+                        <li><strong>字符多样性：</strong>包含大写字母、小写字母、数字、特殊字符四种类型</li>
+                        <li><strong>避免重用：</strong>每个账户使用唯一的密码</li>
+                        <li><strong>定期更新：</strong>每3-6个月更新一次重要密码</li>
+                    </ul>
+
+                    <h3 id="cron-generator">9. Cron表达式生成器 <span class="badge bg-primary">使用次数：4,321次（1.5%）</span></h3>
+                    <p><strong>使用频率：</strong>⭐⭐⭐</p>
+                    <p><strong>核心功能：</strong></p>
+                    <ul>
+                        <li><strong>可视化界面：</strong>通过点选生成Cron表达式 - <strong>用户友好：</strong>无需记忆复杂的语法</li>
+                        <li><strong>实时预览：</strong>即时显示下一次执行时间 - <strong>调试辅助：</strong>可以快速验证表达式是否正确</li>
+                        <li><strong>语法说明：</strong>提供完整的Cron语法参考 - <strong>学习工具：</strong>帮助初学者理解每个字段的含义</li>
+                        <li><strong>常用模板：</strong>提供每天、每周、每月等常用表达式模板 - <strong>效率提升：</strong>快速选择常见的执行时间</li>
+                    </ul>
+                    <p><strong>💡 进阶技巧：</strong></p>
+                    <ul>
+                        <li>使用Cron表达式配置定时任务，如数据库备份、日志清理等</li>
+                        <li>测试Cron表达式时，使用工具查看下一次执行时间</li>
+                        <li>在Spring Boot等框架中，可以使用类似的表达式配置定时任务</li>
+                    </ul>
+                    <p><strong>🎯 应用场景：</strong></p>
+                    <ul>
+                        <li><strong>Linux定时任务：</strong>配置crontab定期执行脚本</li>
+                        <li><strong>数据库维护：</strong>定期执行数据备份、优化等操作</li>
+                        <li><strong>日志管理：</strong>定期清理旧日志文件，释放存储空间</li>
+                        <li><strong>API轮询：</strong>定期调用API获取最新数据</li>
+                    </ul>
+
                     <h2>📈 总结与下一步</h2>
                     <p>我们的在线工具箱涵盖了开发过程中最常见的需求，从基础的编码解码到复杂的数据处理，从简单的文本操作到专业的JWT解码。通过合理使用这些工具，您可以将大量重复性工作自动化，专注于更有创造性的开发工作。</p>
                     <p><strong>记住：工具是用来提升效率的，选择最适合您需求的工具，而不是盲目追求功能的复杂性。</strong>我们建议您从最常用的几个工具开始，逐步掌握其他工具的使用技巧。</p>
+                    <p><strong>此外，我们还提供了CSS阴影生成器、颜色转换器、二维码生成器、HTTP状态码查询等实用工具，</strong>这些工具虽然使用频率较低，但在特定场景下能发挥重要作用。例如：CSS阴影生成器可以帮助前端工程师快速生成美观的阴影效果；颜色转换器可以方便地在RGB、HEX、HSL等颜色格式之间转换；二维码生成器可以为您的应用生成二维码用于分享和推广；HTTP状态码查询工具可以帮助您快速理解各种HTTP状态码的含义。</p>
 
                     <div class="article-sharing mt-4">
                         <p><strong>分享这篇文章：</strong></p>
