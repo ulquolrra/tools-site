@@ -658,7 +658,7 @@ body {
     <!-- Giscus 评论系统 -->
     <!-- 订阅功能脚本 -->
     <script>
-    function subscribeEmailList() {
+        function subscribeEmailList() {
       const email = document.getElementById('subscribeEmail').value;
       const messageEl = document.getElementById('subscribeMessage');
       
@@ -669,19 +669,17 @@ body {
         return;
       }
       
-      // 这里可以集成到你的邮件服务商API
-      // 目前使用本地存储作为演示
-      messageEl.textContent = '订阅成功！感谢你的关注';
+      // 自动打开邮件客户端发送订阅请求到 support@alltoolsbox.xyz
+      window.location.href = `mailto:support@alltoolsbox.xyz?subject=博客订阅申请&body=用户 ${encodeURIComponent(email)} 申请订阅技术博客更新。`;
+      
+      // 显示成功消息
+      messageEl.textContent = '请在邮件客户端确认发送订阅申请';
       messageEl.style.display = 'block';
       messageEl.className = 'mt-2 text-success small';
       
       // 清空输入框
       document.getElementById('subscribeEmail').value = '';
-      
-      // 隐藏成功消息（5秒后）
-      setTimeout(() => {
-        messageEl.style.display = 'none';
-      }, 5000);
+      setTimeout(() => { messageEl.style.display = 'none'; }, 5000);
     }
     </script>
 
