@@ -205,6 +205,16 @@
                     </div>
                 </div>
 
+                <!-- 热门标签云 -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3"><i class="fas fa-tags me-2"></i> 热门标签</h5>
+                        <div class="tag-cloud d-flex flex-wrap gap-2">
+                            <!-- 标签将通过JavaScript动态生成 -->
+                        </div>
+                    </div>
+                </div>
+
                 <!-- 广告位 -->
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-body text-center">
@@ -658,6 +668,73 @@
                     document.getElementById('blogSearchResults').innerHTML = '';
                 }
             });
+        });
+
+        // 生成热门标签云
+        function generateTagCloud() {
+            const tagCloudContainer = document.querySelector('.tag-cloud');
+            if (!tagCloudContainer) return;
+
+            // 收集所有标签
+            const allTags = [];
+            blogArticles.forEach(article => {
+                article.tags.forEach(tag => {
+                    allTags.push(tag);
+                });
+            });
+
+            // 计算标签频率
+            const tagCounts = {};
+            allTags.forEach(tag => {
+                tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+            });
+
+            // 按频率排序
+            const sortedTags = Object.entries(tagCounts)
+                .sort((a, b) => b[1] - a[1]);
+
+            // 确定字体大小范围（基于频率）
+            const maxCount = Math.max(...Object.values(tagCounts));
+            const minCount = Math.min(...Object.values(tagCounts));
+            const fontSizeRange = 1.2 - 0.8; // 1.2em 到 0.8em
+
+            // 生成标签HTML
+            let html = '';
+            sortedTags.forEach(([tag, count]) => {
+                // 计算字体大小（频率越高，字体越大）
+                const relativeCount = (count - minCount) / (maxCount - minCount);
+                const fontSize = 0.8 + (relativeCount * fontSizeRange);
+                
+                // 根据分类确定badge颜色
+                const categoryColors = {
+                    '工具使用': 'bg-primary',
+                    'Web开发': 'bg-info',
+                    'SEO优化': 'bg-success',
+                    '前端优化': 'bg-warning text-dark',
+                    '数据处理': 'bg-secondary'
+                };
+                
+                // 为每个标签分配一个默认颜色
+                const tagColors = ['bg-primary', 'bg-success', 'bg-info', 'bg-warning text-dark', 'bg-secondary', 'bg-danger', 'bg-dark'];
+                const color = tagColors[Math.floor(Math.random() * tagColors.length)];
+                
+                // 生成标签HTML，链接到标签搜索页面
+                html += `
+                    <a href="/blog?search=${encodeURIComponent(tag)}" 
+                       class="badge ${color} text-decoration-none" 
+                       style="font-size: ${fontSize}em; padding: 0.5em 0.75em;"
+                       title="${tag} (${count}篇文章)">
+                        ${tag}
+                    </a>
+                `;
+            });
+
+            tagCloudContainer.innerHTML = html;
+        }
+
+        // 在DOM加载后生成标签云
+        document.addEventListener('DOMContentLoaded', function() {
+            generateTagCloud();
         });
     </script>
 </body>
