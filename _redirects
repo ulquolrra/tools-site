@@ -2,11 +2,12 @@
 # 格式: source destination code
 # 更多信息: https://developers.cloudflare.com/pages/platform/redirects/
 
-# 禁用Cloudflare Pages自动添加尾部斜杠的重定向
-# 防止308 Permanent Redirect问题
-/blog    /blog    200
-/blog/*    /blog/$1    200
-/tools    /tools    200
-/tools/*    /tools/$1    200
-/pages    /pages    200
-/pages/*    /pages/$1    200
+# 解决308重定向问题：使用200状态码进行URL重写（非重定向）
+# Cloudflare Pages支持200重写，可直接服务文件而非产生308重定向
+# 重要：必须在Cloudflare Pages项目设置中关闭"Trailing slash redirect"选项
+/blog    /blog/index.html    200
+/tools    /tools/index.html    200
+/pages    /pages/index.html    200
+
+# 博客文章使用通配符规则，确保无重定向
+/blog/post/*    /blog/post/$1    200
