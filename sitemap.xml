@@ -171,4 +171,22 @@
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
+    <url>
+        <loc>https://alltoolsbox.xyz/blog/post/frontend-security-best-practices.html</loc>
+        <lastmod>2025-09-18</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://alltoolsbox.xyz/blog/post/react-vs-vue-vs-angular-comparison-2025.html</loc>
+        <lastmod>2025-09-18</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://alltoolsbox.xyz/blog/post/css-layout-technologies-complete-guide.html</loc>
+        <lastmod>2025-09-18</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
 </urlset>

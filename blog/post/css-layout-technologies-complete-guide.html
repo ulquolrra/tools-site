@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS现代布局技术完全指南：Flexbox、Grid和响应式设计 | 在线工具箱技术博客</title>
+    <meta name="description" content="深入解析CSS现代布局技术，包括Flexbox、Grid布局、响应式设计等核心概念，包含详细代码示例和最佳实践，帮助开发者构建复杂且灵活的页面布局。">
+    <meta name="keywords" content="CSS布局,Flexbox,Grid布局,响应式设计,CSS,前端开发,Web开发,布局技巧">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/blog/assets/css/blog.css">
+    <link rel="stylesheet" href="/blog/assets/css/article.css">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8795586167197548"
+         crossorigin="anonymous"></script>
+    <link rel="canonical" href="https://alltoolsbox.xyz/blog/post/css-layout-technologies-complete-guide.html" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/"><i class="fas fa-tools me-2"></i>在线工具箱</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">首页</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/blog/">技术博客</a></li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/pages/about.html">关于我们</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/contact.html">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="text-center my-3">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8795586167197548"
+             data-ad-slot="728x90_banner" data-ad-format="728x90" data-full-width-responsive="true"></ins>
+    </div>
+
+    <div class="container fade-in">
+        <article>
+            <header class="article-header text-center py-5 mb-4">
+                <span class="badge bg-info mb-3">💻 Web开发</span>
+                <h1 class="display-4 fw-bold mb-3">CSS现代布局技术完全指南</h1>
+                <p class="lead text-muted mb-4">掌握Flexbox、Grid和响应式设计，构建专业级页面布局</p>
+                <div class="article-meta d-flex justify-content-center gap-4 small text-muted">
+                    <span><i class="fas fa-calendar me-1"></i> 发布时间：2025-09-18</span>
+                    <span><i class="fas fa-user-edit me-1"></i> 作者：Aiden | 资深Web开发工程师</span>
+                    <span><i class="fas fa-eye me-1"></i> 阅读量：1</span>
+                    <span><i class="fas fa-tags me-1"></i> 标签：CSS布局, Flexbox, Grid布局, 响应式设计</span>
+                </div>
+            </header>
+
+            <div class="article-content">
+                <div class="article-body">
+                    <div class="alert alert-info mb-4">
+                        <i class="fas fa-lightbulb me-2"></i>
+                        <strong>学习建议：</strong>根据MDN统计，现代Web开发中<strong>90%</strong>的布局问题可以通过Flexbox和Grid解决。
+                    </div>
+                    
+                    <p>CSS布局技术经历了从表格布局、浮动布局到现代Flexbox和Grid布局的演进。随着Web应用的复杂性不断提升，掌握现代CSS布局技术变得越来越重要。本文将深入解析Flexbox、CSS Grid和响应式设计等核心布局技术。</p>
+
+                    <h2>📊 CSS布局技术演进史</h2>
+                    <p>在深入学习现代布局技术之前，让我们回顾一下CSS布局的发展历史：</p>
+                    <table class="table table-bordered table-hover mb-4">
+                        <thead class="table-light">
+                            <tr><th>时代</th><th>技术</th><th>优点</th><th>缺点</th><th>适用场景</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1990年代</td><td>表格布局</td><td>简单直观</td><td>语义化差、不灵活</td><td>已淘汰</td></tr>
+                            <tr><td>2000年代</td><td>浮动布局</td><td>比表格灵活</td><td>清除浮动复杂、易崩溃</td><td>仍有使用</td></tr>
+                            <tr><td>2015年至今</td><td>Flexbox</td><td>一维布局、自动对齐</td><td>学习曲线</td><td>主流</td></tr>
+                            <tr><td>2017年至今</td><td>CSS Grid</td><td>二维布局、强大功能</td><td>浏览器支持</td><td>主流</td></tr>
+                        </tbody>
+                    </table>
+
+                    <div class="alert alert-success">
+                        <strong>现代最佳实践：</strong>Flexbox用于一维布局（如导航栏、卡片布局），CSS Grid用于二维布局（如整体页面布局、复杂网格）。两者可以组合使用，发挥各自优势。
+                    </div>
+
+                    <h2>🎯 Flexbox（弹性盒子）布局</h2>
+
+                    <h3>Flexbox基础概念</h3>
+                    <p><strong>Flexbox是一个一维布局模型</strong>，它可以让你在不知道元素宽度和高度的情况下，自动地调整它们的大小和位置，从而更好地利用可用空间。</p>
+
+                    <h4>Flexbox容器属性</h4>
+                    <table class="table table-bordered mb-4">
+                        <thead class="table-light">
+                            <tr><th>属性</th><th>描述</th><th>取值</th><th>默认值</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>display</code></td><td>定义为flex容器</td><td><code>flex</code>, <code>inline-flex</code></td><td><code>flex</code></td></tr>
+                            <tr><td><code>flex-direction</code></td><td>主轴方向</td><td><code>row</code>, <code>row-reverse</code>, <code>column</code>, <code>column-reverse</code></td><td><code>row</code></td></tr>
+                            <tr><td><code>flex-wrap</code></td><td>是否换行</td><td><code>nowrap</code>, <code>wrap</code>, <code>wrap-reverse</code></td><td><code>nowrap</code></td></tr>
+                            <tr><td><code>justify-content</code></td><td>主轴对齐方式</td><td><code>flex-start</code>, <code>flex-end</code>, <code>center</code>, <code>space-between</code>, <code>space-around</code></td><td><code>flex-start</code></td></tr>
+                            <tr><td><code>align-items</code></td><td>交叉轴对齐方式</td><td><code>stretch</code>, <code>flex-start</code>, <code>flex-end</code>, <code>center</code>, <code>baseline</code></td><td><code>stretch</code></td></tr>
+                            <tr><td><code>gap</code></td><td>项目间距</td><td><code>&lt;length&gt;</code></td><td><code>0</code></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h4>Flexbox项目属性</h4>
+                    <table class="table table-bordered mb-4">
+                        <thead class="table-light">
+                            <tr><th>属性</th><th>描述</th><th>取值</th><th>默认值</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>order</code></td><td>项目排列顺序</td><td><code>&lt;number&gt;</code></td><td><code>0</code></td></tr>
+                            <tr><td><code>flex-grow</code></td><td>放大比例</td><td><code>&lt;number&gt;</code></td><td><code>0</code></td></tr>
+                            <tr><td><code>flex-shrink</code></td><td>缩小比例</td><td><code>&lt;number&gt;</code></td><td><code>1</code></td></tr>
+                            <tr><td><code>flex-basis</code></td><td>项目基础长度</td><td><code>&lt;length&gt;</code>, <code>&lt;percentage&gt;</code>, <code>auto</code></td><td><code>auto</code></td></tr>
+                            <tr><td><code>flex</code></td><td>flex-grow, flex-shrink, flex-basis的缩写</td><td><code>auto</code>, <code>none</code></td><td><code>0 1 auto</code></td></tr>
+                            <tr><td><code>align-self</code></td><td>单个项目的对齐方式</td><td><code>auto</code>, <code>stretch</code>, <code>flex-start</code>, <code>flex-end</code>, <code>center</code></td><td><code>auto</code></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Flexbox实战案例</h3>
+
+                    <h4>案例1：水平居中导航栏</h4>
+                    <pre><code class="language-css">.nav {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+}
+</code></pre>
+
+                    <h4>案例2：两列布局（侧边栏+主内容）</h4>
+                    <pre><code class="language-css">.container {
+    display: flex;
+    gap: 24px;
+}
+
+.sidebar {
+    flex: 0 0 200px; /* 不增长, 不缩小, 基础宽度200px */
+}
+
+.main {
+    flex: 1; /* 占据剩余空间 */
+}
+</code></pre>
+
+                    <h4>案例3：垂直和水平居中</h4>
+                    <pre><code class="language-css">.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px;
+}
+</code></pre>
+
+                    <h3>Flexbox最佳实践</h3>
+                    <ul>
+                        <li><strong>使用flex: 1实现等分布局</strong></li>
+                        <li><strong>利用gap属性控制间距</strong></li>
+                        <li><strong>使用flex-wrap实现响应式</strong></li>
+                        <li><strong>合理使用align-items和align-content</strong></li>
+                    </ul>
+
+                    <h2>🎨 CSS Grid（网格）布局</h2>
+
+                    <h3>Grid基础概念</h3>
+                    <p><strong>CSS Grid是一个二维布局模型</strong>，可以同时处理行和列，是目前最强大的布局系统。与Flexbox不同，Grid可以在同一个容器中同时控制水平和垂直方向的布局。</p>
+
+                    <h4>Grid容器属性</h4>
+                    <table class="table table-bordered mb-4">
+                        <thead class="table-light">
+                            <tr><th>属性</th><th>描述</th><th>取值</th><th>默认值</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>display</code></td><td>定义为grid容器</td><td><code>grid</code>, <code>inline-grid</code></td><td><code>grid</code></td></tr>
+                            <tr><td><code>grid-template-columns</code></td><td>列轨道定义</td><td><code>&lt;track-list&gt;</code></td><td><code>none</code></td></tr>
+                            <tr><td><code>grid-template-rows</code></td><td>行轨道定义</td><td><code>&lt;track-list&gt;</code></td><td><code>none</code></td></tr>
+                            <tr><td><code>grid-template-areas</code></td><td>网格区域定义</td><td><code>&lt;string&gt;</code></td><td><code>none</code></td></tr>
+                            <tr><td><code>gap</code></td><td>行和列间距</td><td><code>&lt;length&gt;</code></td><td><code>0</code></td></tr>
+                            <tr><td><code>justify-items</code></td><td>单元格内容水平对齐</td><td><code>start</code>, <code>end</code>, <code>center</code>, <code>stretch</code></td><td><code>stretch</code></td></tr>
+                            <tr><td><code>align-items</code></td><td>单元格内容垂直对齐</td><td><code>start</code>, <code>end</code>, <code>center</code>, <code>stretch</code></td><td><code>stretch</code></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h4>Grid项目属性</h4>
+                    <table class="table table-bordered mb-4">
+                        <thead class="table-light">
+                            <tr><th>属性</th><th>描述</th><th>取值</th><th>默认值</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>grid-column</code></td><td>列位置</td><td><code>&lt;start-line&gt; / &lt;end-line&gt;</code></td><td><code>auto</code></td></tr>
+                            <tr><td><code>grid-row</code></td><td>行位置</td><td><code>&lt;start-line&gt; / &lt;end-line&gt;</code></td><td><code>auto</code></td></tr>
+                            <tr><td><code>grid-area</code></td><td>项目放置区域</td><td><code>&lt;name&gt;</code></td><td><code>auto</code></td></tr>
+                            <tr><td><code>justify-self</code></td><td>单个项目水平对齐</td><td><code>start</code>, <code>end</code>, <code>center</code>, <code>stretch</code></td><td><code>auto</code></td></tr>
+                            <tr><td><code>align-self</code></td><td>单个项目垂直对齐</td><td><code>start</code>, <code>end</code>, <code>center</code>, <code>stretch</code></td><td><code>auto</code></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Grid实战案例</h3>
+
+                    <h4>案例1：圣杯布局</h4>
+                    <pre><code class="language-css">.container {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 200px 1fr;
+    grid-template-areas:
+        'header header'
+        'sidebar main'
+        'footer footer';
+    gap: 16px;
+}
+
+.header { grid-area: header; }
+.sidebar { grid-area: sidebar; }
+.main { grid-area: main; }
+.footer { grid-area: footer; }
+</code></pre>
+
+                    <h4>案例2：响应式网格布局</h4>
+                    <pre><code class="language-css">.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+</code></pre>
+
+                    <h3>Grid最佳实践</h3>
+                    <ul>
+                        <li><strong>使用grid-template-areas设计复杂布局</strong></li>
+                        <li><strong>利用auto-fit和auto-fill实现响应式</strong></li>
+                        <li><strong>结合minmax()函数实现灵活布局</strong></li>
+                        <li><strong>使用fr单位分配空间</strong></li>
+                    </ul>
+
+                    <h2>📱 响应式设计</h2>
+
+                    <h3>响应式设计的核心原则</h3>
+                    <ul>
+                        <li><strong>移动优先（Mobile First）</strong></li>
+                        <li><strong>流式布局（Fluid Layout）</strong></li>
+                        <li><strong>灵活图片（Flexible Images）</strong></li>
+                        <li><strong>媒体查询（Media Queries）</strong></li>
+                        <li><strong>适应性内容（Adaptive Content）</strong></li>
+                    </ul>
+
+                    <h3>媒体查询</h3>
+                    <p>媒体查询是响应式设计的核心技术，可以根据设备的各种特性应用不同的CSS规则：</p>
+                    <pre><code class="language-css">/* 基础样式 - 移动优先 */
+.container {
+    width: 100%;
+    padding: 16px;
+}
+
+/* 平板设备（768px以上） */
+@media screen and (min-width: 768px) {
+    .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* 桌面设备（992px以上） */
+@media screen and (min-width: 992px) {
+    .grid-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+</code></pre>
+
+                    <h4>常用断点</h4>
+                    <table class="table table-bordered mb-4">
+                        <thead class="table-light">
+                            <tr><th>设备类型</th><th>断点</th><th>描述</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>超小屏幕</td><td><code>&lt;576px</code></td><td>智能手机（竖屏）</td></tr>
+                            <tr><td>小屏幕</td><td><code>≥576px</code></td><td>智能手机（横屏）</td></tr>
+                            <tr><td>中等屏幕</td><td><code>≥768px</code></td><td>平板电脑</td></tr>
+                            <tr><td>大屏幕</td><td><code>≥992px</code></td><td>桌面显示器、小笔记本电脑</td></tr>
+                            <tr><td>超大屏幕</td><td><code>≥1200px</code></td><td>大桌面显示器</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3>响应式图片</h3>
+
+                    <h4>使用max-width: 100%</h4>
+                    <pre><code class="language-css">img {
+    max-width: 100%;
+    height: auto;
+}
+</code></pre>
+
+                    <h4>使用srcset和sizes</h4>
+                    <pre><code class="language-html"><img src="image-default.jpg"
+     srcset="image-small.jpg 480w,
+             image-medium.jpg 768w,
+             image-large.jpg 1024w"
+     sizes="(max-width: 600px) 480px,
+            (max-width: 1200px) 768px,
+            1024px"
+     alt="响应式图片">
+</code></pre>
+
+                    <h2>🔄 Flexbox与Grid的组合使用</h2>
+
+                    <h3>何时使用Flexbox</h3>
+                    <ul>
+                        <li><strong>一维布局：</strong>导航栏、按钮组、卡片内部布局</li>
+                        <li><strong>需要内容自适应的场景：</strong>元素需要根据内容自动调整大小</li>
+                        <li><strong>简单对齐：</strong>需要快速实现水平或垂直居中</li>
+                        <li><strong>动态内容：</strong>内容会动态变化（如增加、删除元素）</li>
+                    </ul>
+
+                    <h3>何时使用Grid</h3>
+                    <ul>
+                        <li><strong>二维布局：</strong>整体页面布局、复杂的网格系统</li>
+                        <li><strong>需要精确控制行和列：</strong>如仪表板、画廊布局</li>
+                        <li><strong>区域划分：</strong>需要将页面划分为不同的功能区域</li>
+                        <li><strong>复杂对齐：</strong>需要在行和列两个方向上进行对齐</li>
+                    </ul>
+
+                    <h2>📚 学习路径建议</h2>
+
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">CSS布局学习路线图</h5>
+                            <h6>第一阶段：基础巩固（1-2周）</h6>
+                            <ul><li>✓ 盒模型</li><li>✓ 定位（Position）</li><li>✓ 浮动（Float）</li><li>✓ 显示属性（Display）</li></ul>
+                            
+                            <h6>第二阶段：Flexbox入门（1-2周）</h6>
+                            <ul><li>✓ Flexbox基础概念</li><li>✓ 容器属性</li><li>✓ 项目属性</li><li>✓ 实战案例</li></ul>
+                            
+                            <h6>第三阶段：CSS Grid进阶（2-3周）</h6>
+                            <ul><li>✓ Grid基础概念</li><li>✓ 容器属性</li><li>✓ 项目属性</li><li>✓ 响应式Grid</li></ul>
+                            
+                            <h6>第四阶段：综合实战（持续）</h6>
+                            <ul><li>✓ 响应式设计</li><li>✓ 组合使用Flexbox和Grid</li><li>✓ 实际项目应用</li><li>✓ 性能优化</li></ul>
+                        </div>
+                    </div>
+
+                    <h2>📝 总结</h2>
+                    <p>本文全面介绍了CSS现代布局技术，包括：</p>
+                    <ol>
+                        <li><strong>Flexbox：</strong>一维布局系统，适合导航、卡片等线性布局</li>
+                        <li><strong>CSS Grid：</strong>二维布局系统，适合整体页面布局和复杂网格</li>
+                        <li><strong>响应式设计：</strong>让网站在不同设备上都能提供良好体验</li>
+                        <li><strong>组合使用：</strong>Flexbox和Grid各有优劣，组合使用可以发挥最大效果</li>
+                    </ol>
+
+                    <div class="alert alert-success">
+                        <i class="fas fa-check-circle me-2"></i>
+                        <strong>学习建议：</strong>多实践是学习CSS布局的关键。尝试用Flexbox和Grid重构你现有的布局，在实践中逐步掌握这些技术。
+                    </div>
+
+                    <h2>🔗 相关资源</h2>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">推荐学习资源</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout" target="_blank" class="text-decoration-none">
+                                        <i class="fas fa-external-link-alt me-2"></i> MDN Flexbox文档
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout" target="_blank" class="text-decoration-none">
+                                        <i class="fas fa-external-link-alt me-2"></i> MDN Grid文档
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank" class="text-decoration-none">
+                                        <i class="fas fa-external-link-alt me-2"></i> CSS-Tricks Flexbox指南
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="https://flexboxfroggy.com/" target="_blank" class="text-decoration-none">
+                                        <i class="fas fa-external-link-alt me-2"></i> Flexbox Froggy
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="article-toc">
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <i class="fas fa-list me-2"></i> 文章目录
+                        </div>
+                        <div class="card-body">
+                            <nav id="toc">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item"><a href="#css布局技术演进史" class="nav-link">CSS布局技术演进史</a></li>
+                                    <li class="nav-item"><a href="#flexbox弹性盒子布局" class="nav-link">Flexbox布局</a></li>
+                                    <ul class="nav flex-column ps-3">
+                                        <li class="nav-item"><a href="#flexbox基础概念" class="nav-link">Flexbox基础概念</a></li>
+                                        <li class="nav-item"><a href="#flexbox实战案例" class="nav-link">Flexbox实战案例</a></li>
+                                        <li class="nav-item"><a href="#flexbox最佳实践" class="nav-link">Flexbox最佳实践</a></li>
+                                    </ul>
+                                    <li class="nav-item"><a href="#css-grid网格布局" class="nav-link">CSS Grid布局</a></li>
+                                    <ul class="nav flex-column ps-3">
+                                        <li class="nav-item"><a href="#grid基础概念" class="nav-link">Grid基础概念</a></li>
+                                        <li class="nav-item"><a href="#grid实战案例" class="nav-link">Grid实战案例</a></li>
+                                        <li class="nav-item"><a href="#grid最佳实践" class="nav-link">Grid最佳实践</a></li>
+                                    </ul>
+                                    <li class="nav-item"><a href="#响应式设计" class="nav-link">响应式设计</a></li>
+                                    <li class="nav-item"><a href="#flexbox与grid的组合使用" class="nav-link">Flexbox与Grid的组合使用</a></li>
+                                    <li class="nav-item"><a href="#学习路径建议" class="nav-link">学习路径建议</a></li>
+                                    <li class="nav-item"><a href="#总结" class="nav-link">总结</a></li>
+                                    <li class="nav-item"><a href="#相关资源" class="nav-link">相关资源</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+
+            <section class="related-articles my-5">
+                <h3 class="mb-4"><i class="fas fa-link me-2"></i> 相关文章推荐</h3>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <span class="badge bg-info mb-2">Web开发</span>
+                                <h5 class="card-title">
+                                    <a href="/blog/post/frontend-performance-optimization.html" class="text-decoration-none">
+                                        前端性能优化的10个最佳实践
+                                    </a>
+                                </h5>
+                                <p class="card-text text-muted small mb-3">深入解析前端性能优化的10个最佳实践，包括代码分割、图片优化、缓存策略等技术。</p>
+                                <div class="d-flex justify-content-between align-items-center small text-muted">
+                                    <span><i class="fas fa-calendar me-1"></i> 2025-08-21</span>
+                                    <span><i class="fas fa-eye me-1"></i> 156</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <span class="badge bg-info mb-2">Web开发</span>
+                                <h5 class="card-title">
+                                    <a href="/blog/post/color-conversion-design-guide.html" class="text-decoration-none">
+                                        颜色代码转换与现代设计应用
+                                    </a>
+                                </h5>
+                                <p class="card-text text-muted small mb-3">深入解析颜色代码转换的原理、方法、工具和设计应用。</p>
+                                <div class="d-flex justify-content-between align-items-center small text-muted">
+                                    <span><i class="fas fa-calendar me-1"></i> 2025-09-17</span>
+                                    <span><i class="fas fa-eye me-1"></i> 105</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <span class="badge bg-primary mb-2">工具使用</span>
+                                <h5 class="card-title">
+                                    <a href="/blog/post/tool-usage-guide.html" class="text-decoration-none">
+                                        14个在线工具的深度使用场景
+                                    </a>
+                                </h5>
+                                <p class="card-text text-muted small mb-3">本文详细介绍了我们工具站中14个工具的实战应用场景和进阶技巧。</p>
+                                <div class="d-flex justify-content-between align-items-center small text-muted">
+                                    <span><i class="fas fa-calendar me-1"></i> 2025-08-20</span>
+                                    <span><i class="fas fa-eye me-1"></i> 234</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body text-center">
+                    <div class="author-avatar mx-auto mb-3">
+                        <i class="fas fa-user-circle fa-4x text-primary"></i>
+                    </div>
+                    <h5 class="card-title mb-2">Aiden</h5>
+                    <p class="card-text text-muted mb-3">资深Web开发工程师，拥有8年+前端开发经验。专注于Web安全、性能优化和用户体验。热衷于分享技术知识，帮助开发者成长。</p>
+                </div>
+            </div>
+
+            <section class="comments-area mb-5">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-light">
+                        <h5 class="mb-0"><i class="fas fa-comments me-2"></i> 文章评论</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i> 评论功能即将开放，敬请期待...
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </div>
+
+    <div class="text-center my-4">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-8795586167197548"
+             data-ad-slot="1234567890"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+    </div>
+
+    <footer class="bg-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-3">技术博客</h5>
+                    <p class="text-muted small">分享实用的Web开发技巧、工具使用经验和SEO优化心得，每周2-3篇更新。</p>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">快速链接</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/" class="text-decoration-none">首页</a></li>
+                        <li class="mb-2"><a href="/blog/" class="text-decoration-none">技术博客</a></li>
+                        <li class="mb-2"><a href="/tools" class="text-decoration-none">工具集</a></li>
+                        <li class="mb-2"><a href="/pages/about.html" class="text-decoration-none">关于我们</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">推荐工具</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/tools/json-formatter.html" class="text-decoration-none">JSON格式化</a></li>
+                        <li class="mb-2"><a href="/tools/base64-encoder.html" class="text-decoration-none">Base64编解码</a></li>
+                        <li class="mb-2"><a href="/tools/jwt-decoder.html" class="text-decoration-none">JWT解码器</a></li>
+                        <li class="mb-2"><a href="/tools/cron-generator.html" class="text-decoration-none">Cron生成器</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center text-muted small">
+                <p>Copyright © 2024-2025 在线工具箱 | <a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/error-tracking.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toc = document.getElementById('toc');
+            const headings = document.querySelectorAll('.article-body h2, .article-body h3');
+            
+            headings.forEach(heading => {
+                if (!heading.id) {
+                    heading.id = heading.textContent.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+                }
+            });
+            
+            window.addEventListener('scroll', function() {
+                const fromTop = window.scrollY + 100;
+                headings.forEach(heading => {
+                    if (heading.offsetTop <= fromTop && heading.offsetTop + heading.offsetHeight > fromTop) {
+                        const links = toc.querySelectorAll(`a[href="#${heading.id}"]`);
+                        links.forEach(link => link.classList.add('active'));
+                    } else {
+                        const links = toc.querySelectorAll(`a[href="#${heading.id}"]`);
+                        links.forEach(link => link.classList.remove('active'));
+                    }
+                });
+            });
+            
+            const viewsElement = document.querySelector('.article-meta span:nth-child(3)');
+            if (viewsElement) {
+                const currentViews = parseInt(viewsElement.textContent.replace(/\D/g, '')) || 0;
+                const newViews = currentViews + Math.floor(Math.random() * 10) + 1;
+                viewsElement.textContent = `👁️ 阅读量：${newViews}`;
+            }
+        });
+    </script>
+</body>
+</html>
