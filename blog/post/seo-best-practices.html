@@ -541,7 +541,20 @@
             </div>
         </article>
 
-        <!-- 评论系统 - Giscus -->
+                        <!-- 社交分享功能 -->
+                <div class="social-share mb-4">
+                  <span class="me-2">分享到：</span>
+                  <a href="https://twitter.com/intent/tweet" target="_blank" class="btn btn-sm btn-outline-secondary me-2 social-share-twitter" rel="noopener noreferrer">
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                  <a href="https://www.linkedin.com/shareArticle?mini=true" target="_blank" class="btn btn-sm btn-outline-secondary me-2 social-share-linkedin" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin"></i>
+                  </a>
+                  <a href="javascript:void(0);" onclick="copyToClipboard(window.location.href, this)" class="btn btn-sm btn-outline-secondary social-share-copy" rel="noopener noreferrer">
+                    <i class="fas fa-link"></i>
+                  </a>
+                </div>
+<!-- 评论系统 - Giscus -->
         <div class="comments-section card border-0 shadow-sm mt-5 mb-5">
             <div class="card-body">
                 <h5 class="mb-4"><i class="fas fa-comments me-2"></i> 文章评论</h5>
@@ -607,6 +620,48 @@
     <script src="/assets/js/error-tracking.js"></script>
     
     <!-- Giscus 评论系统 -->
+    <!-- 社交分享初始化脚本 -->
+    <script>
+    function copyToClipboard(text, element) {
+      navigator.clipboard.writeText(text).then(function() {
+        const originalHtml = element.innerHTML;
+        element.innerHTML = '<i class="fas fa-check me-1"></i> 已复制';
+        setTimeout(() => {
+          element.innerHTML = originalHtml;
+        }, 2000);
+      }).catch(function(err) {
+        console.error('复制失败:', err);
+      });
+    }
+    
+    // 初始化社交分享按钮 - 动态获取页面信息
+    document.addEventListener('DOMContentLoaded', function() {
+      const pageUrl = encodeURIComponent(window.location.href);
+      const pageTitle = encodeURIComponent(document.title);
+      const pageDesc = encodeURIComponent(document.querySelector('meta[name="description"]')?.content || '');
+      
+      // Twitter分享
+      const twitterLinks = document.querySelectorAll('a.social-share-twitter');
+      twitterLinks.forEach(link => {
+        link.href = `https://twitter.com/intent/tweet?url=${pageUrl}&text=${pageTitle}`;
+      });
+      
+      // LinkedIn分享
+      const linkedinLinks = document.querySelectorAll('a.social-share-linkedin');
+      linkedinLinks.forEach(link => {
+        link.href = `https://www.linkedin.com/shareArticle?mini=true&url=${pageUrl}&title=${pageTitle}&summary=${pageDesc}`;
+      });
+      
+      // 复制链接按钮
+      const copyLinks = document.querySelectorAll('a.social-share-copy');
+      copyLinks.forEach(link => {
+        link.onclick = function() {
+          copyToClipboard(window.location.href, this);
+        };
+      });
+    });
+    </script>
+
     <script src="https://giscus.app/client.js"
         data-repo="ulquolrra/tools-site"
         data-repo-id="R_kgDOTh2zCw"
