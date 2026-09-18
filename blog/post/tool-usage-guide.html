@@ -1165,10 +1165,11 @@ const beijingTime = utcDate.toLocaleString('zh-CN', {
                     </div>
                 </div>
 
-                <div class="comments-section card border-0 shadow-sm mb-5">
+                <!-- 评论系统 - Disqus -->
+                <div class="comments-section card border-0 shadow-sm mt-5 mb-5">
                     <div class="card-body">
                         <h5 class="mb-4"><i class="fas fa-comments me-2"></i> 文章评论</h5>
-                        <p class="text-muted small mb-4">由于我们暂时没有开通评论系统，如有疑问请通过<a href="/pages/contact.html">联系我们</a>。</p>
+                        <div id="disqus_thread"></div>
                     </div>
                 </div>
             </article>
@@ -1221,5 +1222,16 @@ const beijingTime = utcDate.toLocaleString('zh-CN', {
             });
         });
     </script>
+    
+    <!-- Disqus 评论系统 -->
+    <script>
+        (function() {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://alltoolsbox.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>请启用JavaScript以查看 <a href="https://disqus.com/?ref_noscript">由Disqus提供的评论</a>。</noscript>
 </body>
 </html>
