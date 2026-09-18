@@ -157,7 +157,12 @@
                     <div class="card-body">
                         <h5 class="card-title mb-3"><i class="fas fa-search me-2"></i> 搜索文章</h5>
                         <form id="blogSearchForm" class="d-flex">
-                            <input type="search" id="blogSearchInput" class="form-control" placeholder="输入关键词搜索..." autocomplete="off">
+                            <div class="search-container position-relative flex-grow-1">
+                                <input type="search" id="blogSearchInput" class="form-control" 
+                                       placeholder="输入关键词搜索..." autocomplete="off">
+                                <!-- 搜索建议下拉菜单 -->
+                                <div id="searchSuggestions" class="dropdown-menu w-100" style="position: absolute; display: none; max-height: 300px; overflow-y: auto;"></div>
+                            </div>
                             <button class="btn btn-primary ms-2" type="submit">
                                 <i class="fas fa-search"></i>
                             </button>
@@ -735,6 +740,119 @@
         // 在DOM加载后生成标签云
         document.addEventListener('DOMContentLoaded', function() {
             generateTagCloud();
+        });
+
+        // 搜索建议功能
+        function initSearchSuggestions() {
+            const searchInput = document.getElementById('blogSearchInput');
+            const searchSuggestions = document.getElementById('searchSuggestions');
+            
+            if (!searchInput || !searchSuggestions) return;
+
+            // 获取所有唯一标签
+            const allTags = [...new Set(blogArticles.flatMap(a => a.tags))];
+
+            // 输入时显示建议
+            searchInput.addEventListener('input', function(e) {
+                const query = e.target.value.trim();
+                
+                if (query.length < 1) {
+                    searchSuggestions.style.display = 'none';
+                    return;
+                }
+
+                // 从文章中筛选建议
+                const articleSuggestions = blogArticles
+                    .filter(article => 
+                        article.title.toLowerCase().includes(query.toLowerCase()) ||
+                        article.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase()))
+                    )
+                    .slice(0, 5)
+                    .map(article => ({
+                        type: 'article',
+                        text: article.title,
+                        url: article.url
+                    }));
+
+                // 从标签中筛选建议
+                const tagSuggestions = allTags
+                    .filter(tag => tag.toLowerCase().includes(query.toLowerCase()))
+                    .slice(0, 3)
+                    .map(tag => ({
+                        type: 'tag',
+                        text: `#${tag}`,
+                        url: `/blog?search=${encodeURIComponent(tag)}`
+                    }));
+
+                const suggestions = [...articleSuggestions, ...tagSuggestions];
+
+                if (suggestions.length === 0) {
+                    searchSuggestions.style.display = 'none';
+                    return;
+                }
+
+                // 渲染建议
+                searchSuggestions.innerHTML = suggestions.map(s => `
+                    <a href="${s.url}" class="dropdown-item d-flex align-items-center py-2 suggestion-item">
+                        <i class="fas fa-${s.type === 'article' ? 'file-alt' : 'tag'} me-2 text-muted"></i>
+                        <span class="flex-grow-1">${s.text}</span>
+                        ${s.type === 'article' ? '<span class="text-muted small">文章</span>' : '<span class="text-muted small">标签</span>'}
+                    </a>
+                `).join('');
+
+                searchSuggestions.style.display = 'block';
+            });
+
+            // 点击外部隐藏建议
+            document.addEventListener('click', function(e) {
+                if (!searchInput.contains(e.target) && !searchSuggestions.contains(e.target)) {
+                    searchSuggestions.style.display = 'none';
+                }
+            });
+
+            // 键盘导航
+            searchInput.addEventListener('keydown', function(e) {
+                const items = searchSuggestions.querySelectorAll('.suggestion-item');
+                if (items.length === 0) return;
+
+                let currentIndex = -1;
+                items.forEach((item, index) => {
+                    if (item.classList.contains('active')) {
+                        currentIndex = index;
+                    }
+                });
+
+                // 向下键
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    const nextIndex = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
+                    updateActiveSuggestion(items, nextIndex);
+                }
+                // 向上键
+                else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    const prevIndex = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
+                    updateActiveSuggestion(items, prevIndex);
+                }
+                // 回车键
+                else if (e.key === 'Enter' && currentIndex >= 0) {
+                    e.preventDefault();
+                    items[currentIndex].click();
+                }
+            });
+
+            function updateActiveSuggestion(items, index) {
+                items.forEach(item => item.classList.remove('active'));
+                if (index >= 0 && index < items.length) {
+                    items[index].classList.add('active');
+                    items[index].scrollIntoView({ block: 'nearest' });
+                }
+            }
+        }
+
+        // 初始化搜索建议
+        document.addEventListener('DOMContentLoaded', function() {
+            initSearchSuggestions();
         });
     </script>
 </body>
