@@ -800,11 +800,11 @@ Sitemap: https://alltoolsbox.xyz/sitemap.xml</code></pre>
                     </div>
                 </div>
 
-                <!-- 评论系统 - Disqus -->
+                <!-- 评论系统 - Giscus -->
                 <div class="comments-section card border-0 shadow-sm mt-5 mb-5">
                     <div class="card-body">
                         <h5 class="mb-4"><i class="fas fa-comments me-2"></i> 文章评论</h5>
-                        <div id="disqus_thread"></div>
+                        <div id="giscus-comments" class="giscus"></div>
                     </div>
                 </div>
             </article>
@@ -875,15 +875,21 @@ Sitemap: https://alltoolsbox.xyz/sitemap.xml</code></pre>
         });
     </script>
     
-    <!-- Disqus 评论系统 -->
-    <script>
-        (function() {
-            var d = document, s = d.createElement('script');
-            s.src = 'https://alltoolsbox.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-        })();
+    <!-- Giscus 评论系统 -->
+    <script src="https://giscus.app/client.js"
+        data-repo="YOUR_GITHUB_USERNAME/YOUR_REPO"
+        data-repo-id="YOUR_REPO_ID"
+        data-category="Comments"
+        data-category-id="YOUR_CATEGORY_ID"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
     </script>
-    <noscript>请启用JavaScript以查看 <a href="https://disqus.com/?ref_noscript">由Disqus提供的评论</a>。</noscript>
 </body>
 </html>
