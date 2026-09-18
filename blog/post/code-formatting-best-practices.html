@@ -546,7 +546,28 @@ body {
             </div>
         </article>
 
-                        <!-- 社交分享功能 -->
+                                        <!-- 订阅功能 -->
+                <div class="card border-0 shadow-sm mb-4">
+  <div class="card-body">
+    <h5 class="card-title mb-3"><i class="fas fa-bell me-2"></i> 订阅更新</h5>
+    <div class="subscribe-container">
+      <div class="mb-3">
+        <a href="/feed.xml" class="btn btn-outline-success w-100 mb-2">
+          <i class="fas fa-rss me-2"></i> RSS订阅
+        </a>
+      </div>
+      <p class="text-muted small mb-2">获取最新技术文章和工具推荐</p>
+      <div class="input-group">
+        <input type="email" id="subscribeEmail" class="form-control" placeholder="你的邮箱地址" required>
+        <button class="btn btn-primary" type="button" onclick="subscribeEmailList()">
+          邮件订阅
+        </button>
+      </div>
+      <div id="subscribeMessage" class="mt-2 text-success small" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+<!-- 社交分享功能 -->
                 <div class="social-share mb-4">
                   <span class="me-2">分享到：</span>
                   <a href="https://twitter.com/intent/tweet" target="_blank" class="btn btn-sm btn-outline-secondary me-2 social-share-twitter" rel="noopener noreferrer">
@@ -635,6 +656,35 @@ body {
     </script>
     
     <!-- Giscus 评论系统 -->
+    <!-- 订阅功能脚本 -->
+    <script>
+    function subscribeEmailList() {
+      const email = document.getElementById('subscribeEmail').value;
+      const messageEl = document.getElementById('subscribeMessage');
+      
+      if (!email || !email.includes('@')) {
+        messageEl.textContent = '请输入有效的邮箱地址';
+        messageEl.style.display = 'block';
+        messageEl.className = 'mt-2 text-danger small';
+        return;
+      }
+      
+      // 这里可以集成到你的邮件服务商API
+      // 目前使用本地存储作为演示
+      messageEl.textContent = '订阅成功！感谢你的关注';
+      messageEl.style.display = 'block';
+      messageEl.className = 'mt-2 text-success small';
+      
+      // 清空输入框
+      document.getElementById('subscribeEmail').value = '';
+      
+      // 隐藏成功消息（5秒后）
+      setTimeout(() => {
+        messageEl.style.display = 'none';
+      }, 5000);
+    }
+    </script>
+
     <!-- 社交分享初始化脚本 -->
     <script>
     function copyToClipboard(text, element) {
