@@ -189,4 +189,52 @@
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
+    <url>
+        <loc>https://alltoolsbox.xyz/blog/post/20-essential-online-tools-for-developers.html</loc>
+        <lastmod>2025-09-17</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://alltoolsbox.xyz/blog/post/base64-encoding-complete-guide.html</loc>
+        <lastmod>2025-09-17</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://alltoolsbox.xyz/blog/post/code-formatting-best-practices.html</loc>
+        <lastmod>2025-09-17</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://alltoolsbox.xyz/blog/post/color-conversion-design-guide.html</loc>
+        <lastmod>2025-09-17</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://alltoolsbox.xyz/blog/post/http-status-codes-complete-guide.html</loc>
+        <lastmod>2025-09-17</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://alltoolsbox.xyz/blog/post/jwt-authentication-complete-guide.html</loc>
+        <lastmod>2025-09-17</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://alltoolsbox.xyz/blog/post/regex-complete-guide.html</loc>
+        <lastmod>2025-09-17</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://alltoolsbox.xyz/blog/post/time-processing-complete-guide.html</loc>
+        <lastmod>2025-09-17</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
 </urlset>

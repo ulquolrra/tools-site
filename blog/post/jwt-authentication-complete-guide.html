@@ -141,6 +141,17 @@
 
     <div class="container fade-in">
         <article>
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="/"><i class="fas fa-home me-1"></i> 首页</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="/blog/">技术博客</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">JWT认证完全指南：从原理到实战应用</li>
+                </ol>
+            </nav>
             <header class="article-header text-center py-5 mb-4">
                 <span class="badge bg-success mb-3">🔐 认证授权</span>
                 <h1 class="display-4 fw-bold mb-3">JWT认证完全指南：从原理到实战应用</h1>
@@ -946,6 +957,32 @@ app.post('/logout', (req, res) => {
                             <a href="#" class="btn btn-outline-info btn-sm">
                                 <i class="fab fa-twitter me-1"></i> Twitter
                             </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="related-articles mt-5">
+                <h4><i class="fas fa-link me-2"></i> 相关文章</h4>
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <span class="badge bg-success mb-2">Web安全</span>
+                                <h5 class="card-title"><a href="/blog/post/frontend-security-best-practices.html" class="text-decoration-none">前端安全最佳实践：保护用户数据和应用安全</a></h5>
+                                <p class="card-text text-muted small">系统分析前端安全威胁和防护措施，与JWT认证相关。</p>
+                                <div class="text-muted small"><i class="fas fa-calendar me-1"></i> 2025-09-18</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <span class="badge bg-primary mb-2">工具使用</span>
+                                <h5 class="card-title"><a href="/blog/post/tool-usage-guide.html" class="text-decoration-none">25个在线工具的深度使用场景和进阶技巧</a></h5>
+                                <p class="card-text text-muted small">包含JWT解码工具等25个核心工具的实战应用场景。</p>
+                                <div class="text-muted small"><i class="fas fa-calendar me-1"></i> 2025-08-20</div>
+                            </div>
                         </div>
                     </div>
                 </div>
