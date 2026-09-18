@@ -457,7 +457,7 @@ tools-site/
 
 1. **查看文档**：仔细阅读本README文件
 2. **检查控制台**：在浏览器开发者工具中查看错误信息
-3. **联系我们**：通过contact@example.com联系我们
+3. **联系我们**：通过support@alltoolsbox.xyz联系我们
 
 ## 🎁 免费资源
 
