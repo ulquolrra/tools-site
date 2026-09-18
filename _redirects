@@ -10,4 +10,4 @@
 /pages    /pages/index.html    200
 
 # 博客文章使用通配符规则，确保无重定向
-/blog/post/*    /blog/post/$1    200
+/blog/post/*    /blog/post/:splat/index.html    200
