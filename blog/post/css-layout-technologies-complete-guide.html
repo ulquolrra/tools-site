@@ -589,24 +589,24 @@
                 </div>
             </div>
 
-                                            <!-- 订阅功能 -->
+                                                            <!-- 订阅功能 -->
                 <div class="card border-0 shadow-sm mb-4">
   <div class="card-body">
     <h5 class="card-title mb-3"><i class="fas fa-bell me-2"></i> 订阅更新</h5>
     <div class="subscribe-container">
-      <div class="mb-3">
-        <a href="/feed.xml" class="btn btn-outline-success w-100 mb-2">
-          <i class="fas fa-rss me-2"></i> RSS订阅
-        </a>
-      </div>
-      <p class="text-muted small mb-2">获取最新技术文章和工具推荐</p>
-      <div class="input-group">
+      <p class="text-muted small mb-3">获取最新技术文章和工具推荐</p>
+      <div class="input-group mb-2">
         <input type="email" id="subscribeEmail" class="form-control" placeholder="你的邮箱地址" required>
         <button class="btn btn-primary" type="button" onclick="subscribeEmailList()">
-          邮件订阅
+          <i class="fas fa-envelope me-1"></i> 邮件订阅
         </button>
       </div>
       <div id="subscribeMessage" class="mt-2 text-success small" style="display:none;"></div>
+      <div class="mt-3 pt-2 border-top">
+        <a href="/feed.xml" target="_blank" rel="noopener noreferrer" class="btn btn-outline-success w-100">
+          <i class="fas fa-rss me-2"></i> RSS订阅（需先创建feed.xml）
+        </a>
+      </div>
     </div>
   </div>
 </div>
