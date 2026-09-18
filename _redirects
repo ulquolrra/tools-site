@@ -2,8 +2,11 @@
 # 格式: source destination code
 # 更多信息: https://developers.cloudflare.com/pages/platform/redirects/
 
-# Cloudflare Pages会自动处理目录索引，无需配置重定向
-# /blog 自动服务 blog/index.html
-# /tools 自动服务 tools/index.html
-# /pages 自动服务 pages/index.html
-# 如需添加自定义重定向，请在此处添加
+# 禁用Cloudflare Pages自动添加尾部斜杠的重定向
+# 防止308 Permanent Redirect问题
+/blog    /blog    200
+/blog/*    /blog/$1    200
+/tools    /tools    200
+/tools/*    /tools/$1    200
+/pages    /pages    200
+/pages/*    /pages/$1    200
