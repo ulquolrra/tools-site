@@ -2,14 +2,8 @@
 # 格式: source destination code
 # 更多信息: https://developers.cloudflare.com/pages/platform/redirects/
 
-# 博客目录重定向到带斜杠的版本
-/blog    /blog/    301
-
-# 确保blog/index.html重定向到blog/
-/blog/index.html    /blog/    301
-
-# 确保工具目录访问正常
-/tools    /tools/    301
-
-# 确保pages目录访问正常  
-/pages    /pages/    301
+# Cloudflare Pages会自动处理目录索引，无需配置重定向
+# /blog 自动服务 blog/index.html
+# /tools 自动服务 tools/index.html
+# /pages 自动服务 pages/index.html
+# 如需添加自定义重定向，请在此处添加
