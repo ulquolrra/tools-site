@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>现代JavaScript开发技巧：ES6+最佳实践 | 在线工具箱技术博客</title>
+    <meta name="description" content="深入解析现代JavaScript（ES6+）开发技巧，包括解构赋值、箭头函数、Promise、async/await、模块系统、类等核心特性。包含大量代码示例、性能对比、最佳实践建议，帮助开发者编写更简洁、更可维护的JavaScript代码。">
+    <meta name="keywords" content="JavaScript,ES6,ES7,ES8,ES9,ES10,ES2020,解构赋值,箭头函数,Promise,async/await,模块系统,类,现代JavaScript,前端开发,代码优化">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://alltoolsbox.xyz/blog/post/modern-javascript-development-techniques.html" />
+    <meta property="og:title" content="现代JavaScript开发技巧：ES6+最佳实践 | 在线工具箱技术博客" />
+    <meta property="og:description" content="深入解析现代JavaScript（ES6+）开发技巧，包括解构赋值、箭头函数、Promise、async/await、模块系统、类等核心特性。包含大量代码示例、性能对比、最佳实践建议。" />
+    <meta property="og:image" content="https://alltoolsbox.xyz/images/javascript-techniques-og.jpg" />
+    <meta property="og:site_name" content="在线工具箱" />
+    <meta property="article:published_time" content="2026-09-18T00:00:00+08:00" />
+    <meta property="article:modified_time" content="2026-09-18T00:00:00+08:00" />
+    <meta property="article:author" content="Aiden" />
+    <meta property="article:section" content="Web开发" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="现代JavaScript开发技巧 - 在线工具箱技术博客" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://alltoolsbox.xyz/blog/post/modern-javascript-development-techniques.html" />
+    <meta name="twitter:title" content="现代JavaScript开发技巧：ES6+最佳实践 | 在线工具箱技术博客" />
+    <meta name="twitter:description" content="深入解析现代JavaScript（ES6+）开发技巧，包括解构赋值、箭头函数、Promise、async/await、模块系统、类等核心特性。包含大量代码示例、性能对比、最佳实践建议。" />
+    <meta name="twitter:image" content="https://alltoolsbox.xyz/images/javascript-techniques-og.jpg" />
+    <meta name="twitter:image:alt" content="现代JavaScript开发技巧 - 在线工具箱技术博客" />
+    
+    <!-- Schema.org Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "现代JavaScript开发技巧：ES6+最佳实践",
+      "description": "深入解析现代JavaScript（ES6+）开发技巧，包括解构赋值、箭头函数、Promise、async/await、模块系统、类等核心特性。包含大量代码示例、性能对比、最佳实践建议，帮助开发者编写更简洁、更可维护的JavaScript代码。",
+      "author": {
+        "@type": "Person",
+        "name": "Aiden",
+        "description": "资深Web开发工程师，拥有8年+前端开发经验。专注于JavaScript、前端架构和代码优化。"
+      },
+      "datePublished": "2026-09-18",
+      "dateModified": "2026-09-18",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://alltoolsbox.xyz/blog/post/modern-javascript-development-techniques.html"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "在线工具箱",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://alltoolsbox.xyz/logo.png",
+          "width": 200,
+          "height": 200
+        },
+        "description": "免费的在线开发工具集合，包含JSON格式化、Base64编解码、JWT解码等实用工具。"
+      },
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://alltoolsbox.xyz/images/javascript-techniques-og.jpg",
+        "width": 1200,
+        "height": 630,
+        "caption": "现代JavaScript开发技巧：ES6+最佳实践"
+      },
+      "keywords": ["JavaScript", "ES6", "ES7", "ES8", "ES9", "ES10", "解构赋值", "箭头函数", "Promise", "async/await", "模块系统", "类", "现代JavaScript", "前端开发", "代码优化"],
+      "inLanguage": "zh-CN",
+      "isAccessibleForFree": true
+    }
+    </script>
+    
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首页",
+          "item": "https://alltoolsbox.xyz/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "技术博客",
+          "item": "https://alltoolsbox.xyz/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "现代JavaScript开发技巧：ES6+最佳实践"
+        }
+      ]
+    }
+    </script>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/blog/assets/css/blog.css">
+    <link rel="stylesheet" href="/blog/assets/css/article.css">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8795586167197548"
+         crossorigin="anonymous"></script>
+    <link rel="canonical" href="https://alltoolsbox.xyz/blog/post/modern-javascript-development-techniques.html" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-tools me-2"></i>在线工具箱
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">首页</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/blog/">技术博客</a></li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/pages/about.html">关于我们</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/contact.html">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="text-center my-3">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-8795586167197548"
+             data-ad-slot="728x90_banner"
+             data-ad-format="728x90"
+             data-full-width-responsive="true"></ins>
+    </div>
+
+    <div class="container fade-in">
+        <article>
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="/"><i class="fas fa-home me-1"></i> 首页</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="/blog/">技术博客</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">现代JavaScript开发技巧：ES6+最佳实践</li>
+                </ol>
+            </nav>
+            <header class="article-header text-center py-5 mb-4">
+                <span class="badge bg-success mb-3">💻 Web开发</span>
+                <h1 class="display-4 fw-bold mb-3">现代JavaScript开发技巧：ES6+最佳实践</h1>
+                <p class="lead text-muted mb-4">掌握现代JavaScript特性，编写更优雅、更高效的代码</p>
+                <div class="article-meta d-flex justify-content-center gap-4 small text-muted">
+                    <span><i class="fas fa-calendar me-1"></i> 发布时间：2026-09-18</span>
+                    <span><i class="fas fa-user-edit me-1"></i> 作者：Aiden | 资深Web开发工程师</span>
+                    <span><i class="fas fa-eye me-1"></i> 阅读量：98</span>
+                    <span><i class="fas fa-tags me-1"></i> 标签：JavaScript, ES6+, 前端开发</span>
+                </div>
+            </header>
+
+            <div class="article-content">
+                <div class="article-body">
+                    <div class="alert alert-primary mb-4">
+                        <i class="fas fa-code me-2"></i>
+                        <strong>核心数据：</strong> ES6（ECMAScript 2015）发布至今已有8年，现代JavaScript生态已极大丰富。95%以上的浏览器支持ES6+特性，使用现代JavaScript语法可以减少30%的代码量，提升50%的开发效率。
+                    </div>
+                    
+                    <p>JavaScript作为Web开发的核心语言，在过去几年经历了巨大的演进。<strong>ES6（ECMAScript 2015）及后续版本为JavaScript带来了众多现代特性</strong>，使得代码更加简洁、可读、可维护。本文将全面介绍现代JavaScript（ES6+）的核心特性和最佳实践，帮助您编写更高质量的代码。</p>
+
+                    <h2>📋 ES6+特性概览</h2>
+                    <p>以下是现代JavaScript最重要的特性，按发布年份整理：</p>
+
+                    <div class="table-responsive mb-4">
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>年份</th>
+                                    <th>版本</th>
+                                    <th>主要特性</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2015</td>
+                                    <td>ES6 / ES2015</td>
+                                    <td>解构赋值、箭头函数、类、模块、Promise、let/const、模板字符串</td>
+                                </tr>
+                                <tr>
+                                    <td>2016</td>
+                                    <td>ES2016</td>
+                                    <td>Array.prototype.includes、指数操作符</td>
+                                </tr>
+                                <tr>
+                                    <td>2017</td>
+                                    <td>ES2017</td>
+                                    <td>async/await、Object.values/entries、尾逗号、padStart/padEnd</td>
+                                </tr>
+                                <tr>
+                                    <td>2018</td>
+                                    <td>ES2018</td>
+                                    <td>Rest/Spread对象、async迭代、Promise.finally、正则命名捕获组</td>
+                                </tr>
+                                <tr>
+                                    <td>2019</td>
+                                    <td>ES2019</td>
+                                    <td>Array.flat/flatMap、Object.fromEntries、可选catch、trimStart/trimEnd</td>
+                                </tr>
+                                <tr>
+                                    <td>2020</td>
+                                    <td>ES2020</td>
+                                    <td>可选链、空值合并、BigInt、Promise.allSettled、globalThis</td>
+                                </tr>
+                                <tr>
+                                    <td>2021</td>
+                                    <td>ES2021</td>
+                                    <td>String.prototype.replaceAll、Promise.any、逻辑赋值、#private字段</td>
+                                </tr>
+                                <tr>
+                                    <td>2022</td>
+                                    <td>ES2022</td>
+                                    <td>顶级await、类属性、静态类块、at方法、Error.cause</td>
+                                </tr>
+                                <tr>
+                                    <td>2023</td>
+                                    <td>ES2023</td>
+                                    <td>Array.prototype.findLast/findLastIndex、Hashbang语法、Symbol作为弱键</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h2>🎯 核心特性深入解析</h2>
+
+                    <h3>1. 解构赋值（Destructuring Assignment）</h3>
+                    <p>解构赋值允许您从数组或对象中提取数据，并赋值给变量：</p>
+                    <pre><code class="language-javascript">// 数组解构
+const arr = [1, 2, 3];
+const [a, b, c] = arr; // a=1, b=2, c=3
+const [x, , z] = arr; // x=1, z=3（跳过第二个元素）
+const [first, ...rest] = arr; // first=1, rest=[2, 3]
+
+// 对象解构
+const obj = { name: 'Alice', age: 25, city: 'New York' };
+const { name, age, city } = obj;
+const { name: userName, age: userAge } = obj; // 重命名
+const { name: n, ...restProps } = obj; // n='Alice', restProps={age:25, city:'New York'}
+
+// 嵌套解构
+const user = {
+  name: 'Bob',
+  address: {
+    city: 'San Francisco',
+    zip: '94102'
+  },
+  hobbies: ['reading', 'coding']
+};
+const { name: uName, address: { city: uCity }, hobbies: [firstHobby] } = user;
+
+// 默认值
+const { name: pName = 'Anonymous', country = 'Unknown' } = {};
+// pName='Anonymous', country='Unknown'</code></pre>
+
+                    <div class="bg-light p-3 rounded mb-4">
+                        <h6><i class="fas fa-lightbulb me-2 text-primary"></i> 最佳实践</h6>
+                        <ul>
+                            <li>使用解构简化从对象或数组中提取数据的代码</li>
+                            <li>为解构赋值提供默认值，避免undefined错误</li>
+                            <li>避免过度嵌套的解构，影响代码可读性</li>
+                        </ul>
+                    </div>
+
+                    <h3>2. 箭头函数（Arrow Functions）</h3>
+                    <p>箭头函数为函数表达式提供了更简洁的语法，并且不绑定自己的this：</p>
+                    <pre><code class="language-javascript">// 基本语法
+const add = (a, b) => a + b;
+const square = x => x * x;
+const greet = () => 'Hello!';
+
+// 返回对象字面量
+const getUser = () => ({ name: 'Alice', age: 25 });
+
+// 多行函数体
+const sum = (a, b) => {
+  const result = a + b;
+  return result;
+};
+
+// this绑定对比
+const person = {
+  name: 'Alice',
+  // 传统函数 - 有自己的this
+  greetTraditional: function() {
+    setTimeout(function() {
+      console.log('Hello, ' + this.name); // this指向window，不是person
+    }, 1000);
+  },
+  // 箭头函数 - 继承外层this
+  greetArrow: function() {
+    setTimeout(() => {
+      console.log('Hello, ' + this.name); // this指向person
+    }, 1000);
+  }
+};
+
+// arguments对象
+const showArgsTraditional = function() {
+  console.log(arguments); // 有arguments
+};
+const showArgsArrow = () => {
+  console.log(arguments); // ReferenceError: arguments is not defined
+};</code></pre>
+
+                    <div class="bg-light p-3 rounded mb-4">
+                        <h6><i class="fas fa-lightbulb me-2 text-primary"></i> 最佳实践</h6>
+                        <ul>
+                            <li>使用箭头函数简化回调函数</li>
+                            <li>在需要绑定this的场景中使用箭头函数</li>
+                            <li>箭头函数不适合作为对象的方法（无法访问对象实例）</li>
+                            <li>箭头函数没有arguments对象，使用rest参数代替</li>
+                        </ul>
+                    </div>
+
+                    <h3>3. 模板字符串（Template Literals）</h3>
+                    <p>使用反引号（`）创建的模板字符串支持多行字符串和变量插入：</p>
+                    <pre><code class="language-javascript">// 基本用法
+const name = 'Alice';
+const greeting = `Hello, ${name}!`; // "Hello, Alice!"
+
+// 多行字符串
+const html = `
+&lt;div class="user"&gt;
+  &lt;h1&gt;${name}&lt;/h1&gt;
+  &lt;p&gt;Welcome to our website&lt;/p&gt;
+&lt;/div&gt;
+`;
+
+// 表达式插入
+const a = 5;
+const b = 10;
+const result = `${a} + ${b} = ${a + b}`; // "5 + 10 = 15"
+
+// 标签模板
+function highlight(strings, ...values) {
+  return strings.reduce((result, string, i) => {
+    return result + string + (values[i] ? `&lt;strong&gt;${values[i]}&lt;/strong&gt;` : '');
+  }, '');
+}
+
+const user = 'Alice';
+const age = 25;
+const message = highlight`Hello, ${user}, you are ${age} years old.`;
+// "Hello, &lt;strong&gt;Alice&lt;/strong&gt;, you are &lt;strong&gt;25&lt;/strong&gt; years old."</code></pre>
+
+                    <div class="bg-light p-3 rounded mb-4">
+                        <h6><i class="fas fa-lightbulb me-2 text-primary"></i> 最佳实践</h6>
+                        <ul>
+                            <li>使用模板字符串代替字符串连接</li>
+                            <li>在需要多行字符串时使用模板字符串</li>
+                            <li>谨慎使用标签模板，可能影响性能</li>
+                        </ul>
+                    </div>
+
+                    <h3>4. Promise和async/await</h3>
+                    <p>Promise提供了更好的异步编程模式，async/await使异步代码看起来像同步代码：</p>
+
+                    <h4>Promise基础</h4>
+                    <pre><code class="language-javascript">// 创建Promise
+const promise = new Promise((resolve, reject) => {
+  // 异步操作
+  setTimeout(() => {
+    if (Math.random() > 0.5) {
+      resolve('成功！');
+    } else {
+      reject(new Error('失败！'));
+    }
+  }, 1000);
+});
+
+// 使用Promise
+promise
+  .then(result => {
+    console.log('成功:', result);
+  })
+  .catch(error => {
+    console.error('失败:', error);
+  })
+  .finally(() => {
+    console.log('完成');
+  });
+
+// Promise静态方法
+Promise.all([promise1, promise2, promise3])
+  .then(results => console.log('所有完成:', results))
+  .catch(error => console.error('至少一个失败:', error));
+
+Promise.race([promise1, promise2])
+  .then(result => console.log('第一个完成:', result));
+
+Promise.allSettled([promise1, promise2])
+  .then(results => console.log('全部完成:', results));
+
+Promise.any([promise1, promise2])
+  .then(result => console.log('第一个成功:', result));</code></pre>
+
+                    <h4>async/await语法糖</h4>
+                    <pre><code class="language-javascript">// 基本用法
+async function fetchData() {
+  try {
+    const response = await fetch('https://api.example.com/data');
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('请求失败:', error);
+  }
+}
+
+// 并行执行
+async function fetchMultiple() {
+  const [user, posts, comments] = await Promise.all([
+    fetch('/api/user'),
+    fetch('/api/posts'),
+    fetch('/api/comments')
+  ]);
+  
+  return {
+    user: await user.json(),
+    posts: await posts.json(),
+    comments: await comments.json()
+  };
+}
+
+// 顶级await（ES2022）
+// 在模块中可以使用顶级await
+const data = await fetchData();
+console.log(data);</code></pre>
+
+                    <div class="bg-light p-3 rounded mb-4">
+                        <h6><i class="fas fa-lightbulb me-2 text-primary"></i> 最佳实践</h6>
+                        <ul>
+                            <li>优先使用async/await而不是Promise链式调用</li>
+                            <li>在async函数中使用try/catch处理错误</li>
+                            <li>使用Promise.all并行执行独立的异步操作</li>
+                            <li>避免Promise地狱（嵌套的then调用）</li>
+                        </ul>
+                    </div>
+
+                    <h3>5. 模块系统（ES Modules）</h3>
+                    <p>ES6引入了原生的模块系统，使用import和export语法：</p>
+                    <pre><code class="language-javascript">// export默认导出
+// math.js
+export default {
+  add(a, b) { return a + b; },
+  subtract(a, b) { return a - b; }
+};
+
+// export命名导出
+export const PI = 3.14159;
+export function circleArea(radius) {
+  return PI * radius * radius;
+}
+export class Rectangle {
+  constructor(width, height) {
+    this.width = width;
+    this.height = height;
+  }
+}
+
+// 导入默认导出
+import math from './math.js';
+
+// 导入命名导出
+import { PI, circleArea, Rectangle } from './math.js';
+
+// 混合导入
+import math, { PI, circleArea } from './math.js';
+
+// 导入所有
+import * as mathModule from './math.js';
+
+// 动态导入（按需加载）
+const module = await import('./module.js');</code></pre>
+
+                    <div class="bg-light p-3 rounded mb-4">
+                        <h6><i class="fas fa-lightbulb me-2 text-primary"></i> 最佳实践</h6>
+                        <ul>
+                            <li>使用ES模块代替CommonJS（require/module.exports）</li>
+                            <li>使用命名导出明确暴露模块功能</li>
+                            <li>使用动态导入按需加载模块，优化性能</li>
+                            <li>避免循环依赖</li>
+                        </ul>
+                    </div>
+
+                    <h3>6. 类（Classes）</h3>
+                    <p>ES6引入了类语法，为基于原型的面向对象编程提供了更清晰的语法：</p>
+                    <pre><code class="language-javascript">// 基本类定义
+class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+  
+  greet() {
+    return `Hello, I'm ${this.name}`;
+  }
+  
+  // Getter
+  get info() {
+    return `${this.name}, ${this.age}`;
+  }
+  
+  // Setter
+  set age(value) {
+    if (value >= 0) {
+      this._age = value;
+    }
+  }
+  
+  // 静态方法
+  static compare(p1, p2) {
+    return p1.age - p2.age;
+  }
+}
+
+// 类继承
+class Student extends Person {
+  constructor(name, age, school) {
+    super(name, age);
+    this.school = school;
+  }
+  
+  greet() {
+    return `${super.greet()} and I study at ${this.school}`;
+  }
+}
+
+// 类字段（ES2022）
+class User {
+  name; // 公共字段
+  #password; // 私有字段（ES2022）
+  
+  constructor(name, password) {
+    this.name = name;
+    this.#password = password;
+  }
+  
+  static #secretKey = 'my-secret'; // 私有静态字段
+  
+  // 静态块（ES2022）
+  static {
+    console.log('User class initialized');
+  }
+}
+
+// 实例
+const alice = new Person('Alice', 25);
+console.log(alice.greet()); // "Hello, I'm Alice"
+console.log(alice.info); // "Alice, 25"
+
+const bob = new Student('Bob', 20, 'MIT');
+console.log(bob.greet()); // "Hello, I'm Bob and I study at MIT"
+
+const users = [
+  new Person('Alice', 25),
+  new Person('Bob', 20),
+  new Person('Charlie', 30)
+];
+users.sort(Person.compare);</code></pre>
+
+                    <div class="bg-light p-3 rounded mb-4">
+                        <h6><i class="fas fa-lightbulb me-2 text-primary"></i> 最佳实践</h6>
+                        <ul>
+                            <li>使用类封装相关的数据和方法</li>
+                            <li>使用private字段保护内部状态</li>
+                            <li>使用getter/setter控制属性访问</li>
+                            <li>优先使用组合而非继承</li>
+                        </ul>
+                    </div>
+
+                    <h2>⚡ ES2020+新特性精选</h2>
+
+                    <h3>1. 可选链（Optional Chaining）</h3>
+                    <p>安全地访问深度嵌套的属性：</p>
+                    <pre><code class="language-javascript">// 传统写法
+const street = user && user.address && user.address.street;
+
+// 可选链写法
+const street = user?.address?.street;
+
+// 调用方法
+const result = obj?.method?.();
+
+// 数组访问
+const firstItem = arr?.[0];
+
+// 结合空值合并
+const street = user?.address?.street ?? 'Unknown';
+
+// 函数参数
+function getNestedValue(obj, path) {
+  return path.split('.').reduce((current, key) => current?.[key], obj);
+}</code></pre>
+
+                    <h3>2. 空值合并（Nullish Coalescing）</h3>
+                    <p>只有当左侧为null或undefined时才返回右侧：</p>
+                    <pre><code class="language-javascript">// 传统写法
+const value = actualValue || defaultValue;
+// 问题：当actualValue为''、0、false时也会返回defaultValue
+
+// 空值合并
+const value = actualValue ?? defaultValue;
+// 只有当actualValue为null或undefined时才返回defaultValue
+
+// 示例
+const config = {
+  timeout: 0, // 0是有效值
+  retries: null,
+  cache: false
+};
+
+const timeout = config.timeout ?? 5000; // 0
+const retries = config.retries ?? 3; // 3
+const cache = config.cache ?? true; // false</code></pre>
+
+                    <h3>3. BigInt</h3>
+                    <p>表示超出Number精度的整数：</p>
+                    <pre><code class="language-javascript">// 创建BigInt
+const big1 = 123456789012345678901234567890n;
+const big2 = BigInt('123456789012345678901234567890');
+const big3 = BigInt(12345); // 注意：参数必须是安全整数
+
+// 操作
+const sum = big1 + big2;
+const diff = big1 - big2;
+const product = big1 * big2;
+const quotient = big1 / big2;
+const remainder = big1 % big2;
+
+// 比较
+console.log(big1 === big2); // false
+console.log(big1 == 123456789012345678901234567890); // true（比较值）
+
+// 特殊情况
+console.log(10n + 5); // TypeError
+console.log(10n + 5n); // 15n
+console.log(Number.MAX_SAFE_INTEGER); // 9007199254740991
+console.log(9007199254740991n + 1n); // 9007199254740992n</code></pre>
+
+                    <h3>4. Promise.allSettled</h3>
+                    <p>等待所有Promise完成，无论成功还是失败：</p>
+                    <pre><code class="language-javascript">async function processAll() {
+  const results = await Promise.allSettled([
+    fetch('https://api.example.com/data1'),
+    fetch('https://api.example.com/data2'),
+    fetch('https://api.example.com/data3')
+  ]);
+  
+  results.forEach(result => {
+    if (result.status === 'fulfilled') {
+      console.log('成功:', result.value);
+    } else {
+      console.error('失败:', result.reason);
+    }
+  });
+}
+
+// 与Promise.all对比
+// Promise.all：任一失败则立即拒绝
+// Promise.allSettled：等待所有完成，返回每个的状态
+
+// 使用场景：需要处理所有Promise结果，即使部分失败</code></pre>
+
+                    <h3>5. globalThis</h3>
+                    <p>统一的全局对象引用：</p>
+                    <pre><code class="language-javascript">// 在浏览器中
+console.log(globalThis === window); // true
+
+// 在Node.js中
+console.log(globalThis === global); // true
+
+// 在Web Worker中
+console.log(globalThis === self); // true
+
+// 自定义环境
+function createEnvironment() {
+  return {
+    globalThis: this,
+    some: 'value'
+  };
+}
+
+const env = createEnvironment.call({});
+console.log(env.globalThis === env); // true</code></pre>
+
+                    <h2>🔧 ES2021+新特性</h2>
+
+                    <h3>1. 逻辑赋值运算符</h3>
+                    <p>结合逻辑运算和赋值：</p>
+                    <pre><code class="language-javascript">// ||= 逻辑或赋值
+const obj = { a: undefined, b: null, c: 0, d: '' };
+
+obj.a ||= 'default'; // obj.a = 'default'
+obj.b ||= 'default'; // obj.b = 'default'
+obj.c ||= 'default'; // obj.c = 0（不赋值，因为0是falsy但不是nullish）
+
+// &&= 逻辑与赋值
+let x = 5;
+x &&= 10; // x = 10（因为5是truthy）
+x = null;
+x &&= 10; // x = null（因为null是falsy）
+
+// ??= 空值合并赋值
+let y;
+y ??= 'default'; // y = 'default'
+y = null;
+y ??= 'default'; // y = 'default'
+y = 0;
+y ??= 'default'; // y = 0（不赋值，因为0不是nullish）</code></pre>
+
+                    <h3>2. String.prototype.replaceAll</h3>
+                    <p>批量替换字符串中的所有匹配项：</p>
+                    <pre><code class="language-javascript">// 传统写法
+const str = 'hello world hello';
+const result1 = str.replace(/hello/g, 'hi'); // "hi world hi"
+
+// 新写法
+const result2 = str.replaceAll('hello', 'hi'); // "hi world hi"
+
+// 支持正则
+const result3 = str.replaceAll(/l/g, 'L'); // "heLLo worLd heLLo"
+
+// 注意：replaceAll将所有匹配替换
+const str2 = 'a.b.c';
+const result4 = str2.replaceAll('.', '-' ); // "a-b-c"</code></pre>
+
+                    <h3>3. Promise.any</h3>
+                    <p>返回第一个成功的Promise，如果所有都失败则抛出错误：</p>
+                    <pre><code class="language-javascript">async function getFirstSuccess() {
+  try {
+    const result = await Promise.any([
+      fetch('https://api1.example.com/data'),
+      fetch('https://api2.example.com/data'),
+      fetch('https://api3.example.com/data')
+    ]);
+    return result;
+  } catch (error) {
+    // 所有Promise都拒绝时
+    console.error('所有请求都失败:', error);
+  }
+}
+
+// 与Promise.race对比
+// Promise.race：返回第一个完成的Promise（可能成功也可能失败）
+// Promise.any：返回第一个成功的Promise，所有失败时抛出错误</code></pre>
+
+                    <h3>4. 私有类字段</h3>
+                    <p>使用#前缀定义私有字段：</p>
+                    <pre><code class="language-javascript">class Counter {
+  #count = 0; // 私有字段
+  
+  increment() {
+    this.#count++;
+  }
+  
+  decrement() {
+    this.#count--;
+  }
+  
+  get value() {
+    return this.#count;
+  }
+  
+  static #instanceCount = 0; // 私有静态字段
+  
+  constructor() {
+    Counter.#instanceCount++;
+  }
+  
+  static get instanceCount() {
+    return Counter.#instanceCount;
+  }
+}
+
+const counter = new Counter();
+counter.increment();
+counter.increment();
+console.log(counter.value); // 2
+
+// 不能从外部访问私有字段
+console.log(counter.#count); // SyntaxError
+console.log(Counter.#instanceCount); // SyntaxError</code></pre>
+
+                    <h2>🚀 ES2022+新特性</h2>
+
+                    <h3>1. 顶级await</h3>
+                    <p>在模块顶层使用await：</p>
+                    <pre><code class="language-javascript">// config.mjs
+const config = await fetch('/config.json').then(r => r.json());
+export default config;
+
+// main.mjs
+import config from './config.mjs';
+console.log(config);
+
+// 注意：顶级await只能在ES模块中使用
+// 在CommonJS中使用会导致语法错误</code></pre>
+
+                    <h3>2. 类属性和静态块</h3>
+                    <pre><code class="language-javascript">class MyClass {
+  // 公共实例字段
+  publicField = 'public';
+  
+  // 私有实例字段
+  #privateField = 'private';
+  
+  // 静态公共字段
+  static publicStaticField = 'public static';
+  
+  // 静态私有字段
+  static #privateStaticField = 'private static';
+  
+  // 静态块（ES2022）
+  static {
+    console.log('类初始化时执行');
+    // 可以访问私有静态字段
+    console.log(MyClass.#privateStaticField);
+  }
+  
+  constructor() {
+    console.log('实例化时执行');
+  }
+}
+
+// 静态块在类初始化时执行（通常在模块加载时）
+console.log('创建前');
+const instance = new MyClass();
+console.log('创建后');</code></pre>
+
+                    <h3>3. at()方法</h3>
+                    <p>使用at()方法访问数组或字符串，支持负数索引：</p>
+                    <pre><code class="language-javascript">const arr = [1, 2, 3, 4, 5];
+
+console.log(arr[0]); // 1
+console.log(arr.at(0)); // 1
+
+console.log(arr[arr.length - 1]); // 5
+console.log(arr.at(-1)); // 5
+
+console.log(arr[-1]); // undefined
+console.log(arr.at(-2)); // 4
+
+const str = 'hello';
+console.log(str.at(-1)); // 'o'
+console.log(str.at(-2)); // 'l'</code></pre>
+
+                    <h3>4. Error.cause</h3>
+                    <p>为错误对象添加cause属性：</p>
+                    <pre><code class="language-javascript">try {
+  fetchData();
+} catch (error) {
+  // 创建新的错误，保留原始错误信息
+  throw new Error('获取数据失败', { cause: error });
+}
+
+// 使用
+try {
+  someFunction();
+} catch (error) {
+  console.error(error.message); // "获取数据失败"
+  console.error(error.cause); // 原始错误对象
+  
+  // 错误链
+  if (error.cause) {
+    console.error('原始错误:', error.cause.message);
+  }
+}</code></pre>
+
+                    <h2>📊 性能优化技巧</h2>
+
+                    <h3>1. 使用const和let代替var</h3>
+                    <p>const和let提供了块作用域，避免变量提升导致的问题：</p>
+                    <pre><code class="language-javascript">// ✅ 良好
+for (let i = 0; i < 5; i++) {
+  setTimeout(() => {
+    console.log(i); // 0, 1, 2, 3, 4
+  }, 100);
+}
+
+// ❌ 不好
+for (var i = 0; i < 5; i++) {
+  setTimeout(() => {
+    console.log(i); // 5, 5, 5, 5, 5
+  }, 100);
+}
+
+// ✅ 优先使用const
+const PI = 3.14159;
+let count = 0;
+count++;</code></pre>
+
+                    <h3>2. 避免不必要的数组和对象操作</h3>
+                    <p>一些操作会创建新的数组或对象，需要谨慎使用：</p>
+                    <pre><code class="language-javascript">// ❌ 不好：创建新数组
+const arr = [1, 2, 3];
+const newArr = arr.reverse(); // 修改原数组
+
+// ✅ 良好：不创建新数组
+const arr = [1, 2, 3];
+const newArr = [...arr].reverse(); // 使用扩展运算符创建副本
+
+// ❌ 不好：频繁创建中间数组
+const result = arr.map(x => x * 2).filter(x => x > 5).reduce((a, b) => a + b);
+
+// ✅ 良好：使用单次迭代
+let sum = 0;
+for (const x of arr) {
+  const doubled = x * 2;
+  if (doubled > 5) {
+    sum += doubled;
+  }
+}</code></pre>
+
+                    <h3>3. 使用Set和Map进行高效查找</h3>
+                    <p>Set和Map提供了高效的查找和存储：</p>
+                    <pre><code class="language-javascript">// 使用Set进行去重
+const arr = [1, 2, 2, 3, 3, 3, 4];
+const unique = [...new Set(arr)]; // [1, 2, 3, 4]
+
+// 使用Set进行高效查找
+const items = new Set([1, 2, 3, 4, 5]);
+console.log(items.has(3)); // true
+console.log(items.has(6)); // false
+
+// 使用Map进行键值存储
+const map = new Map();
+map.set('key1', 'value1');
+map.set('key2', 'value2');
+
+console.log(map.get('key1')); // 'value1'
+console.log(map.has('key2')); // true
+
+// Map vs Object
+// Map：键可以是任何类型，保持插入顺序，size属性
+// Object：键必须是字符串或Symbol，无size属性</code></pre>
+
+                    <h3>4. 使用WeakMap和WeakSet</h3>
+                    <p>WeakMap和WeakSet持有弱引用，不会阻止垃圾回收：</p>
+                    <pre><code class="language-javascript">// WeakMap示例
+const weakMap = new WeakMap();
+
+let obj = { name: 'Alice' };
+weakMap.set(obj, 'some data');
+
+// obj可以被垃圾回收
+obj = null;
+
+// WeakSet示例
+const weakSet = new WeakSet();
+
+let obj1 = { name: 'Bob' };
+let obj2 = { name: 'Charlie' };
+
+weakSet.add(obj1);
+weakSet.add(obj2);
+
+// 使用场景：存储与对象相关的临时数据
+// 当对象被销毁时，相关数据也会自动清理</code></pre>
+
+                    <h3>5. 使用Proxy进行元编程</h3>
+                    <p>Proxy允许创建对象的代理，拦截和重定义对象的操作：</p>
+                    <pre><code class="language-javascript">// 基本示例
+const target = { name: 'Alice' };
+const handler = {
+  get(target, prop, receiver) {
+    console.log(`获取属性: ${prop}`);
+    return Reflect.get(target, prop, receiver);
+  },
+  set(target, prop, value, receiver) {
+    console.log(`设置属性: ${prop} = ${value}`);
+    return Reflect.set(target, prop, value, receiver);
+  }
+};
+
+const proxy = new Proxy(target, handler);
+proxy.name; // "获取属性: name"
+proxy.age = 25; // "设置属性: age = 25"
+
+// 验证示例
+const validator = {
+  set(target, prop, value) {
+    if (prop === 'age') {
+      if (typeof value !== 'number' || value < 0) {
+        throw new TypeError('年龄必须是数字且非负');
+      }
+    }
+    return Reflect.set(target, prop, value);
+  }
+};
+
+const person = new Proxy({}, validator);
+person.age = 25; // 成功
+person.age = -5; // TypeError</code></pre>
+
+                    <h2>🛠️ 代码组织最佳实践</h2>
+
+                    <h3>1. 使用模块系统组织代码</h3>
+                    <ul>
+                        <li><strong>单一职责原则：</strong> 一个模块只做一件事</li>
+                        <li><strong>明确导出：</strong> 使用命名导出明确暴露功能</li>
+                        <li><strong>避免循环依赖：</strong> 通过重构或依赖注入解决</li>
+                        <li><strong>使用index.js：</strong> 作为目录的入口文件</li>
+                    </ul>
+
+                    <h3>2. 代码风格规范</h3>
+                    <ul>
+                        <li><strong>使用ESLint：</strong> 强制执行代码规范</li>
+                        <li><strong>使用Prettier：</strong> 自动格式化代码</li>
+                        <li><strong>一致的命名：</strong> 使用camelCase或PascalCase</li>
+                        <li><strong>适当的注释：</strong> 注释解释为什么，而不是什么</li>
+                    </ul>
+
+                    <h3>3. 错误处理策略</h3>
+                    <ul>
+                        <li><strong>快速失败：</strong> 发现错误时立即抛出</li>
+                        <li><strong>使用自定义错误：</strong> 创建应用特定的错误类型</li>
+                        <li><strong>集中处理：</strong> 在应用顶层集中处理错误</li>
+                        <li><strong>记录日志：</strong> 记录详细的错误信息用于调试</li>
+                    </ul>
+
+                    <h2>📚 学习资源推荐</h2>
+                    <ul>
+                        <li><strong>官方文档：</strong> <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript" target="_blank">MDN JavaScript</a></li>
+                        <li><strong>规范文档：</strong> <a href="https://tc39.es/ecma262/" target="_blank">ECMAScript规范</a></li>
+                        <li><strong>Compatibility：</strong> <a href="https://caniuse.com/" target="_blank">Can I use</a></li>
+                        <li><strong>在线练习：</strong> <a href="https://exercism.org/tracks/javascript" target="_blank">Exercism JavaScript</a></li>
+                        <li><strong>书籍：</strong> "You Don't Know JS"（Kyle Simpson）</li>
+                    </ul>
+
+                    <div class="alert alert-success mb-4">
+                        <i class="fas fa-check-circle me-2"></i>
+                        <strong>总结：</strong> 现代JavaScript（ES6+）为我们提供了大量强大的特性，使得代码更加简洁、可读、可维护。通过掌握这些特性并遵循最佳实践，您可以显著提升开发效率和代码质量。记住，语言的发展是为了解决实际问题，合理使用新特性可以让您的代码更加优雅和高效。
+                    </div>
+                </div>
+
+                <!-- 标签 -->
+                <div class="article-tags mt-4 pt-3 border-top">
+                    <span class="me-2">标签：</span>
+                    <a href="/blog/?tag=JavaScript" class="btn btn-sm btn-outline-primary me-2 mb-2">JavaScript</a>
+                    <a href="/blog/?tag=ES6%2B" class="btn btn-sm btn-outline-success me-2 mb-2">ES6+</a>
+                    <a href="/blog/?tag=前端开发" class="btn btn-sm btn-outline-info me-2 mb-2">前端开发</a>
+                </div>
+
+                <!-- 相关文章 -->
+                <div class="related-articles mt-5 pt-4 border-top">
+                    <h4><i class="fas fa-link me-2"></i> 相关文章</h4>
+                    <div class="row mt-3 g-3">
+                        <div class="col-md-4">
+                            <div class="card border-0 h-100 bg-light">
+                                <div class="card-body">
+                                    <span class="badge bg-success mb-2">Web开发</span>
+                                    <h6 class="mb-2"><a href="/blog/post/frontend-security-best-practices.html" class="text-decoration-none">前端安全最佳实践：保护Web应用免受常见攻击</a></h6>
+                                    <small class="text-muted">2025-08-21</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card border-0 h-100 bg-light">
+                                <div class="card-body">
+                                    <span class="badge bg-info mb-2">实用技巧</span>
+                                    <h6 class="mb-2"><a href="/blog/post/code-formatting-best-practices.html" class="text-decoration-none">代码格式化美化最佳实践</a></h6>
+                                    <small class="text-muted">2025-09-17</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card border-0 h-100 bg-light">
+                                <div class="card-body">
+                                    <span class="badge bg-primary mb-2">工具使用</span>
+                                    <h6 class="mb-2"><a href="/blog/post/json-yaml-comparison.html" class="text-decoration-none">YAML vs JSON：配置文件格式选择的完整指南</a></h6>
+                                    <small class="text-muted">2025-08-19</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 订阅功能 -->
+                <div class="card border-0 shadow-sm mb-4">
+  <div class="card-body">
+    <h5 class="card-title mb-3"><i class="fas fa-bell me-2"></i> 订阅更新</h5>
+    <div class="subscribe-container">
+      <p class="text-muted small mb-3">获取最新技术文章和工具推荐</p>
+      <div class="input-group mb-2">
+        <input type="email" id="subscribeEmail" class="form-control" placeholder="你的邮箱地址" required>
+        <button class="btn btn-primary" type="button" onclick="subscribeEmailList()">
+          <i class="fas fa-envelope me-1"></i> 邮件订阅
+        </button>
+      </div>
+      <div id="subscribeMessage" class="mt-2 text-success small" style="display:none;"></div>
+      <div class="mt-3 pt-2 border-top">
+        <a href="/feed.xml" target="_blank" rel="noopener noreferrer" class="btn btn-outline-success w-100">
+          <i class="fas fa-rss me-2"></i> RSS订阅
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 社交分享功能 -->
+                <div class="social-share mb-4">
+                  <span class="me-2">分享到：</span>
+                  <a href="https://twitter.com/intent/tweet" target="_blank" class="btn btn-sm btn-outline-secondary me-2 social-share-twitter" rel="noopener noreferrer">
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                  <a href="https://www.linkedin.com/shareArticle?mini=true" target="_blank" class="btn btn-sm btn-outline-secondary me-2 social-share-linkedin" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin"></i>
+                  </a>
+                  <a href="javascript:void(0);" onclick="copyToClipboard(window.location.href, this)" class="btn btn-sm btn-outline-secondary social-share-copy" rel="noopener noreferrer">
+                    <i class="fas fa-link"></i>
+                  </a>
+                </div>
+<!-- 评论系统 - Giscus -->
+                <div class="comments-section card border-0 shadow-sm mt-5 mb-5">
+                    <div class="card-body">
+                        <h5 class="mb-4"><i class="fas fa-comments me-2"></i> 文章评论</h5>
+                        <div id="giscus-comments" class="giscus"></div>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <!-- 侧边栏 -->
+        <aside class="col-lg-4">
+            <!-- 搜索框 -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-3"><i class="fas fa-search me-2"></i> 搜索文章</h5>
+                    <form action="/blog/search.html" method="get" class="search-form">
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="输入关键词..." autocomplete="off">
+                            <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+                        </div>
+                        <div id="search-suggestions" class="mt-2" style="display:none;"></div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 热门标签 -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-3"><i class="fas fa-tags me-2"></i> 热门标签</h5>
+                    <div class="tag-cloud d-flex flex-wrap gap-2">
+                        <a href="/blog/?tag=Web开发" class="btn btn-sm btn-outline-primary">Web开发</a>
+                        <a href="/blog/?tag=SEO优化" class="btn btn-sm btn-outline-success">SEO优化</a>
+                        <a href="/blog/?tag=工具使用" class="btn btn-sm btn-outline-info">工具使用</a>
+                        <a href="/blog/?tag=实用技巧" class="btn btn-sm btn-outline-warning">实用技巧</a>
+                        <a href="/blog/?tag=前端优化" class="btn btn-sm btn-outline-danger">前端优化</a>
+                        <a href="/blog/?tag=编码解码" class="btn btn-sm btn-outline-secondary">编码解码</a>
+                        <a href="/blog/?tag=性能优化" class="btn btn-sm btn-outline-dark">性能优化</a>
+                        <a href="/blog/?tag=用户体验" class="btn btn-sm btn-outline-primary">用户体验</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 热门工具推荐 -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-3"><i class="fas fa-tools me-2"></i> 热门工具推荐</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item border-0 px-0 py-2">
+                            <a href="/tools/json-formatter.html" class="text-decoration-none d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-code me-2 text-primary"></i> JSON格式化</span>
+                                <i class="fas fa-chevron-right text-muted"></i>
+                            </a>
+                        </li>
+                        <li class="list-group-item border-0 px-0 py-2">
+                            <a href="/tools/base64-encoder.html" class="text-decoration-none d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-lock me-2 text-success"></i> Base64编解码</span>
+                                <i class="fas fa-chevron-right text-muted"></i>
+                            </a>
+                        </li>
+                        <li class="list-group-item border-0 px-0 py-2">
+                            <a href="/tools/jwt-decoder.html" class="text-decoration-none d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-key me-2 text-warning"></i> JWT解码器</span>
+                                <i class="fas fa-chevron-right text-muted"></i>
+                            </a>
+                        </li>
+                        <li class="list-group-item border-0 px-0 py-2">
+                            <a href="/tools/code-formatter.html" class="text-decoration-none d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-file-code me-2 text-info"></i> 代码格式化</span>
+                                <i class="fas fa-chevron-right text-muted"></i>
+                            </a>
+                        </li>
+                        <li class="list-group-item border-0 px-0 py-2">
+                            <a href="/tools/timestamp-converter.html" class="text-decoration-none d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-clock me-2 text-danger"></i> 时间戳转换</span>
+                                <i class="fas fa-chevron-right text-muted"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 最新文章 -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-3"><i class="fas fa-newspaper me-2"></i> 最新文章</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item border-0 px-0 py-2 small">
+                            <a href="/blog/post/frontend-performance-monitoring-complete-guide.html" class="text-decoration-none">前端性能监控完整指南：从数据采集到优化实践</a>
+                            <div class="text-muted mt-1">2026-09-18</div>
+                        </li>
+                        <li class="list-group-item border-0 px-0 py-2 small">
+                            <a href="/blog/post/api-design-best-practices.html" class="text-decoration-none">API设计最佳实践：构建可维护的Web服务</a>
+                            <div class="text-muted mt-1">2026-09-18</div>
+                        </li>
+                        <li class="list-group-item border-0 px-0 py-2 small">
+                            <a href="/blog/post/modern-javascript-development-techniques.html" class="text-decoration-none">现代JavaScript开发技巧：ES6+最佳实践</a>
+                            <div class="text-muted mt-1">2026-09-18</div>
+                        </li>
+                        <li class="list-group-item border-0 px-0 py-2 small">
+                            <a href="/blog/post/frontend-security-best-practices.html" class="text-decoration-none">前端安全最佳实践：保护Web应用免受常见攻击</a>
+                            <div class="text-muted mt-1">2025-08-21</div>
+                        </li>
+                        <li class="list-group-item border-0 px-0 py-2 small">
+                            <a href="/blog/post/react-vs-vue-vs-angular-comparison-2025.html" class="text-decoration-none">React vs Vue vs Angular：2025年前端框架全面对比</a>
+                            <div class="text-muted mt-1">2025-08-20</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <footer class="bg-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6"><h5 class="mb-3">技术博客</h5><p class="text-muted small">分享实用的Web开发技巧，每周2-3篇更新。</p></div>
+                <div class="col-md-3"><h5 class="mb-3">快速链接</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/" class="text-decoration-none">首页</a></li>
+                        <li class="mb-2"><a href="/blog/" class="text-decoration-none">技术博客</a></li>
+                        <li class="mb-2"><a href="/tools" class="text-decoration-none">工具集</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3"><h5 class="mb-3">推荐工具</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/tools/json-formatter.html" class="text-decoration-none">JSON格式化</a></li>
+                        <li class="mb-2"><a href="/tools/base64-encoder.html" class="text-decoration-none">Base64编解码</a></li>
+                        <li class="mb-2"><a href="/tools/cron-generator.html" class="text-decoration-none">Cron生成器</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center text-muted small"><p>Copyright © 2024-2026 在线工具箱 | <a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></p></div>
+        </div>
+    </footer>
+
+    <div class="text-center my-4">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8795586167197548"
+             data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/error-tracking.js"></script>
+    <script>
+        // 复制链接功能
+    function copyToClipboard(text, element) {
+      navigator.clipboard.writeText(text).then(function() {
+        const originalText = element.innerHTML;
+        element.innerHTML = '<i class="fas fa-check"></i>';
+        element.style.backgroundColor = '#28a745';
+        element.style.color = 'white';
+        element.style.borderColor = '#28a745';
+        
+        setTimeout(function() {
+          element.innerHTML = '<i class="fas fa-link"></i>';
+          element.style.backgroundColor = '';
+          element.style.color = '';
+          element.style.borderColor = '';
+        }, 2000);
+      
+      }).catch(function(err) {
+        console.error('复制失败:', err);
+      });
+    }
+    
+    // 邮件订阅功能
+    function subscribeEmailList() {
+      const email = document.getElementById('subscribeEmail').value;
+      if (!email) {
+        alert('请输入邮箱地址');
+        return;
+      }
+      
+      // 使用mailto协议
+      window.location.href = `mailto:support@alltoolsbox.xyz?subject=博客订阅&body=我要订阅您的技术博客更新，我的邮箱地址是：${email}`;
+      
+      // 显示成功消息
+      const message = document.getElementById('subscribeMessage');
+      message.textContent = '订阅请求已发送，请检查您的邮箱！';
+      message.style.display = 'block';
+      
+      // 重置输入框
+      document.getElementById('subscribeEmail').value = '';
+      
+      // 3秒后隐藏消息
+      setTimeout(() => {
+        message.style.display = 'none';
+      }, 3000);
+    }
+    
+    // 搜索建议功能
+    const searchInput = document.querySelector('input[name="q"]');
+    const suggestionsDiv = document.getElementById('search-suggestions');
+    
+    if (searchInput && suggestionsDiv) {
+      const articles = [
+        '前端性能监控完整指南：从数据采集到优化实践',
+        'API设计最佳实践：构建可维护的Web服务',
+        '现代JavaScript开发技巧：ES6+最佳实践',
+        '前端安全最佳实践：保护Web应用免受常见攻击',
+        'React vs Vue vs Angular：2025年前端框架全面对比',
+        '前端性能优化的10个最佳实践',
+        '2025年SEO优化完整指南',
+        '25个在线工具的深度使用场景和进阶技巧',
+        '如何通过内容优化让工具站顺利通过AdSense审核'
+      ];
+      
+      const tags = ['Web开发', 'SEO优化', '工具使用', '实用技巧', '前端优化', '编码解码', '性能优化', '用户体验'];
+      
+      searchInput.addEventListener('input', function() {
+        const query = this.value.toLowerCase();
+        suggestionsDiv.innerHTML = '';
+        
+        if (query.length < 2) {
+          suggestionsDiv.style.display = 'none';
+          return;
+        }
+        
+        const matches = [];
+        
+        // 匹配文章
+        articles.forEach(article => {
+          if (article.toLowerCase().includes(query)) {
+            matches.push({
+              type: 'article',
+              text: article,
+              url: '/blog/post/' + article.toLowerCase().replace(/[^a-z0-9\-]/g, '-').replace(/--+/g, '-') + '.html'
+            });
+          }
+        });
+        
+        // 匹配标签
+        tags.forEach(tag => {
+          if (tag.toLowerCase().includes(query)) {
+            matches.push({
+              type: 'tag',
+              text: tag,
+              url: '/blog/?tag=' + encodeURIComponent(tag)
+            });
+          }
+        });
+        
+        if (matches.length > 0) {
+          suggestionsDiv.innerHTML = '<div class="list-group list-group-flush">' +
+            matches.slice(0, 5).map(match => 
+              `<a href="${match.url}" class="list-group-item list-group-item-action small py-2 px-3" style="cursor:pointer;">` +
+              `<i class="fas fa-${match.type === 'article' ? 'file-alt' : 'tag'} me-2"></i>` +
+              `${match.text}</a>`
+            ).join('') + '</div>';
+          suggestionsDiv.style.display = 'block';
+        } else {
+          suggestionsDiv.style.display = 'none';
+        }
+      });
+      
+      // 隐藏建议当失去焦点
+      searchInput.addEventListener('blur', function() {
+        setTimeout(() => {
+          suggestionsDiv.style.display = 'none';
+        }, 200);
+      });
+    }
+    
+    // 初始化社交分享按钮 - 动态获取页面信息
+    document.addEventListener('DOMContentLoaded', function() {
+      const pageUrl = encodeURIComponent(window.location.href);
+      const pageTitle = encodeURIComponent(document.title);
+      const pageDesc = encodeURIComponent(document.querySelector('meta[name="description"]')?.content || '');
+      
+      // Twitter分享
+      const twitterLinks = document.querySelectorAll('a.social-share-twitter');
+      twitterLinks.forEach(link => {
+        link.href = `https://twitter.com/intent/tweet?url=${pageUrl}&text=${pageTitle}`;
+      });
+      
+      // LinkedIn分享
+      const linkedinLinks = document.querySelectorAll('a.social-share-linkedin');
+      linkedinLinks.forEach(link => {
+        link.href = `https://www.linkedin.com/shareArticle?mini=true&url=${pageUrl}&title=${pageTitle}&summary=${pageDesc}`;
+      });
+      
+      // 复制链接按钮
+      const copyLinks = document.querySelectorAll('a.social-share-copy');
+      copyLinks.forEach(link => {
+        link.onclick = function() {
+          copyToClipboard(window.location.href, this);
+        };
+      });
+    });
+    </script>
+
+    <script src="https://giscus.app/client.js"
+        data-repo="ulquolrra/tools-site"
+        data-repo-id="R_kgDOTh2zCw"
+        data-category="Comments"
+        data-category-id="DIC_kwDOTh2zC84DF3Nm"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+    </script>
+</body>
+</html>

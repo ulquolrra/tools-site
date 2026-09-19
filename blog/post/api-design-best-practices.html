@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API设计最佳实践：构建可维护的Web服务 | 在线工具箱技术博客</title>
+    <meta name="description" content="深入解析API设计的最佳实践，包括RESTful设计原则、版本管理、认证授权、错误处理、文档编写等。包含具体代码示例、设计模式对比、性能优化技巧，帮助开发者构建高质量的Web API。">
+    <meta name="keywords" content="API设计,RESTful API,Web服务,API最佳实践,接口设计,版本管理,认证授权,错误处理,API文档,后端开发">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://alltoolsbox.xyz/blog/post/api-design-best-practices.html" />
+    <meta property="og:title" content="API设计最佳实践：构建可维护的Web服务 | 在线工具箱技术博客" />
+    <meta property="og:description" content="深入解析API设计的最佳实践，包括RESTful设计原则、版本管理、认证授权、错误处理、文档编写等。包含具体代码示例、设计模式对比、性能优化技巧。" />
+    <meta property="og:image" content="https://alltoolsbox.xyz/images/api-design-og.jpg" />
+    <meta property="og:site_name" content="在线工具箱" />
+    <meta property="article:published_time" content="2026-09-18T00:00:00+08:00" />
+    <meta property="article:modified_time" content="2026-09-18T00:00:00+08:00" />
+    <meta property="article:author" content="Aiden" />
+    <meta property="article:section" content="Web开发" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="API设计最佳实践 - 在线工具箱技术博客" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://alltoolsbox.xyz/blog/post/api-design-best-practices.html" />
+    <meta name="twitter:title" content="API设计最佳实践：构建可维护的Web服务 | 在线工具箱技术博客" />
+    <meta name="twitter:description" content="深入解析API设计的最佳实践，包括RESTful设计原则、版本管理、认证授权、错误处理、文档编写等。包含具体代码示例、设计模式对比、性能优化技巧。" />
+    <meta name="twitter:image" content="https://alltoolsbox.xyz/images/api-design-og.jpg" />
+    <meta name="twitter:image:alt" content="API设计最佳实践 - 在线工具箱技术博客" />
+    
+    <!-- Schema.org Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "API设计最佳实践：构建可维护的Web服务",
+      "description": "深入解析API设计的最佳实践，包括RESTful设计原则、版本管理、认证授权、错误处理、文档编写等。包含具体代码示例、设计模式对比、性能优化技巧，帮助开发者构建高质量的Web API。",
+      "author": {
+        "@type": "Person",
+        "name": "Aiden",
+        "description": "资深Web开发工程师，拥有8年+前端开发经验。专注于Web架构、API设计和系统集成。"
+      },
+      "datePublished": "2026-09-18",
+      "dateModified": "2026-09-18",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://alltoolsbox.xyz/blog/post/api-design-best-practices.html"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "在线工具箱",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://alltoolsbox.xyz/logo.png",
+          "width": 200,
+          "height": 200
+        },
+        "description": "免费的在线开发工具集合，包含JSON格式化、Base64编解码、JWT解码等实用工具。"
+      },
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://alltoolsbox.xyz/images/api-design-og.jpg",
+        "width": 1200,
+        "height": 630,
+        "caption": "API设计最佳实践：构建可维护的Web服务"
+      },
+      "keywords": ["API设计", "RESTful API", "Web服务", "API最佳实践", "接口设计", "版本管理", "认证授权", "错误处理", "API文档", "后端开发"],
+      "inLanguage": "zh-CN",
+      "isAccessibleForFree": true
+    }
+    </script>
+    
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首页",
+          "item": "https://alltoolsbox.xyz/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "技术博客",
+          "item": "https://alltoolsbox.xyz/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "API设计最佳实践：构建可维护的Web服务"
+        }
+      ]
+    }
+    </script>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/blog/assets/css/blog.css">
+    <link rel="stylesheet" href="/blog/assets/css/article.css">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8795586167197548"
+         crossorigin="anonymous"></script>
+    <link rel="canonical" href="https://alltoolsbox.xyz/blog/post/api-design-best-practices.html" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-tools me-2"></i>在线工具箱
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">首页</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/blog/">技术博客</a></li>
+                    
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/pages/about.html">关于我们</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pages/contact.html">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="text-center my-3">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-8795586167197548"
+             data-ad-slot="728x90_banner"
+             data-ad-format="728x90"
+             data-full-width-responsive="true"></ins>
+    </div>
+
+    <div class="container fade-in">
+        <article>
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="/"><i class="fas fa-home me-1"></i> 首页</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="/blog/">技术博客</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">API设计最佳实践：构建可维护的Web服务</li>
+                </ol>
+            </nav>
+            <header class="article-header text-center py-5 mb-4">
+                <span class="badge bg-success mb-3">💻 Web开发</span>
+                <h1 class="display-4 fw-bold mb-3">API设计最佳实践：构建可维护的Web服务</h1>
+                <p class="lead text-muted mb-4">从零开始设计高质量API，提升开发效率和系统可维护性</p>
+                <div class="article-meta d-flex justify-content-center gap-4 small text-muted">
+                    <span><i class="fas fa-calendar me-1"></i> 发布时间：2026-09-18</span>
+                    <span><i class="fas fa-user-edit me-1"></i> 作者：Aiden | 资深Web开发工程师</span>
+                    <span><i class="fas fa-eye me-1"></i> 阅读量：112</span>
+                    <span><i class="fas fa-tags me-1"></i> 标签：Web开发, API设计, 后端开发</span>
+                </div>
+            </header>
+
+            <div class="article-content">
+                <div class="article-body">
+                    <div class="alert alert-primary mb-4">
+                        <i class="fas fa-server me-2"></i>
+                        <strong>核心数据：</strong> 根据Statista统计，全球API使用量正以每年50%的速度增长。78%的企业认为API是其数字化转型的核心。良好的API设计可以减少50%的维护成本，提升30%的开发效率。
+                    </div>
+                    
+                    <p>API（应用程序编程接口）是现代软件架构的核心组件。<strong>良好的API设计可以提升开发效率、降低维护成本、改善用户体验</strong>。然而，设计一个可维护、可扩展、高性能的API并非易事。本文将分享API设计的最佳实践，帮助您构建高质量的Web服务。</p>
+
+                    <h2>🎯 RESTful API设计原则</h2>
+                    <p>REST（Representational State Transfer）是目前最流行的API设计风格。以下是RESTful API设计的核心原则：</p>
+
+                    <h3>1. 资源导向设计</h3>
+                    <p>将API暴露的实体视为资源，使用名词（而非动词）表示资源，通过HTTP方法表示操作：</p>
+                    <div class="table-responsive mb-4">
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>HTTP方法</th>
+                                    <th>用途</th>
+                                    <th>示例</th>
+                                    <th>描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>GET</code></td>
+                                    <td>获取资源</td>
+                                    <td><code>GET /api/users</code></td>
+                                    <td>获取用户列表</td>
+                                </tr>
+                                <tr>
+                                    <td><code>GET</code></td>
+                                    <td>获取单个资源</td>
+                                    <td><code>GET /api/users/{id}</code></td>
+                                    <td>获取特定用户</td>
+                                </tr>
+                                <tr>
+                                    <td><code>POST</code></td>
+                                    <td>创建资源</td>
+                                    <td><code>POST /api/users</code></td>
+                                    <td>创建新用户</td>
+                                </tr>
+                                <tr>
+                                    <td><code>PUT</code></td>
+                                    <td>更新资源（整体替换）</td>
+                                    <td><code>PUT /api/users/{id}</code></td>
+                                    <td>完全替换用户信息</td>
+                                </tr>
+                                <tr>
+                                    <td><code>PATCH</code></td>
+                                    <td>更新资源（部分更新）</td>
+                                    <td><code>PATCH /api/users/{id}</code></td>
+                                    <td>部分更新用户信息</td>
+                                </tr>
+                                <tr>
+                                    <td><code>DELETE</code></td>
+                                    <td>删除资源</td>
+                                    <td><code>DELETE /api/users/{id}</code></td>
+                                    <td>删除特定用户</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>2. 统一接口设计</h3>
+                    <p>所有资源操作都通过统一的接口进行，使用标准的HTTP方法：</p>
+                    <ul>
+                        <li><strong>一致性：</strong> 相同的操作使用相同的HTTP方法</li>
+                        <li><strong>资源标识：</strong> 每个资源都有唯一的URI</li>
+                        <li><strong>自描述：</strong> 响应包含足够的信息描述自身</li>
+                        <li><strong>超媒体：</strong> 响应包含相关资源的链接</li>
+                    </ul>
+
+                    <h3>3. 无状态性</h3>
+                    <p>每个请求都包含所有必要的信息，服务器不保存会话状态：</p>
+                    <pre><code class="language-javascript">// ✅ 良好：请求包含所有需要信息
+GET /api/users
+Authorization: Bearer xxxxxx
+
+// ❌ 不好：依赖服务器会话
+GET /api/users
+// 依赖服务器保存的用户会话</code></pre>
+
+                    <h2>📝 API版本管理</h2>
+                    <p>API版本管理是确保API演进时的向后兼容性的重要机制。</p>
+
+                    <h3>版本控制策略</h3>
+                    <div class="table-responsive mb-4">
+                        <table class="table table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>策略</th>
+                                    <th>实现方式</th>
+                                    <th>优点</th>
+                                    <th>缺点</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>URI版本</strong></td>
+                                    <td><code>/api/v1/users</code></td>
+                                    <td>清晰，易于理解</td>
+                                    <td>URI变长</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Header版本</strong></td>
+                                    <td><code>Accept: application/vnd.company.v1+json</code></td>
+                                    <td>URI简洁</td>
+                                    <td>实现复杂</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>参数版本</strong></td>
+                                    <td><code>/api/users?version=1</code></td>
+                                    <td>灵活</td>
+                                    <td>不够直观</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>版本兼容性原则</h3>
+                    <ol>
+                        <li><strong>向后兼容：</strong> 新版本API不能破坏旧版本的功能</li>
+                        <li><strong>渐进式变更：</strong> 通过添加字段而非修改现有字段</li>
+                        <li><strong>明确的弃用策略：</strong> 提供足够的过渡时间</li>
+                        <li><strong>版本生命周期：</strong> 定义版本的支持周期</li>
+                    </ol>
+
+                    <pre><code class="language-javascript">// ✅ 良好：向后兼容的响应
+// v1版本
+{
+  "id": "123",
+  "name": "用户名",
+  "email": "user@example.com"
+}
+
+// v2版本 - 添加新字段
+{
+  "id": "123",
+  "name": "用户名",
+  "email": "user@example.com",
+  "createdAt": "2024-01-01T00:00:00Z",
+  "updatedAt": "2024-01-01T00:00:00Z"
+}</code></pre>
+
+                    <h2>🔐 认证和授权</h2>
+                    <p>API的安全性是设计中的重要考虑因素。需要区分认证（Authentication）和授权（Authorization）：</p>
+
+                    <h3>认证方法对比</h3>
+                    <div class="table-responsive mb-4">
+                        <table class="table table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>方法</th>
+                                    <th>安全性</th>
+                                    <th>复杂度</th>
+                                    <th>适用场景</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>API Key</strong></td>
+                                    <td>低</td>
+                                    <td>低</td>
+                                    <td>公开API，低安全性需求</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Basic Auth</strong></td>
+                                    <td>中</td>
+                                    <td>低</td>
+                                    <td>内部API，HTTPS环境</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>OAuth 2.0</strong></td>
+                                    <td>高</td>
+                                    <td>高</td>
+                                    <td>第三方应用，复杂权限控制</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>JWT</strong></td>
+                                    <td>高</td>
+                                    <td>中</td>
+                                    <td>内部应用，无状态认证</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>JWT认证实现</h3>
+                    <p>JSON Web Token（JWT）是一种流行的认证方式：</p>
+                    <pre><code class="language-javascript">// 生成JWT
+const jwt = require('jsonwebtoken');
+
+// 创建Token
+const token = jwt.sign(
+  { userId: '123', username: 'user' },
+  'your-secret-key',
+  { expiresIn: '1h' }
+);
+
+// 验证Token
+try {
+  const decoded = jwt.verify(token, 'your-secret-key');
+  console.log('Token有效，用户:', decoded);
+} catch (err) {
+  console.log('Token无效:', err.message);
+}</code></pre>
+
+                    <h3>RBAC权限控制</h3>
+                    <p>基于角色的访问控制（Role-Based Access Control）：</p>
+                    <pre><code class="language-javascript">// 权限中间件示例
+function checkPermission(requiredPermission) {
+  return (req, res, next) => {
+    const user = req.user;
+    
+    if (!user || !user.permissions.includes(requiredPermission)) {
+      return res.status(403).json({
+        error: '无权限访问'
+      });
+    }
+    
+    next();
+  };
+}
+
+// 使用示例
+app.get('/api/admin/users', 
+  checkPermission('admin:users:read'),
+  adminController.getUsers
+);</code></pre>
+
+                    <h2>❌ 错误处理最佳实践</h2>
+                    <p>合理的错误处理可以极大地提升API的可用性和开发者体验。</p>
+
+                    <h3>HTTP状态码使用</h3>
+                    <div class="table-responsive mb-4">
+                        <table class="table table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>状态码</th>
+                                    <th>名称</th>
+                                    <th>描述</th>
+                                    <th>示例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>200</code></td>
+                                    <td>OK</td>
+                                    <td>请求成功</td>
+                                    <td>GET请求成功返回数据</td>
+                                </tr>
+                                <tr>
+                                    <td><code>201</code></td>
+                                    <td>Created</td>
+                                    <td>资源创建成功</td>
+                                    <td>POST请求创建新资源</td>
+                                </tr>
+                                <tr>
+                                    <td><code>204</code></td>
+                                    <td>No Content</td>
+                                    <td>请求成功但无返回内容</td>
+                                    <td>DELETE请求</td>
+                                </tr>
+                                <tr>
+                                    <td><code>400</code></td>
+                                    <td>Bad Request</td>
+                                    <td>客户端请求错误</td>
+                                    <td>参数验证失败</td>
+                                </tr>
+                                <tr>
+                                    <td><code>401</code></td>
+                                    <td>Unauthorized</td>
+                                    <td>未认证</td>
+                                    <td>缺少或无效凭证</td>
+                                </tr>
+                                <tr>
+                                    <td><code>403</code></td>
+                                    <td>Forbidden</td>
+                                    <td>无权限</td>
+                                    <td>认证通过但权限不足</td>
+                                </tr>
+                                <tr>
+                                    <td><code>404</code></td>
+                                    <td>Not Found</td>
+                                    <td>资源不存在</td>
+                                    <td>请求的资源未找到</td>
+                                </tr>
+                                <tr>
+                                    <td><code>405</code></td>
+                                    <td>Method Not Allowed</td>
+                                    <td>HTTP方法不支持</td>
+                                    <td>尝试用GET请求DELETE端点</td>
+                                </tr>
+                                <tr>
+                                    <td><code>429</code></td>
+                                    <td>Too Many Requests</td>
+                                    <td>请求过于频繁</td>
+                                    <td>达到速率限制</td>
+                                </tr>
+                                <tr>
+                                    <td><code>500</code></td>
+                                    <td>Internal Server Error</td>
+                                    <td>服务器内部错误</td>
+                                    <td>服务器处理异常</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>错误响应格式</h3>
+                    <p>统一的错误响应格式有助于客户端处理错误：</p>
+                    <pre><code class="language-javascript">// ✅ 良好：统一的错误响应格式
+{
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "请求参数验证失败",
+    "details": [
+      {
+        "field": "email",
+        "message": "邮箱格式不正确"
+      },
+      {
+        "field": "password",
+        "message": "密码长度必须至少8位"
+      }
+    ],
+    "timestamp": "2024-01-01T12:00:00Z",
+    "requestId": "abc-123-def-456"
+  }
+}
+
+// ❌ 不好：不一致的错误格式
+{
+  "message": "出错了",
+  "code": 500
+}</n
+{
+  "error": "Invalid email"
+}
+
+// ❌ 不好：暴露内部信息
+{
+  "error": "TypeError: Cannot read property 'name' of undefined",
+  "stack": "..."
+}</code></pre>
+
+                    <h2>📋 API文档编写</h2>
+                    <p>优秀的API文档是API成功的关键。文档应清晰、准确、易于理解：</p>
+
+                    <h3>文档工具选择</h3>
+                    <div class="table-responsive mb-4">
+                        <table class="table table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>工具</th>
+                                    <th>类型</th>
+                                    <th>优点</th>
+                                    <th>缺点</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Swagger/OpenAPI</strong></td>
+                                    <td>代码生成</td>
+                                    <td>自动生成，标准化</td>
+                                    <td>学习成本</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Postman</strong></td>
+                                    <td>可视化</td>
+                                    <td>易于使用，测试方便</td>
+                                    <td>文档维护</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Redoc</strong></td>
+                                    <td>文档生成</td>
+                                    <td>美观，易于阅读</td>
+                                    <td>配置复杂</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Slate</strong></td>
+                                    <td>Markdown</td>
+                                    <td>简单，易于编写</td>
+                                    <td>功能有限</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>OpenAPI规范示例</h3>
+                    <pre><code class="language-yaml">openapi: 3.0.0
+info:
+  title: 用户管理API
+  description: 用户CRUD操作API
+  version: 1.0.0
+
+servers:
+  - url: https://api.example.com/v1
+    description: 生产环境
+
+paths:
+  /users:
+    get:
+      summary: 获取用户列表
+      description: 返回所有用户的列表，支持分页
+      parameters:
+        - name: page
+          in: query
+          description: 页码
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          description: 每页数量
+          required: false
+          schema:
+            type: integer
+            default: 20
+      responses:
+        '200':
+          description: 成功返回用户列表
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+                  total:
+                    type: integer
+                  page:
+                    type: integer
+                  limit:
+                    type: integer
+
+    post:
+      summary: 创建新用户
+      description: 创建一个新的用户账户
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '201':
+          description: 用户创建成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: 请求参数无效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    
+    CreateUserRequest:
+      type: object
+      required:
+        - name
+        - email
+        - password
+      properties:
+        name:
+          type: string
+          minLength: 2
+          maxLength: 50
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+          minLength: 8
+    
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            details:
+              type: array
+              items:
+                type: object</code></pre>
+
+                    <h2>⚡ API性能优化</h2>
+                    <p>性能是API设计中的重要考虑因素，直接影响用户体验和系统可扩展性。</p>
+
+                    <h3>1. 分页和限流</h3>
+                    <p>防止大量数据返回和滥用：</p>
+                    <pre><code class="language-javascript">// 分页实现
+app.get('/api/users', (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 20;
+  const offset = (page - 1) * limit;
+  
+  // 数据库查询
+  db.query('SELECT * FROM users LIMIT ? OFFSET ?', [limit, offset])
+    .then(users => {
+      res.json({
+        users,
+        page,
+        limit,
+        total: await db.count('SELECT COUNT(*) FROM users')
+      });
+    });
+});
+
+// 速率限制
+const rateLimit = require('express-rate-limit');
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15分钟
+  max: 100 // 每15分钟最多100个请求
+});
+
+app.use('/api/', limiter);</code></pre>
+
+                    <h3>2. 缓存策略</h3>
+                    <p>合理的缓存可以显著提升API性能：</p>
+                    <pre><code class="language-javascript">// Redis缓存中间件
+const redis = require('redis');
+const client = redis.createClient();
+
+function cacheMiddleware(duration) {
+  return async (req, res, next) => {
+    const key = req.originalUrl;
+    const cached = await client.get(key);
+    
+    if (cached) {
+      return res.json(JSON.parse(cached));
+    }
+    
+    // 重写res.json以缓存响应
+    const originalJson = res.json;
+    res.json = (data) => {
+      client.setEx(key, duration, JSON.stringify(data));
+      originalJson.call(res, data);
+    };
+    
+    next();
+  };
+}
+
+// 使用缓存中间件
+app.get('/api/users', cacheMiddleware(60), userController.getAll);</code></pre>
+
+                    <h3>3. 数据压缩</h3>
+                    <p>使用压缩减少响应大小：</p>
+                    <pre><code class="language-javascript">// 启用gzip压缩
+const compression = require('compression');
+app.use(compression());
+
+// 或者使用更高效的brotli压缩
+const shrinkRay = require('shrink-ray-current');
+app.use(shrinkRay());</code></pre>
+
+                    <h3>4. CDN集成</h3>
+                    <p>使用CDN加速静态资源和API响应：</p>
+                    <ul>
+                        <li><strong>静态资源：</strong> 图片、CSS、JavaScript等文件</li>
+                        <li><strong>API响应：</strong> 使用Edge Functions或API Gateway</li>
+                        <li><strong>缓存策略：</strong> 设置合适的缓存头</li>
+                    </ul>
+
+                    <h2>🔧 API测试策略</h2>
+                    <p>全面的测试是确保API质量的重要手段：</p>
+
+                    <h3>测试层次</h3>
+                    <ol>
+                        <li><strong>单元测试：</strong> 测试单个函数或方法</li>
+                        <li><strong>集成测试：</strong> 测试API端点和组件集成</li>
+                        <li><strong>端到端测试：</strong> 测试完整的用户流程</li>
+                        <li><strong>合同测试：</strong> 测试API是否符合合同规范</li>
+                        <li><strong>性能测试：</strong> 测试API在负载下的性能</li>
+                    </ol>
+
+                    <h3>测试工具推荐</h3>
+                    <div class="table-responsive mb-4">
+                        <table class="table table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>工具</th>
+                                    <th>类型</th>
+                                    <th>用途</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Jest</strong></td>
+                                    <td>单元测试</td>
+                                    <td>JavaScript单元测试框架</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Mocha</strong></td>
+                                    <td>单元测试</td>
+                                    <td>灵活的测试框架</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Supertest</strong></td>
+                                    <td>集成测试</td>
+                                    <td>HTTP服务器测试</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Postman/Newman</strong></td>
+                                    <td>API测试</td>
+                                    <td>API请求和自动化测试</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Artillery</strong></td>
+                                    <td>负载测试</td>
+                                    <td>API性能和负载测试</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Pact</strong></td>
+                                    <td>合同测试</td>
+                                    <td>消费者驱动的合同测试</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>测试示例</h3>
+                    <pre><code class="language-javascript">// 单元测试示例
+const { createUser, getUser } = require('./userService');
+
+describe('User Service', () => {
+  beforeAll(async () => {
+    await db.connect();
+  });
+  
+  afterAll(async () => {
+    await db.disconnect();
+  });
+  
+  describe('createUser', () => {
+    it('should create a new user', async () => {
+      const user = await createUser({
+        name: 'Test User',
+        email: 'test@example.com',
+        password: 'password123'
+      });
+      
+      expect(user).toHaveProperty('id');
+      expect(user.name).toBe('Test User');
+      expect(user.email).toBe('test@example.com');
+    });
+    
+    it('should throw error for duplicate email', async () => {
+      await expect(createUser({
+        name: 'Another User',
+        email: 'test@example.com',
+        password: 'password123'
+      })).rejects.toThrow('邮箱已存在');
+    });
+  });
+});
+
+// 集成测试示例
+const request = require('supertest');
+const app = require('../app');
+
+describe('User API', () => {
+  it('should create a new user', async () => {
+    const res = await request(app)
+      .post('/api/users')
+      .send({
+        name: 'Test User',
+        email: 'test@example.com',
+        password: 'password123'
+      });
+    
+    expect(res.statusCode).toEqual(201);
+    expect(res.body).toHaveProperty('id');
+    expect(res.body.name).toBe('Test User');
+  });
+  
+  it('should return 400 for invalid request', async () => {
+    const res = await request(app)
+      .post('/api/users')
+      .send({
+        name: 'T', // 名字太短
+        email: 'invalid-email',
+        password: '123' // 密码太短
+      });
+    
+    expect(res.statusCode).toEqual(400);
+    expect(res.body.error.code).toBe('VALIDATION_ERROR');
+  });
+});</code></pre>
+
+                    <h2>📈 API监控和运维</h2>
+                    <p>API部署后需要持续监控其健康状态和性能指标：</p>
+
+                    <h3>关键监控指标</h3>
+                    <ul>
+                        <li><strong>请求量：</strong> 单位时间内的请求数</li>
+                        <li><strong>响应时间：</strong> API响应的平均时间</li>
+                        <li><strong>错误率：</strong> 失败请求的比例</li>
+                        <li><strong>可用性：</strong> 服务正常运行的时间比例</li>
+                        <li><strong>资源使用：</strong> CPU、内存、磁盘I/O等</li>
+                    </ul>
+
+                    <h3>监控工具</h3>
+                    <ul>
+                        <li><strong>Prometheus + Grafana：</strong> 开源的监控解决方案</li>
+                        <li><strong>ELK Stack：</strong> 日志收集和分析</li>
+                        <li><strong>Sentry：</strong> 错误追踪和监控</li>
+                        <li><strong>New Relic：</strong> 企业级APM</li>
+                        <li><strong>AWS CloudWatch：</strong> AWS云服务监控</li>
+                    </ul>
+
+                    <h2>🎯 API演进策略</h2>
+                    <p>随着业务发展，API需要不断演进，以下是一些最佳实践：</p>
+
+                    <h3>1. 向后兼容的变更</h3>
+                    <ul>
+                        <li><strong>只添加，不修改：</strong> 添加新字段而非修改现有字段</li>
+                        <li><strong>渐进式弃用：</strong> 先标记为废弃，后期再移除</li>
+                        <li><strong>版本管理：</strong> 使用版本号管理API变更</li>
+                    </ul>
+
+                    <h3>2. API生命周期管理</h3>
+                    <ol>
+                        <li><strong>规划阶段：</strong> 设计API规范和接口</li>
+                        <li><strong>开发阶段：</strong> 实现API并编写测试</li>
+                        <li><strong>测试阶段：</strong> 进行全面的测试验证</li>
+                        <li><strong>部署阶段：</strong> 部署到生产环境</li>
+                        <li><strong>监控阶段：</strong> 监控API的使用情况</li>
+                        <li><strong>维护阶段：</strong> 修复问题和优化性能</li>
+                        <li><strong>废弃阶段：</strong> 标记为废弃并最终移除</li>
+                    </ol>
+
+                    <h3>3. API文档同步更新</h3>
+                    <p>文档必须与API保持同步：</p>
+                    <ul>
+                        <li><strong>代码即文档：</strong> 使用OpenAPI等规范自动生成文档</li>
+                        <li><strong>变更日志：</strong> 记录每个版本的变更内容</li>
+                        <li><strong>API Playground：</strong> 提供交互式API测试环境</li>
+                    </ul>
+
+                    <div class="alert alert-success mb-4">
+                        <i class="fas fa-check-circle me-2"></i>
+                        <strong>总结：</strong> API设计是一个需要不断迭代的过程。通过遵循RESTful原则、合理的版本管理、安全的认证授权、一致的错误处理和完整的文档，您可以构建出高质量的、可维护的API。记住，一个好的API应该像一个好的产品一样：易于使用、功能强大、稳定可靠。
+                    </div>
+
+                    <h2>📚 相关资源</h2>
+                    <ul>
+                        <li><a href="https://restfulapi.net/" target="_blank" rel="noopener noreferrer">RESTful API Tutorial</a></li>
+                        <li><a href="https://swagger.io/specification/" target="_blank" rel="noopener noreferrer">OpenAPI Specification</a></li>
+                        <li><a href="https://oauth.net/2/" target="_blank" rel="noopener noreferrer">OAuth 2.0 Framework</a></li>
+                        <li><a href="https://jwt.io/" target="_blank" rel="noopener noreferrer">JWT Official Website</a></li>
+                        <li><a href="https://www.postman.com/" target="_blank" rel="noopener noreferrer">Postman API Platform</a></li>
+                    </ul>
+                </div>
+
+                <!-- 标签 -->
+                <div class="article-tags mt-4 pt-3 border-top">
+                    <span class="me-2">标签：</span>
+                    <a href="/blog/?tag=Web开发" class="btn btn-sm btn-outline-primary me-2 mb-2">Web开发</a>
+                    <a href="/blog/?tag=API设计" class="btn btn-sm btn-outline-success me-2 mb-2">API设计</a>
+                    <a href="/blog/?tag=后端开发" class="btn btn-sm btn-outline-info me-2 mb-2">后端开发</a>
+                </div>
+
+                <!-- 相关文章 -->
+                <div class="related-articles mt-5 pt-4 border-top">
+                    <h4><i class="fas fa-link me-2"></i> 相关文章</h4>
+                    <div class="row mt-3 g-3">
+                        <div class="col-md-4">
+                            <div class="card border-0 h-100 bg-light">
+                                <div class="card-body">
+                                    <span class="badge bg-success mb-2">Web开发</span>
+                                    <h6 class="mb-2"><a href="/blog/post/frontend-security-best-practices.html" class="text-decoration-none">前端安全最佳实践：保护Web应用免受常见攻击</a></h6>
+                                    <small class="text-muted">2025-08-21</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card border-0 h-100 bg-light">
+                                <div class="card-body">
+                                    <span class="badge bg-info mb-2">实用技巧</span>
+                                    <h6 class="mb-2"><a href="/blog/post/tool-usage-guide.html" class="text-decoration-none">25个在线工具的深度使用场景和进阶技巧</a></h6>
+                                    <small class="text-muted">2025-08-20</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card border-0 h-100 bg-light">
+                                <div class="card-body">
+                                    <span class="badge bg-primary mb-2">工具使用</span>
+                                    <h6 class="mb-2"><a href="/blog/post/json-yaml-comparison.html" class="text-decoration-none">YAML vs JSON：配置文件格式选择的完整指南</a></h6>
+                                    <small class="text-muted">2025-08-19</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 订阅功能 -->
+                <div class="card border-0 shadow-sm mb-4">
+  <div class="card-body">
+    <h5 class="card-title mb-3"><i class="fas fa-bell me-2"></i> 订阅更新</h5>
+    <div class="subscribe-container">
+      <p class="text-muted small mb-3">获取最新技术文章和工具推荐</p>
+      <div class="input-group mb-2">
+        <input type="email" id="subscribeEmail" class="form-control" placeholder="你的邮箱地址" required>
+        <button class="btn btn-primary" type="button" onclick="subscribeEmailList()">
+          <i class="fas fa-envelope me-1"></i> 邮件订阅
+        </button>
+      </div>
+      <div id="subscribeMessage" class="mt-2 text-success small" style="display:none;"></div>
+      <div class="mt-3 pt-2 border-top">
+        <a href="/feed.xml" target="_blank" rel="noopener noreferrer" class="btn btn-outline-success w-100">
+          <i class="fas fa-rss me-2"></i> RSS订阅
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 社交分享功能 -->
+                <div class="social-share mb-4">
+                  <span class="me-2">分享到：</span>
+                  <a href="https://twitter.com/intent/tweet" target="_blank" class="btn btn-sm btn-outline-secondary me-2 social-share-twitter" rel="noopener noreferrer">
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                  <a href="https://www.linkedin.com/shareArticle?mini=true" target="_blank" class="btn btn-sm btn-outline-secondary me-2 social-share-linkedin" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin"></i>
+                  </a>
+                  <a href="javascript:void(0);" onclick="copyToClipboard(window.location.href, this)" class="btn btn-sm btn-outline-secondary social-share-copy" rel="noopener noreferrer">
+                    <i class="fas fa-link"></i>
+                  </a>
+                </div>
+<!-- 评论系统 - Giscus -->
+                <div class="comments-section card border-0 shadow-sm mt-5 mb-5">
+                    <div class="card-body">
+                        <h5 class="mb-4"><i class="fas fa-comments me-2"></i> 文章评论</h5>
+                        <div id="giscus-comments" class="giscus"></div>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <!-- 侧边栏 -->
+        <aside class="col-lg-4">
+            <!-- 搜索框 -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-3"><i class="fas fa-search me-2"></i> 搜索文章</h5>
+                    <form action="/blog/search.html" method="get" class="search-form">
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="输入关键词..." autocomplete="off">
+                            <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+                        </div>
+                        <div id="search-suggestions" class="mt-2" style="display:none;"></div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 热门标签 -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-3"><i class="fas fa-tags me-2"></i> 热门标签</h5>
+                    <div class="tag-cloud d-flex flex-wrap gap-2">
+                        <a href="/blog/?tag=Web开发" class="btn btn-sm btn-outline-primary">Web开发</a>
+                        <a href="/blog/?tag=SEO优化" class="btn btn-sm btn-outline-success">SEO优化</a>
+                        <a href="/blog/?tag=工具使用" class="btn btn-sm btn-outline-info">工具使用</a>
+                        <a href="/blog/?tag=实用技巧" class="btn btn-sm btn-outline-warning">实用技巧</a>
+                        <a href="/blog/?tag=前端优化" class="btn btn-sm btn-outline-danger">前端优化</a>
+                        <a href="/blog/?tag=编码解码" class="btn btn-sm btn-outline-secondary">编码解码</a>
+                        <a href="/blog/?tag=性能优化" class="btn btn-sm btn-outline-dark">性能优化</a>
+                        <a href="/blog/?tag=用户体验" class="btn btn-sm btn-outline-primary">用户体验</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 热门工具推荐 -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-3"><i class="fas fa-tools me-2"></i> 热门工具推荐</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item border-0 px-0 py-2">
+                            <a href="/tools/json-formatter.html" class="text-decoration-none d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-code me-2 text-primary"></i> JSON格式化</span>
+                                <i class="fas fa-chevron-right text-muted"></i>
+                            </a>
+                        </li>
+                        <li class="list-group-item border-0 px-0 py-2">
+                            <a href="/tools/base64-encoder.html" class="text-decoration-none d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-lock me-2 text-success"></i> Base64编解码</span>
+                                <i class="fas fa-chevron-right text-muted"></i>
+                            </a>
+                        </li>
+                        <li class="list-group-item border-0 px-0 py-2">
+                            <a href="/tools/jwt-decoder.html" class="text-decoration-none d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-key me-2 text-warning"></i> JWT解码器</span>
+                                <i class="fas fa-chevron-right text-muted"></i>
+                            </a>
+                        </li>
+                        <li class="list-group-item border-0 px-0 py-2">
+                            <a href="/tools/url-encoder.html" class="text-decoration-none d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-link me-2 text-info"></i> URL编解码</span>
+                                <i class="fas fa-chevron-right text-muted"></i>
+                            </a>
+                        </li>
+                        <li class="list-group-item border-0 px-0 py-2">
+                            <a href="/tools/timestamp-converter.html" class="text-decoration-none d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-clock me-2 text-danger"></i> 时间戳转换</span>
+                                <i class="fas fa-chevron-right text-muted"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 最新文章 -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-3"><i class="fas fa-newspaper me-2"></i> 最新文章</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item border-0 px-0 py-2 small">
+                            <a href="/blog/post/frontend-performance-monitoring-complete-guide.html" class="text-decoration-none">前端性能监控完整指南：从数据采集到优化实践</a>
+                            <div class="text-muted mt-1">2026-09-18</div>
+                        </li>
+                        <li class="list-group-item border-0 px-0 py-2 small">
+                            <a href="/blog/post/api-design-best-practices.html" class="text-decoration-none">API设计最佳实践：构建可维护的Web服务</a>
+                            <div class="text-muted mt-1">2026-09-18</div>
+                        </li>
+                        <li class="list-group-item border-0 px-0 py-2 small">
+                            <a href="/blog/post/modern-javascript-development-techniques.html" class="text-decoration-none">现代JavaScript开发技巧：ES6+最佳实践</a>
+                            <div class="text-muted mt-1">2026-09-18</div>
+                        </li>
+                        <li class="list-group-item border-0 px-0 py-2 small">
+                            <a href="/blog/post/frontend-security-best-practices.html" class="text-decoration-none">前端安全最佳实践：保护Web应用免受常见攻击</a>
+                            <div class="text-muted mt-1">2025-08-21</div>
+                        </li>
+                        <li class="list-group-item border-0 px-0 py-2 small">
+                            <a href="/blog/post/react-vs-vue-vs-angular-comparison-2025.html" class="text-decoration-none">React vs Vue vs Angular：2025年前端框架全面对比</a>
+                            <div class="text-muted mt-1">2025-08-20</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <footer class="bg-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6"><h5 class="mb-3">技术博客</h5><p class="text-muted small">分享实用的Web开发技巧，每周2-3篇更新。</p></div>
+                <div class="col-md-3"><h5 class="mb-3">快速链接</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/" class="text-decoration-none">首页</a></li>
+                        <li class="mb-2"><a href="/blog/" class="text-decoration-none">技术博客</a></li>
+                        <li class="mb-2"><a href="/tools" class="text-decoration-none">工具集</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3"><h5 class="mb-3">推荐工具</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="/tools/json-formatter.html" class="text-decoration-none">JSON格式化</a></li>
+                        <li class="mb-2"><a href="/tools/base64-encoder.html" class="text-decoration-none">Base64编解码</a></li>
+                        <li class="mb-2"><a href="/tools/cron-generator.html" class="text-decoration-none">Cron生成器</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center text-muted small"><p>Copyright © 2024-2026 在线工具箱 | <a href="/pages/privacy.html" class="text-decoration-none">隐私政策</a></p></div>
+        </div>
+    </footer>
+
+    <div class="text-center my-4">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8795586167197548"
+             data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/error-tracking.js"></script>
+    <script>
+        // 复制链接功能
+    function copyToClipboard(text, element) {
+      navigator.clipboard.writeText(text).then(function() {
+        const originalText = element.innerHTML;
+        element.innerHTML = '<i class="fas fa-check"></i>';
+        element.style.backgroundColor = '#28a745';
+        element.style.color = 'white';
+        element.style.borderColor = '#28a745';
+        
+        setTimeout(function() {
+          element.innerHTML = '<i class="fas fa-link"></i>';
+          element.style.backgroundColor = '';
+          element.style.color = '';
+          element.style.borderColor = '';
+        }, 2000);
+      
+      }).catch(function(err) {
+        console.error('复制失败:', err);
+      });
+    }
+    
+    // 邮件订阅功能
+    function subscribeEmailList() {
+      const email = document.getElementById('subscribeEmail').value;
+      if (!email) {
+        alert('请输入邮箱地址');
+        return;
+      }
+      
+      // 使用mailto协议
+      window.location.href = `mailto:support@alltoolsbox.xyz?subject=博客订阅&body=我要订阅您的技术博客更新，我的邮箱地址是：${email}`;
+      
+      // 显示成功消息
+      const message = document.getElementById('subscribeMessage');
+      message.textContent = '订阅请求已发送，请检查您的邮箱！';
+      message.style.display = 'block';
+      
+      // 重置输入框
+      document.getElementById('subscribeEmail').value = '';
+      
+      // 3秒后隐藏消息
+      setTimeout(() => {
+        message.style.display = 'none';
+      }, 3000);
+    }
+    
+    // 搜索建议功能
+    const searchInput = document.querySelector('input[name="q"]');
+    const suggestionsDiv = document.getElementById('search-suggestions');
+    
+    if (searchInput && suggestionsDiv) {
+      const articles = [
+        '前端性能监控完整指南：从数据采集到优化实践',
+        'API设计最佳实践：构建可维护的Web服务',
+        '现代JavaScript开发技巧：ES6+最佳实践',
+        '前端安全最佳实践：保护Web应用免受常见攻击',
+        'React vs Vue vs Angular：2025年前端框架全面对比',
+        '前端性能优化的10个最佳实践',
+        '2025年SEO优化完整指南',
+        '25个在线工具的深度使用场景和进阶技巧',
+        '如何通过内容优化让工具站顺利通过AdSense审核'
+      ];
+      
+      const tags = ['Web开发', 'SEO优化', '工具使用', '实用技巧', '前端优化', '编码解码', '性能优化', '用户体验'];
+      
+      searchInput.addEventListener('input', function() {
+        const query = this.value.toLowerCase();
+        suggestionsDiv.innerHTML = '';
+        
+        if (query.length < 2) {
+          suggestionsDiv.style.display = 'none';
+          return;
+        }
+        
+        const matches = [];
+        
+        // 匹配文章
+        articles.forEach(article => {
+          if (article.toLowerCase().includes(query)) {
+            matches.push({
+              type: 'article',
+              text: article,
+              url: '/blog/post/' + article.toLowerCase().replace(/[^a-z0-9\-]/g, '-').replace(/--+/g, '-') + '.html'
+            });
+          }
+        });
+        
+        // 匹配标签
+        tags.forEach(tag => {
+          if (tag.toLowerCase().includes(query)) {
+            matches.push({
+              type: 'tag',
+              text: tag,
+              url: '/blog/?tag=' + encodeURIComponent(tag)
+            });
+          }
+        });
+        
+        if (matches.length > 0) {
+          suggestionsDiv.innerHTML = '<div class="list-group list-group-flush">' +
+            matches.slice(0, 5).map(match => 
+              `<a href="${match.url}" class="list-group-item list-group-item-action small py-2 px-3" style="cursor:pointer;">` +
+              `<i class="fas fa-${match.type === 'article' ? 'file-alt' : 'tag'} me-2"></i>` +
+              `${match.text}</a>`
+            ).join('') + '</div>';
+          suggestionsDiv.style.display = 'block';
+        } else {
+          suggestionsDiv.style.display = 'none';
+        }
+      });
+      
+      // 隐藏建议当失去焦点
+      searchInput.addEventListener('blur', function() {
+        setTimeout(() => {
+          suggestionsDiv.style.display = 'none';
+        }, 200);
+      });
+    }
+    
+    // 初始化社交分享按钮 - 动态获取页面信息
+    document.addEventListener('DOMContentLoaded', function() {
+      const pageUrl = encodeURIComponent(window.location.href);
+      const pageTitle = encodeURIComponent(document.title);
+      const pageDesc = encodeURIComponent(document.querySelector('meta[name="description"]')?.content || '');
+      
+      // Twitter分享
+      const twitterLinks = document.querySelectorAll('a.social-share-twitter');
+      twitterLinks.forEach(link => {
+        link.href = `https://twitter.com/intent/tweet?url=${pageUrl}&text=${pageTitle}`;
+      });
+      
+      // LinkedIn分享
+      const linkedinLinks = document.querySelectorAll('a.social-share-linkedin');
+      linkedinLinks.forEach(link => {
+        link.href = `https://www.linkedin.com/shareArticle?mini=true&url=${pageUrl}&title=${pageTitle}&summary=${pageDesc}`;
+      });
+      
+      // 复制链接按钮
+      const copyLinks = document.querySelectorAll('a.social-share-copy');
+      copyLinks.forEach(link => {
+        link.onclick = function() {
+          copyToClipboard(window.location.href, this);
+        };
+      });
+    });
+    </script>
+
+    <script src="https://giscus.app/client.js"
+        data-repo="ulquolrra/tools-site"
+        data-repo-id="R_kgDOTh2zCw"
+        data-category="Comments"
+        data-category-id="DIC_kwDOTh2zC84DF3Nm"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+    </script>
+</body>
+</html>
